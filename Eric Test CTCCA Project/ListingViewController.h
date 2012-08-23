@@ -40,7 +40,7 @@
     NSMutableString *currentElementValue;
     
 }
-@property(nonatomic)NSMutableArray *listingsList, *listingsListString;
+@property(nonatomic, strong)NSMutableArray *listingsList, *listingsListString;
 @property (strong, nonatomic)NSString *listingID;
 @property (strong, nonatomic)NSString *listingTitle;
 @property (strong, nonatomic)Listing *currentListing;

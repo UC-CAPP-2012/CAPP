@@ -42,8 +42,8 @@
     
 }
 
-@property(nonatomic)NSMutableArray *listingTable, *listingsList, *listingsListString;
-@property(nonatomic)NSArray *listingsTableDataSource;
+@property(nonatomic, strong)NSMutableArray *listingTable, *listingsList, *listingsListString;
+@property(weak, nonatomic)NSArray *listingsTableDataSource;
 -(void)setupArray;
 -(void)setupMap;
 

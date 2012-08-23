@@ -19,8 +19,8 @@
     
 }
 
-@property (readonly, retain) NSMutableArray *sortTypes;
-@property (readonly, retain) MainTypeClass *sortType;
+@property (readonly) NSMutableArray *sortTypes;
+@property (readonly) MainTypeClass *sortType;
 -(id)loadXMLByURL:(NSString *)urlString;
 
 @end

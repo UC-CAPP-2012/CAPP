@@ -10,11 +10,11 @@
 
 @interface ListingWebViewController : UIViewController<UIWebViewDelegate>{
     IBOutlet UIWebView *webView;
-    IBOutlet UIActivityIndicatorView *activityIndicator;
+    IBOutlet UIActivityIndicatorView *__weak activityIndicator;
 }
 
 
 @property (strong, nonatomic)NSURL *Website;
-@property(nonatomic)IBOutlet UIActivityIndicatorView *activityIndicator;
+@property(weak, nonatomic)IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

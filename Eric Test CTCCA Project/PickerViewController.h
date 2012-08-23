@@ -24,7 +24,7 @@
     
 }
 
-@property(nonatomic) NSMutableArray *listingsList, *listingsListString;
+@property(nonatomic, strong) NSMutableArray *listingsList, *listingsListString;
 
 -(IBAction)feelingAdventurous:(id)sender;
 

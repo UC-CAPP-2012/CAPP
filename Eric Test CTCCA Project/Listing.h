@@ -26,7 +26,7 @@
     NSString *subType;
     
     // Listing View Variables
-    NSString *address;
+    NSString *__weak address;
     NSString *details;
     NSString *description;
     NSString *review;
@@ -63,7 +63,7 @@
 
 
 //Required for ListingView
-@property (nonatomic) NSString *address;
+@property (weak, nonatomic) NSString *address;
 @property (nonatomic, copy) NSString *details;
 @property (nonatomic, copy) NSString *description;
 @property (nonatomic, copy) NSString *review;

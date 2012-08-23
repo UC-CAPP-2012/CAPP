@@ -37,7 +37,7 @@ IBOutlet UILabel *AddressLabel;
 }
 
 @property(nonatomic)NSMutableArray *listingTable;
-@property(nonatomic)NSArray *listingsTableDataSource;
+@property(weak, nonatomic)NSArray *listingsTableDataSource;
 
 -(void)setupArray;
 -(void)setupMap;

@@ -19,8 +19,8 @@
     
 }
 
-@property (readonly, retain) NSMutableArray *areaTypes;
-@property (readonly, retain) AreaClassString *areaType;
+@property (readonly) NSMutableArray *areaTypes;
+@property (readonly) AreaClassString *areaType;
 -(id)loadXMLByURL:(NSString *)urlString;
 
 @end
