@@ -1,0 +1,66 @@
+//
+//  EventFilterViewController.h
+//  Eric Test CTCCA Project
+//
+//  Created by CTCCA on 16/04/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import "QuartzCore/Quartzcore.h"
+#import "ListingViewController.h"
+#import <EventKitUI/EventKitUI.h>
+#import "ListingString.h"
+
+
+@interface EventFilterViewController :  UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate>{
+    
+    //Main Screen View outlets
+    IBOutlet UIView *eventView;
+    IBOutlet MKMapView *mapView;
+    IBOutlet UIView *mapWindow;
+    IBOutlet UITableView *tableView;
+    IBOutlet UIView *tableWindow;
+    
+    IBOutlet UIView *loadView;
+    
+    //Information Box
+    IBOutlet UIView *DetailView;
+    IBOutlet UIImageView *DetailImage;
+    IBOutlet UILabel *TitleLabel;
+    IBOutlet UILabel *StartDateLabel;
+    IBOutlet UILabel *AddressLabel;
+    
+    IBOutlet UIButton *ListingViewButton;
+    
+    //Navigation Bar View outlets
+    IBOutlet UIView *navView;
+    IBOutlet UIView *switchMapView;
+    IBOutlet UIView *switchTableView;
+    
+    
+    IBOutlet UILabel *dateLabel;
+    IBOutlet UIButton *nextMonth;
+    IBOutlet UIButton *previousMonth;
+    IBOutlet UISegmentedControl *segmentController;
+    
+    ListingString *theList;
+    NSMutableString *currentElementValue;
+}
+
+-(IBAction)nextMonth:(id)sender;
+-(IBAction)previousMonth:(id)sender;
+-(IBAction)segmentButton:(id)sender;
+
+@property(nonatomic)NSMutableDictionary *listing;
+@property(nonatomic)NSArray *listingsDataSource;
+@property(nonatomic)NSMutableArray *monthFilter, *listingTable,*listingsList, *listingsListString;
+@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
+
+@property int currSel;
+@property int sortSel;
+
+-(void)setupArray;
+-(void)setupMap;
+@end

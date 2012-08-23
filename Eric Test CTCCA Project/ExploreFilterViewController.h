@@ -1,0 +1,77 @@
+//
+//  ExploreFilterViewController.h
+//  Eric Test CTCCA Project
+//
+//  Created by CTCCA on 16/04/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import "QuartzCore/Quartzcore.h"
+#import "ListingViewController.h"
+#import "ExploreXMLParser.h"
+#import "AreaXMLParser.h"
+#import "ListingString.h"
+
+@interface ExploreFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource>{
+    
+    //Main Screen View outlets
+    IBOutlet UIView *exploreView;
+    IBOutlet UIView *mapWindow;
+    IBOutlet MKMapView *mapView;
+    IBOutlet UIView *tableWindow;
+    IBOutlet UITableView *tableView;
+    
+    //Navigation Bar View outlets
+    IBOutlet UIView *navView;
+    IBOutlet UIView *switchMapView;
+    IBOutlet UIView *switchTableView;
+    IBOutlet UIView *loadView;
+    
+    IBOutlet UIView *DetailView;
+    IBOutlet UIImageView *DetailImage;
+    IBOutlet UILabel *TitleLabel;
+    IBOutlet UILabel *StartDateLabel;
+    IBOutlet UILabel *AddressLabel;
+    
+    //Filter outlets
+    IBOutlet UILabel *areaLabel;
+    IBOutlet UIButton *nextArea;
+    IBOutlet UIButton *previousArea;
+    IBOutlet UIButton *ListingViewButton;
+    
+    ExploreXMLParser *xmlParserSort1;
+    ExploreXMLParser *xmlParserSort2;
+    ExploreXMLParser *xmlParserSort3;
+    ExploreXMLParser *xmlParserSort4;
+    AreaXMLParser *areaXmlParser;
+    
+    ListingString *theList;
+    NSMutableString *currentElementValue;
+    
+    IBOutlet UISegmentedControl *segmentController;
+}
+
+-(IBAction)nextArea:(id)sender;
+-(IBAction)previousArea:(id)sender;
+-(IBAction)segmentButton:(id)sender;
+
+//Passed from previous Controller.
+@property (nonatomic)NSString *typeID;
+@property (nonatomic)NSString *typeName;
+
+@property(nonatomic)NSArray *listingsDataSource;
+@property(nonatomic)NSMutableArray *areaFilter, *listingTable, *listingsList, *listingsListString;
+@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
+
+@property int currSel;
+@property int sortSel;
+
+@property (nonatomic)NSString *areaID;
+@property (nonatomic)NSString *sortID;
+
+@property BOOL mapDefault;
+@property BOOL listDefault;
+
+@end

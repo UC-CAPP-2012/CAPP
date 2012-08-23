@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<ListingElements>
+<ListingElement>
+<ListingID>1</ListingID>
+<ListingName>Canberra City YHA</ListingName>
+<Subtitle>Canberra City Subtitle</Subtitle>
+<StreetName>Akuna </StreetName>
+<StreetType>Street</StreetType>
+<Suburb>Canberra</Suburb>
+<Postcode>2601</Postcode>
+<UnitNumber>16</UnitNumber>
+<Longitude>149.128677368164062500000000000000</Longitude>
+<Latitude>-35.282001495361328125000000000000</Latitude>
+<ImageURL>http://www.itp2012.com/images/HyattHotel1.jpg,http://www.itp2012.com/images/HyattHotel1.jpg</ImageURL>
+<SubType>Hostel</SubType>
+<RatingType>2 Stars</RatingType>
+<CostType>$</CostType>
+<StartDay>20</StartDay>
+<Details>Canberra City YHA Details</Details>
+<Description>Canberra City YHA Description</Description>
+<Review>Canberra City YHA Review</Review>
+<VideoURL>http://www.youtube.com/watch?v=TUY5zg1fez8</VideoURL>
+<WebsiteURL>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</WebsiteURL>     
+</ListingElement>
+<ListingElement>
+<ListingID>7</ListingID>
+<ListingName>Canberra Multicultural Festival</ListingName>
+<Subtitle>Canberra Multicultural Festival Subtitle</Subtitle>
+<UnitNumber>15</UnitNumber>
+<StreetName>Garema</StreetName>
+<StreetType>Pl</StreetType>
+<Suburb>Canberra</Suburb>
+<Postcode>2600</Postcode>
+<Longitude>149.132095336914062500000000000000</Longitude>
+<Latitude>-35.278388977050781250000000000000</Latitude>
+<ImageURL>http://www.itp2012.com/images/HyattHotel1.jpg</ImageURL>
+<SubType>Festival</SubType>
+<RatingType>2 Stars</RatingType>
+<CostType>$</CostType>
+<StartDay>19</StartDay>
+<Details>Canberra Multicultural Festival Details</Details>
+<Description>Canberra Multicultural Festival Description</Description>
+<Review>Canberra Multicultural Festival Review</Review>
+<VideoURL>www.google.com</VideoURL>
+<WebsiteURL>www.google.com</WebsiteURL>   
+</ListingElement>
+<ListingElement>
+<ListingID>2</ListingID>
+<ListingName>Bush Capital Lodge</ListingName>
+<Subtitle>Bush Capital Lodge Subtitle</Subtitle>
+<UnitNumber>15</UnitNumber>
+<StreetName>Dryandra</StreetName>
+<StreetType>St</StreetType>
+<Suburb>OConnor</Suburb>
+<Postcode>2602</Postcode>
+<Longitude>149.112518310546875000000000000000</Longitude>
+<Latitude>-35.252025604248046875000000000000</Latitude>
+<ImageURL>http://www.itp2012.com/images/HyattHotel1.jpg</ImageURL>
+<SubType>Lodge</SubType>
+<RatingType>3 Stars</RatingType>
+<CostType>$$$</CostType>
+<StartDay>16</StartDay>
+<Details>Bush Capital Lodge Details</Details>
+<Description>Bush Capital Lodge Description</Description>
+<Review>Bush Capital Lodge Review</Review>
+<VideoURL>www.google.com</VideoURL>
+<WebsiteURL>www.google.com</WebsiteURL> 
+</ListingElement>
+<ListingElement>
+<ListingID>4</ListingID>
+<ListingName>Big Splash Waterpark</ListingName>
+<Subtitle>Big Splash Waterpark Subtitle</Subtitle>
+<UnitNumber>15</UnitNumber>
+<StreetName>Catchpole </StreetName>
+<StreetType>street</StreetType>
+<Suburb>Macquarie</Suburb>
+<Postcode>2614</Postcode>
+<Longitude>149.068939208984375000000000000000</Longitude>
+<Latitude>-35.252388000488281250000000000000</Latitude>
+<ImageURL>http://www.itp2012.com/images/BotanicGardens1.JPG</ImageURL>
+<SubType>Park</SubType>
+<RatingType>2 Stars</RatingType>
+<CostType>$$$</CostType>
+<StartDay>17</StartDay>
+<Details>Big Splash Waterpark Details</Details>
+<Description>Big Splash Waterpark Description</Description>
+<Review>Big Splash Waterpark Review</Review>
+<VideoURL>www.google.com</VideoURL>
+<WebsiteURL>www.google.com</WebsiteURL> 
+</ListingElement>
+<ListingElement>
+<ListingID>6</ListingID>
+<ListingName>Street Machine Summernats Car Festival</ListingName>
+<Subtitle>Street Machine Summernats Subtitle</Subtitle>
+<UnitNumber>15</UnitNumber>
+<StreetName>Flemington</StreetName>
+<StreetType>Road</StreetType>
+<Suburb>Mitchell</Suburb>
+<Postcode>2605</Postcode>
+<Longitude>149.145263671875000000000000000000</Longitude>
+<Latitude>-35.217014312744140625000000000000</Latitude>
+<ImageURL>http://www.itp2012.com/images/BotanicGardens1.JPG</ImageURL>
+<SubType>Festival</SubType>
+<RatingType>2 Stars</RatingType>
+<CostType>$$$</CostType>
+<StartDay>16</StartDay>
+<Details>Street Machine Summernats Car Festival Details</Details>
+<Description>Street Machine Summernats Car Festival Description</Description>
+<Review>Street Machine Summernats Car Festival Review</Review>
+<VideoURL>www.google.com</VideoURL>
+<WebsiteURL>www.google.com</WebsiteURL> 
+</ListingElement>
+</ListingElements>

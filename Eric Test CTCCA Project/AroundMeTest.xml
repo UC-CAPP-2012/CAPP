@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Listings>
+<Listing id="ListingID1">
+<listingID>ListingID1</listingID>
+<Title>Listing 1 Title</Title>
+<Subtitle>Listing 1 SubTitle</Subtitle>
+<latitude>-35.281150</latitude>
+<longitude>149.128668</longitude>
+<listingType>listingType</listingType>
+<areaID>areaID</areaID>
+<costType>costType</costType>
+<ratingType>ratingType</ratingType>
+<subType>subType</subType>
+<unitnumber>unitnumber</unitnumber>
+<streetname>streetname</streetname>
+<streettype>streettype</streettype>
+<suburb>suburb</suburb>
+<postcode>postcode</postcode>
+<stateID>stateID</stateID>
+<details>details</details>
+<description>description</description>
+<review>review</review>
+<imageFilenames>http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png</imageFilenames>
+<videoURL>videoURL</videoURL>
+<websiteURL>websiteURL</websiteURL>
+<startMinute>30</startMinute>
+<startHour>17</startHour>
+<startDay>10</startDay>
+<startMonth>10</startMonth>
+<startYear>2012</startYear>
+<endDay>10</endDay>
+<endMonth>10</endMonth>
+<endYear>2012</endYear>
+<endMinute>30</endMinute>
+<endHour>18</endHour>
+</Listing>
+<Listing id="ListingID2">
+<listingID>ListingID2</listingID>
+<Title>Listing 2 Title</Title>
+<Subtitle>Listing 2 SubTitle</Subtitle>
+<latitude>-35.271150</latitude>
+<longitude>149.128668</longitude>
+<listingType>listingType</listingType>
+<areaID>areaID</areaID>
+<costType>costType</costType>
+<ratingType>ratingType</ratingType>
+<subType>subType</subType>
+<unitnumber>unitnumber</unitnumber>
+<streetname>streetname</streetname>
+<streettype>streettype</streettype>
+<suburb>suburb</suburb>
+<postcode>postcode</postcode>
+<stateID>stateID</stateID>
+<details>details</details>
+<description>description</description>
+<review>review</review>
+<imageFilenames>http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png</imageFilenames>
+<videoURL>videoURL</videoURL>
+<websiteURL>websiteURL</websiteURL>
+<startMinute>30</startMinute>
+<startHour>17</startHour>
+<startDay>10</startDay>
+<startMonth>10</startMonth>
+<startYear>2012</startYear>
+<endDay>10</endDay>
+<endMonth>10</endMonth>
+<endYear>2012</endYear>
+<endMinute>30</endMinute>
+<endHour>18</endHour>
+</Listing>
+<Listing id="ListingID3">
+<listingID>ListingID3</listingID>
+<Title>Listing 3 Title</Title>
+<Subtitle>Listing 3 SubTitle</Subtitle>
+<latitude>-35.261150</latitude>
+<longitude>149.128668</longitude>
+<listingType>listingType</listingType>
+<areaID>areaID</areaID>
+<costType>costType</costType>
+<ratingType>ratingType</ratingType>
+<subType>subType</subType>
+<unitnumber>unitnumber</unitnumber>
+<streetname>streetname</streetname>
+<streettype>streettype</streettype>
+<suburb>suburb</suburb>
+<postcode>postcode</postcode>
+<stateID>stateID</stateID>
+<details>details</details>
+<description>description</description>
+<review>review</review>
+<imageFilenames>http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png,http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png</imageFilenames>
+<videoURL>videoURL</videoURL>
+<websiteURL>websiteURL</websiteURL>
+<startMinute>30</startMinute>
+<startHour>17</startHour>
+<startDay>10</startDay>
+<startMonth>10</startMonth>
+<startYear>2012</startYear>
+<endDay>10</endDay>
+<endMonth>10</endMonth>
+<endYear>2012</endYear>
+<endMinute>30</endMinute>
+<endHour>18</endHour>
+</Listing>
+</Listings>
