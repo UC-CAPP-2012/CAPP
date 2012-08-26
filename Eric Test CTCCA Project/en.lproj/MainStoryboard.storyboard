@@ -42,7 +42,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.015686275437474251" blue="0.0039215688593685627" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
                         <outlet property="loadView" destination="Y4I-sT-21X" id="3W9-PL-p3b"/>

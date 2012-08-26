@@ -9,16 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "QuartzCore/CALayer.h"
 #import "ExploreFilterViewController.h"
+#import <dispatch/dispatch.h>
 
+dispatch_queue_t backgroundQueue;
 @interface ExploreScrollViewPagingController : UIViewController <UIScrollViewDelegate>{
     IBOutlet UIScrollView	*scrollView;
     IBOutlet UIPageControl *pageControl;
     IBOutlet UIView *loadView;
 }
-@property(nonatomic)NSMutableArray *typeDataSource;
+@property(nonatomic, strong)NSMutableArray *typeDataSource;
 
 
--(IBAction)changePage;
 
 @end
 

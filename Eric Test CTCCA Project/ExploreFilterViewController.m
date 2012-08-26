@@ -175,6 +175,7 @@
 
 -(void)setupMap
 {    
+    
     //Map Settings
     [mapView setMapType:MKMapTypeStandard];
     [mapView setZoomEnabled:YES];
@@ -189,25 +190,24 @@
     region.center = [currArea areaCoordinate];
     region.span.latitudeDelta = [currArea spanLat]; // Zoom Settings
     region.span.longitudeDelta = [currArea spanLong]; // Zoom Settings
+    
     [mapView setRegion:region animated:YES];
 
 }
 -(void) setupArray // Connection to DataSource
 { 
     [mapView removeAnnotations:mapView.annotations];   
-    
+    NSXMLParser *xmlParser;
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
     //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
     //NSURL *url = [[NSURL alloc] initWithString:urlString];
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
-    
     [xmlParser setDelegate:self];
-    
     BOOL worked = [xmlParser parse];
     
     if(worked) {
@@ -459,7 +459,6 @@
     
     if (sortSel == 2) 
     {
-        [listingTable removeAllObjects];
         [listingTable removeAllObjects];
         for (int i = 0; i < [sortHeaders3 count]; i++)
         {

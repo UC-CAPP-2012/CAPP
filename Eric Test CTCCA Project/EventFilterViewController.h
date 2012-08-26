@@ -53,8 +53,8 @@
 -(IBAction)previousMonth:(id)sender;
 -(IBAction)segmentButton:(id)sender;
 
-@property(weak, nonatomic)NSMutableDictionary *listing;
-@property(weak, nonatomic)NSArray *listingsDataSource;
+@property(strong, nonatomic)NSMutableDictionary *listing;
+@property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *monthFilter, *listingTable,*listingsList, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 

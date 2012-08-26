@@ -20,6 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -34,11 +35,18 @@
     
     self.title = @"Explore";
     //ARRAY FROM DB
-
+    
 }
+
+-(void)viewDidUnload{
+    dispatch_release(backgroundQueue);
+}
+
 
 -(void)setupArray
 {
+    backgroundQueue = dispatch_queue_create("com.capp.imagegrabber.bgqueue", NULL);
+    dispatch_async(backgroundQueue, ^(void){
     typeDataSource = [[NSMutableArray alloc] init];
     
     MainTypeClass *type = [[MainTypeClass alloc] init]; // I Think the leak is here..
@@ -90,15 +98,21 @@
     [typeDataSource addObject:type8];
     
     scrollView.clipsToBounds = NO;
-	scrollView.pagingEnabled = YES;
-	scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.pagingEnabled = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
     
     pageControl.numberOfPages = [typeDataSource count];
-        
-    for (int i = 0; i <[typeDataSource count]; i++) 
+    
+        dispatch_async(dispatch_get_main_queue(),^(void){
+    [self setUpFrame:pageControl.numberOfPages];        
+    });
+    });
+}
+
+- (void)setUpFrame: (NSInteger) pages {
+    for (int i = 0; i < pageControl.numberOfPages; i++) 
     {
-        
         CGRect frame;
         frame.origin.x = scrollView.frame.size.width *i;
         frame.origin.y = 0; 
@@ -141,7 +155,7 @@
         
         //Image View
         
-		UIImageView *imageView = [[UIImageView alloc]init];
+        UIImageView *imageView = [[UIImageView alloc]init];
         MainTypeClass *currType = [typeDataSource objectAtIndex:i];
         imageView.image = currType.imageID;
         
@@ -175,63 +189,60 @@
         [scrollView addSubview:subview];
         scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * typeDataSource.count,scrollView.frame.size.height);
         CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
-        [scrollView setContentSize:scrollableSize];        
+        [scrollView setContentSize:scrollableSize];   
+        
     } 
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    CGFloat pageWidth = self->scrollView.frame.size.width;
-    int page = floor((self->scrollView.contentOffset.x - pageWidth /2) / pageWidth) + 1;
-    self->pageControl.currentPage = page;
-}
-
--(IBAction)changePage{
-    CGRect frame;
-    frame.origin.x = self->scrollView.frame.size.width *self->pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self->scrollView.frame.size;
-    [self->scrollView scrollRectToVisible:frame animated:YES];
     
 }
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat pageWidth = self->scrollView.frame.size.width;
+    CGFloat offset = self->scrollView.contentOffset.x;
+    int page = floor((offset - pageWidth /2) / pageWidth) + 1;
+    self->pageControl.currentPage = page;
+    
+}
+
 
 -(void)MapButton:(UIView*)sender
 {      
-    //Actions to perform after button press
-    ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
-    
-    NSInteger currentIndex = sender.tag;
-    MainTypeClass *currType;
-    currType = [typeDataSource objectAtIndex:currentIndex];
-    
-    exploreFilterView.typeName=currType.typeName;
-    exploreFilterView.typeID=currType.typeID;
-    
-    exploreFilterView.mapDefault = YES;
-    exploreFilterView.listDefault = NO;
-    
-    [self.navigationController pushViewController:exploreFilterView animated:YES];
-    NSLog(@"Button");
+        //Actions to perform after button press
+        ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
+        
+        NSInteger currentIndex = sender.tag;
+        MainTypeClass *currType;
+        currType = [typeDataSource objectAtIndex:currentIndex];
+        
+        exploreFilterView.typeName=currType.typeName;
+        exploreFilterView.typeID=currType.typeID;
+        
+        exploreFilterView.mapDefault = YES;
+        exploreFilterView.listDefault = NO;
+        
+            [self.navigationController pushViewController:exploreFilterView animated:YES];
+        NSLog(@"Button");
+        
     
 }
 
 -(void)ListButton:(UIView*)sender
-{      
-    //Actions to perform after button press
-    ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
-    
-    NSInteger currentIndex = sender.tag;
-    MainTypeClass *currType;
-    currType = [typeDataSource objectAtIndex:currentIndex];
-    
-    exploreFilterView.typeName=currType.typeName;
-    exploreFilterView.typeID=currType.typeID;
-    
-    exploreFilterView.mapDefault = NO;
-    exploreFilterView.listDefault = YES;
-    
-    [self.navigationController pushViewController:exploreFilterView animated:YES];
-    NSLog(@"Button");
-    
+{   
+        
+        //Actions to perform after button press
+        ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
+        
+        NSInteger currentIndex = sender.tag;
+        MainTypeClass *currType;
+        currType = [typeDataSource objectAtIndex:currentIndex];
+        
+        exploreFilterView.typeName=currType.typeName;
+        exploreFilterView.typeID=currType.typeID;
+        
+        exploreFilterView.mapDefault = NO;
+        exploreFilterView.listDefault = YES;
+        
+            [self.navigationController pushViewController:exploreFilterView animated:YES];
+            NSLog(@"Button");
 }
 
 

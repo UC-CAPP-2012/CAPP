@@ -58,18 +58,18 @@
 -(IBAction)segmentButton:(id)sender;
 
 //Passed from previous Controller.
-@property (weak, nonatomic)NSString *typeID;
-@property (weak, nonatomic)NSString *typeName;
+@property (strong, nonatomic)NSString *typeID;
+@property (strong, nonatomic)NSString *typeName;
 
-@property(weak, nonatomic)NSArray *listingsDataSource;
+@property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *areaFilter, *listingTable, *listingsList, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 
 @property int currSel;
 @property int sortSel;
 
-@property (weak, nonatomic)NSString *areaID;
-@property (weak, nonatomic)NSString *sortID;
+@property (strong, nonatomic)NSString *areaID;
+@property (strong, nonatomic)NSString *sortID;
 
 @property BOOL mapDefault;
 @property BOOL listDefault;
