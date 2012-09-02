@@ -16,10 +16,11 @@ dispatch_queue_t backgroundQueue;
     IBOutlet UIScrollView	*scrollView;
     IBOutlet UIPageControl *pageControl;
     IBOutlet UIView *loadView;
+    BOOL pageControlBeingUsed;
 }
 @property(nonatomic, strong)NSMutableArray *typeDataSource;
 
-
+- (IBAction)changePage:(id)sender;
 
 @end
 

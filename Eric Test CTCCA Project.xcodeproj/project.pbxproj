@@ -799,10 +799,13 @@
 		69A598761520844000BDA150 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dat Tran (APW623QQMS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA Project/Eric Test CTCCA Project-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0BA61D00-4064-46D3-ACEC-FDAEFD3EB0E0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -810,10 +813,13 @@
 		69A598771520844000BDA150 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA Project/Eric Test CTCCA Project-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

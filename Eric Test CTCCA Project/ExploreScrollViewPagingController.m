@@ -27,26 +27,21 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self setupArray]; //Listings
+    
     loadView.hidden = YES;
 }
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+    pageControlBeingUsed = NO;
+    [self setupArray]; //Listings
     self.title = @"Explore";
     //ARRAY FROM DB
     
 }
 
--(void)viewDidUnload{
-    dispatch_release(backgroundQueue);
-}
-
-
 -(void)setupArray
 {
-    backgroundQueue = dispatch_queue_create("com.capp.imagegrabber.bgqueue", NULL);
-    dispatch_async(backgroundQueue, ^(void){
     typeDataSource = [[NSMutableArray alloc] init];
     
     MainTypeClass *type = [[MainTypeClass alloc] init]; // I Think the leak is here..
@@ -104,10 +99,7 @@
     
     pageControl.numberOfPages = [typeDataSource count];
     
-        dispatch_async(dispatch_get_main_queue(),^(void){
-    [self setUpFrame:pageControl.numberOfPages];        
-    });
-    });
+    [self setUpFrame:pageControl.numberOfPages]; 
 }
 
 - (void)setUpFrame: (NSInteger) pages {
@@ -157,7 +149,7 @@
         
         UIImageView *imageView = [[UIImageView alloc]init];
         MainTypeClass *currType = [typeDataSource objectAtIndex:i];
-        imageView.image = currType.imageID;
+        //imageView.image = currType.imageID;
         
         
         imageView.contentMode = UIViewContentModeCenter;
@@ -186,64 +178,91 @@
         [subview addSubview:listbutton];
         [subview addSubview:typeLabel];
         
-        [scrollView addSubview:subview];
-        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * typeDataSource.count,scrollView.frame.size.height);
-        CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
-        [scrollView setContentSize:scrollableSize];   
+        [self->scrollView addSubview:subview];
         
     } 
     
+    self->scrollView.contentSize = CGSizeMake(self->scrollView.frame.size.width * pageControl.numberOfPages, self->scrollView.frame.size.height);
+    CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
+    [self->scrollView setContentSize:scrollableSize]; 
+    self->pageControl.currentPage=0;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    CGFloat pageWidth = self->scrollView.frame.size.width;
-    CGFloat offset = self->scrollView.contentOffset.x;
-    int page = floor((offset - pageWidth /2) / pageWidth) + 1;
-    self->pageControl.currentPage = page;
-    
+    if(!pageControlBeingUsed)
+    {
+        CGFloat pageWidth = self->scrollView.frame.size.width;
+        CGFloat offset = self->scrollView.contentOffset.x;
+        int page = floor((offset - pageWidth /2) / pageWidth) + 1;
+        self->pageControl.currentPage = page;
+    }
 }
 
 
 -(void)MapButton:(UIView*)sender
 {      
-        //Actions to perform after button press
-        ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
-        
-        NSInteger currentIndex = sender.tag;
-        MainTypeClass *currType;
-        currType = [typeDataSource objectAtIndex:currentIndex];
-        
-        exploreFilterView.typeName=currType.typeName;
-        exploreFilterView.typeID=currType.typeID;
-        
-        exploreFilterView.mapDefault = YES;
-        exploreFilterView.listDefault = NO;
-        
-            [self.navigationController pushViewController:exploreFilterView animated:YES];
-        NSLog(@"Button");
-        
     
+    //Actions to perform after button press
+    ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
+    
+    NSInteger currentIndex = sender.tag;
+    MainTypeClass *currType;
+    currType = [typeDataSource objectAtIndex:currentIndex];
+    
+    exploreFilterView.typeName=currType.typeName;
+    exploreFilterView.typeID=currType.typeID;
+    
+    exploreFilterView.mapDefault = YES;
+    exploreFilterView.listDefault = NO;
+    
+    [self.navigationController pushViewController:exploreFilterView animated:YES];
+    NSLog(@"Button");
+    
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+	self->scrollView = nil;
+	self->pageControl = nil;
 }
 
 -(void)ListButton:(UIView*)sender
 {   
-        
-        //Actions to perform after button press
-        ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
-        
-        NSInteger currentIndex = sender.tag;
-        MainTypeClass *currType;
-        currType = [typeDataSource objectAtIndex:currentIndex];
-        
-        exploreFilterView.typeName=currType.typeName;
-        exploreFilterView.typeID=currType.typeID;
-        
-        exploreFilterView.mapDefault = NO;
-        exploreFilterView.listDefault = YES;
-        
-            [self.navigationController pushViewController:exploreFilterView animated:YES];
-            NSLog(@"Button");
+    //Actions to perform after button press
+    ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
+    
+    NSInteger currentIndex = sender.tag;
+    MainTypeClass *currType;
+    currType = [typeDataSource objectAtIndex:currentIndex];
+    
+    exploreFilterView.typeName=currType.typeName;
+    exploreFilterView.typeID=currType.typeID;
+    
+    exploreFilterView.mapDefault = NO;
+    exploreFilterView.listDefault = YES;
+    
+    
+    [self.navigationController pushViewController:exploreFilterView animated:YES];
+    NSLog(@"Button");
 }
 
 
+- (IBAction)changePage:(id)sender {
+    CGRect frame;
+    frame.origin.x = self->scrollView.frame.size.width * self->pageControl.currentPage;
+    frame.origin.y=0;
+    frame.size = self->scrollView.frame.size;
+    [self->scrollView scrollRectToVisible:frame animated:YES];
+    pageControlBeingUsed = YES;
+}
 @end

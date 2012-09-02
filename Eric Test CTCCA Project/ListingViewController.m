@@ -56,10 +56,6 @@
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
     
-
-
-
-
     [super setTitle:listingTitle];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

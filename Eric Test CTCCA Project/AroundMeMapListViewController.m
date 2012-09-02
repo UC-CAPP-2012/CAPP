@@ -81,7 +81,7 @@
     [mapView setZoomEnabled:YES];
     [mapView setScrollEnabled:YES];
     [mapView setDelegate:self];    
-     mapView.userTrackingMode = NO;
+    mapView.userTrackingMode = YES;
     mapView.showsUserLocation = YES;
 }
 
@@ -313,7 +313,7 @@
         //Start Date
         NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
         [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        //NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
         //StartDateLabel.text = startDateString;
         StartDateLabel.text = @"";
             

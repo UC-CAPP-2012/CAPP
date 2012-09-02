@@ -43,22 +43,28 @@
 }
 -(void)viewDidAppear:(BOOL)animated
 {   
-    [self setupArea]; //Area Filter
-    [self setupMap]; //Map View Pan
-    [self setupArray]; //Listings
-    [tableView reloadData];
-    [self segmentButton:self];
-     loadView.hidden = YES;
+    
+    [tableView reloadData]; 
+    
+    loadView.hidden = YES;
+    
+    }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self segmentButton:self];    
 }
+
 - (void)viewDidLoad
 {
     //Set Title
-     self.navigationItem.title = typeName;
+    self.navigationItem.title = typeName;
     
     //Initialise variables
-
+    
     [self setStartView]; //List or Map selected from last view.
-
+    
     //Top Label Formating - Replace with images when provided.
     areaLabel.layer.borderColor = [UIColor blackColor].CGColor;
     areaLabel.layer.borderWidth = 1.0;
@@ -71,18 +77,27 @@
     
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
-                                   
+    
+
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
 }
 -(void)setStartView
 {
+    [self setupArea]; //Area Filter
     if (mapDefault == YES) {
         [exploreView bringSubviewToFront:mapWindow];
-        [navView bringSubviewToFront:switchMapView];    }
+        [navView bringSubviewToFront:switchMapView];    
+        [self setupMap]; //Map View Pan
+    }
     if (listDefault == YES) {
         [exploreView bringSubviewToFront:tableView];
-        [navView bringSubviewToFront:switchTableView];    }
+        [navView bringSubviewToFront:switchTableView];
+        //[self setupArray]; //Listings
+        
+    }
+    
 }
 -(void)setupArea
 {
@@ -192,7 +207,7 @@
     region.span.longitudeDelta = [currArea spanLong]; // Zoom Settings
     
     [mapView setRegion:region animated:YES];
-
+    
 }
 -(void) setupArray // Connection to DataSource
 { 
@@ -217,7 +232,7 @@
     {
         NSLog(@"did not work!");
     }
-        
+    
     //This needs to be set via the filter and sorter.    
     listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
@@ -225,7 +240,7 @@
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
-    
+    [listingTable removeAllObjects]; // Clear Table
     for (ListingString *listingStringElement in listingsListString) {
         
         Listing *currListing = [[Listing alloc] init];
@@ -364,6 +379,29 @@
         [listingsList addObject:currListing];
         [mapView addAnnotation:currListing];
         
+        Listing *tempListing = currListing;
+        NSString *subType = tempListing.subType;
+        if(![sortHeaders2 containsObject:subType])
+        {
+            [sortHeaders2 addObject:subType];
+            NSLog(@"%@", subType);
+        }
+        
+        NSString *ratingType = tempListing.ratingType;
+        if(![sortHeaders3 containsObject:ratingType])
+        {
+            [sortHeaders3 addObject:ratingType];
+            NSLog(@"%@", ratingType);
+        }
+        
+        NSString *costType = tempListing.costType;
+        if(![sortHeaders4 containsObject:costType])
+        {
+            [sortHeaders4 addObject:costType];
+            NSLog(@"%@", costType);
+        }
+
+        
     }
     
     
@@ -376,59 +414,21 @@
     [sortHeaders1 addObject:@"TBA"];
     
     // -----------------------
-
     
-    // --- Sort 2 Headers ---- // SubType
-    
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSString *subType = tempListing.subType;
-        if(![sortHeaders2 containsObject:subType])
-        {
-            [sortHeaders2 addObject:subType];
-            NSLog(@"%@", subType);
-        }
-    }
     
     [sortHeaders2 sortUsingSelector:@selector(compare:)];
     
-    //}
-    
-    //--- SORT 3 Headers -----    //Rating
-    
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSString *ratingType = tempListing.ratingType;
-        if(![sortHeaders3 containsObject:ratingType])
-        {
-            [sortHeaders3 addObject:ratingType];
-            NSLog(@"%@", ratingType);
-        }
-    }
-    
     [sortHeaders3 sortUsingSelector:@selector(compare:)];
     
-    //--- SORT 4 Headers ----- // Costs
-
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSString *costType = tempListing.costType;
-        if(![sortHeaders4 containsObject:costType])
-        {
-            [sortHeaders4 addObject:costType];
-            NSLog(@"%@", costType);
-        }
-    }
-    
     [sortHeaders4 sortUsingSelector:@selector(compare:)];
-        
+    
     // -----------------------
     
-    
+    NSMutableArray *section = [[NSMutableArray alloc] init];
     if (sortSel == 0) 
     {
-        [listingTable removeAllObjects]; // Clear Table
-        NSMutableArray *section = [[NSMutableArray alloc] init];
+        
+        
         for (Listing *listingListListing in listingsList)
         {
             [section addObject:listingListListing]; 
@@ -437,64 +437,48 @@
         NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Explore"];
         [listingTable addObject:sectionDict];
     }
-    
-    if (sortSel == 1) 
-    {
-        [listingTable removeAllObjects];
-        for (int i = 0; i < [sortHeaders2 count]; i++)
+    else{
+        int count;
+        if(sortSel ==1){
+            count = [sortHeaders2 count];
+        }else if(sortSel == 2){
+            count = [sortHeaders3 count];
+        }else if(sortSel == 3){
+            count = [sortHeaders4 count];
+        }
+        
+        for (int i = 0; i < count; i++)
         {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders2 objectAtIndex:i];
+            
+            
             for (Listing *listingListListing in listingsList) 
             {
-                if ([listingListListing.subType isEqualToString:currSortHeader]) 
+                NSString *currSortHeader;
+                NSString *type;
+                if(sortSel ==1){
+                    currSortHeader = [sortHeaders2 objectAtIndex:i];
+                    type = listingListListing.subType;
+                }else if(sortSel == 2){
+                    currSortHeader = [sortHeaders3 objectAtIndex:i];
+                    type = listingListListing.ratingType;
+                }else if(sortSel == 3){
+                    currSortHeader = [sortHeaders4 objectAtIndex:i];
+                    type = listingListListing.costType;
+                }
+                
+                if ([type isEqualToString:currSortHeader]) 
                 {
                     [section addObject:listingListListing];
                 }
+                
             }
             NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Explore"];
             [listingTable addObject:sectionDict];
         }
+        
     }
     
-    if (sortSel == 2) 
-    {
-        [listingTable removeAllObjects];
-        for (int i = 0; i < [sortHeaders3 count]; i++)
-        {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders3 objectAtIndex:i];
-            for (Listing *listingListListing in listingsList) 
-            {
-                if ([listingListListing.ratingType isEqualToString:currSortHeader]) 
-                {
-                    [section addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Explore"];
-            [listingTable addObject:sectionDict];
-        }   
-    }
-    
-    if (sortSel == 3) 
-    {
-        for (int i = 0; i < [sortHeaders4 count]; i++)
-        {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders4 objectAtIndex:i];
-            for (Listing *listingListListing in listingsList) 
-            {
-                if ([listingListListing.costType isEqualToString:currSortHeader]) 
-                {
-                    [section addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Explore"];
-            [listingTable addObject:sectionDict];
-        }    
-    }
-
-    [tableView reloadData];
+    //[tableView reloadData];
 }
 
 // -- END Datasource -- 
@@ -538,7 +522,7 @@
         //Start Date
         NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
         [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        //NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
         //StartDateLabel.text = startDateString;
         StartDateLabel.text = @"";
         
@@ -597,10 +581,10 @@
 {
     NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
     NSString *title = nil;
-        
+    
     if (sortSel == 0) { // allphabetically.
         [sectionHeaders removeAllObjects];
-         sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
+        sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
     }
     if (sortSel == 1) { //Type - the Curly one
         [sectionHeaders removeAllObjects];        
@@ -608,7 +592,7 @@
         {
             [sectionHeaders addObject:header];
         }
-
+        
     }
     if (sortSel == 2) {  //Rating
         [sectionHeaders removeAllObjects];
@@ -697,7 +681,7 @@
     btnTemp2 =[[UIButton alloc] initWithFrame:Button2Frame];
     [btnTemp2 setImage:imagetrail forState:UIControlStateNormal];
     [cell setAccessoryView:btnTemp2];
-
+    
     
     NSString *listingID = currListing.listingID;
     for (int i = 0; i < [listingsList count]; i++) {
@@ -715,7 +699,7 @@
     
     [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
     [btnTemp2 addTarget:self action:@selector(addToTrail:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     return cell;    
 }
@@ -738,7 +722,7 @@
     NSLog(@"%@",selectedListing.listingID);
     listingView.listingTitle = selectedListing.title;
     [self.navigationController pushViewController:listingView animated:YES];
-
+    
 }
 
 -(void)addFavourite:(id)sender  // Control for Map View Button to Listing Detail View   
@@ -768,7 +752,7 @@
     NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
     NSArray *array = [dictionary objectForKey:@"Explore"];
     Listing *selectedEvent = [array objectAtIndex:indexPath.row];
-
+    
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     listingView.listingTitle = selectedEvent.title;
     listingView.listingID = selectedEvent.listingID;
@@ -817,7 +801,7 @@
         [UIView commitAnimations];
         
     }
-
+    
 }
 -(IBAction)nextArea:(id)sender{
     previousArea.hidden=FALSE;
@@ -829,7 +813,7 @@
     
     AreaClass *currArea;
     currArea = [areaFilter objectAtIndex:currSel];
-
+    
     areaID = currArea.areaID;
     areaLabel.text = currArea.areaName; 
     
@@ -862,17 +846,17 @@
         [self setupArray];
         NSLog(@"Button1");
     }
-    if (segmentController.selectedSegmentIndex == 1) {
+    else if (segmentController.selectedSegmentIndex == 1) {
         sortSel = 1;
         [self setupArray];
         NSLog(@"Button2");
     }
-    if (segmentController.selectedSegmentIndex == 2) {
+    else if (segmentController.selectedSegmentIndex == 2) {
         sortSel = 2;
         [self setupArray];
         NSLog(@"Button3");
     }
-    if (segmentController.selectedSegmentIndex == 3) {
+    else {
         sortSel = 3;
         [self setupArray];
         NSLog(@"Button4");
