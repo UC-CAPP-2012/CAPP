@@ -149,7 +149,7 @@
         
         UIImageView *imageView = [[UIImageView alloc]init];
         MainTypeClass *currType = [typeDataSource objectAtIndex:i];
-        //imageView.image = currType.imageID;
+        imageView.image = currType.imageID;
         
         
         imageView.contentMode = UIViewContentModeCenter;

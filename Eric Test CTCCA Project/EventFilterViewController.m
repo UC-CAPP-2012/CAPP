@@ -666,8 +666,7 @@
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
-    listingView.listingID = selectedListing.listingID;
-    listingView.listingTitle = selectedListing.title;
+    listingView.currentListing = selectedListing;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"%@",selectedListing.listingID);
 }

@@ -43,16 +43,11 @@
 }
 -(void)viewDidAppear:(BOOL)animated
 {   
-    
-    [tableView reloadData]; 
-    
     loadView.hidden = YES;
-    
-    }
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     [self segmentButton:self];    
 }
 
@@ -94,7 +89,6 @@
     if (listDefault == YES) {
         [exploreView bringSubviewToFront:tableView];
         [navView bringSubviewToFront:switchTableView];
-        //[self setupArray]; //Listings
         
     }
     
@@ -285,8 +279,13 @@
         currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        //currListing.videoURL = [[NSURL alloc] initWithString:listingStringElement.videoURL];
-        //currListing.websiteURL = [[NSURL alloc] initWithString:listingStringElement.websiteURL];
+        
+        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currListing.videoURL = [NSURL URLWithString:videoUrlString];
+        currListing.websiteURL = [NSURL URLWithString:webUrlString];
         
         // Start Date
         
@@ -478,7 +477,7 @@
         
     }
     
-    //[tableView reloadData];
+    [tableView reloadData];
 }
 
 // -- END Datasource -- 
@@ -754,8 +753,7 @@
     Listing *selectedEvent = [array objectAtIndex:indexPath.row];
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    listingView.listingTitle = selectedEvent.title;
-    listingView.listingID = selectedEvent.listingID;
+    listingView.currentListing = selectedEvent;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 }
@@ -843,24 +841,21 @@
     
     if (segmentController.selectedSegmentIndex == 0) {
         sortSel = 0;
-        [self setupArray];
         NSLog(@"Button1");
     }
     else if (segmentController.selectedSegmentIndex == 1) {
         sortSel = 1;
-        [self setupArray];
         NSLog(@"Button2");
     }
     else if (segmentController.selectedSegmentIndex == 2) {
         sortSel = 2;
-        [self setupArray];
         NSLog(@"Button3");
     }
     else {
         sortSel = 3;
-        [self setupArray];
         NSLog(@"Button4");
     }
+    [self setupArray];
 }
 
 // ---- END Buttons ----
