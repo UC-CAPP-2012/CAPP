@@ -37,21 +37,20 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [mapView removeAnnotations:mapView.annotations];
-    [self segmentButton:self];
-    [self setupDate];
-    [self setupMap];
-    [self setupArray];
     [tableView reloadData];
 
     loadView.hidden = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self segmentButton:self];
 }
 
 - (void)viewDidLoad
 {
     
     self.navigationItem.title =@"Events";
-    
     dateLabel.layer.borderColor = [UIColor blackColor].CGColor;
     dateLabel.layer.borderWidth = 1.0;
     
@@ -134,7 +133,7 @@
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
-    
+    [listingTable removeAllObjects]; // Clear Table
     for (ListingString *listingStringElement in listingsListString) {
         
         Listing *currListing = [[Listing alloc] init];
@@ -179,8 +178,12 @@
         currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        //currListing.videoURL = [[NSURL alloc] initWithString:listingStringElement.videoURL];
-        //currListing.websiteURL = [[NSURL alloc] initWithString:listingStringElement.websiteURL];
+        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currListing.videoURL = [NSURL URLWithString:videoUrlString];
+        currListing.websiteURL = [NSURL URLWithString:webUrlString];
         
         // Start Date
         
@@ -273,6 +276,30 @@
         [listingsList addObject:currListing];
         [mapView addAnnotation:currListing];
         
+        Listing *tempListing = currListing;
+        NSString *subType = tempListing.subType;
+        if(![sortHeaders2 containsObject:subType])
+        {
+            [sortHeaders2 addObject:subType];
+            NSLog(@"%@", subType);
+        }
+        
+        NSDate *start = tempListing.startDate;
+        NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
+        [dayFormat setDateFormat:@"dd"];
+        NSString *dateString = [dayFormat stringFromDate:start];
+        if(![sortHeaders3 containsObject:dateString])
+        {
+            [sortHeaders3 addObject:dateString];
+            NSLog(@"%@", dateString);
+        }
+        
+        NSString *costType = tempListing.costType;
+        if(![sortHeaders4 containsObject:costType])
+        {
+            [sortHeaders4 addObject:costType];
+            NSLog(@"%@", costType);
+        }
     }
     
     // ---------------------------
@@ -283,60 +310,23 @@
     
     // -----------------------
     
-    // --- Sort 2 Headers ---- // SubType
-    
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSString *subType = tempListing.subType;
-        if(![sortHeaders2 containsObject:subType])
-        {
-            [sortHeaders2 addObject:subType];
-            NSLog(@"%@", subType);
-        }
-    }
     
     [sortHeaders2 sortUsingSelector:@selector(compare:)];
     
-    //--- SORT 3 Headers -----  // This is DATE   
-    
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSDate *startDate = tempListing.startDate;
-        NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-        [dayFormat setDateFormat:@"dd"];
-        NSString *dateString = [dayFormat stringFromDate:startDate];
-        if(![sortHeaders3 containsObject:dateString])
-        {
-            [sortHeaders3 addObject:dateString];
-            NSLog(@"%@", dateString);
-        }
-    }
+ 
     
     [sortHeaders3 sortUsingSelector:@selector(compare:)];
 
     
-    //--- SORT 4 Headers ----- // Costs
-    
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *tempListing = [listingsList objectAtIndex:i];
-        NSString *costType = tempListing.costType;
-        if(![sortHeaders4 containsObject:costType])
-        {
-            [sortHeaders4 addObject:costType];
-            NSLog(@"%@", costType);
-        }
-    }
     
     [sortHeaders4 sortUsingSelector:@selector(compare:)];
     
     // -----------------------
     
-    
+    NSMutableArray *section = [[NSMutableArray alloc] init];
     if (sortSel == 0) 
     {
         
-        [listingTable removeAllObjects]; // Clear Table
-        NSMutableArray *section = [[NSMutableArray alloc] init];
         for (Listing *listingListListing in listingsList)
         {
             [section addObject:listingListListing]; 
@@ -344,75 +334,46 @@
         
         NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
         [listingTable addObject:sectionDict];
-    }
-    
-    // -- Sort Header 2 SubType
-    
-    if (sortSel == 1) 
-    {
-        [listingTable removeAllObjects];
-        for (int i = 0; i < [sortHeaders2 count]; i++)
-        {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders2 objectAtIndex:i];
+    }else{
+        int count;
+        if(sortSel ==1){
+            count = [sortHeaders2 count];
+        }else if(sortSel == 2){
+            count = [sortHeaders3 count];
+        }else if(sortSel == 3){
+            count = [sortHeaders4 count];
+        }
+        
+        for (int i =0; i < count; i++){
             for (Listing *listingListListing in listingsList) 
             {
-                if ([listingListListing.subType isEqualToString:currSortHeader]) 
+                NSString *currSortHeader;
+                NSString *type;
+                if(sortSel ==1){
+                    currSortHeader = [sortHeaders2 objectAtIndex:i];
+                    type = listingListListing.subType;
+                }else if(sortSel == 2){
+                    currSortHeader = [sortHeaders3 objectAtIndex:i];
+                    //Do the thing here where you take the start 10 int and compare.
+                    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
+                    [dayFormat setDateFormat:@"dd"];
+                    type = [dayFormat stringFromDate:listingListListing.startDate];
+                }else if(sortSel == 3){
+                    currSortHeader = [sortHeaders4 objectAtIndex:i];
+                    type = listingListListing.costType;
+                }
+                
+                
+                if ([type isEqualToString:currSortHeader]) 
                 {
                     [section addObject:listingListListing];
                 }
             }
             NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
             [listingTable addObject:sectionDict];
+        
         }
     }
-    
-    if (sortSel == 2) // The Date one.
-    {
-        [listingTable removeAllObjects];
-        for (int i = 0; i < [sortHeaders3 count]; i++)
-        {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders3 objectAtIndex:i];
-            for (Listing *listingListListing in listingsList) 
-            {
-                //Do the thing here where you take the start 10 int and compare.
-                NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-                [dayFormat setDateFormat:@"dd"];
-                NSString *dayString = [dayFormat stringFromDate:listingListListing.startDate];
-
-                if ([dayString isEqualToString:currSortHeader]) 
-                {
-                    [section addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
-            [listingTable addObject:sectionDict];
-        }   
-    }
-    
-    /// --- Sort Header 4 Cost
-    
-    if (sortSel == 3) 
-    {
-        for (int i = 0; i < [sortHeaders4 count]; i++)
-        {
-            NSMutableArray *section = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = [sortHeaders4 objectAtIndex:i];
-            for (Listing *listingListListing in listingsList) 
-            {
-                if ([listingListListing.costType isEqualToString:currSortHeader]) 
-                {
-                    [section addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
-            [listingTable addObject:sectionDict];
-        }    
-    }
-    
-    [tableView reloadData];
-    loadView.hidden = TRUE;
 }
 
 -(void)setupMap
@@ -528,29 +489,25 @@
 {
     NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
     NSString *title = nil;
-    
+    [sectionHeaders removeAllObjects];
     if (sortSel == 0) { // allphabetically.
-        [sectionHeaders removeAllObjects];
         sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
     }
-    if (sortSel == 1) { //Type
-        [sectionHeaders removeAllObjects];        
+    else if (sortSel == 1) { //Type    
         for(NSString *header in sortHeaders2)
         {
             [sectionHeaders addObject:header];
         }
         
     }
-    if (sortSel == 2) {  //Date
-        [sectionHeaders removeAllObjects];
+    else if (sortSel == 2) {  //Date
         
         for(NSString *header in sortHeaders3)
         {
             [sectionHeaders addObject:header];
         }
     }
-    if (sortSel == 3) { // Price
-        [sectionHeaders removeAllObjects];        
+    else if (sortSel == 3) { // Price     
         for(NSString *header in sortHeaders4)
         {
             [sectionHeaders addObject:header];
@@ -595,10 +552,22 @@
     Listing *currListing = [array objectAtIndex:indexPath.row];
     NSString *cellValue = currListing.title;
     
-    //Need to mod this
-    NSString *imageString = [[currListing.imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-    cell.imageView.image = image;
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(concurrentQueue, ^{
+        
+        NSString *imageString = [[currListing.imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+  
+        
+        // 4) Present picker in main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            cell.imageView.image = image;
+            
+        });
+        
+    });             
     
     //ContentView
     CGRect Label1Frame = CGRectMake(90, 10, 160, 25);
@@ -721,8 +690,7 @@
     Listing *selectedEvent = [array objectAtIndex:indexPath.row];
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    listingView.listingTitle = selectedEvent.title;
-    listingView.listingID = selectedEvent.listingID;
+    listingView.currentListing = selectedEvent;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 
@@ -769,6 +737,7 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
         [navView bringSubviewToFront:switchMapView];
         [UIView commitAnimations];
+        [self setupMap];
         
     }
 }
@@ -813,25 +782,23 @@
     
     if (segmentController.selectedSegmentIndex == 0) {
         sortSel = 0;
-        [self setupArray];
         NSLog(@"Button1");
     }
     if (segmentController.selectedSegmentIndex == 1) {
         sortSel = 1;
-        [self setupArray];
         NSLog(@"Button2");
     }
     if (segmentController.selectedSegmentIndex == 2) {
         sortSel = 2;
-        [self setupArray];
         NSLog(@"Button3");
     }
     if (segmentController.selectedSegmentIndex == 3) {
         sortSel = 3;
-        [self setupArray];
         NSLog(@"Button4");
     }
-    
+    [self setupArray];
+    [self setupDate];
+    //[self setupMap];
 }
 
 

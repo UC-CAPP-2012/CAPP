@@ -38,22 +38,24 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    loadView.hidden = YES;
+        
     NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
         favButton.image = [UIImage imageNamed:@"73-radar"];
     }
+    [self setupPictures];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self segmentButton:self];
+    loadView.hidden = YES;
+
 }
 
 - (void)viewDidLoad
 {
-    [self setupArray];
-    [self setupPictures];
+    
     //Set a activity indicator in here. untill viewDidAppear procs.
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
@@ -131,6 +133,8 @@
     if (segmentController.selectedSegmentIndex == 2) {
         infoBox.text =currentListing.review;
     }
+    [self setupArray];
+    
 }
 
 // *** MAP METHODS ****
@@ -194,7 +198,7 @@
 
 // ** Picture Scroll Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)sender {
     CGFloat pageWidth = self->scrollView.frame.size.width;
     int page = floor((self->scrollView.contentOffset.x - pageWidth /2) / pageWidth) + 1;
     self->pageControl.currentPage = page;
