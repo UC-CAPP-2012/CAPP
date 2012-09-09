@@ -536,7 +536,6 @@
     return headerView;
 }
 
-
 -(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"eventCell";
@@ -552,26 +551,29 @@
     Listing *currListing = [array objectAtIndex:indexPath.row];
     NSString *cellValue = currListing.title;
     
-    dispatch_queue_t concurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_queue_t concurrentQueue =
+    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    dispatch_async(concurrentQueue, ^{
+    //dispatch_async(concurrentQueue, ^{
         
-        NSString *imageString = [[currListing.imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        //NSString *imageString = [[currListing.imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        //UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
   
         
         // 4) Present picker in main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            cell.imageView.image = image;
-            
-        });
+        //dispatch_async(dispatch_get_main_queue(), ^{
+          //  cell.imageView.image = image;
+            //[tableView reloadData];
+        //    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+      //  });
         
-    });             
+    //});             
     
     //ContentView
-    CGRect Label1Frame = CGRectMake(90, 10, 160, 25);
-    CGRect Label2Frame = CGRectMake(90, 33, 160, 25);
+    //CGRect Label1Frame = CGRectMake(90, 10, 160, 25);
+    //CGRect Label2Frame = CGRectMake(90, 33, 160, 25);
+    CGRect Label1Frame = CGRectMake(5, 10, 240, 25);
+    CGRect Label2Frame = CGRectMake(5, 33, 240, 25);
     CGRect Button1Frame = CGRectMake(250, 20, 20, 20);
     
     UILabel *lblTemp;

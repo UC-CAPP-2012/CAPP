@@ -38,19 +38,19 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-        
+    
     NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
         favButton.image = [UIImage imageNamed:@"73-radar"];
     }
-    [self setupPictures];
+       
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self segmentButton:self];
-    loadView.hidden = YES;
-
+    
+    
 }
 
 - (void)viewDidLoad
@@ -112,14 +112,27 @@
         NSString *imageString = [[currentListing.imageFilenames objectAtIndex:i] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
 		UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-		imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imageView.image = image;
+                loadView.hidden = YES;
+            });
+        });
 		//imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.contentMode = UIViewContentModeCenter;
+        
 		[scrollView addSubview:imageView];
         
-		contentOffset += imageView.frame.size.width;
+		contentOffset += imageViewFrame.size.width;
 		scrollView.contentSize = CGSizeMake(contentOffset, scrollView.frame.size.height);
 	}
+    //[scrollView reloadInputViews];
 }
 
 -(IBAction)segmentButton:(id)sender{
@@ -134,7 +147,7 @@
         infoBox.text =currentListing.review;
     }
     [self setupArray];
-    
+    [self setupPictures];
 }
 
 // *** MAP METHODS ****
