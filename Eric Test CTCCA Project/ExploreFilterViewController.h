@@ -22,7 +22,11 @@
     IBOutlet MKMapView *mapView;
     IBOutlet UIView *tableWindow;
     IBOutlet UITableView *tableView;
-    
+    IBOutlet UIView* sideSwipeView;
+    UITableViewCell* sideSwipeCell;
+    UISwipeGestureRecognizerDirection sideSwipeDirection;
+    BOOL animatingSideSwipe;
+
     //Navigation Bar View outlets
     IBOutlet UIView *navView;
     IBOutlet UIView *switchMapView;
@@ -60,7 +64,13 @@
 //Passed from previous Controller.
 @property (strong, nonatomic)NSString *typeID;
 @property (strong, nonatomic)NSString *typeName;
+@property (nonatomic, retain) IBOutlet UIView* sideSwipeView;
+@property (nonatomic, retain) UITableViewCell* sideSwipeCell;
+@property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
+@property (nonatomic) BOOL animatingSideSwipe;
 
+- (void) removeSideSwipeView:(BOOL)animated;
+- (BOOL) gestureRecognizersSupported;
 @property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *areaFilter, *listingTable, *listingsList, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
