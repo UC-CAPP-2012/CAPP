@@ -34,6 +34,9 @@
 		696112E215301E110069E336 /* AroundMeMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696112E115301E110069E336 /* AroundMeMapListViewController.m */; };
 		696112ED1531710F0069E336 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696112EC1531710F0069E336 /* CoreLocation.framework */; };
 		6969E6DE153C0E3600FCCF84 /* ListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6969E6DD153C0E3600FCCF84 /* ListingViewController.m */; };
+		6987B00F15FC318500CA4F3E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987B00E15FC318500CA4F3E /* CFNetwork.framework */; };
+		6987B01115FC319B00CA4F3E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987B01015FC319B00CA4F3E /* SystemConfiguration.framework */; };
+		6987B01315FC31A600CA4F3E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987B01215FC31A600CA4F3E /* MobileCoreServices.framework */; };
 		6987B04516060B7D00CA4F3E /* dotted-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 6987B03416060B7D00CA4F3E /* dotted-pattern.png */; };
 		6987B04616060B7D00CA4F3E /* dotted-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 6987B03416060B7D00CA4F3E /* dotted-pattern.png */; };
 		6987B04716060B7D00CA4F3E /* dotted-pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6987B03516060B7D00CA4F3E /* dotted-pattern@2x.png */; };
@@ -152,6 +155,9 @@
 		696112EC1531710F0069E336 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6969E6DC153C0E3600FCCF84 /* ListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingViewController.h; sourceTree = "<group>"; };
 		6969E6DD153C0E3600FCCF84 /* ListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingViewController.m; sourceTree = "<group>"; };
+		6987B00E15FC318500CA4F3E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6987B01015FC319B00CA4F3E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6987B01215FC31A600CA4F3E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6987B03416060B7D00CA4F3E /* dotted-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotted-pattern.png"; sourceTree = "<group>"; };
 		6987B03516060B7D00CA4F3E /* dotted-pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotted-pattern@2x.png"; sourceTree = "<group>"; };
 		6987B03616060B7D00CA4F3E /* inner-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inner-shadow.png"; sourceTree = "<group>"; };
