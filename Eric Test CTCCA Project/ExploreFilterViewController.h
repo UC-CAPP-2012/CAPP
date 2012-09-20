@@ -15,6 +15,7 @@
 #import "ListingString.h"
 
 @interface ExploreFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource>{
+    ///TEst
     
     //Main Screen View outlets
     IBOutlet UIView *exploreView;
