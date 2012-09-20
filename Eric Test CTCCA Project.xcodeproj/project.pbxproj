@@ -241,9 +241,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6987B01315FC31A600CA4F3E /* MobileCoreServices.framework in Frameworks */,
-				6987B01115FC319B00CA4F3E /* SystemConfiguration.framework in Frameworks */,
-				6987B00F15FC318500CA4F3E /* CFNetwork.framework in Frameworks */,
 				690CB71C154022BC00C729C0 /* EventKitUI.framework in Frameworks */,
 				690CB71A154022B600C729C0 /* EventKit.framework in Frameworks */,
 				69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */,
@@ -463,9 +460,6 @@
 		69A598371520843F00BDA150 = {
 			isa = PBXGroup;
 			children = (
-				6987B01215FC31A600CA4F3E /* MobileCoreServices.framework */,
-				6987B01015FC319B00CA4F3E /* SystemConfiguration.framework */,
-				6987B00E15FC318500CA4F3E /* CFNetwork.framework */,
 				69B00DB215552509006F8898 /* Default.png */,
 				69A5984C1520843F00BDA150 /* Eric Test CTCCA Project */,
 				69A5986A1520844000BDA150 /* Eric Test CTCCA ProjectTests */,

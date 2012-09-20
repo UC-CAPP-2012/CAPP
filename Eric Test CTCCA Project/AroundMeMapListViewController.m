@@ -368,7 +368,7 @@
     
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
-
+    
     NSLog(@"%@",cutString);
     NSLog(@"Button Favourite");
     
