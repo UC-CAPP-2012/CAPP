@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="zSa-LM-ckU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="zSa-LM-ckU">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Explore Scroll View Paging Controller-->
         <scene sceneID="kWC-bM-TM5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e26-Ej-dDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ExploreScrollViewPagingController" autoresizesArchivedViewToFullSize="NO" wantsFullScreenLayout="YES" hidesBottomBarWhenPushed="YES" id="9rl-tx-XzO" customClass="ExploreScrollViewPagingController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="G3q-4d-fPg">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -50,13 +48,13 @@
                         <outlet property="scrollView" destination="bCy-AI-hWd" id="iZ5-3U-xas"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e26-Ej-dDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="126" y="663"/>
         </scene>
         <!--Around Me Map List View Controller-->
         <scene sceneID="lZj-a2-SDV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vrz-Ir-Ebr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="AroundMeMapListViewController" id="nzE-mQ-kXc" customClass="AroundMeMapListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fQZ-3o-8hL">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -235,13 +233,13 @@
                         <outlet property="tableView" destination="kkr-JC-4So" id="AMB-Dr-Ije"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vrz-Ir-Ebr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="494" y="-557"/>
         </scene>
         <!--Explore Filter View Controller-->
         <scene sceneID="VOx-Ju-aAO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cnc-ds-sFi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ExploreFilterViewController" autoresizesArchivedViewToFullSize="NO" id="Yfe-Rv-re9" customClass="ExploreFilterViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dyv-Zn-E83">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -485,13 +483,13 @@
                         <outlet property="tableWindow" destination="kIL-It-BRA" id="TOz-ve-3Qg"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cnc-ds-sFi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="538" y="663"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="KB9-DW-1Qw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7nw-eT-VHS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="NavigationViewController" definesPresentationContext="YES" id="oLg-KG-sbR" customClass="NavigationViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="JzU-s8-uVL"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="Rt1-nn-fdy">
@@ -502,13 +500,13 @@
                         <segue destination="Wap-Q8-rd9" kind="relationship" relationship="rootViewController" id="Goa-d2-21b"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7nw-eT-VHS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-924" y="382"/>
         </scene>
         <!--Home Page View Controller - Home-->
         <scene sceneID="VC0-2v-z7o">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wzP-qr-Sdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="HomePageViewController" id="Wap-Q8-rd9" customClass="HomePageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ac-L0-YgY">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -627,13 +625,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="TfU-ra-hXM"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wzP-qr-Sdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-390" y="382"/>
         </scene>
         <!--Picker View Controller-->
         <scene sceneID="8sw-Xo-Qh4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sMD-vl-BiN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="PickerViewController" id="NLi-dI-DCd" customClass="PickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hSj-BZ-Xsy">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -670,13 +668,13 @@
                         <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sMD-vl-BiN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="78" y="38"/>
         </scene>
         <!--Event Filter View Controller - Events-->
         <scene sceneID="4HM-zi-aFI">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kDM-Gq-n6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="EventFilterViewController" autoresizesArchivedViewToFullSize="NO" id="qjF-uG-PeD" customClass="EventFilterViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fac-yg-utv">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -921,13 +919,13 @@
                         <outlet property="tableWindow" destination="P3C-Db-4wa" id="zGj-cN-nTe"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kDM-Gq-n6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="472" y="33"/>
         </scene>
         <!--Listing View Controller-->
         <scene sceneID="nO6-FX-fnX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kyf-3q-b0Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ListingViewController" wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" hidesBottomBarWhenPushed="YES" id="fC4-5Y-cLX" customClass="ListingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xgm-z4-hgt">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1157,13 +1155,13 @@
                         <outlet property="tableView" destination="bh7-RS-I21" id="h9W-rs-1ZD"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kyf-3q-b0Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="912" y="-557"/>
         </scene>
         <!--Listing Web View Controller-->
         <scene sceneID="Pxh-O4-txS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bwz-tz-PRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ListingWebView" id="n0H-P6-6AL" customClass="ListingWebViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lwn-uu-dbC">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1206,13 +1204,13 @@
                         <outlet property="webView" destination="54f-HL-f1C" id="6kK-z2-5F5"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bwz-tz-PRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1376" y="518"/>
         </scene>
         <!--Tour Map List View Controller - Tours-->
         <scene sceneID="aEh-zf-luj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6FJ-wI-DN0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TourMapListViewController" id="7Dg-Rc-f1p" customClass="TourMapListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Gp-pz-gAP">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1379,13 +1377,13 @@
                         <outlet property="tour" destination="wzE-zH-eaS" id="1kx-GF-3mK"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6FJ-wI-DN0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="158" y="1375"/>
         </scene>
         <!--Tour Map List Route View Controller - Tours-->
         <scene sceneID="Mfs-Su-xew">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="i4m-Zc-stw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TourMapListRouteViewController" id="04Q-aq-zT0" customClass="TourMapListRouteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J4F-wL-Woi">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1552,13 +1550,13 @@
                         <outlet property="tourRoute" destination="ETM-HV-NAu" id="efn-69-r3u"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i4m-Zc-stw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="584" y="1367"/>
         </scene>
         <!--Subscribe - Signup-->
         <scene sceneID="GxS-KQ-YMd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uLa-7A-28u" sceneMemberID="firstResponder"/>
                 <viewController id="zSa-LM-ckU" customClass="Subscribe" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xOk-ei-Azr">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1668,13 +1666,13 @@
                         <outlet property="spashScreen" destination="ccy-6t-iDE" id="U0A-ZA-C1c"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uLa-7A-28u" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-918" y="-210"/>
         </scene>
         <!--Favorites View Controller-->
         <scene sceneID="egg-eB-In8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WfA-Rb-Aqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="FavoritesViewController" id="qp9-X8-Nm7" customClass="FavoritesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fxa-Jd-HsI">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1691,31 +1689,35 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qcw-xn-TMV">
-                                                    <rect key="frame" x="0.0" y="11" width="320" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="qp9-X8-Nm7" id="2Kk-kY-uUU"/>
-                                    <outlet property="delegate" destination="qp9-X8-Nm7" id="u74-Py-BXo"/>
+                                    <outlet property="delegate" destination="qp9-X8-Nm7" id="gD8-s9-OiO"/>
                                 </connections>
                             </tableView>
+                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="3Ne-Oq-Prm" userLabel="LoadView">
+                                <rect key="frame" x="0.0" y="1" width="320" height="459"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="UPi-Ra-ZAY">
+                                        <rect key="frame" x="142" y="169" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="loadView" destination="3Ne-Oq-Prm" id="2G7-iU-9HV"/>
                         <outlet property="tableView" destination="pF5-aH-fhv" id="rWU-Qa-pGe"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WfA-Rb-Aqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="70" y="-1159"/>
         </scene>
@@ -1781,6 +1783,7 @@
                 <relationship kind="outlet" name="nextMonth" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="previousMonth" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -1808,6 +1811,7 @@
                 <relationship kind="outlet" name="nextArea" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="previousArea" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -1826,6 +1830,7 @@
         <class className="FavoritesViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>

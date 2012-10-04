@@ -8,13 +8,20 @@
 
 #import "FavoritesViewController.h"
 #import "GenerateFavoritesString.h"
-
+#import <EventKitUI/EventKitUI.h>
+#import <EventKit/EventKit.h>
+#import "Listing.h"
+#import "MainTypeClass.h"
+#import "SearchArray.h"
+#import "SaveToFavorites.h"
 @interface FavoritesViewController ()
 
 @end
 
 @implementation FavoritesViewController
-
+@synthesize currSel,sortSel;
+@synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
+@synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -24,11 +31,17 @@
     return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [tableView reloadData];
+    loadView.hidden=TRUE;
+}
+
 - (void)viewDidLoad
 {
     [super setTitle:@"Loved"];
     NSMutableString *stringName = [GenerateFavoritesString createFavoriteString];
     NSLog(@"%@",stringName);
+    [self setupArray];
     [super viewDidLoad];
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
@@ -86,13 +99,15 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 // Return number of sections in table (always 1 for this demo!)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [listingTable count];
 }
 
 // Return the amount of items in our table (the total items in our array above)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [favData count];
+    NSDictionary *dictionary = [listingTable objectAtIndex:section];
+    NSArray *array = [dictionary objectForKey:@"Favourites"];
+    return [array count];
 }
 
 // Return a cell for the table
@@ -107,12 +122,347 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
+    NSArray *array = [dictionary objectForKey:@"Favourites"];
+    Listing *currListing = [array objectAtIndex:indexPath.row];
+    
     // Get the cell label using its tag and set it
-    UILabel *cellLabel = (UILabel *)[cell viewWithTag:1];
-    [cellLabel setText:[favData objectAtIndex:indexPath.row]];
+    //UILabel *cellLabel;
+ 
+    //[cellLabel setText:[favData objectAtIndex:indexPath.row]];
     
     
+    NSString *cellValue = currListing.title;
+    UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
+    cell.imageView.image = image;
+    //ContentView
+    CGRect Label1Frame = CGRectMake(70, 10, 240, 25);
+    CGRect Label2Frame = CGRectMake(70, 33, 240, 25);
+    //CGRect Label1Frame = CGRectMake(5, 10, 240, 25);
+    //CGRect Label2Frame = CGRectMake(5, 33, 240, 25);
+    //CGRect Button1Frame = CGRectMake(250, 20, 20, 20);
+    
+    UILabel *lblTemp;
+    //UIButton *btnTemp;
+    
+    //UIImage* imageTBA = [UIImage imageNamed:@"83-calendar"];
+    //UIImage* imageCal = [UIImage imageNamed:@"TabHeartIt.png"];
+    
+    lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
+    lblTemp.text = cellValue;
+    [cell.contentView addSubview:lblTemp];
+    
+    lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
+    lblTemp.text = @"the subtitle";
+    [cell.contentView addSubview:lblTemp];
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 20;
+}
+
+-(void) setupArray // Connection to DataSource
+{
+    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+    //[mapView removeAnnotations:mapView.annotations];
+    
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
+    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
+    //NSURL *url = [[NSURL alloc] initWithString:urlString];
+    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    
+    [xmlParser setDelegate:self];
+    
+    BOOL worked = [xmlParser parse];
+    
+    if(worked) {
+        NSLog(@"Amount %i", [listingsListString count]);
+    }
+    else
+    {
+        NSLog(@"did not work!");
+    }
+    
+    //This needs to be set via the filter and sorter.
+    listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
+    listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
+    sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
+    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
+    sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
+    [listingTable removeAllObjects]; // Clear Table
+    for (ListingString *listingStringElement in listingsListString) {
+        
+        Listing *currListing = [[Listing alloc] init];
+        
+        // ListingID , Title , SubTitle
+        
+        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
+        currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        // Placemarker
+        
+        CLLocationCoordinate2D tempPlacemarker;
+        
+        NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double latDouble =[tempLat doubleValue];
+        tempPlacemarker.latitude = latDouble;
+        
+        NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double lonDouble =[tempLong doubleValue];
+        tempPlacemarker.longitude = lonDouble;
+        
+        currListing.coordinate = tempPlacemarker;
+        
+        //Sort and Filter Types
+        
+        currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        // Address
+        
+        currListing.address = [NSString stringWithFormat:@"%@ ,%@ %@ %@ %@",listingStringElement.UnitNumber,listingStringElement.StreetName, listingStringElement.StreetType, listingStringElement.Suburb,listingStringElement.Postcode];//,listingStringElement.StateID];
+        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        
+        // Listing View details
+        
+        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
+        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currListing.videoURL = [NSURL URLWithString:videoUrlString];
+        currListing.websiteURL = [NSURL URLWithString:webUrlString];
+        
+        // Start Date
+        
+        listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        int startDay =[listingStringElement.StartDay intValue];
+        int startMonth =[listingStringElement.StartMonth intValue];
+        int startYear =[listingStringElement.StartYear intValue];
+        int startMinute =[listingStringElement.StartMinute intValue];
+        int startHour =[listingStringElement.StartHour intValue];
+        
+        NSDateComponents *startcomps = [[NSDateComponents alloc] init];
+        [startcomps setDay:startDay];
+        [startcomps setMonth:startMonth];
+        [startcomps setYear:startYear];
+        [startcomps setHour:startHour];
+        [startcomps setMinute:startMinute];
+        NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
+        currListing.startDate = startDate;
+        
+        // End Date
+        
+        listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        int endDay =[listingStringElement.EndDay intValue];
+        int endMonth =[listingStringElement.EndMonth intValue];
+        int endYear =[listingStringElement.EndYear intValue];
+        int endMinute =[listingStringElement.EndMinute intValue];
+        int endHour =[listingStringElement.EndHour intValue];
+        
+        NSDateComponents *endcomps = [[NSDateComponents alloc] init];
+        [endcomps setDay:endDay];
+        [endcomps setMonth:endMonth];
+        [endcomps setYear:endYear];
+        [endcomps setHour:endHour];
+        [endcomps setMinute:endMinute];
+        NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
+        currListing.endDate = endDate;
+        
+        
+        // ** CHECKS ------------------------
+        NSLog(@"%@",listingStringElement.ListingName);
+        NSLog(@"%@",listingStringElement.Subtitle);
+        NSLog(@"%@",listingStringElement.Latitude);
+        NSLog(@"%@",listingStringElement.Longitude);
+        NSLog(@"%f",latDouble);
+        NSLog(@"%f",lonDouble);
+        NSLog(@"%@",listingStringElement.ListingID);
+        NSLog(@"%@",listingStringElement.ListingType);
+        NSLog(@"%@",listingStringElement.AreaID);
+        NSLog(@"%@",listingStringElement.CostType);
+        NSLog(@"%@",listingStringElement.RatingType);
+        NSLog(@"%@",listingStringElement.SubType);
+        NSLog(@"%@",listingStringElement.UnitNumber); //unitnumber
+        NSLog(@"%@",listingStringElement.StreetName); //streetname
+        NSLog(@"%@",listingStringElement.StreetType); //streettype
+        NSLog(@"%@",listingStringElement.Suburb);    //suburb
+        NSLog(@"%@",listingStringElement.Postcode);  //postcode
+        NSLog(@"%@",listingStringElement.StateID);   //stateID
+        NSLog(@"%@",currListing.address);
+        NSLog(@"%@",listingStringElement.Details);
+        NSLog(@"%@",listingStringElement.Description);
+        NSLog(@"%@",listingStringElement.Review);
+        NSLog(@"%@",listingStringElement.ImageURL);
+        NSLog(@"%@",listingStringElement.VideoURL);
+        NSLog(@"%@",listingStringElement.StartDay);
+        NSLog(@"%@",listingStringElement.StartMonth);
+        NSLog(@"%@",listingStringElement.StartYear);
+        NSLog(@"%@",listingStringElement.StartMinute);
+        NSLog(@"%@",listingStringElement.StartHour);
+        NSLog(@"%@",listingStringElement.EndDay);
+        NSLog(@"%@",listingStringElement.EndMonth);
+        NSLog(@"%@",listingStringElement.EndYear);
+        NSLog(@"%@",listingStringElement.WebsiteURL);
+        NSLog(@"%@",listingStringElement.EndMinute);
+        NSLog(@"%@",listingStringElement.EndHour);
+        
+        // -----------------------------------------
+        
+        [listingsList addObject:currListing];
+        //[mapView addAnnotation:currListing];
+        
+            }
+    
+    // --------------------------
+    
+    
+    
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+   
+        
+        for (Listing *listingListListing in listingsList)
+        {
+            [section addObject:listingListListing];
+        }
+        
+        NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Favourites"];
+        [listingTable addObject:sectionDict];
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath // Control for Map View Button to Listing Detail View
+{
+    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
+    NSArray *array = [dictionary objectForKey:@"Favourites"];
+    Listing *selectedEvent = [array objectAtIndex:indexPath.row];
+    
+    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
+    listingView.currentListing = selectedEvent;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");
+    
+}
+
+-(void)setupMap
+{
+    // NEED TO ADD A RESTRICTION!
+    // NEED TO TEST OUTSIDE OF CANBERRA
+    
+    //Map Settings
+    
+    //[mapView setMapType:MKMapTypeStandard];
+    ////[mapView setZoomEnabled:YES];
+    //[mapView setScrollEnabled:YES];
+    //[mapView setDelegate:self];
+    
+    //Center Map on users location;
+    //CLLocationCoordinate2D zoomLocation;
+    MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
+    region.center.latitude = -35.281150; //mapView.userLocation.location.coordinate.latitude;
+    region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
+    region.span.latitudeDelta = 0.15f; // Zoom Settings
+    region.span.longitudeDelta = 0.25f; // Zoom Settings
+   // [mapView setRegion:region animated:YES];
+    
+}
+
+// --- XML Delegate Classes ----
+
+-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"ListingElements"])
+    {
+        self.listingsListString = [[NSMutableArray alloc] init];
+    }
+    else if ([elementName isEqualToString:@"ListingElement"])
+    {
+        theList = [[ListingString alloc] init];
+        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (!currentElementValue)
+    {
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    }
+    else
+    {
+        [currentElementValue appendString:string];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if ([elementName isEqualToString:@"ListingElements"])
+    {
+        return;
+    }
+    
+    if([elementName isEqualToString:@"ListingElement"])
+    {
+        [self.listingsListString addObject:theList];
+        theList = nil;
+    }
+    else
+    {
+        [theList setValue:currentElementValue forKey:elementName];
+        NSLog(@"%@",currentElementValue);
+        currentElementValue = nil;
+    }
+}
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void) threadStartAnimating:(id)data{
+    loadView.hidden = false;
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
 @end

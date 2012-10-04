@@ -637,26 +637,8 @@
     NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
     NSArray *array = [dictionary objectForKey:@"Events"];
     Listing *currListing = [array objectAtIndex:indexPath.row];
+    
     NSString *cellValue = currListing.title;
-    
-    //dispatch_queue_t concurrentQueue =
-    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    //dispatch_async(concurrentQueue, ^{
-        
-        //NSString *imageString = [[currListing.imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        //UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-  
-        
-        // 4) Present picker in main thread
-        //dispatch_async(dispatch_get_main_queue(), ^{
-          //  cell.imageView.image = image;
-            //[tableView reloadData];
-        //    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-      //  });
-        
-    //});             
-    
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
     cell.imageView.image = image;
     //ContentView
@@ -680,35 +662,6 @@
     lblTemp.text = @"the subtitle";
     [cell.contentView addSubview:lblTemp];
     
-    //btnTemp =[[UIButton alloc] initWithFrame:Button1Frame];
-    //[btnTemp setImage:imageCal forState:UIControlStateNormal];
-    //[cell.contentView addSubview:btnTemp];
-    
-    //Accessory View
-    //CGRect Button2Frame = CGRectMake(0, 0, 20, 20);    
-    //UIButton *btnTemp2;
-    
-    //btnTemp2 =[[UIButton alloc] initWithFrame:Button2Frame];
-    //[btnTemp2 setImage:imageTBA forState:UIControlStateNormal];
-    //[cell setAccessoryView:btnTemp2];
-    
-//    NSString *listingID = currListing.listingID;
-//    for (int i = 0; i < [listingsList count]; i++) {
-//        Listing *currentListing = [listingsList objectAtIndex:i];
-//        if ([currentListing.listingID isEqualToString:listingID]) {
-//            btnTemp.tag =i;
-//            btnTemp2.tag = i;
-//        }
-//    }
-//    
-//    NSString *cutString = [currListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    if ([SearchArray searchArray:cutString]) {
-//        [btnTemp setEnabled:FALSE];
-//    }
-//    
-//    
-//    [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
-//    [btnTemp2 addTarget:self action:@selector(addToCalendar:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;    
 }
