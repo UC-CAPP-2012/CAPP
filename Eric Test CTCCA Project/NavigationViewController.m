@@ -35,6 +35,8 @@
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], UITextAttributeTextColor, nil ]];
     [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],UITextAttributeTextColor, nil]forState:UIControlStateNormal];
     //[[UIBarButtonItem appearance] setBackgroundColor:[UIColor blackColor]];
+
+
 }
 
 - (void)viewDidUnload
