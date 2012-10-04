@@ -16,7 +16,7 @@
 
 @interface ExploreFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     
-    //Main Screen View outlets
+    //Main Screen View outlets variables
     IBOutlet UIView *exploreView;
     IBOutlet UIView *mapWindow;
     IBOutlet MKMapView *mapView;
