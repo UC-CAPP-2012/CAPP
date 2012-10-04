@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NewsArticles>
-<News id="1">
+<News>
 <NewsID>1</NewsID>
 <NewsHeading>Connoisseur of Canberra decay</NewsHeading>
 <NewsDateTime>04/10/2012 10:00:00</NewsDateTime>
@@ -25,7 +25,7 @@ http://images.canberratimes.com.au/2012/10/03/3684749/KM-article-lead-wide--arti
 <NewsPublisher> Canberra Times</NewsPublisher>
 <NewsAuthor> Ian Warden</NewsAuthor>
 </News>
-<News id="2">
+<News>
 <NewsID>2</NewsID>
 <NewsHeading>Trauma doctors plead for drivers to slow down</NewsHeading>
 <NewsDateTime>04/10/2012 10:00:00</NewsDateTime>
@@ -52,7 +52,7 @@ ACT Policing acting traffic operations chief Sergeant Alison Williams said drive
 <NewsPublisher> Canberra Times</NewsPublisher>
 <NewsAuthor>Peter Jean</NewsAuthor>
 </News>
-<News id="3">
+<News>
 <NewsID>3</NewsID>
 <NewsHeading>Practice makes perfect: this family doctor one for the ages
 </NewsHeading>
