@@ -14,6 +14,30 @@
 
 @implementation BlabberViewController
 
+
+@synthesize newsView;
+@synthesize newsTableView;
+@synthesize newsTableCell;
+@synthesize publishDate;
+@synthesize newsImage;
+@synthesize newsHeadding;
+@synthesize authorName;
+@synthesize newsContents;
+@synthesize newsLoadView;
+@synthesize newsLoadIndicator;
+
+@synthesize newsList;
+@synthesize currentNews;
+
+@synthesize NewsID;
+@synthesize NewsDateTime;
+@synthesize NewsBody;
+@synthesize NewsMediaURL;
+@synthesize NewsPublisher;
+@synthesize NewsAuthor;
+
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

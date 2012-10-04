@@ -50,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e26-Ej-dDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126" y="663"/>
+            <point key="canvasLocation" x="96" y="663"/>
         </scene>
         <!--Around Me Map List View Controller-->
         <scene sceneID="lZj-a2-SDV">
@@ -494,7 +494,7 @@
                     <navigationItem key="navigationItem" id="JzU-s8-uVL"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="Rt1-nn-fdy">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.98823535442352295" green="0.84705889225006104" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.98431378602981567" green="0.83529418706893921" blue="0.18823531270027161" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Wap-Q8-rd9" kind="relationship" relationship="rootViewController" id="Goa-d2-21b"/>
@@ -522,14 +522,14 @@
                                             <action selector="loved:" destination="Wap-Q8-rd9" id="M9i-1Q-XXb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="My Trail" width="151" style="plain" id="xL5-9R-E3d">
+                                    <barButtonItem title="About CAPP" width="151" style="plain" id="xL5-9R-E3d">
                                         <color key="tintColor" red="0.094117656350135803" green="0.08235294371843338" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <connections>
                                             <action selector="myTrial:" destination="Wap-Q8-rd9" id="AP1-Ax-U20"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.98823535439999999" green="0.9215686917" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="tintColor" red="0.98431378599999997" green="0.83529418710000003" blue="0.18823531269999999" alpha="1" colorSpace="deviceRGB"/>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jWl-Bg-Qyq">
                                 <rect key="frame" x="20" y="246" width="114" height="86"/>
@@ -670,7 +670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMD-vl-BiN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="38"/>
+            <point key="canvasLocation" x="86" y="33"/>
         </scene>
         <!--Event Filter View Controller - Events-->
         <scene sceneID="4HM-zi-aFI">
@@ -923,6 +923,85 @@
             </objects>
             <point key="canvasLocation" x="472" y="33"/>
         </scene>
+        <!--Blabber Story View Controller - Title-->
+        <scene sceneID="QJ8-rI-lGg">
+            <objects>
+                <viewController id="91f-xd-6GS" customClass="BlabberStoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bdG-oA-Btd">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PPm-1p-FYk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98431378599999997" green="0.83529418710000003" blue="0.18823531269999999" alpha="1" colorSpace="deviceRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Practice makes perfect: this family doctor one for the ages">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="5" headIndent="5"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Canberra Times" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fBW-T6-Z7m">
+                                <rect key="frame" x="0.0" y="47" width="97" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Author Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zW9-hk-ykp">
+                                <rect key="frame" x="97" y="47" width="143" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="04 Oct 2012" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2OS-CD-HfW">
+                                <rect key="frame" x="240" y="47" width="80" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="x1S-Cl-o6a">
+                                <rect key="frame" x="0.0" y="64" width="320" height="155"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="mfR-zY-u9X">
+                                <rect key="frame" x="0.0" y="219" width="320" height="241"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="Q4w-ys-9MU" userLabel="LoadView">
+                                <rect key="frame" x="0.0" y="1" width="320" height="459"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="D4J-3h-hAf">
+                                        <rect key="frame" x="142" y="169" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="jdT-jn-VWt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lk7-sX-sRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1256" y="33"/>
+        </scene>
         <!--Listing View Controller-->
         <scene sceneID="nO6-FX-fnX">
             <objects>
@@ -1159,6 +1238,84 @@
             </objects>
             <point key="canvasLocation" x="912" y="-557"/>
         </scene>
+        <!--Blabber Table View Controller - BlabberTableViewController-->
+        <scene sceneID="6yt-bX-lCX">
+            <objects>
+                <tableViewController storyboardIdentifier="BlabberTableViewController" title="BlabberTableViewController" id="U9z-L9-nyI" customClass="BlabberTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="109" sectionHeaderHeight="22" sectionFooterHeight="22" id="CVh-FU-evS">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" alpha="0.60000002384185791" contentMode="scaleToFill" id="mrW-4b-NZx" userLabel="LoadView">
+                            <rect key="frame" x="0.0" y="139" width="320" height="459"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="Zik-yz-eQU">
+                                    <rect key="frame" x="137" y="148" width="37" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" rowHeight="117" id="zUx-Rq-ncx">
+                                <rect key="frame" x="0.0" y="22" width="320" height="117"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="116"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="04 Oct 2012" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KFc-ZH-PDX">
+                                            <rect key="frame" x="6" y="9" width="70" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="whU-qj-fsr">
+                                            <rect key="frame" x="6" y="31" width="70" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="Author name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yt3-b0-sR7">
+                                            <rect key="frame" x="84" y="50" width="352" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="Practice makes perfect: this family doctor one for the ages" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NnK-75-Dl6">
+                                            <rect key="frame" x="84" y="9" width="196" height="41"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xEv-Xz-YaZ">
+                                            <rect key="frame" x="84" y="65" width="196" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <string key="text">In an age where everyone is an instant ''friend'' and relationships can be made or broken in 140 characters or less, the bond between Rod MacIver and the Ryan family is something to be treasured.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="U9z-L9-nyI" id="3oN-om-nrc"/>
+                            <outlet property="delegate" destination="U9z-L9-nyI" id="khJ-hR-4Qd"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="tableView" destination="CVh-FU-evS" id="hgI-09-cBg"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DJf-pf-ERP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="872" y="33"/>
+        </scene>
         <!--Listing Web View Controller-->
         <scene sceneID="Pxh-O4-txS">
             <objects>
@@ -1206,7 +1363,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bwz-tz-PRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1376" y="518"/>
+            <point key="canvasLocation" x="1060" y="650"/>
         </scene>
         <!--Tour Map List View Controller - Tours-->
         <scene sceneID="aEh-zf-luj">
@@ -1379,7 +1536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6FJ-wI-DN0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="158" y="1375"/>
+            <point key="canvasLocation" x="86" y="1367"/>
         </scene>
         <!--Tour Map List Route View Controller - Tours-->
         <scene sceneID="Mfs-Su-xew">
@@ -1552,7 +1709,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4m-Zc-stw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="584" y="1367"/>
+            <point key="canvasLocation" x="548" y="1367"/>
         </scene>
         <!--Subscribe - Signup-->
         <scene sceneID="GxS-KQ-YMd">
@@ -1719,7 +1876,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WfA-Rb-Aqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="70" y="-1159"/>
+            <point key="canvasLocation" x="64" y="-1165"/>
         </scene>
     </scenes>
     <resources>
@@ -1759,6 +1916,16 @@
                 <relationship kind="outlet" name="navView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="BlabberStoryViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberStoryViewController.h"/>
+        </class>
+        <class className="BlabberTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
