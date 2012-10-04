@@ -19,6 +19,7 @@
 		6927A1671527E27F00667A7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6927A1661527E27F00667A7F /* MapKit.framework */; };
 		6927A17215286D7D00667A7F /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6927A17115286D7D00667A7F /* 73-radar.png */; };
 		6927A17415286DD400667A7F /* 179-notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6927A17315286DD400667A7F /* 179-notepad.png */; };
+		692C16D6161D7C36006063AD /* news.xml in Resources */ = {isa = PBXBuildFile; fileRef = 692C16D5161D7C36006063AD /* news.xml */; };
 		6940CD53154E585E004A6D70 /* SaveToFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD52154E585E004A6D70 /* SaveToFavorites.m */; };
 		6940CD56154E5DD2004A6D70 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD55154E5DD2004A6D70 /* FavoritesViewController.m */; };
 		6940CD66154E6249004A6D70 /* SearchArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD65154E6249004A6D70 /* SearchArray.m */; };
@@ -97,7 +98,6 @@
 		69FA8EB8153A7B3A0036D267 /* Arrow-Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB7153A7B390036D267 /* Arrow-Left.png */; };
 		69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FAAD061536FC23006441FE /* QuartzCore.framework */; };
 		69FAAD1A153705F8006441FE /* ExploreScrollViewPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FAAD17153705F8006441FE /* ExploreScrollViewPagingController.m */; };
-		9CA13A8D161D1303001A7DB1 /* news.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9CA13A8C161D1303001A7DB1 /* news.xml */; };
 		9CA13A91161D31FE001A7DB1 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13A90161D31FE001A7DB1 /* News.m */; };
 		9CA13AA0161D49C8001A7DB1 /* BlabberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13A9F161D49C8001A7DB1 /* BlabberTableViewController.m */; };
 		9CA13AA3161D4FC5001A7DB1 /* NewsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13AA2161D4FC5001A7DB1 /* NewsString.m */; };
@@ -128,6 +128,7 @@
 		6927A1661527E27F00667A7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6927A17115286D7D00667A7F /* 73-radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "73-radar.png"; path = "../../../Downloads/glyphish-icons/icons/73-radar.png"; sourceTree = "<group>"; };
 		6927A17315286DD400667A7F /* 179-notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "179-notepad.png"; path = "../../../Downloads/glyphish-icons/icons/179-notepad.png"; sourceTree = "<group>"; };
+		692C16D5161D7C36006063AD /* news.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = news.xml; sourceTree = "<group>"; };
 		6940CD51154E585E004A6D70 /* SaveToFavorites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveToFavorites.h; sourceTree = "<group>"; };
 		6940CD52154E585E004A6D70 /* SaveToFavorites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveToFavorites.m; sourceTree = "<group>"; };
 		6940CD54154E5DD2004A6D70 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
@@ -231,7 +232,6 @@
 		69FAAD061536FC23006441FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		69FAAD16153705F8006441FE /* ExploreScrollViewPagingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExploreScrollViewPagingController.h; sourceTree = "<group>"; };
 		69FAAD17153705F8006441FE /* ExploreScrollViewPagingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreScrollViewPagingController.m; sourceTree = "<group>"; };
-		9CA13A8C161D1303001A7DB1 /* news.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = news.xml; sourceTree = "<group>"; };
 		9CA13A8F161D31FE001A7DB1 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		9CA13A90161D31FE001A7DB1 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
 		9CA13A9E161D49C8001A7DB1 /* BlabberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberTableViewController.h; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 		699B931215481FD9005A9C5B /* Blabber */ = {
 			isa = PBXGroup;
 			children = (
-				9CA13A8C161D1303001A7DB1 /* news.xml */,
+				692C16D5161D7C36006063AD /* news.xml */,
 				699B93161548202C005A9C5B /* BlabberStoryViewController.h */,
 				699B93171548202C005A9C5B /* BlabberStoryViewController.m */,
 				9CA13A9E161D49C8001A7DB1 /* BlabberTableViewController.h */,
@@ -710,6 +710,7 @@
 				6987B05B16060B7D00CA4F3E /* star-hollow.png in Resources */,
 				6987B05D16060B7D00CA4F3E /* star-hollow@2x.png in Resources */,
 				6987F5DE161D195700646BC1 /* Favourites.xml in Resources */,
+				692C16D6161D7C36006063AD /* news.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
