@@ -4,11 +4,9 @@
 <ListingID>1</ListingID>
 <ListingName>Canberra City YHA</ListingName>
 <Subtitle>Canberra City Subtitle</Subtitle>
-<StreetName>Akuna </StreetName>
-<StreetType>Street</StreetType>
-<Suburb>Canberra</Suburb>
+<Address>16 Akuna Street, Civic, 2601</Address>
+<Suburb>Civic</Suburb>
 <Postcode>2601</Postcode>
-<UnitNumber>16</UnitNumber>
 <Longitude>149.128677368164062500000000000000</Longitude>
 <Latitude>-35.282001495361328125000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
@@ -26,10 +24,8 @@
 <ListingID>7</ListingID>
 <ListingName>Canberra Multicultural Festival</ListingName>
 <Subtitle>Canberra Multicultural Festival Subtitle</Subtitle>
-<UnitNumber>15</UnitNumber>
-<StreetName>Garema</StreetName>
-<StreetType>Pl</StreetType>
-<Suburb>Canberra</Suburb>
+<Address>15 Garema Pl, Civic, 2600</Address>
+<Suburb>Civic</Suburb>
 <Postcode>2600</Postcode>
 <Longitude>149.132095336914062500000000000000</Longitude>
 <Latitude>-35.278388977050781250000000000000</Latitude>

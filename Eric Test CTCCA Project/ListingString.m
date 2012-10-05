@@ -25,9 +25,7 @@
 @synthesize SubType;
 
 // Listing View Variables
-@synthesize UnitNumber; //unitnumber
-@synthesize StreetName; //streetname
-@synthesize StreetType; //streettype
+@synthesize Address; //unitnumber
 @synthesize Suburb;    //suburb
 @synthesize Postcode;  //postcode
 @synthesize StateID;   //stateID

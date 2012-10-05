@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BlabberStoryViewController : UIViewController
-
+#import "News.h"
+@interface BlabberStoryViewController : UIViewController{
+    
+    IBOutlet UILabel *newsTitle;
+    IBOutlet UIView *loadView;
+    IBOutlet UILabel *newsPublisher;
+    IBOutlet UILabel *newsAuthor;
+    IBOutlet UILabel *newsDate;
+    IBOutlet UIImageView *newImage;
+    IBOutlet UITextView *newsBody;
+}
+@property (strong, nonatomic)News  *currentListing;
 @end

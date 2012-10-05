@@ -195,8 +195,7 @@
         
         // Address
         
-        currListing.address = [NSString stringWithFormat:@"%@ ,%@ %@ %@ %@",listingStringElement.UnitNumber,listingStringElement.StreetName, listingStringElement.StreetType, listingStringElement.Suburb,listingStringElement.Postcode];//,listingStringElement.StateID];
-        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
@@ -273,9 +272,6 @@
         NSLog(@"%@",listingStringElement.CostType);
         NSLog(@"%@",listingStringElement.RatingType);
         NSLog(@"%@",listingStringElement.SubType);
-        NSLog(@"%@",listingStringElement.UnitNumber); //unitnumber
-        NSLog(@"%@",listingStringElement.StreetName); //streetname
-        NSLog(@"%@",listingStringElement.StreetType); //streettype
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
@@ -521,6 +517,7 @@
     
     if ([view.annotation isKindOfClass:[Listing class]] )
     {
+        Listing *selected = [(Listing *)view.annotation init];
         //Title
         TitleLabel.text = view.annotation.title;
         

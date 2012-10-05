@@ -7,6 +7,7 @@
 //
 
 #import "BlabberTableViewController.h"
+#import "BlabberStoryViewController.h"
 #import "News.h"
 #import "EventFilterViewController.h"
 #import <EventKitUI/EventKitUI.h>
@@ -43,6 +44,7 @@
 
 - (void)viewDidLoad
 {
+    [super setTitle:@"Blabber"];
     [self setupArray];
     [super viewDidLoad];
 
@@ -153,6 +155,30 @@
     // Configure the cell...
     UILabel *cellHeading = (UILabel *)[cell viewWithTag:3];
     [cellHeading setText: currListing.NewsHeading];
+    
+    UILabel *cellDate = (UILabel *)[cell viewWithTag:2];
+    [cellDate setText: currListing.NewsDateTime];
+    UILabel *cellFilters = (UILabel *)[cell viewWithTag:4];
+    [cellFilters setText: [NSString stringWithFormat:@"%@ | %@", currListing.NewsAuthor, currListing.NewsPublisher]];
+    
+    UILabel *cellBody = (UILabel *)[cell viewWithTag:5];
+    [cellBody setText: currListing.NewsBody];
+    
+    UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
+    
+     
+        
+    //dispatch_queue_t concurrentQueue =
+    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    //dispatch_async(concurrentQueue, ^(void){
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:currListing.NewsMediaURL]];
+        
+        //dispatch_async(dispatch_get_main_queue(), ^{
+            cellImage.image = image;
+            
+        //});
+    //});
     return cell;
 }
 
@@ -212,14 +238,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
+    NSDictionary *dictionary = [newsListingTable objectAtIndex:indexPath.section];
+    NSArray *array = [dictionary objectForKey:@"News"];
+    News *selectedNews = [array objectAtIndex:indexPath.row];
+    
+    BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
+    listingView.currentListing = selectedNews;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");}
 
 
 

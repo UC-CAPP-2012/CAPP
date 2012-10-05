@@ -41,8 +41,10 @@
     [super setTitle:@"Loved"];
     NSMutableString *stringName = [GenerateFavoritesString createFavoriteString];
     NSLog(@"%@",stringName);
-    [self setupArray];
-    [super viewDidLoad];
+    
+    detailView.hidden = TRUE;
+    detailView.backgroundColor = [UIColor clearColor];
+    
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -52,7 +54,11 @@
     
     //Load the array
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-    
+    if([favData count]>0)
+    {
+        [self setupArray];
+    }
+    [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -170,7 +176,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 -(void) setupArray // Connection to DataSource
 {
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-    //[mapView removeAnnotations:mapView.annotations];
+    [mapView removeAnnotations:mapView.annotations];
     
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -237,8 +243,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         
         // Address
         
-        currListing.address = [NSString stringWithFormat:@"%@ ,%@ %@ %@ %@",listingStringElement.UnitNumber,listingStringElement.StreetName, listingStringElement.StreetType, listingStringElement.Suburb,listingStringElement.Postcode];//,listingStringElement.StateID];
-        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
@@ -315,9 +320,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         NSLog(@"%@",listingStringElement.CostType);
         NSLog(@"%@",listingStringElement.RatingType);
         NSLog(@"%@",listingStringElement.SubType);
-        NSLog(@"%@",listingStringElement.UnitNumber); //unitnumber
-        NSLog(@"%@",listingStringElement.StreetName); //streetname
-        NSLog(@"%@",listingStringElement.StreetType); //streettype
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
@@ -342,7 +344,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         // -----------------------------------------
         
         [listingsList addObject:currListing];
-        //[mapView addAnnotation:currListing];
+        [mapView addAnnotation:currListing];
         
             }
     
@@ -383,10 +385,11 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     
     //Map Settings
     
-    //[mapView setMapType:MKMapTypeStandard];
-    ////[mapView setZoomEnabled:YES];
-    //[mapView setScrollEnabled:YES];
-    //[mapView setDelegate:self];
+    
+    [mapView setMapType:MKMapTypeStandard];
+    [mapView setZoomEnabled:YES];
+    [mapView setScrollEnabled:YES];
+    [mapView setDelegate:self];
     
     //Center Map on users location;
     //CLLocationCoordinate2D zoomLocation;
@@ -395,9 +398,79 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
     region.span.latitudeDelta = 0.15f; // Zoom Settings
     region.span.longitudeDelta = 0.25f; // Zoom Settings
-   // [mapView setRegion:region animated:YES];
+    [mapView setRegion:region animated:YES];
     
 }
+
+// *** MAP METHODS ****
+
+-(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    
+    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
+    MyPin.pinColor = MKPinAnnotationColorRed;
+    
+    MyPin.draggable = NO;
+    MyPin.highlighted = YES;
+    MyPin.animatesDrop = TRUE;
+    MyPin.canShowCallout = NO;
+    
+    if (annotation == mapViewAroundMe.userLocation) {
+        return nil;
+    }
+    //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
+    //MyPin.annotation = annotation;
+    
+    return MyPin;
+}
+
+
+-(void)mapView:(MKMapView *)mapViewSelect didSelectAnnotationView:(MKPinAnnotationView *)view
+{
+    NSLog(@"didSelectAnnotationView");
+    detailView.hidden = FALSE;
+    view.pinColor = MKPinAnnotationColorGreen;
+    
+    if ([view.annotation isKindOfClass:[Listing class]] )
+    {
+        //Title
+        TitleLabel.text = view.annotation.title;
+        Listing *selected = [(Listing *)view.annotation init];
+        //Address
+        addressLabel.text = selected.address;
+        NSLog(@"%@",selected.address);
+        //Start Date
+        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        startDateLabel.text = startDateString;
+        
+        //Detail Image
+        NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        detailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        NSLog(@"%@",[((Listing *) view.annotation).imageFilenames objectAtIndex:0]);
+        
+        NSString *listingID = ((Listing *) view.annotation).listingID;
+        for (int i = 0; i < [listingsList count]; i++) {
+            Listing *currentListing = [listingsList objectAtIndex:i];
+            if ([currentListing.listingID isEqualToString:listingID]) {
+                ListingViewButton.tag = i;
+            }
+        }
+        [ListingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+}
+
+
+-(void)mapView:(MKMapView *)mapViewDeSelect didDeselectAnnotationView:(MKPinAnnotationView *)view
+{
+    NSLog(@"didDeselectAnnotationView");
+    detailView.hidden = TRUE;
+    view.pinColor = MKPinAnnotationColorRed;
+}
+// END MAP METHODS
+
 
 // --- XML Delegate Classes ----
 
@@ -464,5 +537,59 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+// Switch View Button
+
+- (IBAction)switchViews {
+    // Also I haven't primed the array, yet it still works - will need to ensure array order by bringing Subview to Front on initialisation.
+    
+    //Button to switch between Map and Table view
+    NSArray *viewArray = favView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
+    if ([viewArray objectAtIndex:1] == MapWindow) // change to table view
+    {
+        // Main Window Animation
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:favView cache:YES];
+        [favView bringSubviewToFront:TableWindow];
+        [UIView commitAnimations];
+        
+        // Navigation Bar Animation
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
+        [navView bringSubviewToFront:switchTableView];
+        [UIView commitAnimations];
+    }
+    else if ([viewArray objectAtIndex:1] == TableWindow) // change to mapview
+    {
+        // Main Window Animation
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:favView cache:YES];
+        [favView bringSubviewToFront:MapWindow];
+        [UIView commitAnimations];
+        
+        // Navigation Bar Animation
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
+        [navView bringSubviewToFront:switchMapView];
+        [UIView commitAnimations];
+        [self setupMap];
+        
+    }
+
+}
+
+-(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
+{
+    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    listingView.currentListing = selectedListing;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"%@",selectedListing.listingID);
 }
 @end

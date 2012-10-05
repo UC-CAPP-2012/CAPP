@@ -157,8 +157,7 @@
         
         // Address
         
-        currListing.address = [NSString stringWithFormat:@"%@ ,%@ %@ %@",listingStringElement.UnitNumber,listingStringElement.StreetName, listingStringElement.StreetType, listingStringElement.Suburb,listingStringElement.Postcode]; //,listingStringElement.StateID];
-        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
@@ -231,9 +230,6 @@
         NSLog(@"%@",listingStringElement.CostType);
         NSLog(@"%@",listingStringElement.RatingType);
         NSLog(@"%@",listingStringElement.SubType);
-        NSLog(@"%@",listingStringElement.UnitNumber); //unitnumber
-        NSLog(@"%@",listingStringElement.StreetName); //streetname
-        NSLog(@"%@",listingStringElement.StreetType); //streettype
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
@@ -313,9 +309,9 @@
         //Start Date
         NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
         [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        //NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-        //StartDateLabel.text = startDateString;
-        StartDateLabel.text = @"";
+        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        StartDateLabel.text = startDateString;
+       // StartDateLabel.text = @"";
             
         //Detail Image 
         NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -347,17 +343,14 @@
     view.pinColor = MKPinAnnotationColorRed;
 }
 
--(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View   
-{      
+-(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
+{
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    ((UIButton*)sender).enabled = FALSE;
     Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
-    listingView.listingID = selectedListing.listingID;
-    NSLog(@"%@",selectedListing.listingID);
-    listingView.listingTitle = selectedListing.title;
+    listingView.currentListing = selectedListing;
     [self.navigationController pushViewController:listingView animated:YES];
-
+    NSLog(@"%@",selectedListing.listingID);
 }
 
 -(void)addFavourite:(id)sender  // Control for Map View Button to Listing Detail View   

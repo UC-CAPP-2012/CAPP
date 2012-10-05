@@ -21,6 +21,7 @@
     NewsString *newsList;
     NSMutableString *currentElementValue;
     IBOutlet UIView *loadView;
+    
 }
 
 @property(nonatomic, strong) NSMutableArray *newsListingTable,*newsListingsList,*newsListString;

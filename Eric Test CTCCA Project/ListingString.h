@@ -26,9 +26,7 @@
     NSString *SubType; //subtype
     
     // Listing View Variables
-    NSString *UnitNumber; //unitnumber
-    NSString *StreetName; //streetname
-    NSString *StreetType; //streettype
+    NSString *Address;
     NSString *Suburb;    //suburb
     NSString *Postcode;  //postcode
     NSString *StateID;   //stateID
@@ -74,9 +72,7 @@
 
 // Listing View Variables
 
-@property (nonatomic, copy) NSString *UnitNumber; //unitnumber
-@property (nonatomic, copy) NSString *StreetName; //streetname
-@property (nonatomic, copy) NSString *StreetType; //streettype
+@property (nonatomic, copy) NSString *Address;
 @property (nonatomic, copy) NSString *Suburb;    //suburb
 @property (nonatomic, copy) NSString *Postcode;  //postcode
 @property (nonatomic, copy) NSString *StateID;   //stateID

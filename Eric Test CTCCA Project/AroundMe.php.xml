@@ -4,11 +4,9 @@
 <ListingID>1</ListingID>
 <ListingName>Canberra City YHA</ListingName>
 <Subtitle>Canberra City Subtitle</Subtitle>
-<StreetName>Akuna </StreetName>
-<StreetType>Street</StreetType>
-<Suburb>Canberra</Suburb>
+<Address>16 Akuna Street, Civic, 2601</Address>
+<Suburb>Civic</Suburb>
 <Postcode>2601</Postcode>
-<UnitNumber>16</UnitNumber>
 <Longitude>149.128677368164062500000000000000</Longitude>
 <Latitude>-35.282001495361328125000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
@@ -26,10 +24,8 @@
 <ListingID>7</ListingID>
 <ListingName>Canberra Multicultural Festival</ListingName>
 <Subtitle>Canberra Multicultural Festival Subtitle</Subtitle>
-<UnitNumber>15</UnitNumber>
-<StreetName>Garema</StreetName>
-<StreetType>Pl</StreetType>
-<Suburb>Canberra</Suburb>
+<Address>15 Garema Pl, Civic, 2600</Address>
+<Suburb>Civic</Suburb>
 <Postcode>2600</Postcode>
 <Longitude>149.132095336914062500000000000000</Longitude>
 <Latitude>-35.278388977050781250000000000000</Latitude>
@@ -48,9 +44,7 @@
 <ListingID>2</ListingID>
 <ListingName>Bush Capital Lodge</ListingName>
 <Subtitle>Bush Capital Lodge Subtitle</Subtitle>
-<UnitNumber>15</UnitNumber>
-<StreetName>Dryandra</StreetName>
-<StreetType>St</StreetType>
+<Address>15 Dryandra St, OConnor, 2602</Address>
 <Suburb>OConnor</Suburb>
 <Postcode>2602</Postcode>
 <Longitude>149.112518310546875000000000000000</Longitude>
@@ -70,9 +64,7 @@
 <ListingID>4</ListingID>
 <ListingName>Big Splash Waterpark</ListingName>
 <Subtitle>Big Splash Waterpark Subtitle</Subtitle>
-<UnitNumber>15</UnitNumber>
-<StreetName>Catchpole </StreetName>
-<StreetType>street</StreetType>
+<Address>15 Catchpole street, Macquarie, 2614</Address>
 <Suburb>Macquarie</Suburb>
 <Postcode>2614</Postcode>
 <Longitude>149.068939208984375000000000000000</Longitude>
@@ -92,9 +84,7 @@
 <ListingID>6</ListingID>
 <ListingName>Street Machine Summernats Car Festival</ListingName>
 <Subtitle>Street Machine Summernats Subtitle</Subtitle>
-<UnitNumber>15</UnitNumber>
-<StreetName>Flemington</StreetName>
-<StreetType>Road</StreetType>
+<Address>15 Flemington Road, Mitchell, 2605</Address>
 <Suburb>Mitchell</Suburb>
 <Postcode>2605</Postcode>
 <Longitude>149.145263671875000000000000000000</Longitude>
