@@ -17,7 +17,11 @@
     IBOutlet UIView *mapWindow;
     IBOutlet MKMapView *mapView;
     IBOutlet UITableView *tableView;
-    
+    IBOutlet UIView* sideSwipeView;
+    UITableViewCell* sideSwipeCell;
+    UISwipeGestureRecognizerDirection sideSwipeDirection;
+    BOOL animatingSideSwipe;
+
     IBOutlet UIView *loadView;
     
     IBOutlet UIView *DetailView;
@@ -41,7 +45,13 @@
     float y2;
     
 }
+@property (nonatomic, retain) IBOutlet UIView* sideSwipeView;
+@property (nonatomic, retain) UITableViewCell* sideSwipeCell;
+@property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
+@property (nonatomic) BOOL animatingSideSwipe;
 
+- (void) removeSideSwipeView:(BOOL)animated;
+- (BOOL) gestureRecognizersSupported;
 @property(nonatomic, strong)NSMutableArray *listingTable, *listingsList, *listingsListString;
 @property(strong, nonatomic)NSArray *listingsTableDataSource;
 -(void)setupArray;

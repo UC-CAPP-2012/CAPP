@@ -755,38 +755,7 @@
     lblTemp.font = [UIFont systemFontOfSize:14];
     [cell.contentView addSubview:lblTemp];
     
-    //btnTemp =[[UIButton alloc] initWithFrame:Button1Frame];
-    //[btnTemp setImage:imageheart forState:UIControlStateNormal];
-    
-    //[cell.contentView addSubview:btnTemp];
-    
-    //Accessory View
-    //CGRect Button2Frame = CGRectMake(0, 0, 20, 20);    
-    //UIButton *btnTemp2;
-    
-    //btnTemp2 =[[UIButton alloc] initWithFrame:Button2Frame];
-    //[btnTemp2 setImage:imagetrail forState:UIControlStateNormal];
-    //[cell setAccessoryView:btnTemp2];
-    
-    
-//    NSString *listingID = currListing.listingID;
-//    for (int i = 0; i < [listingsList count]; i++) {
-//        Listing *currentListing = [listingsList objectAtIndex:i];
-//        if ([currentListing.listingID isEqualToString:listingID]) {
-//            btnTemp.tag =i;
-//            btnTemp2.tag = i;
-//        }
-//    }
-//    
-//    NSString *cutString = [currListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    if ([SearchArray searchArray:cutString]) {
-//        [btnTemp setEnabled:FALSE];
-//    }
-    
-    //[btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
-    //[btnTemp2 addTarget:self action:@selector(addToTrail:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // cell.supressDeleteButton = YES;
+
     return cell;    
 }
 
