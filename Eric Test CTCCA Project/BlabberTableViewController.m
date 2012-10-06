@@ -37,8 +37,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    
     [tableView reloadData];
-    loadView.hidden=TRUE;
     
 }
 
@@ -145,7 +145,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"NewsCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
@@ -298,7 +298,7 @@
 }
 
 -(void) threadStartAnimating:(id)data{
-    loadView.hidden = false;
+    //loadView.hidden = false;
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action

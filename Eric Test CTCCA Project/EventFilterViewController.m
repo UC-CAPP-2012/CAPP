@@ -43,6 +43,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [self segmentButton:self];
     [tableView reloadData];
 
     loadView.hidden = YES;
@@ -50,7 +51,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self segmentButton:self];
+    
 }
 
 - (void)viewDidLoad

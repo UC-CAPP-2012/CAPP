@@ -20,7 +20,6 @@
     IBOutlet UITableView *tableView;
     NewsString *newsList;
     NSMutableString *currentElementValue;
-    IBOutlet UIView *loadView;
     
 }
 

@@ -441,18 +441,18 @@
     NSLog(@"%@",selectedListing.listingID);
 }
 
--(void)addFavourite:(id)sender  // Control for Map View Button to Listing Detail View   
-{      
+-(void)addFavourite:(id)sender  // Control for Map View Button to Listing Detail View
+{
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     ((UIButton*)sender).enabled = FALSE;
     Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
     
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
+    [self removeSideSwipeView:YES];
     
     NSLog(@"%@",cutString);
     NSLog(@"Button Favourite");
-    
 }
 
 -(void)addToTrail:(id)sender  // Control for Map View Button to Listing Detail View   
@@ -611,7 +611,7 @@
     UIImage* imagetrail = [UIImage imageNamed:@"ToursAdd.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
     NSDictionary *dictionary = [listingTable objectAtIndex: indexPath.section];
-    NSMutableArray *array = [dictionary objectForKey:@"Explore"];
+    NSMutableArray *array = [dictionary objectForKey:@"AroundMe"];
     Listing *currListing = [array objectAtIndex:indexPath.row];
     NSString *listingID = currListing.listingID;
     

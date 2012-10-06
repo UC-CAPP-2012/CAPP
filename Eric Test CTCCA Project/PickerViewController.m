@@ -16,14 +16,22 @@
 
 @implementation PickerViewController
 @synthesize listingsList, listingsListString;
-
+@synthesize categoryLocked,suburbLocked,costLocked;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        categoryLocked=FALSE;
+        suburbLocked=FALSE;
+        costLocked=FALSE;
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    resultButtonView.hidden=TRUE;
+    
 }
 
 - (void)viewDidLoad
@@ -31,13 +39,13 @@
     [super viewDidLoad];
     
     SubType = [[NSMutableArray alloc] init];
-    [SubType addObject:@"Sub1"];
-    [SubType addObject:@"Sub2"];
-    [SubType addObject:@"Sub3"];
-    [SubType addObject:@"Sub4"];
-    [SubType addObject:@"Sub5"];
-    [SubType addObject:@"Sub6"];
-    [SubType addObject:@"Sub7"];
+    [SubType addObject:@"Entertainment"];
+    [SubType addObject:@"Accomodation"];
+    [SubType addObject:@"Sport"];
+    [SubType addObject:@"Outdoor & Nature"];
+    [SubType addObject:@"Family Fun"];
+    [SubType addObject:@"Food & Wine"];
+    [SubType addObject:@"Museums & Galleries"];
     
     Area =[[NSMutableArray alloc] init];
     [Area addObject:@"Area1"];
@@ -49,13 +57,12 @@
     [Area addObject:@"Area7"];
     
     Cost = [[NSMutableArray alloc] init];
-    [Cost addObject:@"Cost1"];
-    [Cost addObject:@"Cost2"];
-    [Cost addObject:@"Cost3"];
-    [Cost addObject:@"Cost4"];
-    [Cost addObject:@"Cost5"];
-    [Cost addObject:@"Cost6"];
-    [Cost addObject:@"Cost7"];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
     
     
     
@@ -90,19 +97,54 @@
     return 0;
 }
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NSLog(@"%@", [SubType objectAtIndex:[pickerView selectedRowInComponent:0]]);
-    NSLog(@"%@", [Area objectAtIndex:[pickerView selectedRowInComponent:0]]);
-    NSLog(@"%@", [Cost objectAtIndex:[pickerView selectedRowInComponent:0]]);
+    selectedCategory= [SubType objectAtIndex:[pickerView selectedRowInComponent:subtype]];
+    selectedSuburb = [Area objectAtIndex:[pickerView selectedRowInComponent:area]];
+    selectedCost = [Cost objectAtIndex:[pickerView selectedRowInComponent:cost]];
+    NSLog(@"%@",selectedCategory);
+    NSLog(@"%@",selectedSuburb);
+    NSLog(@"%@",selectedCost);
 }
 
 
+
+-(void)spin
+{
+    if(!categoryLocked){
+        int random = (arc4random() % [SubType count]);
+        selectedCategory = [SubType objectAtIndex:random];
+        [spinWheel selectRow:random inComponent:subtype animated:YES];
+        //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
+    }
+    
+    if(!suburbLocked){
+        int random2 = (arc4random() % [Area count]);
+        selectedSuburb = [Area objectAtIndex:random2];
+        [spinWheel selectRow:random2 inComponent:area animated:YES];
+        //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
+
+    }
+    
+    if(!costLocked){
+        int random3 = (arc4random() % [Cost count]);
+        selectedCost = [Cost objectAtIndex:random3];
+        [spinWheel selectRow:random3 inComponent:cost animated:YES];
+        //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
+        
+    }
+    //stop and hide animating image
+}
+
 -(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
-{      
+{
+    [self spin];
+    
     [listingsListString removeAllObjects];
     [listingsList removeAllObjects];
 
     //The strings to send to the webserver.
-    
+    NSLog(@"%@",selectedCategory);
+    NSLog(@"%@",selectedSuburb);
+    NSLog(@"%@",selectedCost);
     
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -119,7 +161,7 @@
     BOOL worked = [xmlParser parse];
     
     if(worked) {
-        NSLog(@"Amount %i", [listingsListString count]);
+        //NSLog(@"Amount %i", [listingsListString count]);
     }
     else 
     {
@@ -135,13 +177,114 @@
         
         // ListingID , Title , SubTitle220
         
-        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];       
+        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
         currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        // Placemarker
+        
+        CLLocationCoordinate2D tempPlacemarker;
+        
+        NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double latDouble =[tempLat doubleValue];
+        tempPlacemarker.latitude = latDouble;
+        
+        NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double lonDouble =[tempLong doubleValue];
+        tempPlacemarker.longitude = lonDouble;
+        
+        currListing.coordinate = tempPlacemarker;
+        
+        //Sort and Filter Types
+        
+        currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        // Address
+        
+        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        
+        // Listing View details
+        
+        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
+        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currListing.videoURL = [NSURL URLWithString:videoUrlString];
+        currListing.websiteURL = [NSURL URLWithString:webUrlString];
+        
+        // Start Date
+        
+        listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        int startDay =[listingStringElement.StartDay intValue];
+        int startMonth =[listingStringElement.StartMonth intValue];
+        int startYear =[listingStringElement.StartYear intValue];
+        int startMinute =[listingStringElement.StartMinute intValue];
+        int startHour =[listingStringElement.StartHour intValue];
+        
+        NSDateComponents *startcomps = [[NSDateComponents alloc] init];
+        [startcomps setDay:startDay];
+        [startcomps setMonth:startMonth];
+        [startcomps setYear:startYear];
+        [startcomps setHour:startHour];
+        [startcomps setMinute:startMinute];
+        NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
+        currListing.startDate = startDate;
+        
+        // End Date
+        
+        listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        int endDay =[listingStringElement.EndDay intValue];
+        int endMonth =[listingStringElement.EndMonth intValue];
+        int endYear =[listingStringElement.EndYear intValue];
+        int endMinute =[listingStringElement.EndMinute intValue];
+        int endHour =[listingStringElement.EndHour intValue];
+        
+        NSDateComponents *endcomps = [[NSDateComponents alloc] init];
+        [endcomps setDay:endDay];
+        [endcomps setMonth:endMonth];
+        [endcomps setYear:endYear];
+        [endcomps setHour:endHour];
+        [endcomps setMinute:endMinute];
+        NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
+        currListing.endDate = endDate;
+        
     
         [listingsList addObject:currListing];
         }
-    
-    NSLog(@"%i", [listingsList count]);
+    //NSLog(@"%i", [listingsList count]);
+    result = [listingsList objectAtIndex:(arc4random() % [listingsList count])];
+    resultButtonView.hidden=FALSE;
+    [resultButton setTitle:result.title forState:UIControlStateNormal];
+    NSLog(@"%@", result.title);
+}
+
+- (IBAction)goToListing:(id)sender {
+    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
+    listingView.currentListing = result;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"%@",result.title);
+
 }
 
 
@@ -209,4 +352,39 @@
 
 
 
+- (IBAction)lockUnlockCategory:(id)sender {
+    NSString *imageName;
+    if(categoryLocked){
+        imageName = @"unlock.png";
+    }else{
+        imageName = @"lock.png";
+    }
+    UIImage* image = [UIImage imageNamed:imageName];
+    lockCategory.image = image;
+    categoryLocked = !categoryLocked;
+}
+
+- (IBAction)lockUnlockSuburb:(id)sender {
+    NSString *imageName;
+    if(suburbLocked){
+        imageName = @"unlock.png";
+    }else{
+        imageName = @"lock.png";
+    }
+    UIImage* image = [UIImage imageNamed:imageName];
+    lockSuburb.image = image;
+    suburbLocked=!suburbLocked;
+}
+
+- (IBAction)lockUnlockCost:(id)sender {
+    NSString *imageName;
+    if(costLocked){
+        imageName = @"unlock.png";
+    }else{
+        imageName = @"lock.png";
+    }
+    UIImage* image = [UIImage imageNamed:imageName];
+    lockCost.image = image;
+    costLocked=!costLocked;
+}
 @end

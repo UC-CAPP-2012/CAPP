@@ -27,14 +27,14 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    
+    [self setupArray]; //Listings
     loadView.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     pageControlBeingUsed = NO;
-    [self setupArray]; //Listings
+    
     self.title = @"Explore";
     //ARRAY FROM DB
     

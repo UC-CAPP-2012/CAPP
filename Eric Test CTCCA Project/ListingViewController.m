@@ -43,12 +43,12 @@
     if ([SearchArray searchArray:cutString]) {
         favButton.image = [UIImage imageNamed:@"73-radar"];
     }
-       
+    [self segmentButton:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self segmentButton:self];
+    
     
     
 }
