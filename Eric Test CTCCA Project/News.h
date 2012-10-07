@@ -17,6 +17,7 @@
     NSURL *NewsMediaURL;
     NSString *NewsPublisher;
     NSString *NewsAuthor;
+    UIImage *NewsIcon;
 }
 
 @property (nonatomic, copy) NSString *NewsID;
@@ -26,5 +27,6 @@
 @property (nonatomic, copy) NSURL *NewsMediaURL;
 @property (nonatomic, copy) NSString *NewsPublisher;
 @property (nonatomic, copy) NSString *NewsAuthor;
+@property (nonatomic, copy) UIImage *NewsIcon;
 
 @end

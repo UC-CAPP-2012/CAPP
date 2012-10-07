@@ -17,5 +17,5 @@
 @synthesize NewsMediaURL;
 @synthesize NewsPublisher;
 @synthesize NewsAuthor;
-
+@synthesize NewsIcon;
 @end

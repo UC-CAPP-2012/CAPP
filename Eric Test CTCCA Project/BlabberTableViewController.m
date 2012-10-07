@@ -18,13 +18,14 @@
 #import "SaveToFavorites.h"
 #import "SideSwipeTableViewCell.h"
 @interface BlabberTableViewController ()
-
+- (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation BlabberTableViewController
 
 @synthesize newsListString, newsListingsList, newsListingTable;
 @synthesize currentNews;
+@synthesize imageDownloadsInProgress;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -47,7 +48,7 @@
     [super setTitle:@"Blabber"];
     [self setupArray];
     [super viewDidLoad];
-
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -60,6 +61,9 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
 }
 
 -(void) setupArray // Connection to DataSource
@@ -172,16 +176,77 @@
     //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     //dispatch_async(concurrentQueue, ^(void){
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:currListing.NewsMediaURL]];
-        
+    if (!currListing.NewsIcon)
+    {
+        if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
+        {
+            [self startIconDownload:currListing forIndexPath:indexPath];
+        }
+        // if a download is deferred or in progress, return a placeholder image
+        cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
+    }
+    else
+    {
+        cellImage.image = currListing.NewsIcon;
+    }
+    
         //dispatch_async(dispatch_get_main_queue(), ^{
-            cellImage.image = image;
+            //cellImage.image = image;
             
         //});
     //});
     return cell;
 }
 
+- (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.news = news;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload];
+    }
+}
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+    if ([newsListingsList count] > 0)
+    {
+        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            News *news = [self.newsListingsList objectAtIndex:indexPath.row];
+            
+            if (!news.NewsIcon) // avoid the app icon download if the app already has an icon
+            {
+                [self startIconDownload:news forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        
+        // Display the newly loaded image
+        UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
+        cellImage.image = iconDownloader.news.NewsIcon;
+    }
+    
+    // Remove the IconDownloader from the in progress list.
+    // This will result in it being deallocated.
+    [imageDownloadsInProgress removeObjectForKey:indexPath];
+}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -195,6 +260,19 @@
     return [array count];
 }
 
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
