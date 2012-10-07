@@ -25,7 +25,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
      [self setupArray];
-    loadView.hidden=TRUE;
+    
 }
 
 - (void)viewDidLoad
@@ -62,8 +62,19 @@
     newsDate.text = currentListing.NewsDateTime;
     newsBody.text = currentListing.NewsBody;
     
+    
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(concurrentQueue, ^(void){
+
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentListing.NewsMediaURL]];
-    newImage.image = image;
+        dispatch_async(dispatch_get_main_queue(), ^{
+        newImage.image = image;
+            loadView.hidden=TRUE;
+        });
+    });
+    
 }
 
 @end
