@@ -106,7 +106,7 @@
         currNews.NewsID = [newsStringElement.NewsID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsHeading = [newsStringElement.NewsHeading stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsAuthor = [newsStringElement.NewsAuthor stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currNews.NewsBody = [newsStringElement.NewsBody stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currNews.NewsBody = newsStringElement.NewsBody;
         currNews.NewsPublisher = [newsStringElement.NewsPublisher stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 
         

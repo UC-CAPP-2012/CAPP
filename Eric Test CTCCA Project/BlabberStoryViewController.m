@@ -61,8 +61,14 @@
     newsAuthor.text = currentListing.NewsAuthor;
     newsDate.text = currentListing.NewsDateTime;
     newsBody.text = currentListing.NewsBody;
+    NSLog(@"%@",newsBody.text);
+    [scrollView setScrollEnabled:TRUE];
+    [scrollView setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+150)];
+    CGRect newFrame= newsBody.frame;
+    newFrame.size.height = [newsBody contentSize].height+newImage.frame.size.height+500;
+    newsBody.frame = newFrame;
     
-    
+    //[newsBody setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+500)];
     dispatch_queue_t concurrentQueue =
     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -77,4 +83,11 @@
     
 }
 
+- (IBAction)imageClicked:(id)sender {
+    BlabberImageViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberImageViewController"]; // News Detail image Page
+    listingView.selectedImage = currentListing.NewsMediaURL;
+    listingView.title = currentListing.NewsHeading;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");
+}
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "News.h"
+#import "BlabberImageViewController.h"
 @interface BlabberStoryViewController : UIViewController{
     
     IBOutlet UILabel *newsTitle;
@@ -17,6 +18,8 @@
     IBOutlet UILabel *newsDate;
     IBOutlet UIImageView *newImage;
     IBOutlet UITextView *newsBody;
+    IBOutlet UIScrollView *scrollView;
 }
+- (IBAction)imageClicked:(id)sender;
 @property (strong, nonatomic)News  *currentListing;
 @end
