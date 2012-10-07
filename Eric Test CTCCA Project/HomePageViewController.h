@@ -11,7 +11,7 @@
 #import "ExploreScrollViewPagingController.h"
 #import "EventFilterViewController.h"
 #import "TourMapListViewController.h"
-#import "BlabberTableViewController.h"
+#import "BlabberViewController.h"
 #import "FavoritesViewController.h"
 #import "PickerViewController.h"
 

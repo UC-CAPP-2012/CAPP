@@ -1,12 +1,12 @@
 //
-//  BlabberTableViewController.m
+//  BlabberViewController.m
 //  Eric Test CTCCA Project
 //
-//  Created by Hassna Alqarni on 4/10/12.
+//  Created by CTCCA on 8/10/12.
 //
 //
 
-#import "BlabberTableViewController.h"
+#import "BlabberViewController.h"
 #import "BlabberStoryViewController.h"
 #import "News.h"
 #import "EventFilterViewController.h"
@@ -17,20 +17,20 @@
 #import "SearchArray.h"
 #import "SaveToFavorites.h"
 #import "SideSwipeTableViewCell.h"
-@interface BlabberTableViewController ()
+
+@interface BlabberViewController ()
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation BlabberTableViewController
-
+@implementation BlabberViewController
 @synthesize newsListString, newsListingsList, newsListingTable;
 @synthesize currentNews;
 @synthesize imageDownloadsInProgress;
 
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -38,24 +38,23 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    
+    [self setupArray];
     [tableView reloadData];
     
+    loadView.hidden=TRUE;
+    
 }
+
 
 - (void)viewDidLoad
 {
     [super setTitle:@"Blabber"];
-    [self setupArray];
+    
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
 
+	// Do any additional setup after loading the view.
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -64,12 +63,13 @@
     
     NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
+
 }
 
 -(void) setupArray // Connection to DataSource
 {
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-        
+    
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
@@ -108,7 +108,7 @@
         currNews.NewsAuthor = [newsStringElement.NewsAuthor stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsBody = newsStringElement.NewsBody;
         currNews.NewsPublisher = [newsStringElement.NewsPublisher stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-
+        
         
         // Listing View details
         NSString *urlTemp = [newsStringElement.NewsMediaURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -133,13 +133,13 @@
     }
     
     NSMutableArray *section = [[NSMutableArray alloc] init];
-        for (News *listingListListing in newsListingsList)
-        {
-            [section addObject:listingListListing];
-        }
-
-        NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"News"];
-        [newsListingTable addObject:sectionDict];
+    for (News *listingListListing in newsListingsList)
+    {
+        [section addObject:listingListListing];
+    }
+    
+    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"News"];
+    [newsListingTable addObject:sectionDict];
 }
 
 
@@ -149,10 +149,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"NewsCell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self->tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
+    
     NSDictionary *dictionary = [newsListingTable objectAtIndex:indexPath.section];
     NSArray *array = [dictionary objectForKey:@"News"];
     News *currListing = [array objectAtIndex:indexPath.row];
@@ -170,15 +170,15 @@
     
     UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
     
-     
-        
+    
+    
     //dispatch_queue_t concurrentQueue =
     //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     //dispatch_async(concurrentQueue, ^(void){
     if (!currListing.NewsIcon)
     {
-        if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
+        if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
         {
             [self startIconDownload:currListing forIndexPath:indexPath];
         }
@@ -190,10 +190,10 @@
         cellImage.image = currListing.NewsIcon;
     }
     
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            //cellImage.image = image;
-            
-        //});
+    //dispatch_async(dispatch_get_main_queue(), ^{
+    //cellImage.image = image;
+    
+    //});
     //});
     return cell;
 }
@@ -217,7 +217,7 @@
 {
     if ([newsListingsList count] > 0)
     {
-        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        NSArray *visiblePaths = [tableView indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
             News *news = [self.newsListingsList objectAtIndex:indexPath.row];
@@ -236,7 +236,7 @@
     IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader != nil)
     {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         
         // Display the newly loaded image
         UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
@@ -273,44 +273,6 @@
 {
     [self loadImagesForOnscreenRows];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

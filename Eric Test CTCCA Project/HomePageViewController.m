@@ -53,7 +53,7 @@
 }
 -(void)blabber:(id)sender  // Control for Map View Button to Listing Detail View   
 {      
-    BlabberTableViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberTableViewController"]; // Listing Detail Page
+    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
     [self.navigationController pushViewController:blabberView animated:YES];
     //NSLog(@"Button");
     

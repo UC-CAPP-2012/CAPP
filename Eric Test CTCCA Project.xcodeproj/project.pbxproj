@@ -104,12 +104,12 @@
 		69BA0243153AB123009B11BD /* 78-stopwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 69BA0242153AB123009B11BD /* 78-stopwatch.png */; };
 		69BA0249153BF19F009B11BD /* ExploreFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BA0248153BF19F009B11BD /* ExploreFilterViewController.m */; };
 		69C877AE1621D13600A96963 /* BlabberImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877AD1621D13600A96963 /* BlabberImageViewController.m */; };
+		69C877B21621E55F00A96963 /* BlabberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877B11621E55F00A96963 /* BlabberViewController.m */; };
 		69FA8EB6153A7B350036D267 /* Arrow-Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB5153A7B350036D267 /* Arrow-Right.png */; };
 		69FA8EB8153A7B3A0036D267 /* Arrow-Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB7153A7B390036D267 /* Arrow-Left.png */; };
 		69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FAAD061536FC23006441FE /* QuartzCore.framework */; };
 		69FAAD1A153705F8006441FE /* ExploreScrollViewPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FAAD17153705F8006441FE /* ExploreScrollViewPagingController.m */; };
 		9CA13A91161D31FE001A7DB1 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13A90161D31FE001A7DB1 /* News.m */; };
-		9CA13AA0161D49C8001A7DB1 /* BlabberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13A9F161D49C8001A7DB1 /* BlabberTableViewController.m */; };
 		9CA13AA3161D4FC5001A7DB1 /* NewsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA13AA2161D4FC5001A7DB1 /* NewsString.m */; };
 /* End PBXBuildFile section */
 
@@ -247,6 +247,8 @@
 		69BA0248153BF19F009B11BD /* ExploreFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreFilterViewController.m; sourceTree = "<group>"; };
 		69C877AC1621D13600A96963 /* BlabberImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberImageViewController.h; sourceTree = "<group>"; };
 		69C877AD1621D13600A96963 /* BlabberImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberImageViewController.m; sourceTree = "<group>"; };
+		69C877B01621E55F00A96963 /* BlabberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberViewController.h; sourceTree = "<group>"; };
+		69C877B11621E55F00A96963 /* BlabberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberViewController.m; sourceTree = "<group>"; };
 		69FA8EB5153A7B350036D267 /* Arrow-Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Right.png"; sourceTree = "<group>"; };
 		69FA8EB7153A7B390036D267 /* Arrow-Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Left.png"; sourceTree = "<group>"; };
 		69FAAD061536FC23006441FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -254,8 +256,6 @@
 		69FAAD17153705F8006441FE /* ExploreScrollViewPagingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreScrollViewPagingController.m; sourceTree = "<group>"; };
 		9CA13A8F161D31FE001A7DB1 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		9CA13A90161D31FE001A7DB1 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
-		9CA13A9E161D49C8001A7DB1 /* BlabberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberTableViewController.h; sourceTree = "<group>"; };
-		9CA13A9F161D49C8001A7DB1 /* BlabberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberTableViewController.m; sourceTree = "<group>"; };
 		9CA13AA1161D4FC5001A7DB1 /* NewsString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsString.h; sourceTree = "<group>"; };
 		9CA13AA2161D4FC5001A7DB1 /* NewsString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -441,10 +441,10 @@
 				692C16D5161D7C36006063AD /* news.xml */,
 				699B93161548202C005A9C5B /* BlabberStoryViewController.h */,
 				699B93171548202C005A9C5B /* BlabberStoryViewController.m */,
-				9CA13A9E161D49C8001A7DB1 /* BlabberTableViewController.h */,
-				9CA13A9F161D49C8001A7DB1 /* BlabberTableViewController.m */,
 				69C877AC1621D13600A96963 /* BlabberImageViewController.h */,
 				69C877AD1621D13600A96963 /* BlabberImageViewController.m */,
+				69C877B01621E55F00A96963 /* BlabberViewController.h */,
+				69C877B11621E55F00A96963 /* BlabberViewController.m */,
 			);
 			name = Blabber;
 			sourceTree = "<group>";
@@ -826,10 +826,10 @@
 				6940CD8E15502E59004A6D70 /* AreaClassString.m in Sources */,
 				69A6B05E1552D7C8005B2A85 /* PickerViewController.m in Sources */,
 				9CA13A91161D31FE001A7DB1 /* News.m in Sources */,
-				9CA13AA0161D49C8001A7DB1 /* BlabberTableViewController.m in Sources */,
 				9CA13AA3161D4FC5001A7DB1 /* NewsString.m in Sources */,
 				692C170F162148D2006063AD /* IconDownloader.m in Sources */,
 				69C877AE1621D13600A96963 /* BlabberImageViewController.m in Sources */,
+				69C877B21621E55F00A96963 /* BlabberViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

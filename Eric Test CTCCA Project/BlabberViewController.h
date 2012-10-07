@@ -1,8 +1,8 @@
 //
-//  BlabberTableViewController.h
+//  BlabberViewController.h
 //  Eric Test CTCCA Project
 //
-//  Created by Hassna Alqarni on 4/10/12.
+//  Created by CTCCA on 8/10/12.
 //
 //
 
@@ -16,8 +16,9 @@
 #import "ListingString.h"
 #import "IconDownloader.h"
 
-@interface BlabberTableViewController : UITableViewController<NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate>{
-
+@interface BlabberViewController : UIViewController<NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate>{
+    
+    IBOutlet UIView *loadView;
     IBOutlet UITableView *tableView;
     NewsString *newsList;
     NSMutableString *currentElementValue;

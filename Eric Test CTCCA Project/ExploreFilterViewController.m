@@ -48,7 +48,8 @@
     return self;
 }
 -(void)viewDidAppear:(BOOL)animated
-{   [self segmentButton:self];  
+{
+    [self segmentButton:self];
     loadView.hidden = YES;
 }
 
