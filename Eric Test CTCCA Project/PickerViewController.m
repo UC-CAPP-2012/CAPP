@@ -31,7 +31,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     resultButtonView.hidden=TRUE;
+    loadView.hidden=TRUE;
     
+
 }
 
 - (void)viewDidLoad
@@ -85,17 +87,6 @@
     return 0;
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-    if (component == subtype)
-        return [SubType objectAtIndex:row];
-    if (component == area)
-        return [Area objectAtIndex:row];
-    if (component == cost)
-        return [Cost objectAtIndex:row];
-        
-    return 0;
-}
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     selectedCategory= [SubType objectAtIndex:[pickerView selectedRowInComponent:subtype]];
     selectedSuburb = [Area objectAtIndex:[pickerView selectedRowInComponent:area]];
@@ -105,6 +96,62 @@
     NSLog(@"%@",selectedCost);
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    switch(component) {
+            case subtype: return 110;
+            case area: return 110;
+            case cost: return 70;
+        default: return 22;
+    }
+    
+    //NOT REACHED
+    return 22;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    switch(component) {
+        case subtype: {
+            UILabel *retval = (id)view;
+            if (!retval) {
+                retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
+            }
+            retval.backgroundColor = [UIColor clearColor];
+            retval.text = [SubType objectAtIndex:row];
+            retval.adjustsFontSizeToFitWidth = YES;
+            [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+
+            return retval;
+        }
+        case area: {
+            UILabel *retval = (id)view;
+            if (!retval) {
+                retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
+            }
+            retval.backgroundColor = [UIColor clearColor];
+            retval.text = [Area objectAtIndex:row];
+            retval.adjustsFontSizeToFitWidth = YES;
+            [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+            return retval;
+        }
+
+        case cost: {
+            UILabel *retval = (id)view;
+            if (!retval) {
+                retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
+            }
+            retval.backgroundColor = [UIColor clearColor];
+            retval.text = [Cost objectAtIndex:row];
+            retval.adjustsFontSizeToFitWidth = YES;
+            [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
+            
+            return retval;
+        }
+        default:{
+            return (id)view;
+        }
+    }
+    
+}
 
 
 -(void)spin
@@ -128,7 +175,7 @@
         int random3 = (arc4random() % [Cost count]);
         selectedCost = [Cost objectAtIndex:random3];
         [spinWheel selectRow:random3 inComponent:cost animated:YES];
-        //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
+        
         
     }
     //stop and hide animating image
@@ -136,8 +183,10 @@
 
 -(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
 {
+    resultButtonView.hidden=TRUE;
+    loadView.hidden=false;
+    //[self performSelector:@selector(spin) withObject:nil afterDelay:2.0f];
     [self spin];
-    
     [listingsListString removeAllObjects];
     [listingsList removeAllObjects];
 
@@ -272,8 +321,8 @@
     
         [listingsList addObject:currListing];
         }
-    //NSLog(@"%i", [listingsList count]);
     result = [listingsList objectAtIndex:(arc4random() % [listingsList count])];
+    loadView.hidden=TRUE;
     resultButtonView.hidden=FALSE;
     [resultButton setTitle:result.title forState:UIControlStateNormal];
     NSLog(@"%@", result.title);

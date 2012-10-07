@@ -24,6 +24,7 @@
 		692C16E4161FE622006063AD /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C16E2161FE622006063AD /* lock.png */; };
 		692C16E5161FE622006063AD /* unlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C16E3161FE622006063AD /* unlock.png */; };
 		692C16EC1620091C006063AD /* arrow_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C16EB1620091C006063AD /* arrow_icon.png */; };
+		692C17011621248B006063AD /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C17001621248B006063AD /* button.png */; };
 		6940CD53154E585E004A6D70 /* SaveToFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD52154E585E004A6D70 /* SaveToFavorites.m */; };
 		6940CD56154E5DD2004A6D70 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD55154E5DD2004A6D70 /* FavoritesViewController.m */; };
 		6940CD66154E6249004A6D70 /* SearchArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940CD65154E6249004A6D70 /* SearchArray.m */; };
@@ -137,6 +138,7 @@
 		692C16E2161FE622006063AD /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		692C16E3161FE622006063AD /* unlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlock.png; sourceTree = "<group>"; };
 		692C16EB1620091C006063AD /* arrow_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_icon.png; sourceTree = "<group>"; };
+		692C17001621248B006063AD /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		6940CD51154E585E004A6D70 /* SaveToFavorites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveToFavorites.h; sourceTree = "<group>"; };
 		6940CD52154E585E004A6D70 /* SaveToFavorites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveToFavorites.m; sourceTree = "<group>"; };
 		6940CD54154E5DD2004A6D70 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		6927A17015286CE700667A7F /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				692C17001621248B006063AD /* button.png */,
 				692C16EB1620091C006063AD /* arrow_icon.png */,
 				692C16E2161FE622006063AD /* lock.png */,
 				692C16E3161FE622006063AD /* unlock.png */,
@@ -727,6 +730,7 @@
 				692C16E4161FE622006063AD /* lock.png in Resources */,
 				692C16E5161FE622006063AD /* unlock.png in Resources */,
 				692C16EC1620091C006063AD /* arrow_icon.png in Resources */,
+				692C17011621248B006063AD /* button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
