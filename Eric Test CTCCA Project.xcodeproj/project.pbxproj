@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65EE8B221625C79200D4C1A3 /* Tour.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B211625C79200D4C1A3 /* Tour.m */; };
+		65EE8B251625C7A300D4C1A3 /* TourString.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B241625C7A300D4C1A3 /* TourString.m */; };
+		65EE8B281625C7AD00D4C1A3 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B271625C7AD00D4C1A3 /* Location.m */; };
+		65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B2A1625C7BA00D4C1A3 /* LocationString.m */; };
+		65EE8B2E1625CCE400D4C1A3 /* tour.xml in Resources */ = {isa = PBXBuildFile; fileRef = 65EE8B2C1625CCE400D4C1A3 /* tour.xml */; };
+		65EE8B2F1625CCE400D4C1A3 /* location.xml in Resources */ = {isa = PBXBuildFile; fileRef = 65EE8B2D1625CCE400D4C1A3 /* location.xml */; };
 		690CB7181540226000C729C0 /* 83-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 690CB7171540226000C729C0 /* 83-calendar.png */; };
 		690CB71A154022B600C729C0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 690CB719154022B600C729C0 /* EventKit.framework */; };
 		690CB71C154022BC00C729C0 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 690CB71B154022BC00C729C0 /* EventKitUI.framework */; };
@@ -124,6 +130,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65EE8B201625C79200D4C1A3 /* Tour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tour.h; sourceTree = "<group>"; };
+		65EE8B211625C79200D4C1A3 /* Tour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tour.m; sourceTree = "<group>"; };
+		65EE8B231625C7A300D4C1A3 /* TourString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourString.h; sourceTree = "<group>"; };
+		65EE8B241625C7A300D4C1A3 /* TourString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourString.m; sourceTree = "<group>"; };
+		65EE8B261625C7AD00D4C1A3 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		65EE8B271625C7AD00D4C1A3 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		65EE8B291625C7BA00D4C1A3 /* LocationString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationString.h; sourceTree = "<group>"; };
+		65EE8B2A1625C7BA00D4C1A3 /* LocationString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationString.m; sourceTree = "<group>"; };
+		65EE8B2C1625CCE400D4C1A3 /* tour.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tour.xml; sourceTree = "<group>"; };
+		65EE8B2D1625CCE400D4C1A3 /* location.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = location.xml; sourceTree = "<group>"; };
 		690CB7171540226000C729C0 /* 83-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "83-calendar.png"; sourceTree = "<group>"; };
 		690CB719154022B600C729C0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		690CB71B154022BC00C729C0 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -289,6 +305,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65EE8B1D1625C71400D4C1A3 /* LocationClass */ = {
+			isa = PBXGroup;
+			children = (
+				65EE8B261625C7AD00D4C1A3 /* Location.h */,
+				65EE8B271625C7AD00D4C1A3 /* Location.m */,
+				65EE8B291625C7BA00D4C1A3 /* LocationString.h */,
+				65EE8B2A1625C7BA00D4C1A3 /* LocationString.m */,
+			);
+			name = LocationClass;
+			sourceTree = "<group>";
+		};
+		65EE8B1F1625C71E00D4C1A3 /* TourClass */ = {
+			isa = PBXGroup;
+			children = (
+				65EE8B201625C79200D4C1A3 /* Tour.h */,
+				65EE8B211625C79200D4C1A3 /* Tour.m */,
+				65EE8B231625C7A300D4C1A3 /* TourString.h */,
+				65EE8B241625C7A300D4C1A3 /* TourString.m */,
+			);
+			name = TourClass;
+			sourceTree = "<group>";
+		};
 		691E27B2154E454900099065 /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +413,8 @@
 		69530E021535807900B6FB5E /* Tours */ = {
 			isa = PBXGroup;
 			children = (
+				65EE8B2C1625CCE400D4C1A3 /* tour.xml */,
+				65EE8B2D1625CCE400D4C1A3 /* location.xml */,
 				69530E0F1535906800B6FB5E /* TourMapListViewController.h */,
 				69530E101535906800B6FB5E /* TourMapListViewController.m */,
 				699B930F154817BE005A9C5B /* TourMapListRouteViewController.h */,
@@ -461,6 +501,8 @@
 		699B932915495763005A9C5B /* EntityClasses */ = {
 			isa = PBXGroup;
 			children = (
+				65EE8B1F1625C71E00D4C1A3 /* TourClass */,
+				65EE8B1D1625C71400D4C1A3 /* LocationClass */,
 				9CA13A8E161D2840001A7DB1 /* NewsClass */,
 				699B932B1549578D005A9C5B /* AreaClass */,
 				691E3E6F1532AECD0004D11B /* ListingClass */,
@@ -755,6 +797,8 @@
 				692C16EC1620091C006063AD /* arrow_icon.png in Resources */,
 				692C17011621248B006063AD /* button.png in Resources */,
 				692C171216215027006063AD /* Placeholder.png in Resources */,
+				65EE8B2E1625CCE400D4C1A3 /* tour.xml in Resources */,
+				65EE8B2F1625CCE400D4C1A3 /* location.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +874,10 @@
 				692C170F162148D2006063AD /* IconDownloader.m in Sources */,
 				69C877AE1621D13600A96963 /* BlabberImageViewController.m in Sources */,
 				69C877B21621E55F00A96963 /* BlabberViewController.m in Sources */,
+				65EE8B221625C79200D4C1A3 /* Tour.m in Sources */,
+				65EE8B251625C7A300D4C1A3 /* TourString.m in Sources */,
+				65EE8B281625C7AD00D4C1A3 /* Location.m in Sources */,
+				65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TourLocations>
+<TourLocation>
+<TourLocationID>1</TourLocationID>
+<TourID>1</TourID>
+<TourSeqNum>1</TourSeqNum>
+<LocationName>Mount Ainslie</LocationName>
+<Latitude>-35.27000</Latitude>
+<Longitude>149.15833</Longitude>
+<Address>Mt Ainslie Majura ACT</Address>
+<Suburb>Majura</Suburb>
+<Postcode>2609</Postcode>
+</TourLocation>
+<TourLocation>
+<TourLocationID>2</TourLocationID>
+<TourID>1</TourID>
+<TourSeqNum>2</TourSeqNum>
+<LocationName>Black Mountain</LocationName>
+<Latitude>-35.28022</Latitude>
+<Longitude>149.11018</Longitude>
+<Address>100 Black Mountain Drive Acton ACT</Address>
+<Suburb>Acton</Suburb>
+<Postcode>2601</Postcode>
+</TourLocation>
+<TourLocation>
+<TourLocationID>3</TourLocationID>
+<TourID>2</TourID>
+<TourSeqNum>1</TourSeqNum>
+<LocationName>Australian War Memorial</LocationName>
+<Latitude>-35.28123</Latitude>
+<Longitude>149.14759</Longitude>
+<Address>Australian War Memorial Campbell ACT</Address>
+<Suburb>Campbell</Suburb>
+<Postcode>2612</Postcode>
+</TourLocation>
+<TourLocation>
+<TourLocationID>4</TourLocationID>
+<TourID>2</TourID>
+<TourSeqNum>2</TourSeqNum>
+<LocationName>Parliament of Australia</LocationName>
+<Latitude>-27.47693</Latitude>
+<Longitude>153.02837</Longitude>
+<Address>Parliament of Australia, Parliament Dr Capital Hill ACT</Address>
+<Suburb>Capital Hill</Suburb>
+<Postcode>2600</Postcode>
+</TourLocation>
+</TourLocations>
