@@ -16,7 +16,7 @@
     NSString *TourPhone;
     NSString *TourWebsite;
     NSString *TourEmail;
-    NSString *ImageFileNames;
+    NSString *ImageURL;
     NSString *VideoURL;
 }
 
@@ -28,6 +28,6 @@
 @property (nonatomic, copy) NSString *TourPhone;
 @property (nonatomic, copy) NSString *TourWebsite;
 @property (nonatomic, copy) NSString *TourEmail;
-@property (nonatomic, copy) NSString *ImageFileNames;
+@property (nonatomic, copy) NSString *ImageURL;
 @property (nonatomic, copy) NSString *VideoURL;
 @end

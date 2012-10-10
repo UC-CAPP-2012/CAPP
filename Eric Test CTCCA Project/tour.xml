@@ -3,23 +3,45 @@
 <Tour>
 <TourID>1</TourID>
 <TourName>Sample Tour 1</TourName>
-<TourDetail>
-    Enjoy a morning tea stop at the quaint town of Berrima (own expense). Drive to the summit of Mount Ainslie lookout for a panoramic view of Canberra. Wander through the Australian War Memorial at your leisure and learn about Australian history and its involvement in combat. Visit the modern National Museum of Australia or visit the National Gallery of Australia (subject to current exhibitions). Enjoy a guided tour of Parliament House. You’ll have the opportunity to see the Houses of Parliament in session (subject to sitting times). View the Lodge, the Australian Prime Minister’s official residence. See the National Library and High Court of Australia. Drive past man-made Lake Burley Griffin and see the beautiful Carillion Bell Tower.
-</TourDetail>
+<TourDetail>Enjoy a morning tea stop at the quaint town of Berrima (own expense). Drive to the summit of Mount Ainslie lookout for a panoramic view of Canberra. Wander through the Australian War Memorial at your leisure and learn about Australian history and its involvement in combat. Visit the modern National Museum of Australia or visit the National Gallery of Australia (subject to current exhibitions). Enjoy a guided tour of Parliament House. You’ll have the opportunity to see the Houses of Parliament in session (subject to sitting times). View the Lodge, the Australian Prime Minister’s official residence. See the National Library and High Court of Australia. Drive past man-made Lake Burley Griffin and see the beautiful Carillion Bell Tower.</TourDetail>
 <TourCost>1</TourCost>
 <TourPhone>02 1111 1111</TourPhone>
 <TourWebsite>http://www.livingsocial.com/australia/cities/384-canberra</TourWebsite>
 <TourEmail>gracesong0513@gmail.com</TourEmail>
+<VideoURL>www.google.com.au</VideoURL>
+<ImageURL>http://static.au.groupon-content.net/dealarc/img/citycat/191/canberra-queanbeyan-segway-tours.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 </Tour>
 <Tour>
 <TourID>2</TourID>
 <TourName>Sample Tour 2</TourName>
-<TourDetail>
-    As well as offering visitors education, entertainment and sheer pleasure, the Tower has a functional role. Black Mountain Tower provides essential communications facilities for the National Capital, including major trunk line radio telephony facilities, television transmitters for national and commercial services, FM radio transmitters, mobile radio telephone, and cellular phone Base stations.
-</TourDetail>
+<TourDetail>As well as offering visitors education, entertainment and sheer pleasure, the Tower has a functional role. Black Mountain Tower provides essential communications facilities for the National Capital, including major trunk line radio telephony facilities, television transmitters for national and commercial services, FM radio transmitters, mobile radio telephone, and cellular phone Base stations.</TourDetail>
 <TourCost>2</TourCost>
 <TourPhone>02 2222 2222</TourPhone>
 <TourWebsite>http://www.blackmountaintower.com.au/</TourWebsite>
 <TourEmail>gracesong0513@gmail.com</TourEmail>
+<VideoURL>www.google.com.au</VideoURL>
+<ImageURL>http://www.royalecoach.com.au/images_wide_media/tour_canberra_no_enquire.jpg</ImageURL>
+</Tour>
+<Tour>
+<TourID>3</TourID>
+<TourName>Sample Tour 3</TourName>
+<TourDetail>As well as offering visitors education, entertainment and sheer pleasure, the Tower has a functional role. Black Mountain Tower provides essential communications facilities for the National Capital, including major trunk line radio telephony facilities, television transmitters for national and commercial services, FM radio transmitters, mobile radio telephone, and cellular phone Base stations.</TourDetail>
+<TourCost>2</TourCost>
+<TourPhone>02 2222 2222</TourPhone>
+<TourWebsite>http://www.blackmountaintower.com.au/</TourWebsite>
+<TourEmail>gracesong0513@gmail.com</TourEmail>
+<VideoURL>www.google.com.au</VideoURL>
+<ImageURL>http://www.canberracruisin.com.au/wp-content/uploads/Canberra-Cruisin-Trike-Tours-Small.jpg</ImageURL>
+</Tour>
+<Tour>
+<TourID>4</TourID>
+<TourName>Sample Tour 4</TourName>
+<TourDetail>Enjoy a morning tea stop at the quaint town of Berrima (own expense). Drive to the summit of Mount Ainslie lookout for a panoramic view of Canberra. Wander through the Australian War Memorial at your leisure and learn about Australian history and its involvement in combat. Visit the modern National Museum of Australia or visit the National Gallery of Australia (subject to current exhibitions). Enjoy a guided tour of Parliament House. You’ll have the opportunity to see the Houses of Parliament in session (subject to sitting times). View the Lodge, the Australian Prime Minister’s official residence. See the National Library and High Court of Australia. Drive past man-made Lake Burley Griffin and see the beautiful Carillion Bell Tower.</TourDetail>
+<TourCost>1</TourCost>
+<TourPhone>02 1111 1111</TourPhone>
+<TourWebsite>http://www.livingsocial.com/australia/cities/384-canberra</TourWebsite>
+<TourEmail>gracesong0513@gmail.com</TourEmail>
+<VideoURL>www.google.com.au</VideoURL>
+<ImageURL>http://static.au.groupon-content.net/dealarc/img/citycat/191/canberra-queanbeyan-segway-tours.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 </Tour>
 </Tours>

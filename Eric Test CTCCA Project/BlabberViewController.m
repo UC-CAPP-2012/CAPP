@@ -12,11 +12,6 @@
 #import "EventFilterViewController.h"
 #import <EventKitUI/EventKitUI.h>
 #import <EventKit/EventKit.h>
-#import "Listing.h"
-#import "MainTypeClass.h"
-#import "SearchArray.h"
-#import "SaveToFavorites.h"
-#import "SideSwipeTableViewCell.h"
 
 @interface BlabberViewController ()
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath;
@@ -95,7 +90,7 @@
     //This needs to be set via the filter and sorter.
     newsListingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     newsListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
-    
+    NSMutableArray *section = [[NSMutableArray alloc] init];
     [newsListingTable removeAllObjects]; // Clear Table
     for (NewsString *newsStringElement in  newsListString) {
         
@@ -129,14 +124,10 @@
         // -----------------------------------------
         
         [newsListingsList addObject:currNews];
+        [section addObject:currNews];
         
     }
     
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-    for (News *listingListListing in newsListingsList)
-    {
-        [section addObject:listingListListing];
-    }
     
     NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"News"];
     [newsListingTable addObject:sectionDict];
@@ -196,6 +187,11 @@
     //});
     //});
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
 }
 
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath
@@ -338,7 +334,7 @@
 }
 
 -(void) threadStartAnimating:(id)data{
-    //loadView.hidden = false;
+    loadView.hidden = false;
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action

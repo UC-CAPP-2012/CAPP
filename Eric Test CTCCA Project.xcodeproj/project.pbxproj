@@ -111,6 +111,7 @@
 		69BA0249153BF19F009B11BD /* ExploreFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BA0248153BF19F009B11BD /* ExploreFilterViewController.m */; };
 		69C877AE1621D13600A96963 /* BlabberImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877AD1621D13600A96963 /* BlabberImageViewController.m */; };
 		69C877B21621E55F00A96963 /* BlabberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877B11621E55F00A96963 /* BlabberViewController.m */; };
+		69C877C81625A40100A96963 /* ToursIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877C71625A40100A96963 /* ToursIconDownloader.m */; };
 		69FA8EB6153A7B350036D267 /* Arrow-Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB5153A7B350036D267 /* Arrow-Right.png */; };
 		69FA8EB8153A7B3A0036D267 /* Arrow-Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB7153A7B390036D267 /* Arrow-Left.png */; };
 		69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FAAD061536FC23006441FE /* QuartzCore.framework */; };
@@ -265,6 +266,8 @@
 		69C877AD1621D13600A96963 /* BlabberImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberImageViewController.m; sourceTree = "<group>"; };
 		69C877B01621E55F00A96963 /* BlabberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberViewController.h; sourceTree = "<group>"; };
 		69C877B11621E55F00A96963 /* BlabberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberViewController.m; sourceTree = "<group>"; };
+		69C877C61625A40100A96963 /* ToursIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToursIconDownloader.h; sourceTree = "<group>"; };
+		69C877C71625A40100A96963 /* ToursIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToursIconDownloader.m; sourceTree = "<group>"; };
 		69FA8EB5153A7B350036D267 /* Arrow-Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Right.png"; sourceTree = "<group>"; };
 		69FA8EB7153A7B390036D267 /* Arrow-Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Left.png"; sourceTree = "<group>"; };
 		69FAAD061536FC23006441FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -406,6 +409,8 @@
 			children = (
 				692C170D162148D2006063AD /* IconDownloader.h */,
 				692C170E162148D2006063AD /* IconDownloader.m */,
+				69C877C61625A40100A96963 /* ToursIconDownloader.h */,
+				69C877C71625A40100A96963 /* ToursIconDownloader.m */,
 			);
 			name = IconDownloader;
 			sourceTree = "<group>";
@@ -878,6 +883,7 @@
 				65EE8B251625C7A300D4C1A3 /* TourString.m in Sources */,
 				65EE8B281625C7AD00D4C1A3 /* Location.m in Sources */,
 				65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */,
+				69C877C81625A40100A96963 /* ToursIconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

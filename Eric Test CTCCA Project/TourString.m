@@ -16,7 +16,7 @@
 @synthesize TourPhone;
 @synthesize TourWebsite;
 @synthesize TourEmail;
-@synthesize ImageFileNames;
+@synthesize ImageURL;
 @synthesize VideoURL;
 @end
 

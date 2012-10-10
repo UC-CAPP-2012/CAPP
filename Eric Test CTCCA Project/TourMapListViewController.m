@@ -7,14 +7,18 @@
 //
 
 #import "TourMapListViewController.h"
-#import "Listing.h"
+#import "Tour.h"
+#import <EventKitUI/EventKitUI.h>
+#import <EventKit/EventKit.h>
 
 @interface TourMapListViewController ()
-
+- (void)startIconDownload:(Tour *)tourCurrent forIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation TourMapListViewController
-@synthesize listingTable,listingsTableDataSource;
+@synthesize tourListString, tourListingsList, tourListingTable;
+@synthesize currentTour;
+@synthesize imageDownloadsInProgress;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +31,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self setupMap];
+    
     [self setupArray];
     [tableView reloadData];
     loadView.hidden = YES;
@@ -42,8 +46,18 @@
     
     self.navigationItem.title = @"Tours";
     [super viewDidLoad];
-    
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 	// Do any additional setup after loading the view.
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
     
 }
 
@@ -86,30 +100,75 @@
 
 -(void) setupArray // Connection to DataSource
 { 
-    // ** Map View Population
+    
+    [mapView removeAnnotations:mapView.annotations];
+    NSXMLParser *xmlParser;
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
+    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
+    //NSURL *url = [[NSURL alloc] initWithString:urlString];
+    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    [xmlParser setDelegate:self];
+    BOOL worked = [xmlParser parse];
+    
+    if(worked) {
+        NSLog(@"Amount %i", [tourListString count]);
+    }
+    else
+    {
+        NSLog(@"did not work!");
+    }
 
-    // ** Map View Population
-    CLLocationCoordinate2D placemarker;
-    placemarker.latitude = -35.281150;
-    placemarker.longitude = 149.128668;    
-    
-    Listing *ann = [[Listing alloc] init];
-    ann.title = @"Tour 1";
-    ann.subtitle = @"Tour subtitle";
-    ann.coordinate = placemarker;
-    ann.imageFilenames = [NSArray arrayWithObjects:@"http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png", nil];
-    
-    //Add Placemarker to map
-    [mapView addAnnotation:ann];
-    // ** Table View Population
-    
+    //This needs to be set via the filter and sorter.
+    tourListingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
+    tourListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+    [tourListingTable removeAllObjects]; // Clear Table
+    for (TourString *tourStringElement in  tourListString) {
+        
+        Tour *currTour = [[Tour alloc] init];
+        
+        // TourID , Title , SubTitle
+        
+        currTour.TourID = [tourStringElement.TourID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourName = [tourStringElement.TourName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourDetail = [tourStringElement.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourCost = tourStringElement.TourCost;
+        currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourPhone = [tourStringElement.TourPhone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.ImageFileNames = [tourStringElement.ImageURL componentsSeparatedByString:@","];
+        
+        // Listing View details
+        NSString *urlTemp = [tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *mediaUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currTour.TourWebsite = [NSURL URLWithString:mediaUrlString];
+        
+        NSString *urlTemp2 = [tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *mediaUrlString2 = [[NSString stringWithFormat:urlTemp2] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currTour.VideoURL = [NSURL URLWithString:mediaUrlString2];
+        
+        // ** CHECKS -------------------------------
+        NSLog(@"%@",tourStringElement.TourID);
+        NSLog(@"%@",tourStringElement.TourName);
+        NSLog(@"%@",tourStringElement.TourDetail);
+        NSLog(@"%@",tourStringElement.TourCost);
+        NSLog(@"%@",tourStringElement.TourEmail);
+        NSLog(@"%@",tourStringElement.TourPhone);
+        NSLog(@"%@",tourStringElement.TourWebsite);
+        // -----------------------------------------
+        
+        [tourListingsList addObject:currTour];
+        [section addObject:currTour];
+        
+    }
+        
+    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Tours"];
+    [tourListingTable addObject:sectionDict];
 
-    
-    NSArray *firstSection = [NSArray arrayWithObjects:@"Tour 1", @"Tour 2", nil];
-    NSDictionary *firstSectionDict = [NSDictionary dictionaryWithObject:firstSection forKey:@"Tours"];
-    
-    listingTable = [[NSMutableArray alloc]init];
-    [listingTable addObject:firstSectionDict];
 }
 
 // *** MAP METHODS ****
@@ -175,9 +234,15 @@
 
 // *** TABLE METHODS ***
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [tourListingTable count];
+}
+
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
-    return listingTable.count;
+    NSDictionary *dictionary = [tourListingTable objectAtIndex:section];
+    NSArray *array = [dictionary objectForKey:@"Tours"];
+    return [array count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -185,44 +250,55 @@
     static NSString *cellIdentifier = @"tourCell";
     UITableViewCell *cell = (UITableViewCell *) [listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = [tourListingTable objectAtIndex:indexPath.section];
     NSArray *array = [dictionary objectForKey:@"Tours"];
-    NSString *cellValue = [array objectAtIndex:indexPath.row];
-    
+    Tour *cellValue = [array objectAtIndex:indexPath.row];
     if(cell == nil) 
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    
-    UIImage* image = [UIImage imageNamed:@"splash.png"];
          
-    CGRect imageViewFrame = CGRectMake(10, 10, 80, 80);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-    imageView.image = image;
-    [cell.contentView addSubview:imageView];
-    
-     
-    CGRect Label1Frame = CGRectMake(100, 10, 290, 25);
-    CGRect Label2Frame = CGRectMake(100, 33, 290, 25);
-    UILabel *lblTemp;
+    UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
+    if (!cellValue.TourIcon)
+    {
+        if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
+        {
+            [self startIconDownload:cellValue forIndexPath:indexPath];
+        }
+        // if a download is deferred or in progress, return a placeholder image
+        cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
+    }
+    else
+    {
+        cellImage.image = cellValue.TourIcon;
+    }
 
-    lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
-    lblTemp.text = cellValue;
-    [cell.contentView addSubview:lblTemp];
+    UILabel *cellHeading = (UILabel *)[cell viewWithTag:1];
+    [cellHeading setText: cellValue.TourName];
     
-    lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
-    lblTemp.text = @"tour subtitle";
-    [cell.contentView addSubview:lblTemp];
+    UILabel *cellSubtitle = (UILabel *)[cell viewWithTag:2];
+    [cellSubtitle setText: [cellValue.TourWebsite absoluteString]];
+
+    UILabel *cellDetail = (UILabel *)[cell viewWithTag:3];
+    [cellDetail setText: cellValue.TourDetail];
         
     return cell;    
 }
 
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    return 100;
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
 }
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath //Table Row to Listing.
 {    
@@ -273,7 +349,7 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
         [navView bringSubviewToFront:switchMapView];
         [UIView commitAnimations];
-        
+        [self setupMap];
     }
     
 }
@@ -290,5 +366,114 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+// --- XML Delegate Classes ----
+
+-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    
+    if ([elementName isEqualToString:@"Tours"])
+    {
+        self.tourListString = [[NSMutableArray alloc] init];
+    }
+    else if ([elementName isEqualToString:@"Tour"])
+    {
+        tourList = [[TourString alloc] init];
+        tourList.TourID = [[attributeDict objectForKey:@"TourID"] stringValue];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (!currentElementValue)
+    {
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    }
+    else
+    {
+        [currentElementValue appendString:string];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if ([elementName isEqualToString:@"Tours"])
+    {
+        return;
+    }
+    
+    if([elementName isEqualToString:@"Tour"])
+    {
+        [self.tourListString addObject:tourList];
+        tourList = nil;
+    }
+    else
+    {
+        [tourList setValue:currentElementValue forKey:elementName];
+        NSLog(@"%@",currentElementValue);
+        currentElementValue = nil;
+    }
+}
+
+-(void) threadStartAnimating:(id)data{
+    loadView.hidden = false;
+}
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void)startIconDownload:(Tour *)tourCurrent forIndexPath:(NSIndexPath *)indexPath
+{
+    ToursIconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[ToursIconDownloader alloc] init];
+        iconDownloader.tour = tourCurrent;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload];
+    }
+}
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+    if ([tourListingsList count] > 0)
+    {
+        NSArray *visiblePaths = [tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            Tour *tourCurrent = [self.tourListingsList objectAtIndex:indexPath.row];
+            
+            if (!tourCurrent.TourIcon) // avoid the app icon download if the app already has an icon
+            {
+                [self startIconDownload:tourCurrent forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    ToursIconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        
+        // Display the newly loaded image
+        UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
+        cellImage.image = iconDownloader.tour.TourIcon;
+    }
+    
+    // Remove the IconDownloader from the in progress list.
+    // This will result in it being deallocated.
+    [imageDownloadsInProgress removeObjectForKey:indexPath];
+}
+
 
 @end

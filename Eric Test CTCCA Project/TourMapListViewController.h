@@ -11,9 +11,13 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "ListingViewController.h"
-
-
-@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource>{
+#import "Tour.h"
+#import "TourString.h"
+#import <MapKit/MapKit.h>
+#import "QuartzCore/QuartzCore.h"
+#import <EventKitUI/EventKitUI.h>
+#import "ToursIconDownloader.h"
+@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate>{
 
 IBOutlet UIView *tour;
 IBOutlet MKMapView *mapView;
@@ -34,11 +38,17 @@ IBOutlet UILabel *TitleLabel;
 IBOutlet UILabel *StartDateLabel;
 IBOutlet UILabel *AddressLabel;
     
+    TourString *tourList;
+    NSMutableString *currentElementValue;
+    NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each news
+    
 }
 
-@property(nonatomic)NSMutableArray *listingTable;
-@property(strong, nonatomic)NSArray *listingsTableDataSource;
+@property(nonatomic, strong) NSMutableArray *tourListingTable,*tourListingsList,*tourListString;
+@property (strong, nonatomic) Tour *currentTour;
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 
+- (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)setupArray;
 -(void)setupMap;
 

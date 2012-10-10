@@ -170,7 +170,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 10;
 }
 
 -(void) setupArray // Connection to DataSource
@@ -208,6 +208,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
     for (ListingString *listingStringElement in listingsListString) {
         
         Listing *currListing = [[Listing alloc] init];
@@ -346,22 +347,18 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         [listingsList addObject:currListing];
         [mapView addAnnotation:currListing];
         
-            }
+        [section addObject:currListing];
+        
+        
+        }
     
     // --------------------------
     
     
+    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Favourites"];
+    [listingTable addObject:sectionDict];
+
     
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-   
-        
-        for (Listing *listingListListing in listingsList)
-        {
-            [section addObject:listingListListing];
-        }
-        
-        NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Favourites"];
-        [listingTable addObject:sectionDict];
     
 }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ListingElements>
 <ListingElement>
 <ListingID>1</ListingID>
@@ -9,7 +9,7 @@
 <Postcode>2601</Postcode>
 <Longitude>149.128677368164062500000000000000</Longitude>
 <Latitude>-35.282001495361328125000000000000</Latitude>
-<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
+<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Hostel</SubType>
 <RatingType>2 Stars</RatingType>
 <CostType>$</CostType>

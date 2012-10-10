@@ -18,6 +18,7 @@
     NSString *TourEmail;
     NSArray *ImageFileNames;
     NSURL *VideoURL;
+    UIImage *TourIcon;
 }
 
 
@@ -30,5 +31,5 @@
 @property (nonatomic, copy) NSString *TourEmail;
 @property (nonatomic, copy) NSArray *ImageFileNames;
 @property (nonatomic, copy) NSURL *VideoURL;
-
+@property (nonatomic, copy) UIImage *TourIcon;
 @end

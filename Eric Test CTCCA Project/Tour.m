@@ -18,5 +18,6 @@
 @synthesize TourEmail;
 @synthesize ImageFileNames;
 @synthesize VideoURL;
+@synthesize TourIcon;
 @end
 
