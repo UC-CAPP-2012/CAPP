@@ -24,10 +24,13 @@
     NSMutableString *currentElementValue;
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each news
 }
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property(nonatomic, strong) NSMutableArray *newsListingTable,*newsListingsList,*newsListString;
 @property (strong, nonatomic) News *currentNews;
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
+@property (strong, nonatomic) NSMutableArray* filteredTableData;
+@property (nonatomic, assign) bool isFiltered;
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void) setupArray;

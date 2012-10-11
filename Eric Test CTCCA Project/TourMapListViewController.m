@@ -520,5 +520,7 @@ PullToRefreshView *pull;
     [imageDownloadsInProgress removeObjectForKey:indexPath];
 }
 
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"contentOffset"];
+}
 @end

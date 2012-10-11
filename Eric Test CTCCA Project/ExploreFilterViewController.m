@@ -1232,7 +1232,7 @@ PullToRefreshView *pull;
 }
 
 -(void)dealloc{
-    [self->tableView removeObserver:pull forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 // View Unload Methods

@@ -22,7 +22,8 @@ PullToRefreshView *pull;
 @synthesize newsListString, newsListingsList, newsListingTable;
 @synthesize currentNews;
 @synthesize imageDownloadsInProgress;
-
+@synthesize filteredTableData;
+@synthesize isFiltered;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +42,9 @@ PullToRefreshView *pull;
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+}
 
 - (void)viewDidLoad
 {
@@ -48,7 +52,7 @@ PullToRefreshView *pull;
     
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-	
+	//searchBar.delegate = (id)self;
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self->tableView];
     [pull setDelegate:self];
     [self->tableView addSubview:pull];
@@ -57,6 +61,12 @@ PullToRefreshView *pull;
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidUnload
+{
+    [self setSearchBar:nil];
+    [super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,7 +164,12 @@ PullToRefreshView *pull;
     
     NSDictionary *dictionary = newsListingTable[indexPath.section];
     NSArray *array = dictionary[@"News"];
-    News *currListing = array[indexPath.row];
+    News *currListing;
+    if(isFiltered)
+        currListing = filteredTableData[indexPath.row];
+    else
+        currListing = array[indexPath.row];
+
     // Configure the cell...
     UILabel *cellHeading = (UILabel *)[cell viewWithTag:3];
     [cellHeading setText: currListing.NewsHeading];
@@ -196,6 +211,70 @@ PullToRefreshView *pull;
     //});
     return cell;
 }
+
+-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+{
+    if(text.length == 0)
+    {
+        isFiltered = FALSE;
+    }
+    else
+    {
+        isFiltered = true;
+        filteredTableData = [[NSMutableArray alloc] init];
+        
+        for (News* news in newsListingsList)
+        {
+            NSRange nameRange = [news.NewsHeading rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange descriptionRange = [news.NewsBody rangeOfString:text options:NSCaseInsensitiveSearch];
+            if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound)
+            {
+                [filteredTableData addObject:news];
+            }
+        }
+    }
+    
+    [tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void) showDetailsForIndexPath:(NSIndexPath*)indexPath
+{
+    [self.searchBar resignFirstResponder];
+    NSDictionary *dictionary = newsListingTable[indexPath.section];
+    NSArray *array = dictionary[@"News"];
+    News* selectedNews;
+    
+    if(isFiltered)
+    {
+        selectedNews = filteredTableData[indexPath.row];
+    }
+    else
+    {
+        selectedNews = array[indexPath.row];
+    }
+    
+    
+    
+    BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
+    listingView.currentListing = selectedNews;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.searchBar resignFirstResponder];
+}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -261,8 +340,15 @@ PullToRefreshView *pull;
 {
     NSDictionary *dictionary = newsListingTable[section];
     NSArray *array = dictionary[@"News"];
-    return [array count];
+    int rowCount;
+    if(self.isFiltered)
+        rowCount = filteredTableData.count;
+    else
+        rowCount = [array count];
+    
+    return rowCount;
 }
+
 
 // Load images for all onscreen rows when scrolling is finished
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -302,18 +388,7 @@ PullToRefreshView *pull;
     //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
-#pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *dictionary = newsListingTable[indexPath.section];
-    NSArray *array = dictionary[@"News"];
-    News *selectedNews = array[indexPath.row];
-    
-    BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
-    listingView.currentListing = selectedNews;
-    [self.navigationController pushViewController:listingView animated:YES];
-    NSLog(@"Button");}
 
 
 
@@ -366,7 +441,7 @@ PullToRefreshView *pull;
 }
 
 -(void)dealloc{
-    [self->tableView removeObserver:pull forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 -(void) threadStartAnimating:(id)data{
@@ -377,5 +452,6 @@ PullToRefreshView *pull;
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+
 
 @end
