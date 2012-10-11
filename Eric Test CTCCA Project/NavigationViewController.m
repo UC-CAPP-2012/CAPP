@@ -32,8 +32,8 @@
 - (void) customizeApperarance
 {
     //[[UINavigationBar appearance] setBackgroundColor:[UIColor yellowColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], UITextAttributeTextColor, nil ]];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],UITextAttributeTextColor, nil]forState:UIControlStateNormal];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}forState:UIControlStateNormal];
     //[[UIBarButtonItem appearance] setBackgroundColor:[UIColor blackColor]];
 
 

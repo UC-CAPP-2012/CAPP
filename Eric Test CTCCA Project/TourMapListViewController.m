@@ -16,6 +16,7 @@
 @end
 
 @implementation TourMapListViewController
+PullToRefreshView *pull;
 @synthesize tourListString, tourListingsList, tourListingTable;
 @synthesize currentTour;
 @synthesize imageDownloadsInProgress;
@@ -47,6 +48,14 @@
     self.navigationItem.title = @"Tours";
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    
+    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self->tableView];
+    [pull setDelegate:self];
+    [self->tableView addSubview:pull];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foregroundRefresh:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 	// Do any additional setup after loading the view.
     
 }
@@ -166,7 +175,7 @@
         
     }
         
-    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Tours"];
+    NSDictionary *sectionDict = @{@"Tours": section};
     [tourListingTable addObject:sectionDict];
 
 }
@@ -217,7 +226,7 @@
         StartDateLabel.text = startDateString;
         
         //Detail Image    
-        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[((Listing *) view.annotation).imageFilenames objectAtIndex:0]]]];
+        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:(((Listing *) view.annotation).imageFilenames)[0]]]];
     }
     
 }
@@ -234,15 +243,51 @@
 
 // *** TABLE METHODS ***
 
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
+{
+    [self reloadTableData];
+    
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+-(void) reloadTableData
+{
+    // call to reload your data
+    [self setupArray];
+    loadView.hidden=TRUE;
+    [self->tableView reloadData];
+    [pull finishedLoading];
+}
+
+-(void)foregroundRefresh:(NSNotification *)notification
+{
+    
+    self->tableView.contentOffset = CGPointMake(0, -65);
+    [pull setState:PullToRefreshViewStateLoading];
+    [self reloadTableData];
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [tourListingTable count];
 }
 
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [tourListingTable objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"Tours"];
+    NSDictionary *dictionary = tourListingTable[section];
+    NSArray *array = dictionary[@"Tours"];
     return [array count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 103;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -250,9 +295,9 @@
     static NSString *cellIdentifier = @"tourCell";
     UITableViewCell *cell = (UITableViewCell *) [listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    NSDictionary *dictionary = [tourListingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"Tours"];
-    Tour *cellValue = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = tourListingTable[indexPath.section];
+    NSArray *array = dictionary[@"Tours"];
+    Tour *cellValue = array[indexPath.row];
     if(cell == nil) 
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
@@ -318,7 +363,7 @@
     
     //Button to switch between Map and Table view
     NSArray *viewArray = tour.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == mapWindow) // change to table view
+    if (viewArray[1] == mapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -334,7 +379,7 @@
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
     } 
-    else if ([viewArray objectAtIndex:1] == tableView) // change to mapview
+    else if (viewArray[1] == tableView) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -379,7 +424,7 @@
     else if ([elementName isEqualToString:@"Tour"])
     {
         tourList = [[TourString alloc] init];
-        tourList.TourID = [[attributeDict objectForKey:@"TourID"] stringValue];
+        tourList.TourID = [attributeDict[@"TourID"] stringValue];
     }
 }
 
@@ -427,14 +472,14 @@
 
 - (void)startIconDownload:(Tour *)tourCurrent forIndexPath:(NSIndexPath *)indexPath
 {
-    ToursIconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    ToursIconDownloader *iconDownloader = imageDownloadsInProgress[indexPath];
     if (iconDownloader == nil)
     {
         iconDownloader = [[ToursIconDownloader alloc] init];
         iconDownloader.tour = tourCurrent;
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
-        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        imageDownloadsInProgress[indexPath] = iconDownloader;
         [iconDownloader startDownload];
     }
 }
@@ -447,7 +492,7 @@
         NSArray *visiblePaths = [tableView indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            Tour *tourCurrent = [self.tourListingsList objectAtIndex:indexPath.row];
+            Tour *tourCurrent = (self.tourListingsList)[indexPath.row];
             
             if (!tourCurrent.TourIcon) // avoid the app icon download if the app already has an icon
             {
@@ -460,7 +505,7 @@
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
 {
-    ToursIconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    ToursIconDownloader *iconDownloader = imageDownloadsInProgress[indexPath];
     if (iconDownloader != nil)
     {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];

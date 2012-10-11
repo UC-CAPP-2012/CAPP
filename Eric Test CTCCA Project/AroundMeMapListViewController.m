@@ -348,7 +348,7 @@
 
     listingTable = [[NSMutableArray alloc] init];
     NSMutableArray *section = [[NSMutableArray alloc] initWithArray:listingsList];
-    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"AroundMe"];
+    NSDictionary *sectionDict = @{@"AroundMe": section};
     [listingTable addObject:sectionDict];
     [tableView reloadData];
     
@@ -402,15 +402,15 @@
        // StartDateLabel.text = @"";
             
         //Detail Image 
-        NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-        NSLog(@"%@",[((Listing *) view.annotation).imageFilenames objectAtIndex:0]); 
+        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]); 
         
         //Button Press
 
         NSString *listingID = ((Listing *) view.annotation).listingID;
            for (int i = 0; i < [listingsList count]; i++) {
-               Listing *currentListing = [listingsList objectAtIndex:i];
+               Listing *currentListing = listingsList[i];
                 if ([currentListing.listingID isEqualToString:listingID]) {
                     ListingViewButton.tag = i;
                 }
@@ -435,7 +435,7 @@
 {
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    Listing *selectedListing = listingsList[selectedIndex];
     listingView.currentListing = selectedListing;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"%@",selectedListing.listingID);
@@ -445,7 +445,7 @@
 {
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     ((UIButton*)sender).enabled = FALSE;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    Listing *selectedListing = listingsList[selectedIndex];
     
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
@@ -458,7 +458,7 @@
 -(void)addToTrail:(id)sender  // Control for Map View Button to Listing Detail View   
 {      
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    Listing *selectedListing = listingsList[selectedIndex];
     NSLog(@"%@",selectedListing.listingID);
     NSLog(@"Button Trail");
 }
@@ -472,8 +472,8 @@
 }
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [listingTable objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"AroundMe"];
+    NSDictionary *dictionary = listingTable[section];
+    NSArray *array = dictionary[@"AroundMe"];
     return [array count];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -498,9 +498,9 @@
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSMutableArray *array = [dictionary objectForKey:@"AroundMe"];
-    Listing *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSMutableArray *array = dictionary[@"AroundMe"];
+    Listing *currListing = array[indexPath.row];
     NSString *cellValue = currListing.title;
     
     //UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
@@ -533,9 +533,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath //Table Row to Listing.
 {    
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"AroundMe"];
-    Listing *selectedEvent = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"AroundMe"];
+    Listing *selectedEvent = array[indexPath.row];
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     listingView.currentListing = selectedEvent;
@@ -610,9 +610,9 @@
     UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
     UIImage* imagetrail = [UIImage imageNamed:@"ToursAdd.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
-    NSDictionary *dictionary = [listingTable objectAtIndex: indexPath.section];
-    NSMutableArray *array = [dictionary objectForKey:@"AroundMe"];
-    Listing *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSMutableArray *array = dictionary[@"AroundMe"];
+    Listing *currListing = array[indexPath.row];
     NSString *listingID = currListing.listingID;
     
     //ContentView
@@ -638,7 +638,7 @@
     btnTemp2.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
     for (int i = 0; i < [listingsList count]; i++) {
-        Listing *currentListing = [listingsList objectAtIndex:i];
+        Listing *currentListing = listingsList[i];
         if ([currentListing.listingID isEqualToString:listingID]) {
             btnTemp.tag =i;
             btnTemp2.tag = i;
@@ -806,7 +806,7 @@
     
     //Button to switch between Map and Table view
     NSArray *viewArray = aroundMe.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == mapWindow) // change to table view
+    if (viewArray[1] == mapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -825,7 +825,7 @@
         [self setupSideSwipeView];
         [self setupGestureRecognizers];
     } 
-    else if ([viewArray objectAtIndex:1] == tableView) // change to mapview
+    else if (viewArray[1] == tableView) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -858,7 +858,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        theList.listingID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

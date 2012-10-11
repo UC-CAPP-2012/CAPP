@@ -36,7 +36,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         sortType = [[MainTypeClass alloc] init];
-        sortType.typeID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        sortType.typeID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

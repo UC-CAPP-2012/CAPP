@@ -79,7 +79,7 @@
     ann.title = @"Title";
     ann.subtitle = @"subtitle";
     ann.coordinate = placemarker;
-    ann.imageFilenames = [NSArray arrayWithObjects:@"http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png", nil];
+    ann.imageFilenames = @[@"http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png"];
     
     //Add Placemarker to map
     [mapView addAnnotation:ann];
@@ -119,8 +119,8 @@
     
     
     
-    NSArray *firstSection = [NSArray arrayWithObjects:@"Tour 1", @"Tour 2", nil];
-    NSDictionary *firstSectionDict = [NSDictionary dictionaryWithObject:firstSection forKey:@"Tours"];
+    NSArray *firstSection = @[@"Tour 1", @"Tour 2"];
+    NSDictionary *firstSectionDict = @{@"Tours": firstSection};
     
     listingTable = [[NSMutableArray alloc]init];
     [listingTable addObject:firstSectionDict];
@@ -172,7 +172,7 @@
         StartDateLabel.text = startDateString;
         
         //Detail Image    
-        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[((Listing *) view.annotation).imageFilenames objectAtIndex:0]]]];
+        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:(((Listing *) view.annotation).imageFilenames)[0]]]];
         
     }
     
@@ -200,9 +200,9 @@
     static NSString *cellIdentifier = @"tourRouteCell";
     UITableViewCell *cell = (UITableViewCell *) [listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.row];
-    NSArray *array = [dictionary objectForKey:@"Tours"];
-    NSString *cellValue = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.row];
+    NSArray *array = dictionary[@"Tours"];
+    NSString *cellValue = array[indexPath.row];
     
     if(cell == nil) 
     {
@@ -242,7 +242,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath //Table Row to Listing.
 {    
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    listingView.listingTitle = [listingsTableDataSource objectAtIndex:indexPath.row];
+    listingView.listingTitle = listingsTableDataSource[indexPath.row];
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 }
@@ -257,7 +257,7 @@
     
     //Button to switch between Map and Table view
     NSArray *viewArray = tourRoute.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == mapWindow) // change to table view
+    if (viewArray[1] == mapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -273,7 +273,7 @@
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
     } 
-    else if ([viewArray objectAtIndex:1] == tableView) // change to mapview
+    else if (viewArray[1] == tableView) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];

@@ -27,7 +27,7 @@
 {
     self.activeDownload = [NSMutableData data];
     // alloc+init and start an NSURLConnection; release on completion/failure
-    NSString *urlString = [[tour.ImageFileNames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSString *urlString = [(tour.ImageFileNames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSURL *ImageURL = [NSURL URLWithString:urlString];
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:ImageURL] delegate:self];

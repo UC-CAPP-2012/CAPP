@@ -18,6 +18,7 @@
 @end
 
 @implementation BlabberViewController
+PullToRefreshView *pull;
 @synthesize newsListString, newsListingsList, newsListingTable;
 @synthesize currentNews;
 @synthesize imageDownloadsInProgress;
@@ -36,7 +37,7 @@
     [self setupArray];
     [tableView reloadData];
     
-    loadView.hidden=TRUE;
+    [loadView removeFromSuperview];
     
 }
 
@@ -47,7 +48,14 @@
     
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-
+	
+    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self->tableView];
+    [pull setDelegate:self];
+    [self->tableView addSubview:pull];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foregroundRefresh:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 	// Do any additional setup after loading the view.
 }
 
@@ -129,7 +137,7 @@
     }
     
     
-    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"News"];
+    NSDictionary *sectionDict = @{@"News": section};
     [newsListingTable addObject:sectionDict];
 }
 
@@ -144,9 +152,9 @@
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    NSDictionary *dictionary = [newsListingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"News"];
-    News *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = newsListingTable[indexPath.section];
+    NSArray *array = dictionary[@"News"];
+    News *currListing = array[indexPath.row];
     // Configure the cell...
     UILabel *cellHeading = (UILabel *)[cell viewWithTag:3];
     [cellHeading setText: currListing.NewsHeading];
@@ -196,14 +204,14 @@
 
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    IconDownloader *iconDownloader = imageDownloadsInProgress[indexPath];
     if (iconDownloader == nil)
     {
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.news = news;
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
-        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        imageDownloadsInProgress[indexPath] = iconDownloader;
         [iconDownloader startDownload];
     }
 }
@@ -216,7 +224,7 @@
         NSArray *visiblePaths = [tableView indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            News *news = [self.newsListingsList objectAtIndex:indexPath.row];
+            News *news = (self.newsListingsList)[indexPath.row];
             
             if (!news.NewsIcon) // avoid the app icon download if the app already has an icon
             {
@@ -229,7 +237,7 @@
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    IconDownloader *iconDownloader = imageDownloadsInProgress[indexPath];
     if (iconDownloader != nil)
     {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
@@ -251,8 +259,8 @@
 
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [newsListingTable objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"News"];
+    NSDictionary *dictionary = newsListingTable[section];
+    NSArray *array = dictionary[@"News"];
     return [array count];
 }
 
@@ -270,13 +278,37 @@
     [self loadImagesForOnscreenRows];
 }
 
+
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
+{
+    [self reloadTableData];
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+-(void) reloadTableData
+{
+    // call to reload your data
+    [self setupArray];
+    loadView.hidden=TRUE;
+    [self->tableView reloadData];
+    [pull finishedLoading];
+}
+
+-(void)foregroundRefresh:(NSNotification *)notification
+{
+    self->tableView.contentOffset = CGPointMake(0, -65);
+    [pull setState:PullToRefreshViewStateLoading];
+    [self reloadTableData];
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dictionary = [newsListingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"News"];
-    News *selectedNews = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = newsListingTable[indexPath.section];
+    NSArray *array = dictionary[@"News"];
+    News *selectedNews = array[indexPath.row];
     
     BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
     listingView.currentListing = selectedNews;
@@ -297,7 +329,7 @@
     else if ([elementName isEqualToString:@"News"])
     {
         newsList = [[NewsString alloc] init];
-        newsList.NewsID = [[attributeDict objectForKey:@"NewsID"] stringValue];
+        newsList.NewsID = [attributeDict[@"NewsID"] stringValue];
     }
 }
 
@@ -331,6 +363,10 @@
         NSLog(@"%@",currentElementValue);
         currentElementValue = nil;
     }
+}
+
+-(void)dealloc{
+    [self->tableView removeObserver:pull forKeyPath:@"contentOffset"];
 }
 
 -(void) threadStartAnimating:(id)data{

@@ -20,12 +20,12 @@
     NSURLConnection *imageConnection;
 }
 
-@property (nonatomic, retain) Tour *tour;
-@property (nonatomic, retain) NSIndexPath *indexPathInTableView;
-@property (nonatomic, retain) id <IconDownloaderDelegate> delegate;
+@property (nonatomic, strong) Tour *tour;
+@property (nonatomic, strong) NSIndexPath *indexPathInTableView;
+@property (nonatomic, strong) id <IconDownloaderDelegate> delegate;
 
-@property (nonatomic, retain) NSMutableData *activeDownload;
-@property (nonatomic, retain) NSURLConnection *imageConnection;
+@property (nonatomic, strong) NSMutableData *activeDownload;
+@property (nonatomic, strong) NSURLConnection *imageConnection;
 
 - (void)startDownload;
 - (void)cancelDownload;

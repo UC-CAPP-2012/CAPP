@@ -12,9 +12,9 @@
 #import "ListingViewController.h"
 #import <EventKitUI/EventKitUI.h>
 #import "ListingString.h"
+#import "PullToRefreshView.h"
 
-
-@interface EventFilterViewController :  UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate>{
+@interface EventFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate, PullToRefreshViewDelegate>{
     
     //Main Screen View outlets
     IBOutlet UIView *eventView;

@@ -25,7 +25,7 @@
 @end
 
 @implementation EventFilterViewController
-
+PullToRefreshView *pull;
 @synthesize monthFilter;
 @synthesize currSel,sortSel;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
@@ -46,7 +46,7 @@
     [self segmentButton:self];
     [tableView reloadData];
 
-    loadView.hidden = YES;
+    [loadView removeFromSuperview];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -75,6 +75,13 @@
     [self setupSideSwipeView];
     [self setupGestureRecognizers];
     [super viewDidLoad];
+    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self->tableView];
+    [pull setDelegate:self];
+    [self->tableView addSubview:pull];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foregroundRefresh:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 	// Do any additional setup after loading the view.
 }
 
@@ -123,7 +130,7 @@
         
     currSel = 0;
     previousMonth.hidden=TRUE;
-    dateLabel.text = [monthFilter objectAtIndex:currSel];    
+    dateLabel.text = monthFilter[currSel];    
 }
 
 -(void) setupArray // Connection to DataSource
@@ -355,7 +362,7 @@
             [section addObject:listingListListing]; 
         }
         
-        NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
+        NSDictionary *sectionDict = @{@"Events": section};
         [listingTable addObject:sectionDict];
     }else{
         int count;
@@ -373,16 +380,16 @@
                 NSString *currSortHeader;
                 NSString *type;
                 if(sortSel ==1){
-                    currSortHeader = [sortHeaders2 objectAtIndex:i];
+                    currSortHeader = sortHeaders2[i];
                     type = listingListListing.subType;
                 }else if(sortSel == 2){
-                    currSortHeader = [sortHeaders3 objectAtIndex:i];
+                    currSortHeader = sortHeaders3[i];
                     //Do the thing here where you take the start 10 int and compare.
                     NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
                     [dayFormat setDateFormat:@"dd"];
                     type = [dayFormat stringFromDate:listingListListing.startDate];
                 }else if(sortSel == 3){
-                    currSortHeader = [sortHeaders4 objectAtIndex:i];
+                    currSortHeader = sortHeaders4[i];
                     type = listingListListing.costType;
                 }
                 
@@ -392,7 +399,7 @@
                     [section addObject:listingListListing];
                 }
             }
-            NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Events"];
+            NSDictionary *sectionDict = @{@"Events": section};
             [listingTable addObject:sectionDict];
         
         }
@@ -532,13 +539,13 @@
         StartDateLabel.text = startDateString;
         
         //Detail Image    
-        NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-        NSLog(@"%@",[((Listing *) view.annotation).imageFilenames objectAtIndex:0]); 
+        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]); 
         
         NSString *listingID = ((Listing *) view.annotation).listingID;
         for (int i = 0; i < [listingsList count]; i++) {
-            Listing *currentListing = [listingsList objectAtIndex:i];
+            Listing *currentListing = listingsList[i];
             if ([currentListing.listingID isEqualToString:listingID]) {
                 ListingViewButton.tag = i;
             }
@@ -565,8 +572,8 @@
 
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [listingTable objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"Events"];
+    NSDictionary *dictionary = listingTable[section];
+    NSArray *array = dictionary[@"Events"];
     return [array count];
 }
 
@@ -610,7 +617,7 @@
         for (int i = 0; i < [sectionHeaders count]; i++) {
             if (section == i) 
             {
-                NSString *currHeaders = [sectionHeaders objectAtIndex:i];
+                NSString *currHeaders = sectionHeaders[i];
                 title = currHeaders;
             }
 
@@ -625,6 +632,34 @@
     return headerView;
 }
 
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
+{
+    [self reloadTableData];
+
+ //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+-(void) reloadTableData
+{
+    // call to reload your data
+    [self segmentButton:self];
+    loadView.hidden=TRUE;
+    [self->tableView reloadData];
+    [pull finishedLoading];
+}
+
+-(void)foregroundRefresh:(NSNotification *)notification
+{
+    
+    self->tableView.contentOffset = CGPointMake(0, -65);
+    [pull setState:PullToRefreshViewStateLoading];
+    [self reloadTableData];
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+
+
+
 -(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"eventCell";
@@ -632,9 +667,9 @@
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"Events"];
-    Listing *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"Events"];
+    Listing *currListing = array[indexPath.row];
     
     NSString *cellValue = currListing.title;
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
@@ -732,9 +767,9 @@
     UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
     UIImage* imageCalendar = [UIImage imageNamed:@"83-calendar"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
-    NSDictionary *dictionary = [listingTable objectAtIndex: indexPath.section];
-    NSMutableArray *array = [dictionary objectForKey:@"Events"];
-    Listing *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSMutableArray *array = dictionary[@"Events"];
+    Listing *currListing = array[indexPath.row];
     NSString *listingID = currListing.listingID;
     
     //ContentView
@@ -759,7 +794,7 @@
     btnTemp2.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
     for (int i = 0; i < [listingsList count]; i++) {
-        Listing *currentListing = [listingsList objectAtIndex:i];
+        Listing *currentListing = listingsList[i];
         if ([currentListing.listingID isEqualToString:listingID]) {
             btnTemp.tag =i;
             btnTemp2.tag = i;
@@ -921,7 +956,7 @@
 {      
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    Listing *selectedListing = listingsList[selectedIndex];
     listingView.currentListing = selectedListing;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"%@",selectedListing.listingID);
@@ -931,7 +966,7 @@
 {      
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     ((UIButton*)sender).enabled = FALSE;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];    
+    Listing *selectedListing = listingsList[selectedIndex];    
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
     
@@ -944,7 +979,7 @@
 {      
     
         NSInteger selectedIndex = ((UIButton*)sender).tag;
-        Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+        Listing *selectedListing = listingsList[selectedIndex];
         //Event Store Object
         EKEventStore *eventStore = [[EKEventStore alloc] init];
         EKEvent *event = [EKEvent eventWithEventStore:eventStore];
@@ -972,9 +1007,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath // Control for Map View Button to Listing Detail View  
 {    
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"Events"];
-    Listing *selectedEvent = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"Events"];
+    Listing *selectedEvent = array[indexPath.row];
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     listingView.currentListing = selectedEvent;
@@ -993,7 +1028,7 @@
     
     //Button to switch between Map and Table view
     NSArray *viewArray = eventView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == mapWindow) // change to table view
+    if (viewArray[1] == mapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -1009,7 +1044,7 @@
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
     } 
-    else if ([viewArray objectAtIndex:1] == tableWindow) // change to mapview
+    else if (viewArray[1] == tableWindow) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -1043,7 +1078,7 @@
     {
         nextMonth.hidden=TRUE;
     }
-    dateLabel.text = [monthFilter objectAtIndex:currSel];
+    dateLabel.text = monthFilter[currSel];
     [self setupArray];
 
 }
@@ -1057,7 +1092,7 @@
     {
         previousMonth.hidden=TRUE;
     }
-    dateLabel.text = [monthFilter objectAtIndex:currSel];
+    dateLabel.text = monthFilter[currSel];
     [self setupArray];
     
 }
@@ -1100,7 +1135,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        theList.listingID = [attributeDict[@"listingID"] stringValue];
     }
 }
 
@@ -1134,6 +1169,10 @@
         NSLog(@"%@",currentElementValue);
         currentElementValue = nil;
     }
+}
+
+-(void)dealloc{
+    [self->tableView removeObserver:pull forKeyPath:@"contentOffset"];
 }
 
 -(void) threadStartAnimating:(id)data{

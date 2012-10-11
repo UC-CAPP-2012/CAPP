@@ -88,9 +88,9 @@
 }
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    selectedCategory= [SubType objectAtIndex:[pickerView selectedRowInComponent:subtype]];
-    selectedSuburb = [Area objectAtIndex:[pickerView selectedRowInComponent:area]];
-    selectedCost = [Cost objectAtIndex:[pickerView selectedRowInComponent:cost]];
+    selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
+    selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
+    selectedCost = Cost[[pickerView selectedRowInComponent:cost]];
     NSLog(@"%@",selectedCategory);
     NSLog(@"%@",selectedSuburb);
     NSLog(@"%@",selectedCost);
@@ -116,7 +116,7 @@
                 retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
             }
             retval.backgroundColor = [UIColor clearColor];
-            retval.text = [SubType objectAtIndex:row];
+            retval.text = SubType[row];
             retval.adjustsFontSizeToFitWidth = YES;
             [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
 
@@ -128,7 +128,7 @@
                 retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
             }
             retval.backgroundColor = [UIColor clearColor];
-            retval.text = [Area objectAtIndex:row];
+            retval.text = Area[row];
             retval.adjustsFontSizeToFitWidth = YES;
             [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
             return retval;
@@ -140,7 +140,7 @@
                 retval= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width-10, [pickerView rowSizeForComponent:component].height)] ;
             }
             retval.backgroundColor = [UIColor clearColor];
-            retval.text = [Cost objectAtIndex:row];
+            retval.text = Cost[row];
             retval.adjustsFontSizeToFitWidth = YES;
             [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
             
@@ -158,14 +158,14 @@
 {
     if(!categoryLocked){
         int random = (arc4random() % [SubType count]);
-        selectedCategory = [SubType objectAtIndex:random];
+        selectedCategory = SubType[random];
         [spinWheel selectRow:random inComponent:subtype animated:YES];
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
     }
     
     if(!suburbLocked){
         int random2 = (arc4random() % [Area count]);
-        selectedSuburb = [Area objectAtIndex:random2];
+        selectedSuburb = Area[random2];
         [spinWheel selectRow:random2 inComponent:area animated:YES];
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
 
@@ -173,7 +173,7 @@
     
     if(!costLocked){
         int random3 = (arc4random() % [Cost count]);
-        selectedCost = [Cost objectAtIndex:random3];
+        selectedCost = Cost[random3];
         [spinWheel selectRow:random3 inComponent:cost animated:YES];
         
         
@@ -321,7 +321,7 @@
     
         [listingsList addObject:currListing];
         }
-    result = [listingsList objectAtIndex:(arc4random() % [listingsList count])];
+    result = listingsList[(arc4random() % [listingsList count])];
     loadView.hidden=TRUE;
     resultButtonView.hidden=FALSE;
     [resultButton setTitle:result.title forState:UIControlStateNormal];
@@ -348,7 +348,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        theList.listingID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

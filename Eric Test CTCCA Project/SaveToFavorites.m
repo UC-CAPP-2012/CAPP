@@ -15,7 +15,7 @@
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     

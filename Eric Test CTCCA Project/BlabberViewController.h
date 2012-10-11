@@ -15,8 +15,8 @@
 #import <EventKitUI/EventKitUI.h>
 #import "ListingString.h"
 #import "IconDownloader.h"
-
-@interface BlabberViewController : UIViewController<NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate>{
+#import "PullToRefreshView.h"
+@interface BlabberViewController : UIViewController<NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate, PullToRefreshViewDelegate>{
     
     IBOutlet UIView *loadView;
     IBOutlet UITableView *tableView;
@@ -27,7 +27,7 @@
 
 @property(nonatomic, strong) NSMutableArray *newsListingTable,*newsListingsList,*newsListString;
 @property (strong, nonatomic) News *currentNews;
-@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void) setupArray;

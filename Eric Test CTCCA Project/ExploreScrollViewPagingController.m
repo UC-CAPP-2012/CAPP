@@ -148,7 +148,7 @@
         //Image View
         
         UIImageView *imageView = [[UIImageView alloc]init];
-        MainTypeClass *currType = [typeDataSource objectAtIndex:i];
+        MainTypeClass *currType = typeDataSource[i];
         imageView.image = currType.imageID;
         
         
@@ -207,7 +207,7 @@
     
     NSInteger currentIndex = sender.tag;
     MainTypeClass *currType;
-    currType = [typeDataSource objectAtIndex:currentIndex];
+    currType = typeDataSource[currentIndex];
     
     exploreFilterView.typeName=currType.typeName;
     exploreFilterView.typeID=currType.typeID;
@@ -243,7 +243,7 @@
     
     NSInteger currentIndex = sender.tag;
     MainTypeClass *currType;
-    currType = [typeDataSource objectAtIndex:currentIndex];
+    currType = typeDataSource[currentIndex];
     
     exploreFilterView.typeName=currType.typeName;
     exploreFilterView.typeID=currType.typeID;

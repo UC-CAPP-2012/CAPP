@@ -36,7 +36,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         areaType = [[AreaClassString alloc] init];
-        areaType.areaID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        areaType.areaID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

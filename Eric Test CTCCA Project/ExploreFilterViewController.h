@@ -13,8 +13,9 @@
 #import "ExploreXMLParser.h"
 #import "AreaXMLParser.h"
 #import "ListingString.h"
+#import "PullToRefreshView.h"
 
-@interface ExploreFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource>{
+@interface ExploreFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, PullToRefreshViewDelegate>{
     
     //Main Screen View outlets variables
     IBOutlet UIView *exploreView;

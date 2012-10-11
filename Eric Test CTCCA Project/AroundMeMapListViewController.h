@@ -45,8 +45,8 @@
     float y2;
     
 }
-@property (nonatomic, retain) IBOutlet UIView* sideSwipeView;
-@property (nonatomic, retain) UITableViewCell* sideSwipeCell;
+@property (nonatomic, strong) IBOutlet UIView* sideSwipeView;
+@property (nonatomic, strong) UITableViewCell* sideSwipeCell;
 @property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
 @property (nonatomic) BOOL animatingSideSwipe;
 

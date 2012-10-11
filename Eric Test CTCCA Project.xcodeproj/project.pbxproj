@@ -63,6 +63,12 @@
 		6987B06116060C2600CA4F3E /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6987B06016060C2600CA4F3E /* SideSwipeTableViewCell.m */; };
 		6987B06216060F1600CA4F3E /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6987B06016060C2600CA4F3E /* SideSwipeTableViewCell.m */; };
 		6987F5DE161D195700646BC1 /* Favourites.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6987F5DD161D195700646BC1 /* Favourites.xml */; };
+		6992703A1626FFA0004506D1 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 699270391626FFA0004506D1 /* PullToRefreshView.m */; };
+		6992703B1626FFA0004506D1 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 699270391626FFA0004506D1 /* PullToRefreshView.m */; };
+		6992703E1626FFA0004506D1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992703C1626FFA0004506D1 /* arrow.png */; };
+		6992703F1626FFA0004506D1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992703C1626FFA0004506D1 /* arrow.png */; };
+		699270401626FFA0004506D1 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992703D1626FFA0004506D1 /* arrow@2x.png */; };
+		699270411626FFA0004506D1 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992703D1626FFA0004506D1 /* arrow@2x.png */; };
 		699534C2153C45DD005EAACE /* EventFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699534C1153C45DD005EAACE /* EventFilterViewController.m */; };
 		699B92E71545481B005A9C5B /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B92E61545481B005A9C5B /* HomePageViewController.m */; };
 		699B9311154817BE005A9C5B /* TourMapListRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B9310154817BE005A9C5B /* TourMapListRouteViewController.m */; };
@@ -200,6 +206,10 @@
 		6987B05F16060C2600CA4F3E /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideSwipeTableViewCell.h; sourceTree = "<group>"; };
 		6987B06016060C2600CA4F3E /* SideSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideSwipeTableViewCell.m; sourceTree = "<group>"; };
 		6987F5DD161D195700646BC1 /* Favourites.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Favourites.xml; sourceTree = "<group>"; };
+		699270381626FFA0004506D1 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
+		699270391626FFA0004506D1 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		6992703C1626FFA0004506D1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		6992703D1626FFA0004506D1 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		699534C0153C45DD005EAACE /* EventFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventFilterViewController.h; sourceTree = "<group>"; };
 		699534C1153C45DD005EAACE /* EventFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventFilterViewController.m; sourceTree = "<group>"; };
 		699B92E51545481B005A9C5B /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
@@ -284,9 +294,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */,
 				690CB71C154022BC00C729C0 /* EventKitUI.framework in Frameworks */,
 				690CB71A154022B600C729C0 /* EventKit.framework in Frameworks */,
-				69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */,
 				696112ED1531710F0069E336 /* CoreLocation.framework in Frameworks */,
 				6927A1671527E27F00667A7F /* MapKit.framework in Frameworks */,
 				69A598471520843F00BDA150 /* UIKit.framework in Frameworks */,
@@ -372,6 +382,8 @@
 		6927A17015286CE700667A7F /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				6992703C1626FFA0004506D1 /* arrow.png */,
+				6992703D1626FFA0004506D1 /* arrow@2x.png */,
 				692C171116215027006063AD /* Placeholder.png */,
 				692C17001621248B006063AD /* button.png */,
 				692C16EB1620091C006063AD /* arrow_icon.png */,
@@ -467,6 +479,15 @@
 				6987B04016060B7D00CA4F3E /* star-hollow@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		699270361626FFA0004506D1 /* PullDownToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				699270381626FFA0004506D1 /* PullToRefreshView.h */,
+				699270391626FFA0004506D1 /* PullToRefreshView.m */,
+			);
+			name = PullDownToRefresh;
 			sourceTree = "<group>";
 		};
 		699B92E415454807005A9C5B /* Home */ = {
@@ -587,6 +608,7 @@
 		69A5984C1520843F00BDA150 /* Eric Test CTCCA Project */ = {
 			isa = PBXGroup;
 			children = (
+				699270361626FFA0004506D1 /* PullDownToRefresh */,
 				692C170C162148AF006063AD /* IconDownloader */,
 				6987B03116060B4700CA4F3E /* Images */,
 				6987B02C16060A7800CA4F3E /* SwipeCell */,
@@ -804,6 +826,8 @@
 				692C171216215027006063AD /* Placeholder.png in Resources */,
 				65EE8B2E1625CCE400D4C1A3 /* tour.xml in Resources */,
 				65EE8B2F1625CCE400D4C1A3 /* location.xml in Resources */,
+				6992703E1626FFA0004506D1 /* arrow.png in Resources */,
+				699270401626FFA0004506D1 /* arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,6 +842,8 @@
 				6987B05C16060B7D00CA4F3E /* star-hollow.png in Resources */,
 				6987B05E16060B7D00CA4F3E /* star-hollow@2x.png in Resources */,
 				692C171316215027006063AD /* Placeholder.png in Resources */,
+				6992703F1626FFA0004506D1 /* arrow.png in Resources */,
+				699270411626FFA0004506D1 /* arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,6 +910,7 @@
 				65EE8B281625C7AD00D4C1A3 /* Location.m in Sources */,
 				65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */,
 				69C877C81625A40100A96963 /* ToursIconDownloader.m in Sources */,
+				6992703A1626FFA0004506D1 /* PullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,6 +921,7 @@
 				69A598721520844000BDA150 /* Eric_Test_CTCCA_ProjectTests.m in Sources */,
 				6987B06116060C2600CA4F3E /* SideSwipeTableViewCell.m in Sources */,
 				692C1710162148D2006063AD /* IconDownloader.m in Sources */,
+				6992703B1626FFA0004506D1 /* PullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,6 +1011,7 @@
 		69A598761520844000BDA150 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -997,6 +1026,7 @@
 		69A598771520844000BDA150 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1012,6 +1042,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eric Test CTCCA Project.app/Eric Test CTCCA Project";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1029,6 +1060,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eric Test CTCCA Project.app/Eric Test CTCCA Project";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",

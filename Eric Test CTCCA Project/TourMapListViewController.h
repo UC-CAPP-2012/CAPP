@@ -17,7 +17,9 @@
 #import "QuartzCore/QuartzCore.h"
 #import <EventKitUI/EventKitUI.h>
 #import "ToursIconDownloader.h"
-@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate>{
+#import "PullToRefreshView.h"
+
+@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate, PullToRefreshViewDelegate>{
 
 IBOutlet UIView *tour;
 IBOutlet MKMapView *mapView;
@@ -46,7 +48,7 @@ IBOutlet UILabel *AddressLabel;
 
 @property(nonatomic, strong) NSMutableArray *tourListingTable,*tourListingsList,*tourListString;
 @property (strong, nonatomic) Tour *currentTour;
-@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)setupArray;

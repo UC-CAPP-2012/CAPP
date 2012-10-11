@@ -64,12 +64,12 @@
     NSURLConnection *imageConnection;
 }
 
-@property (nonatomic, retain) News *news;
-@property (nonatomic, retain) NSIndexPath *indexPathInTableView;
-@property (nonatomic, retain) id <IconDownloaderDelegate> delegate;
+@property (nonatomic, strong) News *news;
+@property (nonatomic, strong) NSIndexPath *indexPathInTableView;
+@property (nonatomic, strong) id <IconDownloaderDelegate> delegate;
 
-@property (nonatomic, retain) NSMutableData *activeDownload;
-@property (nonatomic, retain) NSURLConnection *imageConnection;
+@property (nonatomic, strong) NSMutableData *activeDownload;
+@property (nonatomic, strong) NSURLConnection *imageConnection;
 
 - (void)startDownload;
 - (void)cancelDownload;

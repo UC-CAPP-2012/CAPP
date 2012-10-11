@@ -48,7 +48,7 @@
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     
@@ -90,7 +90,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
@@ -111,8 +111,8 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 // Return the amount of items in our table (the total items in our array above)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [listingTable objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"Favourites"];
+    NSDictionary *dictionary = listingTable[section];
+    NSArray *array = dictionary[@"Favourites"];
     return [array count];
 }
 
@@ -128,9 +128,9 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"Favourites"];
-    Listing *currListing = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"Favourites"];
+    Listing *currListing = array[indexPath.row];
     
     // Get the cell label using its tag and set it
     //UILabel *cellLabel;
@@ -355,7 +355,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     // --------------------------
     
     
-    NSDictionary *sectionDict = [NSDictionary dictionaryWithObject:section forKey:@"Favourites"];
+    NSDictionary *sectionDict = @{@"Favourites": section};
     [listingTable addObject:sectionDict];
 
     
@@ -364,9 +364,9 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath // Control for Map View Button to Listing Detail View
 {
-    NSDictionary *dictionary = [listingTable objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"Favourites"];
-    Listing *selectedEvent = [array objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"Favourites"];
+    Listing *selectedEvent = array[indexPath.row];
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     listingView.currentListing = selectedEvent;
@@ -443,13 +443,13 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         startDateLabel.text = startDateString;
         
         //Detail Image
-        NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         detailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-        NSLog(@"%@",[((Listing *) view.annotation).imageFilenames objectAtIndex:0]);
+        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]);
         
         NSString *listingID = ((Listing *) view.annotation).listingID;
         for (int i = 0; i < [listingsList count]; i++) {
-            Listing *currentListing = [listingsList objectAtIndex:i];
+            Listing *currentListing = listingsList[i];
             if ([currentListing.listingID isEqualToString:listingID]) {
                 ListingViewButton.tag = i;
             }
@@ -480,7 +480,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        theList.listingID = [attributeDict[@"listingID"] stringValue];
     }
 }
 
@@ -543,7 +543,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     
     //Button to switch between Map and Table view
     NSArray *viewArray = favView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == MapWindow) // change to table view
+    if (viewArray[1] == MapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -559,7 +559,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
     }
-    else if ([viewArray objectAtIndex:1] == TableWindow) // change to mapview
+    else if (viewArray[1] == TableWindow) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -584,7 +584,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 {
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
+    Listing *selectedListing = listingsList[selectedIndex];
     listingView.currentListing = selectedListing;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"%@",selectedListing.listingID);

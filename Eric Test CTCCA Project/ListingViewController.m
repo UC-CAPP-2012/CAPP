@@ -109,7 +109,7 @@
 	for (int i = 0; i < [currentListing.imageFilenames count]; i++) {
 		CGRect imageViewFrame = CGRectMake(contentOffset, 0.0f, scrollView.frame.size.width, scrollView.frame.size.height);
         
-        NSString *imageString = [[currentListing.imageFilenames objectAtIndex:i] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *imageString = [(currentListing.imageFilenames)[i] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
 		UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
         
@@ -190,9 +190,9 @@
         StartDateLabel.text = startDateString;
         
         //Detail Image    
-        NSString *imageString = [[((Listing *) view.annotation).imageFilenames objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-        NSLog(@"%@",[((Listing *) view.annotation).imageFilenames objectAtIndex:0]); 
+        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]); 
         
     }
     
@@ -294,7 +294,7 @@
     
     //Button to switch between Map and Table view
     NSArray *viewArray = listingView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if ([viewArray objectAtIndex:1] == mapWindow) // change to table view
+    if (viewArray[1] == mapWindow) // change to table view
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
@@ -310,7 +310,7 @@
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
     } 
-    else if ([viewArray objectAtIndex:1] == tableView) // change to mapview
+    else if (viewArray[1] == tableView) // change to mapview
     {
         [self setupMap];
         // Main Window Animation
@@ -342,7 +342,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [[attributeDict objectForKey:@"listingID"] stringValue];
+        theList.listingID = [attributeDict[@"listingID"] stringValue];
     }
 }
 
