@@ -18,5 +18,8 @@
 @synthesize TourEmail;
 @synthesize ImageURL;
 @synthesize VideoURL;
+@synthesize Latitude;
+@synthesize Longitude;
+@synthesize TourAgent;
 @end
 

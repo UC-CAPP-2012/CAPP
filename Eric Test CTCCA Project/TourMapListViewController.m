@@ -152,10 +152,25 @@ PullToRefreshView *pull;
         currTour.TourID = [tourStringElement.TourID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourName = [tourStringElement.TourName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourDetail = [tourStringElement.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourAgent = [tourStringElement.TourAgent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourCost = tourStringElement.TourCost;
         currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourPhone = [tourStringElement.TourPhone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.ImageFileNames = [tourStringElement.ImageURL componentsSeparatedByString:@","];
+        
+        // Placemarker
+        
+        CLLocationCoordinate2D tempPlacemarker;
+        
+        NSString *tempLat = [tourStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double latDouble =[tempLat doubleValue];
+        tempPlacemarker.latitude = latDouble;
+        
+        NSString *tempLong = [tourStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        double lonDouble =[tempLong doubleValue];
+        tempPlacemarker.longitude = lonDouble;
+        
+        currTour.coordinate = tempPlacemarker;
         
         // Listing View details
         NSString *urlTemp = [tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -178,7 +193,7 @@ PullToRefreshView *pull;
         
         [tourListingsList addObject:currTour];
         [section addObject:currTour];
-        
+        [mapView addAnnotation:currTour];
     }
         
     NSDictionary *sectionDict = @{@"Tours": section};
@@ -217,22 +232,19 @@ PullToRefreshView *pull;
     DetailView.hidden = FALSE;
     view.pinColor = MKPinAnnotationColorGreen;
     
-    if ([view.annotation isKindOfClass:[Listing class]] )
+    if ([view.annotation isKindOfClass:[Tour class]] )
     {
+        Tour *selectedTour = ((Tour *) view.annotation);
         //Title
-        TitleLabel.text = view.annotation.title;
+        TitleLabel.text = selectedTour.TourName;
         
         //Address
-        AddressLabel.text = ((Listing *) view.annotation).address;
+        AddressLabel.text = selectedTour.TourAgent;
         
-        //Start Date
-        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-        StartDateLabel.text = startDateString;
+        StartDateLabel.text = selectedTour.TourDetail;
         
         //Detail Image    
-        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:(((Listing *) view.annotation).imageFilenames)[0]]]];
+        DetailImage.image = selectedTour.TourIcon;
     }
     
 }
@@ -341,7 +353,7 @@ PullToRefreshView *pull;
     [cellHeading setText: cellValue.TourName];
     
     UILabel *cellSubtitle = (UILabel *)[cell viewWithTag:2];
-    [cellSubtitle setText: [cellValue.TourWebsite absoluteString]];
+    [cellSubtitle setText: cellValue.TourAgent];
 
     UILabel *cellDetail = (UILabel *)[cell viewWithTag:3];
     [cellDetail setText: cellValue.TourDetail];

@@ -7,26 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Tour : NSObject{
+#import <MapKit/MKAnnotation.h>
+@interface Tour : NSObject<MKAnnotation>{
     NSString *TourID;
     NSString *TourName;
     NSString *TourDetail;
     NSString *TourCost;
     NSString *TourPhone;
+    NSString *TourAgent;
     NSURL *TourWebsite;
     NSString *TourEmail;
     NSArray *ImageFileNames;
     NSURL *VideoURL;
     UIImage *TourIcon;
+    CLLocationCoordinate2D coordinate;
 }
 
-
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *TourID;
 @property (nonatomic, copy) NSString *TourName;
 @property (nonatomic, copy) NSString *TourDetail;
 @property (nonatomic, copy) NSString *TourCost;
 @property (nonatomic, copy) NSString *TourPhone;
+@property (nonatomic, copy) NSString *TourAgent;
 @property (nonatomic, copy) NSURL *TourWebsite;
 @property (nonatomic, copy) NSString *TourEmail;
 @property (nonatomic, copy) NSArray *ImageFileNames;

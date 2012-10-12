@@ -346,6 +346,10 @@ PullToRefreshView *pull;
     return rowCount;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 135;
+}
 
 // Load images for all onscreen rows when scrolling is finished
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

@@ -19,5 +19,7 @@
 @synthesize ImageFileNames;
 @synthesize VideoURL;
 @synthesize TourIcon;
+@synthesize coordinate;
+@synthesize TourAgent;
 @end
 
