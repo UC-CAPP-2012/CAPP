@@ -223,13 +223,11 @@
         
         Listing *currListing = [[Listing alloc] init];
         
-        
-        // ListingID , Title , SubTitle220
+        // ListingID , Title , SubTitle
         
         currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
         currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Placemarker
         
@@ -249,23 +247,25 @@
         
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
         currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
-        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
         NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         currListing.videoURL = [NSURL URLWithString:videoUrlString];
         currListing.websiteURL = [NSURL URLWithString:webUrlString];
@@ -318,8 +318,41 @@
         NSDate *endDate = [endgregorian dateFromComponents:endcomps];
         currListing.endDate = endDate;
         
-    
+        
+        // ** CHECKS ------------------------
+        NSLog(@"%@",listingStringElement.ListingName);
+        NSLog(@"%@",listingStringElement.Latitude);
+        NSLog(@"%@",listingStringElement.Longitude);
+        NSLog(@"%f",latDouble);
+        NSLog(@"%f",lonDouble);
+        NSLog(@"%@",listingStringElement.ListingID);
+        NSLog(@"%@",listingStringElement.ListingType);
+        NSLog(@"%@",listingStringElement.AreaID);
+        NSLog(@"%@",listingStringElement.Cost);
+        NSLog(@"%@",listingStringElement.SubType);
+        NSLog(@"%@",listingStringElement.Suburb);    //suburb
+        NSLog(@"%@",listingStringElement.Postcode);  //postcode
+        NSLog(@"%@",listingStringElement.StateID);   //stateID
+        NSLog(@"%@",currListing.address);
+        NSLog(@"%@",listingStringElement.Details);
+        NSLog(@"%@",listingStringElement.ImageURL);
+        NSLog(@"%@",listingStringElement.VideoURL);
+        NSLog(@"%@",listingStringElement.StartDay);
+        NSLog(@"%@",listingStringElement.StartMonth);
+        NSLog(@"%@",listingStringElement.StartYear);
+        NSLog(@"%@",listingStringElement.StartMinute);
+        NSLog(@"%@",listingStringElement.StartHour);
+        NSLog(@"%@",listingStringElement.EndDay);
+        NSLog(@"%@",listingStringElement.EndMonth);
+        NSLog(@"%@",listingStringElement.EndYear);
+        NSLog(@"%@",listingStringElement.Website);
+        NSLog(@"%@",listingStringElement.EndMinute);
+        NSLog(@"%@",listingStringElement.EndHour);
+        
+        // -----------------------------------------
+        
         [listingsList addObject:currListing];
+
         }
     result = listingsList[(arc4random() % [listingsList count])];
     loadView.hidden=TRUE;

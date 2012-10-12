@@ -32,7 +32,7 @@
     IBOutlet UIView *switchTableView;
     IBOutlet UIScrollView	*scrollView;
     IBOutlet UIPageControl *pageControl;    
-    IBOutlet UITextView *infoBox;
+    IBOutlet UIWebView *infoBox;
     IBOutlet UISegmentedControl *segmentController;
 
     IBOutlet UIBarItem *favButton;

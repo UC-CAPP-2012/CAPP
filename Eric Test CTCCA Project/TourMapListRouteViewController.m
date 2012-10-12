@@ -77,7 +77,6 @@
     
     Listing *ann = [[Listing alloc] init];
     ann.title = @"Title";
-    ann.subtitle = @"subtitle";
     ann.coordinate = placemarker;
     ann.imageFilenames = @[@"http://i681.photobucket.com/albums/vv173/kandisdesign/Kandis/240x110.png"];
     
@@ -99,7 +98,6 @@
     Listing *ann = [[Listing alloc] init];
     ann.listingID = @"ListingID1";
     ann.title = @"Title";
-    ann.subtitle = @"subtitle";
     ann.coordinate = placemarker;
     
     CLLocationCoordinate2D placemarker2;
@@ -109,7 +107,6 @@
     Listing *ann2 = [[Listing alloc] init];
     ann.listingID = @"ListingID2";
     ann2.title = @"Title2";
-    ann2.subtitle = @"subtitle2";
     ann2.coordinate = placemarker2;
     
     //Add Placemarker to map

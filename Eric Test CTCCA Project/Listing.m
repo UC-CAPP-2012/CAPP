@@ -12,28 +12,27 @@
 
 //Map
 @synthesize title;
-@synthesize subtitle;
 @synthesize coordinate;
-
+@synthesize majorRegionName;
 //Identification
 @synthesize listingID;
 @synthesize listingType;
+@synthesize suburb;
+@synthesize openingHours;
 
 //Sorts - i'd make these ID's...
 //name
 @synthesize areaID;
 @synthesize costType;
-@synthesize ratingType;
 @synthesize subType;
 
 // Listing View Variables
 @synthesize address;
-@synthesize details;
 @synthesize description;
-@synthesize review;
 @synthesize imageFilenames;
 @synthesize videoURL;
 @synthesize websiteURL;
+@synthesize phone;
 
 // Event Variable
 @synthesize startDate;

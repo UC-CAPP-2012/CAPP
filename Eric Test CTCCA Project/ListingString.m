@@ -11,31 +11,30 @@
 @implementation ListingString
 
 @synthesize ListingName;
-@synthesize Subtitle;
 @synthesize Latitude;
 @synthesize Longitude;
 
 // Identification Properties
 @synthesize ListingID;
 @synthesize ListingType;
+@synthesize OpeningHours;
 
 @synthesize AreaID;
-@synthesize CostType;
-@synthesize RatingType;
+@synthesize Cost;
 @synthesize SubType;
 
 // Listing View Variables
-@synthesize Address; //unitnumber
+@synthesize Address; //address
 @synthesize Suburb;    //suburb
 @synthesize Postcode;  //postcode
 @synthesize StateID;   //stateID
+@synthesize MajorRegionName;
 
-@synthesize Details;
-@synthesize Description;
-@synthesize Review;
 @synthesize ImageURL;
 @synthesize VideoURL;
-@synthesize WebsiteURL;
+@synthesize Website;
+@synthesize Phone;
+@synthesize Email;
 
 // Event Variable
 @synthesize StartMinute;

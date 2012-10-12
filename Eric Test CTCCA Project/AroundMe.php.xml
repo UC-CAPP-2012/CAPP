@@ -3,7 +3,6 @@
 <ListingElement>
 <ListingID>1</ListingID>
 <ListingName>Canberra City YHA</ListingName>
-<Subtitle>Canberra City Subtitle</Subtitle>
 <Address>16 Akuna Street, Civic, 2601</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2601</Postcode>
@@ -11,39 +10,39 @@
 <Latitude>-35.282001495361328125000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Hostel</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$</CostType>
+<Cost>$</Cost>
 <StartDay>20</StartDay>
-<Details>Canberra City YHA Details</Details>
-<Description>Canberra City YHA Description</Description>
-<Review>Canberra City YHA Review</Review>
+<Details>Canberra City YHA Description</Details>
 <VideoURL>http://www.youtube.com/watch?v=TUY5zg1fez8</VideoURL>
-<WebsiteURL>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</WebsiteURL>     
+<Website>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</Website>
+<MajorRegionName>Civic</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
 <ListingID>7</ListingID>
 <ListingName>Canberra Multicultural Festival</ListingName>
-<Subtitle>Canberra Multicultural Festival Subtitle</Subtitle>
 <Address>15 Garema Pl, Civic, 2600</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2600</Postcode>
 <Longitude>149.132095336914062500000000000000</Longitude>
 <Latitude>-35.278388977050781250000000000000</Latitude>
-<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
+<ImageURL>http://images.canberratimes.com.au/2012/10/03/3684749/KM-article-lead-wide--artist-20121003151742273205-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3685920/pb-Art-Speed-20121003205023588668-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3684838/KM-thumb--dr-maciver-20121003153819907971-620x349.jpg</ImageURL>
 <SubType>Festival</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$</CostType>
+<Cost>$</Cost>
 <StartDay>19</StartDay>
-<Details>Canberra Multicultural Festival Details</Details>
-<Description>Canberra Multicultural Festival Description</Description>
-<Review>Canberra Multicultural Festival Review</Review>
+<Details>Canberra Multicultural Festival Description</Details>
 <VideoURL>www.google.com</VideoURL>
-<WebsiteURL>www.google.com</WebsiteURL>   
+<Website>www.google.com</Website>
+<MajorRegionName>Civic</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
 <ListingID>2</ListingID>
 <ListingName>Bush Capital Lodge</ListingName>
-<Subtitle>Bush Capital Lodge Subtitle</Subtitle>
 <Address>15 Dryandra St, OConnor, 2602</Address>
 <Suburb>OConnor</Suburb>
 <Postcode>2602</Postcode>
@@ -51,19 +50,19 @@
 <Latitude>-35.252025604248046875000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Lodge</SubType>
-<RatingType>3 Stars</RatingType>
-<CostType>$$$</CostType>
+<Cost>$$$</Cost>
 <StartDay>16</StartDay>
-<Details>Bush Capital Lodge Details</Details>
-<Description>Bush Capital Lodge Description</Description>
-<Review>Bush Capital Lodge Review</Review>
+<Details>Bush Capital Lodge Description</Details>
 <VideoURL>www.google.com</VideoURL>
-<WebsiteURL>www.google.com</WebsiteURL> 
+<Website>www.google.com</Website>
+<MajorRegionName>Civic</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
 <ListingID>4</ListingID>
 <ListingName>Big Splash Waterpark</ListingName>
-<Subtitle>Big Splash Waterpark Subtitle</Subtitle>
 <Address>15 Catchpole street, Macquarie, 2614</Address>
 <Suburb>Macquarie</Suburb>
 <Postcode>2614</Postcode>
@@ -71,19 +70,19 @@
 <Latitude>-35.252388000488281250000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Park</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$$$</CostType>
+<Cost>$$$</Cost>
 <StartDay>17</StartDay>
-<Details>Big Splash Waterpark Details</Details>
-<Description>Big Splash Waterpark Description</Description>
-<Review>Big Splash Waterpark Review</Review>
+<Details>Big Splash Waterpark Description</Details>
 <VideoURL>www.google.com</VideoURL>
-<WebsiteURL>www.google.com</WebsiteURL> 
+<Website>www.google.com</Website>
+<MajorRegionName>Belconnen</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
 <ListingID>6</ListingID>
 <ListingName>Street Machine Summernats Car Festival</ListingName>
-<Subtitle>Street Machine Summernats Subtitle</Subtitle>
 <Address>15 Flemington Road, Mitchell, 2605</Address>
 <Suburb>Mitchell</Suburb>
 <Postcode>2605</Postcode>
@@ -91,13 +90,14 @@
 <Latitude>-35.217014312744140625000000000000</Latitude>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Festival</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$$$</CostType>
+<Cost>$$$</Cost>
 <StartDay>16</StartDay>
-<Details>Street Machine Summernats Car Festival Details</Details>
-<Description>Street Machine Summernats Car Festival Description</Description>
-<Review>Street Machine Summernats Car Festival Review</Review>
+<Details>Street Machine Summernats Car Festival Description</Details>
 <VideoURL>www.google.com</VideoURL>
-<WebsiteURL>www.google.com</WebsiteURL> 
+<Website>www.google.com</Website>
+<MajorRegionName>Gungahlin</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 </ListingElements>

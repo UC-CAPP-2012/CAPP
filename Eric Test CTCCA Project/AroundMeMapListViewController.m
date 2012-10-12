@@ -136,12 +136,33 @@
     }
 }
 
+//-(void)mapView:(MKMapView *)mapViewAroundMe didUpdateUserLocation:(MKUserLocation *)userLocation
+//{
+//    //region.center.longitude = 149.128668;
+//    //region.center.latitude = -35.281150;
+//    
+//    NSLog(@" %f",userLocation.location.coordinate.latitude);
+//    NSLog(@" %f",userLocation.location.coordinate.longitude);
+//    
+//    MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
+//    region.center.latitude = userLocation.location.coordinate.latitude;
+//    region.center.longitude = userLocation.location.coordinate.longitude;
+//    region.span.latitudeDelta = 0.05f; // Zoom Settings
+//    region.span.longitudeDelta = 0.05f; // Zoom Settings
+//    [mapViewAroundMe setRegion:region animated:YES];
+//    
+//    x1 = userLocation.location.coordinate.latitude + 0.05f;
+//    x2 = userLocation.location.coordinate.latitude - 0.05f;
+//    y1 = userLocation.location.coordinate.longitude  + 0.05f;
+//    y2 = userLocation.location.coordinate.longitude  - 0.05f;
+//}
 
--(void)mapView:(MKMapView *)mapViewAroundMe didUpdateUserLocation:(MKUserLocation *)userLocation
-{
+
+
+- (IBAction)currentUserLocation:(id)sender {
     //region.center.longitude = 149.128668; 
     //region.center.latitude = -35.281150; 
-    
+    MKUserLocation *userLocation = mapView.userLocation;
     NSLog(@" %f",userLocation.location.coordinate.latitude);
     NSLog(@" %f",userLocation.location.coordinate.longitude);
     
@@ -150,13 +171,15 @@
     region.center.longitude = userLocation.location.coordinate.longitude;
     region.span.latitudeDelta = 0.05f; // Zoom Settings
     region.span.longitudeDelta = 0.05f; // Zoom Settings
-    [mapViewAroundMe setRegion:region animated:YES];
+    [mapView setRegion:region animated:YES];
     
     x1 = userLocation.location.coordinate.latitude + 0.05f;
     x2 = userLocation.location.coordinate.latitude - 0.05f;
     y1 = userLocation.location.coordinate.longitude  + 0.05f;
     y2 = userLocation.location.coordinate.longitude  - 0.05f;
 }
+
+
 -(void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     NSLog(@"error =%@", error);
@@ -213,25 +236,23 @@
         
         Listing *currListing = [[Listing alloc] init];
         
-        
         // ListingID , Title , SubTitle
         
         currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];       
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
         currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Placemarker
         
-        CLLocationCoordinate2D tempPlacemarker;  
+        CLLocationCoordinate2D tempPlacemarker;
         
         NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         double latDouble =[tempLat doubleValue];
         tempPlacemarker.latitude = latDouble;
-
+        
         NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         double lonDouble =[tempLong doubleValue];
-        tempPlacemarker.longitude = lonDouble; 
+        tempPlacemarker.longitude = lonDouble;
         
         currListing.coordinate = tempPlacemarker;
         
@@ -239,25 +260,31 @@
         
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
         currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
-        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.description = [listingStringElement.description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        //currListing.videoURL = [[NSURL alloc] initWithString:listingStringElement.VideoURL];
-        //currListing.websiteURL = [[NSURL alloc] initWithString:listingStringElement.WebsiteURL];
+        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        currListing.videoURL = [NSURL URLWithString:videoUrlString];
+        currListing.websiteURL = [NSURL URLWithString:webUrlString];
         
         // Start Date
-
+        
         listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -277,7 +304,7 @@
         [startcomps setHour:startHour];
         [startcomps setMinute:startMinute];
         NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];  
+        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
         currListing.startDate = startDate;
         
         // End Date
@@ -301,13 +328,12 @@
         [endcomps setHour:endHour];
         [endcomps setMinute:endMinute];
         NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *endDate = [endgregorian dateFromComponents:endcomps];  
+        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
         currListing.endDate = endDate;
         
         
         // ** CHECKS ------------------------
         NSLog(@"%@",listingStringElement.ListingName);
-        NSLog(@"%@",listingStringElement.Subtitle);
         NSLog(@"%@",listingStringElement.Latitude);
         NSLog(@"%@",listingStringElement.Longitude);
         NSLog(@"%f",latDouble);
@@ -315,19 +341,15 @@
         NSLog(@"%@",listingStringElement.ListingID);
         NSLog(@"%@",listingStringElement.ListingType);
         NSLog(@"%@",listingStringElement.AreaID);
-        NSLog(@"%@",listingStringElement.CostType);
-        NSLog(@"%@",listingStringElement.RatingType);
+        NSLog(@"%@",listingStringElement.Cost);
         NSLog(@"%@",listingStringElement.SubType);
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
         NSLog(@"%@",currListing.address);
         NSLog(@"%@",listingStringElement.Details);
-        NSLog(@"%@",listingStringElement.Description);
-        NSLog(@"%@",listingStringElement.Review);
         NSLog(@"%@",listingStringElement.ImageURL);
         NSLog(@"%@",listingStringElement.VideoURL);
-        NSLog(@"%@",listingStringElement.WebsiteURL);
         NSLog(@"%@",listingStringElement.StartDay);
         NSLog(@"%@",listingStringElement.StartMonth);
         NSLog(@"%@",listingStringElement.StartYear);
@@ -336,12 +358,14 @@
         NSLog(@"%@",listingStringElement.EndDay);
         NSLog(@"%@",listingStringElement.EndMonth);
         NSLog(@"%@",listingStringElement.EndYear);
+        NSLog(@"%@",listingStringElement.Website);
         NSLog(@"%@",listingStringElement.EndMinute);
         NSLog(@"%@",listingStringElement.EndHour);
         
         // -----------------------------------------
         
         [listingsList addObject:currListing];
+
         [mapView addAnnotation:currListing];
     }
     
@@ -525,7 +549,7 @@
     [cell.contentView addSubview:lblTemp];
     
     lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
-    lblTemp.text = currListing.subtitle;
+    lblTemp.text = currListing.suburb;
     lblTemp.font = [UIFont systemFontOfSize:14];
     [cell.contentView addSubview:lblTemp];
     return cell;

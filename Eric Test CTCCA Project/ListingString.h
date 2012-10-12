@@ -12,7 +12,6 @@
     
     // MAP properties    
     NSString *ListingName;
-    NSString *Subtitle;
     NSString *Latitude;
     NSString *Longitude;
     
@@ -21,8 +20,7 @@
     NSString *ListingType;
     
     NSString *AreaID; // regionID
-    NSString *CostType; //PriceID
-    NSString *RatingType; //rating
+    NSString *Cost; //PriceID
     NSString *SubType; //subtype
     
     // Listing View Variables
@@ -30,15 +28,15 @@
     NSString *Suburb;    //suburb
     NSString *Postcode;  //postcode
     NSString *StateID;   //stateID
-    
-    NSString *Details; // Made from other properties - Email / Website Telephone.
-    NSString *Description; 
-    NSString *Review; 
+    NSString *MajorRegionName;
+
+    NSString *Details; 
     NSString *ImageURL; //ImageCluster
     NSString *VideoURL; //AudioVideoURL
-    NSString *WebsiteURL; //website
+    NSString *Website; //website
     NSString *Email; //email
-    
+    NSString *Phone; //phone
+    NSString *OpeningHours;
     // Event Variable
     NSString *StartDay;
     NSString *StartMonth;
@@ -57,32 +55,32 @@
 
 
 @property (nonatomic, copy) NSString *ListingName;
-@property (nonatomic, copy) NSString *Subtitle;
 @property (nonatomic, copy) NSString *Latitude;
 @property (nonatomic, copy) NSString *Longitude;
 
 // Identification Properties
 @property (nonatomic, copy) NSString *ListingID;
 @property (nonatomic, copy) NSString *ListingType;
+@property (nonatomic, copy) NSString *OpeningHours;
 
 @property (nonatomic, copy) NSString *AreaID;
-@property (nonatomic, copy) NSString *CostType;
-@property (nonatomic, copy) NSString *RatingType;
+@property (nonatomic, copy) NSString *Cost;
 @property (nonatomic, copy) NSString *SubType;
 
 // Listing View Variables
 
 @property (nonatomic, copy) NSString *Address;
+@property (nonatomic, copy) NSString *MajorRegionName;
 @property (nonatomic, copy) NSString *Suburb;    //suburb
 @property (nonatomic, copy) NSString *Postcode;  //postcode
 @property (nonatomic, copy) NSString *StateID;   //stateID
 
 @property (nonatomic, copy) NSString *Details;
-@property (nonatomic, copy) NSString *Description;
-@property (nonatomic, copy) NSString *Review;
 @property (nonatomic, copy) NSString *ImageURL;
 @property (nonatomic, copy) NSString *VideoURL;
-@property (nonatomic, copy) NSString *WebsiteURL;
+@property (nonatomic, copy) NSString *Website;
+@property (nonatomic, copy) NSString *Phone;
+@property (nonatomic, copy) NSString *Email;
 
 // Event Variable
 @property (nonatomic, copy) NSString *StartDay;

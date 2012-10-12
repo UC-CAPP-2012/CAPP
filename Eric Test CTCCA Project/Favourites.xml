@@ -3,41 +3,41 @@
 <ListingElement>
 <ListingID>1</ListingID>
 <ListingName>Canberra City YHA</ListingName>
-<Subtitle>Canberra City Subtitle</Subtitle>
 <Address>16 Akuna Street, Civic, 2601</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2601</Postcode>
 <Longitude>149.128677368164062500000000000000</Longitude>
 <Latitude>-35.282001495361328125000000000000</Latitude>
-<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
+<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
 <SubType>Hostel</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$</CostType>
+<Cost>$</Cost>
 <StartDay>20</StartDay>
-<Details>Canberra City YHA Details</Details>
-<Description>Canberra City YHA Description</Description>
-<Review>Canberra City YHA Review</Review>
+<Details>Canberra City YHA Description</Details>
 <VideoURL>http://www.youtube.com/watch?v=TUY5zg1fez8</VideoURL>
-<WebsiteURL>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</WebsiteURL>
+<Website>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</Website>
+<MajorRegionName>Civic</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
 <ListingID>7</ListingID>
 <ListingName>Canberra Multicultural Festival</ListingName>
-<Subtitle>Canberra Multicultural Festival Subtitle</Subtitle>
 <Address>15 Garema Pl, Civic, 2600</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2600</Postcode>
 <Longitude>149.132095336914062500000000000000</Longitude>
 <Latitude>-35.278388977050781250000000000000</Latitude>
-<ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
+<ImageURL>http://images.canberratimes.com.au/2012/10/03/3684749/KM-article-lead-wide--artist-20121003151742273205-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3685920/pb-Art-Speed-20121003205023588668-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3684838/KM-thumb--dr-maciver-20121003153819907971-620x349.jpg</ImageURL>
 <SubType>Festival</SubType>
-<RatingType>2 Stars</RatingType>
-<CostType>$</CostType>
+<Cost>$</Cost>
 <StartDay>19</StartDay>
-<Details>Canberra Multicultural Festival Details</Details>
-<Description>Canberra Multicultural Festival Description</Description>
-<Review>Canberra Multicultural Festival Review</Review>
+<Details>Canberra Multicultural Festival Description</Details>
 <VideoURL>www.google.com</VideoURL>
-<WebsiteURL>www.google.com</WebsiteURL>
+<Website>www.google.com</Website>
+<MajorRegionName>Civic</MajorRegionName>
+<Phone>0412384716</Phone>
+<Email>aaa@bbb.com</Email>
+<OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 </ListingElements>

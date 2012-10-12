@@ -94,8 +94,8 @@ PullToRefreshView *pull;
     MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
     region.center.latitude = -35.281150; //mapView.userLocation.location.coordinate.latitude;
     region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
-    region.span.latitudeDelta = 0.05f; // Zoom Settings
-    region.span.longitudeDelta = 0.05f; // Zoom Settings
+    region.span.latitudeDelta = 0.15f; // Zoom Settings
+    region.span.longitudeDelta = 0.25f; // Zoom Settings
     [mapView setRegion:region animated:YES];
     
     //Place marker on user
@@ -208,7 +208,7 @@ PullToRefreshView *pull;
 -(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
 {
     
-    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];     
+    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
     MyPin.pinColor = MKPinAnnotationColorRed;
     
     MyPin.draggable = NO;
@@ -239,12 +239,21 @@ PullToRefreshView *pull;
         TitleLabel.text = selectedTour.TourName;
         
         //Address
-        AddressLabel.text = selectedTour.TourAgent;
+        AddressLabel.text = selectedTour.TourDetail;
         
-        StartDateLabel.text = selectedTour.TourDetail;
+        StartDateLabel.text = selectedTour.TourAgent;
         
         //Detail Image    
         DetailImage.image = selectedTour.TourIcon;
+        
+//        NSString *listingID = ((Listing *) view.annotation).listingID;
+//        for (int i = 0; i < [listingsList count]; i++) {
+//            Listing *currentListing = listingsList[i];
+//            if ([currentListing.listingID isEqualToString:listingID]) {
+//                ListingViewButton.tag = i;
+//            }
+//        }
+//        [ListingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
 }

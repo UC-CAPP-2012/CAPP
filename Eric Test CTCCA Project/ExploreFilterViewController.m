@@ -31,7 +31,7 @@ PullToRefreshView *pull;
 @synthesize typeName,typeID;
 @synthesize areaFilter;
 @synthesize listingsDataSource,listingTable, listingsList,listingsListString;
-@synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
+@synthesize sortHeaders1,sortHeaders2,sortHeaders3;
 @synthesize currSel,sortSel;
 @synthesize areaID;
 @synthesize sortID;
@@ -359,8 +359,7 @@ PullToRefreshView *pull;
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
-    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
-    sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
+    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
     for (ListingString *listingStringElement in listingsListString) {
         
@@ -369,13 +368,12 @@ PullToRefreshView *pull;
         // ListingID , Title , SubTitle
         
         currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""]; 
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
         currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Placemarker
         
-        CLLocationCoordinate2D tempPlacemarker;  
+        CLLocationCoordinate2D tempPlacemarker;
         
         NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         double latDouble =[tempLat doubleValue];
@@ -383,7 +381,7 @@ PullToRefreshView *pull;
         
         NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         double lonDouble =[tempLong doubleValue];
-        tempPlacemarker.longitude = lonDouble; 
+        tempPlacemarker.longitude = lonDouble;
         
         currListing.coordinate = tempPlacemarker;
         
@@ -391,24 +389,25 @@ PullToRefreshView *pull;
         
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
         currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
-        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        
         NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         currListing.videoURL = [NSURL URLWithString:videoUrlString];
         currListing.websiteURL = [NSURL URLWithString:webUrlString];
@@ -434,7 +433,7 @@ PullToRefreshView *pull;
         [startcomps setHour:startHour];
         [startcomps setMinute:startMinute];
         NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];  
+        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
         currListing.startDate = startDate;
         
         // End Date
@@ -458,13 +457,12 @@ PullToRefreshView *pull;
         [endcomps setHour:endHour];
         [endcomps setMinute:endMinute];
         NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *endDate = [endgregorian dateFromComponents:endcomps];  
+        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
         currListing.endDate = endDate;
         
         
         // ** CHECKS ------------------------
         NSLog(@"%@",listingStringElement.ListingName);
-        NSLog(@"%@",listingStringElement.Subtitle);
         NSLog(@"%@",listingStringElement.Latitude);
         NSLog(@"%@",listingStringElement.Longitude);
         NSLog(@"%f",latDouble);
@@ -472,16 +470,13 @@ PullToRefreshView *pull;
         NSLog(@"%@",listingStringElement.ListingID);
         NSLog(@"%@",listingStringElement.ListingType);
         NSLog(@"%@",listingStringElement.AreaID);
-        NSLog(@"%@",listingStringElement.CostType);
-        NSLog(@"%@",listingStringElement.RatingType);
+        NSLog(@"%@",listingStringElement.Cost);
         NSLog(@"%@",listingStringElement.SubType);
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
         NSLog(@"%@",currListing.address);
         NSLog(@"%@",listingStringElement.Details);
-        NSLog(@"%@",listingStringElement.Description);
-        NSLog(@"%@",listingStringElement.Review);
         NSLog(@"%@",listingStringElement.ImageURL);
         NSLog(@"%@",listingStringElement.VideoURL);
         NSLog(@"%@",listingStringElement.StartDay);
@@ -492,13 +487,14 @@ PullToRefreshView *pull;
         NSLog(@"%@",listingStringElement.EndDay);
         NSLog(@"%@",listingStringElement.EndMonth);
         NSLog(@"%@",listingStringElement.EndYear);
-        NSLog(@"%@",listingStringElement.WebsiteURL);
+        NSLog(@"%@",listingStringElement.Website);
         NSLog(@"%@",listingStringElement.EndMinute);
         NSLog(@"%@",listingStringElement.EndHour);
         
         // -----------------------------------------
         
         [listingsList addObject:currListing];
+
         [mapView addAnnotation:currListing];
         
         Listing *tempListing = currListing;
@@ -509,17 +505,11 @@ PullToRefreshView *pull;
             NSLog(@"%@", subType);
         }
         
-        NSString *ratingType = tempListing.ratingType;
-        if(![sortHeaders3 containsObject:ratingType])
-        {
-            [sortHeaders3 addObject:ratingType];
-            NSLog(@"%@", ratingType);
-        }
         
         NSString *costType = tempListing.costType;
-        if(![sortHeaders4 containsObject:costType])
+        if(![sortHeaders3 containsObject:costType])
         {
-            [sortHeaders4 addObject:costType];
+            [sortHeaders3 addObject:costType];
             NSLog(@"%@", costType);
         }
         
@@ -542,7 +532,6 @@ PullToRefreshView *pull;
     
     [sortHeaders3 sortUsingSelector:@selector(compare:)];
     
-    [sortHeaders4 sortUsingSelector:@selector(compare:)];
     
     // -----------------------
     
@@ -563,10 +552,8 @@ PullToRefreshView *pull;
         int count;
         if(sortSel ==1){
             count = [sortHeaders2 count];
-        }else if(sortSel == 2){
+        }else {
             count = [sortHeaders3 count];
-        }else if(sortSel == 3){
-            count = [sortHeaders4 count];
         }
         
         for (int i = 0; i < count; i++)
@@ -580,11 +567,8 @@ PullToRefreshView *pull;
                 if(sortSel ==1){
                     currSortHeader = sortHeaders2[i];
                     type = listingListListing.subType;
-                }else if(sortSel == 2){
+                }else{
                     currSortHeader = sortHeaders3[i];
-                    type = listingListListing.ratingType;
-                }else if(sortSel == 3){
-                    currSortHeader = sortHeaders4[i];
                     type = listingListListing.costType;
                 }
                 
@@ -710,17 +694,10 @@ PullToRefreshView *pull;
         }
         
     }
-    if (sortSel == 2) {  //Rating
+    if (sortSel == 2) {  //Cost
         [sectionHeaders removeAllObjects];
         
         for(NSString *header in sortHeaders3)
-        {
-            [sectionHeaders addObject:header];
-        }
-    }
-    if (sortSel == 3) { // Price
-        [sectionHeaders removeAllObjects];        
-        for(NSString *header in sortHeaders4)
         {
             [sectionHeaders addObject:header];
         }
@@ -760,34 +737,16 @@ PullToRefreshView *pull;
     else
         currListing = array[indexPath.row];
     
-    NSString *cellValue = currListing.title;
-    
-    //UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
-    //UIImage* imagetrail = [UIImage imageNamed:@"ToursAdd.png"];
-    
-    //cell.textLabel.text = cellValue;
-    //cell.imageView.image = image;
-    
     //ContentView
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
     cell.imageView.image = image;
     
-    CGRect Label1Frame = CGRectMake(70, 10, 240, 25);
-    CGRect Label2Frame = CGRectMake(70, 33, 240, 25);
-    //CGRect Button1Frame = CGRectMake(250, 20, 20, 20);
+    //ContentView
+    UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
+    [cellHeading setText: currListing.title];
     
-    UILabel *lblTemp;
-    //UIButton *btnTemp;
-    
-    lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
-    lblTemp.text = cellValue;
-    [cell.contentView addSubview:lblTemp];
-    
-    lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
-    lblTemp.text = currListing.subtitle;
-    lblTemp.font = [UIFont systemFontOfSize:14];
-    [cell.contentView addSubview:lblTemp];
-    
+    UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
+    [cellSubtype setText: currListing.suburb];
 
     return cell;    
 }
@@ -803,13 +762,14 @@ PullToRefreshView *pull;
         isFiltered = true;
         filteredTableData = [[NSMutableArray alloc] init];
         
-        for (Listing* listing in listingsList)
+        for (Listing* listingSearch in listingsList)
         {
-            NSRange nameRange = [listing.title rangeOfString:text options:NSCaseInsensitiveSearch];
-            NSRange descriptionRange = [listing.details rangeOfString:text options:NSCaseInsensitiveSearch];
-            if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound)
+            NSRange nameRange = [listingSearch.title rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange suburbRange = [listingSearch.suburb rangeOfString:text options:NSCaseInsensitiveSearch];
+            
+            if(nameRange.location != NSNotFound || suburbRange.location!=NSNotFound)
             {
-                [filteredTableData addObject:listing];
+                [filteredTableData addObject:listingSearch];
             }
         }
     }
@@ -820,7 +780,7 @@ PullToRefreshView *pull;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 45;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

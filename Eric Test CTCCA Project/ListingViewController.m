@@ -121,11 +121,12 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = image;
+                imageView.contentMode = UIViewContentModeScaleToFill;
                 loadView.hidden = YES;
             });
         });
 		//imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.contentMode = UIViewContentModeCenter;
+        
         
 		[scrollView addSubview:imageView];
         
@@ -138,13 +139,12 @@
 -(IBAction)segmentButton:(id)sender{
     
     if (segmentController.selectedSegmentIndex == 0) {
-        infoBox.text = currentListing.details;
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<strong>Type:</strong> %@<p><strong>Cost:</strong> %@</p><p><strong>Opening Hours:</strong> %@</p><p><strong>Address:</strong>%@</p><p><strong>Phone:</strong>%@</p><p><strong>Website:</strong> %@</p><p><strong>Email:</strong>%@</p>",currentListing.subType,currentListing.costType,currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
+        infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
+ 
     }
     if (segmentController.selectedSegmentIndex == 1) {
-        infoBox.text =currentListing.description;
-    }
-    if (segmentController.selectedSegmentIndex == 2) {
-        infoBox.text =currentListing.review;
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"%@", currentListing.description] baseURL:nil];
     }
     [self setupArray];
     [self setupPictures];

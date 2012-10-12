@@ -56,6 +56,6 @@
 @property(strong, nonatomic)NSArray *listingsTableDataSource;
 -(void)setupArray;
 -(void)setupMap;
-
+- (IBAction)currentUserLocation:(id)sender;
 
 @end

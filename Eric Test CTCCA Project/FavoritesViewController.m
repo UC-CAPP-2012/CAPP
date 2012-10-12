@@ -159,7 +159,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     [cell.contentView addSubview:lblTemp];
     
     lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
-    lblTemp.text = @"the subtitle";
+    lblTemp.text = currListing.suburb;
     [cell.contentView addSubview:lblTemp];
     return cell;
 }
@@ -218,7 +218,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
         currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subtitle = [listingStringElement.Subtitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Placemarker
         
@@ -238,23 +237,25 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[listingStringElement.CostType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.ratingType = [listingStringElement.RatingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
         currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         
         // Listing View details
         
-        currListing.details = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.description = [listingStringElement.Description stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.review = [listingStringElement.Review stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
         NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *webUrlTemp = [listingStringElement.WebsiteURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         currListing.videoURL = [NSURL URLWithString:videoUrlString];
         currListing.websiteURL = [NSURL URLWithString:webUrlString];
@@ -310,7 +311,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         
         // ** CHECKS ------------------------
         NSLog(@"%@",listingStringElement.ListingName);
-        NSLog(@"%@",listingStringElement.Subtitle);
         NSLog(@"%@",listingStringElement.Latitude);
         NSLog(@"%@",listingStringElement.Longitude);
         NSLog(@"%f",latDouble);
@@ -318,16 +318,13 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         NSLog(@"%@",listingStringElement.ListingID);
         NSLog(@"%@",listingStringElement.ListingType);
         NSLog(@"%@",listingStringElement.AreaID);
-        NSLog(@"%@",listingStringElement.CostType);
-        NSLog(@"%@",listingStringElement.RatingType);
+        NSLog(@"%@",listingStringElement.Cost);
         NSLog(@"%@",listingStringElement.SubType);
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
         NSLog(@"%@",currListing.address);
         NSLog(@"%@",listingStringElement.Details);
-        NSLog(@"%@",listingStringElement.Description);
-        NSLog(@"%@",listingStringElement.Review);
         NSLog(@"%@",listingStringElement.ImageURL);
         NSLog(@"%@",listingStringElement.VideoURL);
         NSLog(@"%@",listingStringElement.StartDay);
@@ -338,13 +335,14 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         NSLog(@"%@",listingStringElement.EndDay);
         NSLog(@"%@",listingStringElement.EndMonth);
         NSLog(@"%@",listingStringElement.EndYear);
-        NSLog(@"%@",listingStringElement.WebsiteURL);
+        NSLog(@"%@",listingStringElement.Website);
         NSLog(@"%@",listingStringElement.EndMinute);
         NSLog(@"%@",listingStringElement.EndHour);
         
         // -----------------------------------------
         
         [listingsList addObject:currListing];
+
         [mapView addAnnotation:currListing];
         
         [section addObject:currListing];

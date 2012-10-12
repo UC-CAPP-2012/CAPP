@@ -13,10 +13,11 @@
     
     NSTimer *ActivityTimer;
     IBOutlet UIImageView *spashScreen;
+    IBOutlet UILabel *errorMsg;
     
+    IBOutlet UIView *loadView;
 }
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *SubscribeActivityIndicator;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *SubscribeScrollView;
 
@@ -27,10 +28,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *EmailTextField;
 
 @property (strong, nonatomic) IBOutlet UITextField *NickNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *LastNameTextField;
 
 -(IBAction)Subscribe:(id)sender;
 
--(IBAction)DismissKeyboard:(id)sender;
+- (IBAction)DismissKeyboard:(id)sender;
 
 @end
 

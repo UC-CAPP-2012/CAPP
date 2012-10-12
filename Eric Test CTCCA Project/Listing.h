@@ -13,7 +13,6 @@
     
     // MAP properties    
     NSString *title;
-    NSString *subtitle;
     CLLocationCoordinate2D coordinate;
     
     // Identification Properties
@@ -22,17 +21,19 @@
     
     NSString *areaID;
     NSString *costType;
-    NSString *ratingType;
     NSString *subType;
     
     // Listing View Variables
-    NSString *__weak address;
-    NSString *details;
+    NSString *address;
     NSString *description;
-    NSString *review;
     NSArray *imageFilenames;
     NSURL *videoURL;
     NSURL *websiteURL;
+    NSString *majorRegionName;
+    NSString *phone;
+    NSString *email;
+    NSString *suburb;
+    NSString *openingHours;
     
     // Event Variable
     NSDate *startDate;
@@ -48,7 +49,6 @@
 //Required for MAP annotations
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 // Sorts
@@ -56,17 +56,19 @@
 //Name;
 @property (nonatomic, copy) NSString *areaID;
 @property (nonatomic, copy) NSString *costType; //Should probably be an NSArray of some sort.
-@property (nonatomic, copy) NSString *ratingType;
 @property (nonatomic, copy) NSString *subType;
+@property (nonatomic, copy) NSString *suburb;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *openingHours;
 
 //Required for Table View
 
 
 //Required for ListingView
-@property (weak, nonatomic) NSString *address;
-@property (nonatomic, copy) NSString *details;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *majorRegionName;
 @property (nonatomic, copy) NSString *description;
-@property (nonatomic, copy) NSString *review;
 @property (nonatomic, copy) NSArray *imageFilenames;
 @property (nonatomic, copy) NSURL *videoURL;
 @property (nonatomic, copy) NSURL *websiteURL;

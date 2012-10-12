@@ -13,24 +13,27 @@
 
 
 @implementation Subscribe
-@synthesize SubscribeActivityIndicator;
 @synthesize SubscribeScrollView;
 @synthesize SubscribeYesNo;
 @synthesize PostCodeTextField;
 @synthesize EmailTextField;
 @synthesize NickNameTextField;
+@synthesize LastNameTextField;
 
 -(IBAction)DismissKeyboard:(id)sender
 {
     [sender resignFirstResponder];
 }
 
+
 -(IBAction)Subscribe:(id)sender
 {
     
     //NSString * secret = @"some_secret";
     
+    errorMsg.text=@"";
     NSString * FirstName = [NickNameTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * LastName = [LastNameTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSString * Email = [EmailTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -47,10 +50,12 @@
         Subscribe = @"No";
     }
     
+    if([self NSStringIsValidEmail:Email] && ![FirstName isEqualToString:@""] && ![LastName isEqualToString:@""] && ![PostCode isEqualToString:@""] && ![Email isEqualToString:@""] && [PostCode length]==4){
+        loadView.hidden=FALSE;
     [RecordSignup recordSignup];
     
     
-    NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", FirstName,PostCode,Email,Subscribe];
+    NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?FirstName=%@&LastName=%@&Postcode=%@&Email=%@&Subscribe=%@", FirstName,LastName,PostCode,Email,Subscribe];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
         [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
@@ -58,6 +63,43 @@
     eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
     [self presentModalViewController:eventView animated:YES];
     NSLog(@"Button");
+    }else{
+        if(![self NSStringIsValidEmail:Email]){
+            errorMsg.text=@"Your email is invalid. Please try again.";
+            errorMsg.hidden=FALSE;
+        }
+        if([FirstName isEqualToString:@""]){
+            errorMsg.text=@"First name is required.";
+            errorMsg.hidden=FALSE;
+        }
+        if([LastName isEqualToString:@""]){
+            errorMsg.text=@"Last name is required.";
+            errorMsg.hidden=FALSE;
+        }
+        if([Email isEqualToString:@""]){
+            errorMsg.text=@"Email is required.";
+            errorMsg.hidden=FALSE;
+        }
+        if([PostCode isEqualToString:@""]){
+            errorMsg.text=@"Postcode is required.";
+            errorMsg.hidden=FALSE;
+        }
+        if([PostCode length]!=4){
+            errorMsg.text=@"Postcode is invalid. Please try again.";
+            errorMsg.hidden=FALSE;
+        }
+    }
+    
+}
+
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = YES;
+    NSString *stricterFilterString = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSString *laxString = @".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 
 
@@ -90,12 +132,14 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-
+    
+    PostCodeTextField.delegate = (id)self;
     [super viewDidLoad];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    loadView.hidden=TRUE;
     if ([SignUpCheck checkForSugnup]) {
         [self skipScreen];
     }
@@ -104,6 +148,15 @@
     }
     
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([textField.text length] > 4-1) {
+        textField.text = [textField.text substringToIndex:4];
+        return NO;
+    }
+    return YES;
+}
+
 
 -(void)skipScreen
 {
@@ -121,7 +174,6 @@
     [self setPostCodeTextField:nil];
     [self setSubscribeYesNo:nil];
     [self setSubscribeScrollView:nil];
-    [self setSubscribeActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

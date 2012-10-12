@@ -49,7 +49,6 @@
     ExploreXMLParser *xmlParserSort1;
     ExploreXMLParser *xmlParserSort2;
     ExploreXMLParser *xmlParserSort3;
-    ExploreXMLParser *xmlParserSort4;
     AreaXMLParser *areaXmlParser;
     
     ListingString *theList;
@@ -76,7 +75,7 @@
 - (BOOL) gestureRecognizersSupported;
 @property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *areaFilter, *listingTable, *listingsList, *listingsListString;
-@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
+@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3;
 
 @property int currSel;
 @property int sortSel;
