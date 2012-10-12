@@ -331,9 +331,17 @@
                                                 <rect key="frame" x="0.0" y="42" width="320" height="329"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all POIs" id="Vc9-CT-8J7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="Yfe-Rv-re9" id="n6g-5Z-XlW"/>
+                                                    </connections>
+                                                </searchBar>
                                                 <prototypes>
                                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="exploreCell" id="pnT-2p-kok">
-                                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                                        <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -475,6 +483,7 @@
                         <outlet property="navView" destination="n0u-xh-q3E" id="cV3-HG-PRo"/>
                         <outlet property="nextArea" destination="lYI-sj-8kl" id="2Yl-TK-GNy"/>
                         <outlet property="previousArea" destination="Dwu-hE-cZz" id="MR0-FX-Vzz"/>
+                        <outlet property="searchBar" destination="Vc9-CT-8J7" id="TOd-7g-KLo"/>
                         <outlet property="segmentController" destination="AKY-D1-dlv" id="rfn-lt-McR"/>
                         <outlet property="switchMapView" destination="GYI-wp-gbf" id="rmV-m1-uxw"/>
                         <outlet property="switchTableView" destination="UwB-bu-awN" id="b8I-nI-9Ps"/>
@@ -868,9 +877,17 @@
                                                 <rect key="frame" x="0.0" y="42" width="320" height="331"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all events" id="pkU-Ic-oRD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="qjF-uG-PeD" id="bdE-Rx-23z"/>
+                                                    </connections>
+                                                </searchBar>
                                                 <prototypes>
                                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="60" id="8Q1-Oh-bHg">
-                                                        <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                                        <rect key="frame" x="0.0" y="66" width="320" height="60"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
@@ -1013,6 +1030,7 @@
                         <outlet property="navView" destination="488-i6-8pJ" id="4zV-Cp-xWZ"/>
                         <outlet property="nextMonth" destination="KHX-SH-YhK" id="I9J-NL-QZd"/>
                         <outlet property="previousMonth" destination="dyS-Ib-t8f" id="ALV-DN-7bH"/>
+                        <outlet property="searchBar" destination="pkU-Ic-oRD" id="olm-8w-BZf"/>
                         <outlet property="segmentController" destination="I4v-Zk-YdJ" id="n4T-FZ-2Dl"/>
                         <outlet property="switchMapView" destination="oP7-j2-eJX" id="uIV-Bk-zdZ"/>
                         <outlet property="switchTableView" destination="sHV-oN-w6o" id="6pg-BD-gKs"/>
@@ -1625,9 +1643,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search al tours" id="q5M-C4-5h7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="7Dg-Rc-f1p" id="pqh-bO-xdE"/>
+                                            </connections>
+                                        </searchBar>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tourCell" rowHeight="104" id="jsU-Bj-Z90">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="104"/>
+                                                <rect key="frame" x="0.0" y="66" width="320" height="104"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="103"/>
@@ -1751,6 +1777,7 @@
                         <outlet property="mapView" destination="uvf-Js-xuI" id="H4H-Y2-76v"/>
                         <outlet property="mapWindow" destination="lRX-Vx-ayG" id="mgb-pG-Aco"/>
                         <outlet property="navView" destination="z2b-YZ-Xto" id="4X9-bq-bdf"/>
+                        <outlet property="searchBar" destination="q5M-C4-5h7" id="H9i-Rk-2cP"/>
                         <outlet property="switchMapView" destination="016-kg-fbz" id="0Yr-aQ-DE8"/>
                         <outlet property="switchTableView" destination="h2g-Jv-le2" id="AkT-xz-6D5"/>
                         <outlet property="tableView" destination="1me-mJ-KlV" id="9Lr-mC-iiy"/>
@@ -2266,262 +2293,6 @@
         <image name="splash.png" width="348" height="500"/>
         <image name="unlock.png" width="25" height="25"/>
     </resources>
-    <classes>
-        <class className="AroundMeMapListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AroundMeMapListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="aroundMe" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="BlabberImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="BlabberStoryViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberStoryViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="imageClicked:"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="newImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="newsAuthor" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsBody" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="newsDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsPublisher" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="BlabberViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="EventFilterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventFilterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextMonth:"/>
-                <relationship kind="action" name="previousMonth:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="eventView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="nextMonth" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="previousMonth" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableWindow" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ExploreFilterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExploreFilterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextArea:"/>
-                <relationship kind="action" name="previousArea:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="areaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="exploreView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="nextArea" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="previousArea" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableWindow" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ExploreScrollViewPagingController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExploreScrollViewPagingController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="FavoritesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchViews"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="MapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="TableWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="detailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="detailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="favView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="startDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="HomePageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomePageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="aroundMe:"/>
-                <relationship kind="action" name="blabber:"/>
-                <relationship kind="action" name="explore:"/>
-                <relationship kind="action" name="happenings:"/>
-                <relationship kind="action" name="jaunts:"/>
-                <relationship kind="action" name="loved:"/>
-                <relationship kind="action" name="myTrial:"/>
-                <relationship kind="action" name="spinWheel:"/>
-            </relationships>
-        </class>
-        <class className="ListingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListingViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addToCalendar:"/>
-                <relationship kind="action" name="changePage"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="action" name="startTour:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="favButton" candidateClass="UIBarItem"/>
-                <relationship kind="outlet" name="infoBox" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="listingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ListingWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListingWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="NavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NavigationViewController.h"/>
-        </class>
-        <class className="PickerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PickerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="feelingAdventurous:"/>
-                <relationship kind="action" name="goToListing:"/>
-                <relationship kind="action" name="lockUnlockCategory:"/>
-                <relationship kind="action" name="lockUnlockCost:"/>
-                <relationship kind="action" name="lockUnlockSuburb:"/>
-                <relationship kind="outlet" name="feelingAdv" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="lockCategory" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lockCost" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lockSuburb" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="resultButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="resultButtonView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="spinWheel" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="Subscribe" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Subscribe.h"/>
-            <relationships>
-                <relationship kind="action" name="DismissKeyboard:"/>
-                <relationship kind="action" name="Subscribe:"/>
-                <relationship kind="outlet" name="EmailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="NickNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="PostCodeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="SubscribeActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="SubscribeScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="SubscribeYesNo" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="spashScreen" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="TourMapListRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourMapListRouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tourRoute" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TourMapListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourMapListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tour" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

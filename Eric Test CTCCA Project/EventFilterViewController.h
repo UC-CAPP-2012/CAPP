@@ -56,6 +56,10 @@
 -(IBAction)previousMonth:(id)sender;
 -(IBAction)segmentButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray* filteredTableData;
+@property (nonatomic, assign) bool isFiltered;
+
 @property(strong, nonatomic)NSMutableDictionary *listing;
 @property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *monthFilter, *listingTable,*listingsList, *listingsListString;

@@ -20,6 +20,8 @@ PullToRefreshView *pull;
 @synthesize tourListString, tourListingsList, tourListingTable;
 @synthesize currentTour;
 @synthesize imageDownloadsInProgress;
+@synthesize filteredTableData;
+@synthesize isFiltered;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +38,10 @@ PullToRefreshView *pull;
     [self setupArray];
     [tableView reloadData];
     loadView.hidden = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
 }
 
 // *** Initialisation ***
@@ -277,7 +283,14 @@ PullToRefreshView *pull;
 {
     NSDictionary *dictionary = tourListingTable[section];
     NSArray *array = dictionary[@"Tours"];
-    return [array count];
+    int rowCount;
+    if(self.isFiltered)
+        rowCount = filteredTableData.count;
+    else
+        rowCount = [array count];
+    
+    return rowCount;
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -297,7 +310,13 @@ PullToRefreshView *pull;
 
     NSDictionary *dictionary = tourListingTable[indexPath.section];
     NSArray *array = dictionary[@"Tours"];
-    Tour *cellValue = array[indexPath.row];
+    
+    Tour *cellValue;
+    if(isFiltered)
+        cellValue = filteredTableData[indexPath.row];
+    else
+        cellValue = array[indexPath.row];
+
     if(cell == nil) 
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
@@ -344,14 +363,65 @@ PullToRefreshView *pull;
     [self loadImagesForOnscreenRows];
 }
 
+-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+{
+    if(text.length == 0)
+    {
+        isFiltered = FALSE;
+    }
+    else
+    {
+        isFiltered = true;
+        filteredTableData = [[NSMutableArray alloc] init];
+        
+        for (Tour* tourSearch in tourListingsList)
+        {
+            NSRange nameRange = [tourSearch.TourName rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange descriptionRange = [tourSearch.TourDetail rangeOfString:text options:NSCaseInsensitiveSearch];
+            if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound)
+            {
+                [filteredTableData addObject:tourSearch];
+            }
+        }
+    }
+    
+    [tableView reloadData];
+}
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath //Table Row to Listing.
-{    
-    //ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    //listingView.listingTitle = [listingsTableDataSource objectAtIndex:indexPath.row];
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void) showDetailsForIndexPath:(NSIndexPath*)indexPath
+{
+    [self.searchBar resignFirstResponder];
+    NSDictionary *dictionary = tourListingTable[indexPath.section];
+    NSArray *array = dictionary[@"Tours"];
+    Tour* selectedTour;
+    
+    if(isFiltered)
+    {
+        selectedTour = filteredTableData[indexPath.row];
+    }
+    else
+    {
+        selectedTour = array[indexPath.row];
+    }
+    
+    
+    
+    //BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
+    //listingView.currentListing = selectedNews;
     //[self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 }
+
 
 // *** END TABLE METHODS
 
@@ -403,8 +473,8 @@ PullToRefreshView *pull;
 
 - (void)viewDidUnload
 {
+    [self setSearchBar:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -271,9 +271,6 @@ PullToRefreshView *pull;
     NSLog(@"Button");
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.searchBar resignFirstResponder];
-}
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

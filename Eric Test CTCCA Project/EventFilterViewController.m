@@ -32,6 +32,9 @@ PullToRefreshView *pull;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
 @synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
 
+@synthesize filteredTableData;
+@synthesize isFiltered;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,9 +52,8 @@ PullToRefreshView *pull;
     [loadView removeFromSuperview];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    
+-(void)viewWillAppear:(BOOL)animated{
+    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
 }
 
 - (void)viewDidLoad
@@ -572,10 +574,19 @@ PullToRefreshView *pull;
 
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
+    int rowCount;
     NSDictionary *dictionary = listingTable[section];
     NSArray *array = dictionary[@"Events"];
-    return [array count];
+    
+    if(self.isFiltered)
+        rowCount = filteredTableData.count;
+    else
+        rowCount = [array count];
+    
+    
+    return rowCount;
 }
+
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     //return @"Test";
@@ -657,6 +668,64 @@ PullToRefreshView *pull;
     //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
+-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+{
+    if(text.length == 0)
+    {
+        isFiltered = FALSE;
+    }
+    else
+    {
+        isFiltered = true;
+        filteredTableData = [[NSMutableArray alloc] init];
+        
+        for (Listing* listingSearch in listingsList)
+        {
+            NSRange nameRange = [listingSearch.title rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange descriptionRange = [listingSearch.details rangeOfString:text options:NSCaseInsensitiveSearch];
+            if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound)
+            {
+                [filteredTableData addObject:listingSearch];
+            }
+        }
+    }
+    
+    [tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void) showDetailsForIndexPath:(NSIndexPath*)indexPath
+{
+    [self.searchBar resignFirstResponder];
+    
+    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSArray *array = dictionary[@"Events"];
+    Listing *selectedEvent;
+    
+    if(isFiltered)
+    {
+        selectedEvent = filteredTableData[indexPath.row];
+    }
+    else
+    {
+        selectedEvent = array[indexPath.row];
+    }
+    
+    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
+    listingView.currentListing = selectedEvent;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");
+}
+
 
 
 
@@ -669,7 +738,11 @@ PullToRefreshView *pull;
     
     NSDictionary *dictionary = listingTable[indexPath.section];
     NSArray *array = dictionary[@"Events"];
-    Listing *currListing = array[indexPath.row];
+    Listing *currListing;
+    if(isFiltered)
+        currListing = filteredTableData[indexPath.row];
+    else
+        currListing = array[indexPath.row];
     
     NSString *cellValue = currListing.title;
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
@@ -1005,18 +1078,6 @@ PullToRefreshView *pull;
     [self dismissModalViewControllerAnimated:YES];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath // Control for Map View Button to Listing Detail View  
-{    
-    NSDictionary *dictionary = listingTable[indexPath.section];
-    NSArray *array = dictionary[@"Events"];
-    Listing *selectedEvent = array[indexPath.row];
-    
-    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    listingView.currentListing = selectedEvent;
-    [self.navigationController pushViewController:listingView animated:YES];
-    NSLog(@"Button");
-
-}
 
 /// END TABLE METHODS
 
@@ -1181,7 +1242,9 @@ PullToRefreshView *pull;
 
 - (void)viewDidUnload
 {
+    [self setSearchBar:nil];
     [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
 }
 

@@ -61,7 +61,9 @@
 -(IBAction)nextArea:(id)sender;
 -(IBAction)previousArea:(id)sender;
 -(IBAction)segmentButton:(id)sender;
-
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray* filteredTableData;
+@property (nonatomic, assign) bool isFiltered;
 //Passed from previous Controller.
 @property (strong, nonatomic)NSString *typeID;
 @property (strong, nonatomic)NSString *typeName;
