@@ -540,7 +540,7 @@
 }
 
 - (IBAction)startTour:(id)sender {
-    TourMapListRouteViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourMapListRouteViewController"]; // Listing Detail Page
+    TourRoutesViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourRoutesViewController"]; // Listing Detail Page
     [self.navigationController pushViewController:blabberView animated:YES];
 }
 

@@ -12,7 +12,7 @@
 #import <EventKitUI/EventKitUI.h>
 #import "ListingWebViewController.h"
 #import "BlabberViewController.h"
-#import "TourMapListRouteViewController.h"
+#import "TourRoutesViewController.h"
 #import "ListingString.h"
 
 @interface TourDetailedViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate>{
