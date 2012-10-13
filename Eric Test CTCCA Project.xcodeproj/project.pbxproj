@@ -119,6 +119,7 @@
 		69C877B21621E55F00A96963 /* BlabberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877B11621E55F00A96963 /* BlabberViewController.m */; };
 		69C877C81625A40100A96963 /* ToursIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C877C71625A40100A96963 /* ToursIconDownloader.m */; };
 		69E4EB5316281094003A60A3 /* currentLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E4EB5216281094003A60A3 /* currentLocation.png */; };
+		69E4EB611628E3CA003A60A3 /* TourDetailedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */; };
 		69FA8EB6153A7B350036D267 /* Arrow-Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB5153A7B350036D267 /* Arrow-Right.png */; };
 		69FA8EB8153A7B3A0036D267 /* Arrow-Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB7153A7B390036D267 /* Arrow-Left.png */; };
 		69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FAAD061536FC23006441FE /* QuartzCore.framework */; };
@@ -280,6 +281,8 @@
 		69C877C61625A40100A96963 /* ToursIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToursIconDownloader.h; sourceTree = "<group>"; };
 		69C877C71625A40100A96963 /* ToursIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToursIconDownloader.m; sourceTree = "<group>"; };
 		69E4EB5216281094003A60A3 /* currentLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currentLocation.png; sourceTree = "<group>"; };
+		69E4EB5F1628E3CA003A60A3 /* TourDetailedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourDetailedViewController.h; sourceTree = "<group>"; };
+		69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourDetailedViewController.m; sourceTree = "<group>"; };
 		69FA8EB5153A7B350036D267 /* Arrow-Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Right.png"; sourceTree = "<group>"; };
 		69FA8EB7153A7B390036D267 /* Arrow-Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Left.png"; sourceTree = "<group>"; };
 		69FAAD061536FC23006441FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -444,6 +447,8 @@
 				69530E101535906800B6FB5E /* TourMapListViewController.m */,
 				699B930F154817BE005A9C5B /* TourMapListRouteViewController.h */,
 				699B9310154817BE005A9C5B /* TourMapListRouteViewController.m */,
+				69E4EB5F1628E3CA003A60A3 /* TourDetailedViewController.h */,
+				69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */,
 			);
 			name = Tours;
 			sourceTree = "<group>";
@@ -907,6 +912,7 @@
 				65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */,
 				69C877C81625A40100A96963 /* ToursIconDownloader.m in Sources */,
 				6992703A1626FFA0004506D1 /* PullToRefreshView.m in Sources */,
+				69E4EB611628E3CA003A60A3 /* TourDetailedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <EventKitUI/EventKitUI.h>
 #import "ListingWebViewController.h"
+#import "BlabberViewController.h"
 #import "Listing.h"
 #import "ListingString.h"
 
@@ -51,5 +52,6 @@
 -(IBAction)segmentButton:(id)sender;
 -(IBAction)addToCalendar:(id)sender;
 -(IBAction)startTour:(id)sender;
+- (IBAction)viewNews:(id)sender;
 
 @end

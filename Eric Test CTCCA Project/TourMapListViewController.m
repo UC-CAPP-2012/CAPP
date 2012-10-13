@@ -151,7 +151,7 @@ PullToRefreshView *pull;
         
         currTour.TourID = [tourStringElement.TourID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourName = [tourStringElement.TourName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currTour.TourDetail = [tourStringElement.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourDetail = tourStringElement.TourDetail;
         currTour.TourAgent = [tourStringElement.TourAgent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourCost = tourStringElement.TourCost;
         currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -246,17 +246,29 @@ PullToRefreshView *pull;
         //Detail Image    
         DetailImage.image = selectedTour.TourIcon;
         
-//        NSString *listingID = ((Listing *) view.annotation).listingID;
-//        for (int i = 0; i < [listingsList count]; i++) {
-//            Listing *currentListing = listingsList[i];
-//            if ([currentListing.listingID isEqualToString:listingID]) {
-//                ListingViewButton.tag = i;
-//            }
-//        }
-//        [ListingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+        NSString *TourID = ((Tour *) view.annotation).TourID;
+        for (int i = 0; i < [tourListingsList count]; i++) {
+            Tour *currentSelectedTour = tourListingsList[i];
+            if ([currentSelectedTour.TourID isEqualToString:TourID]) {
+                listingViewButton.tag = i;
+            }
+        }
+        [listingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
 }
+
+-(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
+{
+    TourDetailedViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourDetailedViewController"]; // Detail Page
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    listingView.currentTour = tourListingsList[selectedIndex];
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"Button");
+    
+    NSLog(@"%@",listingView.currentTour.TourID);
+}
+
 
 
 -(void)mapView:(MKMapView *)mapViewDeSelect didDeselectAnnotationView:(MKPinAnnotationView *)view
@@ -437,9 +449,9 @@ PullToRefreshView *pull;
     
     
     
-    //BlabberStoryViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberStoryViewController"]; // News Detail Page
-    //listingView.currentListing = selectedNews;
-    //[self.navigationController pushViewController:listingView animated:YES];
+    TourDetailedViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourDetailedViewController"]; // News Detail Page
+    listingView.currentTour = selectedTour;
+    [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 }
 

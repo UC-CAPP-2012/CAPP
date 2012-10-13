@@ -121,7 +121,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = image;
-                imageView.contentMode = UIViewContentModeScaleToFill;
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
                 loadView.hidden = YES;
             });
         });
@@ -139,13 +139,15 @@
 -(IBAction)segmentButton:(id)sender{
     
     if (segmentController.selectedSegmentIndex == 0) {
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<strong>Type:</strong> %@<p><strong>Cost:</strong> %@</p><p><strong>Opening Hours:</strong> %@</p><p><strong>Address:</strong>%@</p><p><strong>Phone:</strong>%@</p><p><strong>Website:</strong> %@</p><p><strong>Email:</strong>%@</p>",currentListing.subType,currentListing.costType,currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p><p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p><p><strong style='color: #1b4583;'>Address:</strong>%@</p><p><strong style='color: #1b4583;'>Phone:</strong> %@</p><p><strong style='color: #1b4583;'>Website:</strong> %@</p><p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.subType,currentListing.costType,currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
+        
  
     }
     if (segmentController.selectedSegmentIndex == 1) {
         [infoBox loadHTMLString:[NSString stringWithFormat:@"%@", currentListing.description] baseURL:nil];
     }
+    pageControl.currentPage=0;
     [self setupArray];
     [self setupPictures];
 }
@@ -277,6 +279,11 @@
     TourMapListRouteViewController *tourView= [self.storyboard instantiateViewControllerWithIdentifier:@"TourMapListRouteViewController"]; // Listing Detail Page
     [self.navigationController pushViewController:tourView animated:YES];
     NSLog(@"Button");
+}
+
+- (IBAction)viewNews:(id)sender {
+    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
+    [self.navigationController pushViewController:blabberView animated:YES];
 }
 
 -(IBAction)changePage{

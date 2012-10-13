@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "ListingViewController.h"
+#import "TourDetailedViewController.h"
 #import "Tour.h"
 #import "TourString.h"
 #import <MapKit/MapKit.h>
@@ -40,6 +40,7 @@ IBOutlet UILabel *TitleLabel;
 IBOutlet UILabel *StartDateLabel;
 IBOutlet UILabel *AddressLabel;
     
+IBOutlet UIButton *listingViewButton;
     TourString *tourList;
     NSMutableString *currentElementValue;
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each news

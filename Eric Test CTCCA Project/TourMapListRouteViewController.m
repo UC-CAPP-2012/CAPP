@@ -41,8 +41,6 @@
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
     
-    [self setupMap];
-    [self setupArray];
     self.navigationItem.title = @"Tours";
     [super viewDidLoad];
     
