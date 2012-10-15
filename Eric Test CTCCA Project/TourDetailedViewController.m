@@ -540,8 +540,9 @@
 }
 
 - (IBAction)startTour:(id)sender {
-    TourRoutesViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourRoutesViewController"]; // Listing Detail Page
-    [self.navigationController pushViewController:blabberView animated:YES];
+    TourRoutesViewController *tourRoutesView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourRoutesViewController"]; // Listing Detail Page
+    tourRoutesView.listingsList = listingsList;
+    [self.navigationController pushViewController:tourRoutesView animated:YES];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)sender {

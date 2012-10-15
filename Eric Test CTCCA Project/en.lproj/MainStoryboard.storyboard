@@ -2335,10 +2335,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="geoCoder" destination="frV-ID-Cxx" id="lCm-p5-LGh"/>
+                        <outlet property="locationManager" destination="Qjo-sP-ilb" id="JUv-7Y-rHI"/>
                         <outlet property="mapView" destination="fuW-6F-u1C" id="8QY-5Z-SNU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAL-Ud-zbL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="frV-ID-Cxx" customClass="CLGeocoder"/>
+                <customObject id="Qjo-sP-ilb" customClass="CLLocationManager"/>
             </objects>
             <point key="canvasLocation" x="944" y="1901"/>
         </scene>

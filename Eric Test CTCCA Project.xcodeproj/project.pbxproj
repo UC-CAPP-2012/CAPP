@@ -121,10 +121,30 @@
 		69E4EB5316281094003A60A3 /* currentLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E4EB5216281094003A60A3 /* currentLocation.png */; };
 		69E4EB611628E3CA003A60A3 /* TourDetailedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */; };
 		69E4EB7016297917003A60A3 /* TourRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB6F16297917003A60A3 /* TourRoutesViewController.m */; };
-		69E4EB7316297ADE003A60A3 /* os4MapsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB7216297ADD003A60A3 /* os4MapsAppDelegate.m */; };
-		69E4EB7416297ADE003A60A3 /* os4MapsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB7216297ADD003A60A3 /* os4MapsAppDelegate.m */; };
-		69E4EB7616297C44003A60A3 /* route.csv in Resources */ = {isa = PBXBuildFile; fileRef = 69E4EB7516297C43003A60A3 /* route.csv */; };
-		69E4EB7716297C44003A60A3 /* route.csv in Resources */ = {isa = PBXBuildFile; fileRef = 69E4EB7516297C43003A60A3 /* route.csv */; };
+		69E4EB96162B7B2B003A60A3 /* NVMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB8F162B7B2B003A60A3 /* NVMapViewController.m */; };
+		69E4EB97162B7B2B003A60A3 /* NVMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB8F162B7B2B003A60A3 /* NVMapViewController.m */; };
+		69E4EB98162B7B2B003A60A3 /* NVPolylineAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB91162B7B2B003A60A3 /* NVPolylineAnnotation.m */; };
+		69E4EB99162B7B2B003A60A3 /* NVPolylineAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB91162B7B2B003A60A3 /* NVPolylineAnnotation.m */; };
+		69E4EB9A162B7B2B003A60A3 /* NVPolylineAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB93162B7B2B003A60A3 /* NVPolylineAnnotationView.m */; };
+		69E4EB9B162B7B2B003A60A3 /* NVPolylineAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB93162B7B2B003A60A3 /* NVPolylineAnnotationView.m */; };
+		69E4EB9C162B7B2B003A60A3 /* nvpolylineAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB95162B7B2B003A60A3 /* nvpolylineAppDelegate.m */; };
+		69E4EB9D162B7B2B003A60A3 /* nvpolylineAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EB95162B7B2B003A60A3 /* nvpolylineAppDelegate.m */; };
+		69E4EBB0162B7FE8003A60A3 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA0162B7FE7003A60A3 /* AFHTTPClient.m */; };
+		69E4EBB1162B7FE8003A60A3 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA0162B7FE7003A60A3 /* AFHTTPClient.m */; };
+		69E4EBB2162B7FE8003A60A3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA2162B7FE7003A60A3 /* AFHTTPRequestOperation.m */; };
+		69E4EBB3162B7FE8003A60A3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA2162B7FE7003A60A3 /* AFHTTPRequestOperation.m */; };
+		69E4EBB4162B7FE8003A60A3 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA4162B7FE7003A60A3 /* AFImageRequestOperation.m */; };
+		69E4EBB5162B7FE8003A60A3 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA4162B7FE7003A60A3 /* AFImageRequestOperation.m */; };
+		69E4EBB6162B7FE8003A60A3 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA6162B7FE7003A60A3 /* AFJSONRequestOperation.m */; };
+		69E4EBB7162B7FE8003A60A3 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA6162B7FE7003A60A3 /* AFJSONRequestOperation.m */; };
+		69E4EBB8162B7FE8003A60A3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA8162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.m */; };
+		69E4EBB9162B7FE8003A60A3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBA8162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.m */; };
+		69E4EBBA162B7FE8003A60A3 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAB162B7FE7003A60A3 /* AFPropertyListRequestOperation.m */; };
+		69E4EBBB162B7FE8003A60A3 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAB162B7FE7003A60A3 /* AFPropertyListRequestOperation.m */; };
+		69E4EBBC162B7FE8003A60A3 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAD162B7FE7003A60A3 /* AFURLConnectionOperation.m */; };
+		69E4EBBD162B7FE8003A60A3 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAD162B7FE7003A60A3 /* AFURLConnectionOperation.m */; };
+		69E4EBBE162B7FE8003A60A3 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAF162B7FE7003A60A3 /* AFXMLRequestOperation.m */; };
+		69E4EBBF162B7FE8003A60A3 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EBAF162B7FE7003A60A3 /* AFXMLRequestOperation.m */; };
 		69FA8EB6153A7B350036D267 /* Arrow-Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB5153A7B350036D267 /* Arrow-Right.png */; };
 		69FA8EB8153A7B3A0036D267 /* Arrow-Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8EB7153A7B390036D267 /* Arrow-Left.png */; };
 		69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FAAD061536FC23006441FE /* QuartzCore.framework */; };
@@ -290,9 +310,31 @@
 		69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourDetailedViewController.m; sourceTree = "<group>"; };
 		69E4EB6E16297917003A60A3 /* TourRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourRoutesViewController.h; sourceTree = "<group>"; };
 		69E4EB6F16297917003A60A3 /* TourRoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourRoutesViewController.m; sourceTree = "<group>"; };
-		69E4EB7116297ADD003A60A3 /* os4MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os4MapsAppDelegate.h; sourceTree = "<group>"; };
-		69E4EB7216297ADD003A60A3 /* os4MapsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = os4MapsAppDelegate.m; sourceTree = "<group>"; };
-		69E4EB7516297C43003A60A3 /* route.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = route.csv; sourceTree = "<group>"; };
+		69E4EB8E162B7B2B003A60A3 /* NVMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMapViewController.h; sourceTree = "<group>"; };
+		69E4EB8F162B7B2B003A60A3 /* NVMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVMapViewController.m; sourceTree = "<group>"; };
+		69E4EB90162B7B2B003A60A3 /* NVPolylineAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVPolylineAnnotation.h; sourceTree = "<group>"; };
+		69E4EB91162B7B2B003A60A3 /* NVPolylineAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVPolylineAnnotation.m; sourceTree = "<group>"; };
+		69E4EB92162B7B2B003A60A3 /* NVPolylineAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVPolylineAnnotationView.h; sourceTree = "<group>"; };
+		69E4EB93162B7B2B003A60A3 /* NVPolylineAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVPolylineAnnotationView.m; sourceTree = "<group>"; };
+		69E4EB94162B7B2B003A60A3 /* nvpolylineAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nvpolylineAppDelegate.h; sourceTree = "<group>"; };
+		69E4EB95162B7B2B003A60A3 /* nvpolylineAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nvpolylineAppDelegate.m; sourceTree = "<group>"; };
+		69E4EB9F162B7FE7003A60A3 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
+		69E4EBA0162B7FE7003A60A3 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
+		69E4EBA1162B7FE7003A60A3 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		69E4EBA2162B7FE7003A60A3 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		69E4EBA3162B7FE7003A60A3 /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageRequestOperation.h; sourceTree = "<group>"; };
+		69E4EBA4162B7FE7003A60A3 /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
+		69E4EBA5162B7FE7003A60A3 /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONRequestOperation.h; sourceTree = "<group>"; };
+		69E4EBA6162B7FE7003A60A3 /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
+		69E4EBA7162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		69E4EBA8162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		69E4EBA9162B7FE7003A60A3 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		69E4EBAA162B7FE7003A60A3 /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPropertyListRequestOperation.h; sourceTree = "<group>"; };
+		69E4EBAB162B7FE7003A60A3 /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPropertyListRequestOperation.m; sourceTree = "<group>"; };
+		69E4EBAC162B7FE7003A60A3 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		69E4EBAD162B7FE7003A60A3 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		69E4EBAE162B7FE7003A60A3 /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFXMLRequestOperation.h; sourceTree = "<group>"; };
+		69E4EBAF162B7FE7003A60A3 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		69FA8EB5153A7B350036D267 /* Arrow-Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Right.png"; sourceTree = "<group>"; };
 		69FA8EB7153A7B390036D267 /* Arrow-Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Left.png"; sourceTree = "<group>"; };
 		69FAAD061536FC23006441FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -451,7 +493,6 @@
 		69530E021535807900B6FB5E /* Tours */ = {
 			isa = PBXGroup;
 			children = (
-				69E4EB7516297C43003A60A3 /* route.csv */,
 				65EE8B2C1625CCE400D4C1A3 /* tour.xml */,
 				65EE8B2D1625CCE400D4C1A3 /* location.xml */,
 				69530E0F1535906800B6FB5E /* TourMapListViewController.h */,
@@ -462,8 +503,6 @@
 				69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */,
 				69E4EB6E16297917003A60A3 /* TourRoutesViewController.h */,
 				69E4EB6F16297917003A60A3 /* TourRoutesViewController.m */,
-				69E4EB7116297ADD003A60A3 /* os4MapsAppDelegate.h */,
-				69E4EB7216297ADD003A60A3 /* os4MapsAppDelegate.m */,
 			);
 			name = Tours;
 			sourceTree = "<group>";
@@ -624,6 +663,8 @@
 		69A5984C1520843F00BDA150 /* Eric Test CTCCA Project */ = {
 			isa = PBXGroup;
 			children = (
+				69E4EB9E162B7FD0003A60A3 /* AFNetworking Classes */,
+				69E4EB8D162B7B17003A60A3 /* Map Classes */,
 				699270361626FFA0004506D1 /* PullDownToRefresh */,
 				692C170C162148AF006063AD /* IconDownloader */,
 				6987B02C16060A7800CA4F3E /* SwipeCell */,
@@ -678,6 +719,45 @@
 				69A5986D1520844000BDA150 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		69E4EB8D162B7B17003A60A3 /* Map Classes */ = {
+			isa = PBXGroup;
+			children = (
+				69E4EB8E162B7B2B003A60A3 /* NVMapViewController.h */,
+				69E4EB8F162B7B2B003A60A3 /* NVMapViewController.m */,
+				69E4EB90162B7B2B003A60A3 /* NVPolylineAnnotation.h */,
+				69E4EB91162B7B2B003A60A3 /* NVPolylineAnnotation.m */,
+				69E4EB92162B7B2B003A60A3 /* NVPolylineAnnotationView.h */,
+				69E4EB93162B7B2B003A60A3 /* NVPolylineAnnotationView.m */,
+				69E4EB94162B7B2B003A60A3 /* nvpolylineAppDelegate.h */,
+				69E4EB95162B7B2B003A60A3 /* nvpolylineAppDelegate.m */,
+			);
+			name = "Map Classes";
+			sourceTree = "<group>";
+		};
+		69E4EB9E162B7FD0003A60A3 /* AFNetworking Classes */ = {
+			isa = PBXGroup;
+			children = (
+				69E4EB9F162B7FE7003A60A3 /* AFHTTPClient.h */,
+				69E4EBA0162B7FE7003A60A3 /* AFHTTPClient.m */,
+				69E4EBA1162B7FE7003A60A3 /* AFHTTPRequestOperation.h */,
+				69E4EBA2162B7FE7003A60A3 /* AFHTTPRequestOperation.m */,
+				69E4EBA3162B7FE7003A60A3 /* AFImageRequestOperation.h */,
+				69E4EBA4162B7FE7003A60A3 /* AFImageRequestOperation.m */,
+				69E4EBA5162B7FE7003A60A3 /* AFJSONRequestOperation.h */,
+				69E4EBA6162B7FE7003A60A3 /* AFJSONRequestOperation.m */,
+				69E4EBA7162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.h */,
+				69E4EBA8162B7FE7003A60A3 /* AFNetworkActivityIndicatorManager.m */,
+				69E4EBA9162B7FE7003A60A3 /* AFNetworking.h */,
+				69E4EBAA162B7FE7003A60A3 /* AFPropertyListRequestOperation.h */,
+				69E4EBAB162B7FE7003A60A3 /* AFPropertyListRequestOperation.m */,
+				69E4EBAC162B7FE7003A60A3 /* AFURLConnectionOperation.h */,
+				69E4EBAD162B7FE7003A60A3 /* AFURLConnectionOperation.m */,
+				69E4EBAE162B7FE7003A60A3 /* AFXMLRequestOperation.h */,
+				69E4EBAF162B7FE7003A60A3 /* AFXMLRequestOperation.m */,
+			);
+			name = "AFNetworking Classes";
 			sourceTree = "<group>";
 		};
 		69FAACF41536EE96006441FE /* Explore */ = {
@@ -844,7 +924,6 @@
 				6992703E1626FFA0004506D1 /* arrow.png in Resources */,
 				699270401626FFA0004506D1 /* arrow@2x.png in Resources */,
 				69E4EB5316281094003A60A3 /* currentLocation.png in Resources */,
-				69E4EB7616297C44003A60A3 /* route.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,7 +940,6 @@
 				692C171316215027006063AD /* Placeholder.png in Resources */,
 				6992703F1626FFA0004506D1 /* arrow.png in Resources */,
 				699270411626FFA0004506D1 /* arrow@2x.png in Resources */,
-				69E4EB7716297C44003A60A3 /* route.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,7 +1009,18 @@
 				6992703A1626FFA0004506D1 /* PullToRefreshView.m in Sources */,
 				69E4EB611628E3CA003A60A3 /* TourDetailedViewController.m in Sources */,
 				69E4EB7016297917003A60A3 /* TourRoutesViewController.m in Sources */,
-				69E4EB7316297ADE003A60A3 /* os4MapsAppDelegate.m in Sources */,
+				69E4EB96162B7B2B003A60A3 /* NVMapViewController.m in Sources */,
+				69E4EB98162B7B2B003A60A3 /* NVPolylineAnnotation.m in Sources */,
+				69E4EB9A162B7B2B003A60A3 /* NVPolylineAnnotationView.m in Sources */,
+				69E4EB9C162B7B2B003A60A3 /* nvpolylineAppDelegate.m in Sources */,
+				69E4EBB0162B7FE8003A60A3 /* AFHTTPClient.m in Sources */,
+				69E4EBB2162B7FE8003A60A3 /* AFHTTPRequestOperation.m in Sources */,
+				69E4EBB4162B7FE8003A60A3 /* AFImageRequestOperation.m in Sources */,
+				69E4EBB6162B7FE8003A60A3 /* AFJSONRequestOperation.m in Sources */,
+				69E4EBB8162B7FE8003A60A3 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				69E4EBBA162B7FE8003A60A3 /* AFPropertyListRequestOperation.m in Sources */,
+				69E4EBBC162B7FE8003A60A3 /* AFURLConnectionOperation.m in Sources */,
+				69E4EBBE162B7FE8003A60A3 /* AFXMLRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,7 +1032,18 @@
 				6987B06116060C2600CA4F3E /* SideSwipeTableViewCell.m in Sources */,
 				692C1710162148D2006063AD /* IconDownloader.m in Sources */,
 				6992703B1626FFA0004506D1 /* PullToRefreshView.m in Sources */,
-				69E4EB7416297ADE003A60A3 /* os4MapsAppDelegate.m in Sources */,
+				69E4EB97162B7B2B003A60A3 /* NVMapViewController.m in Sources */,
+				69E4EB99162B7B2B003A60A3 /* NVPolylineAnnotation.m in Sources */,
+				69E4EB9B162B7B2B003A60A3 /* NVPolylineAnnotationView.m in Sources */,
+				69E4EB9D162B7B2B003A60A3 /* nvpolylineAppDelegate.m in Sources */,
+				69E4EBB1162B7FE8003A60A3 /* AFHTTPClient.m in Sources */,
+				69E4EBB3162B7FE8003A60A3 /* AFHTTPRequestOperation.m in Sources */,
+				69E4EBB5162B7FE8003A60A3 /* AFImageRequestOperation.m in Sources */,
+				69E4EBB7162B7FE8003A60A3 /* AFJSONRequestOperation.m in Sources */,
+				69E4EBB9162B7FE8003A60A3 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				69E4EBBB162B7FE8003A60A3 /* AFPropertyListRequestOperation.m in Sources */,
+				69E4EBBD162B7FE8003A60A3 /* AFURLConnectionOperation.m in Sources */,
+				69E4EBBF162B7FE8003A60A3 /* AFXMLRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
