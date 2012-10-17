@@ -16,6 +16,8 @@
 			<array>
 				<string>Default.png</string>
 				<string>Default.png</string>
+				<string>complete-logo.png</string>
+				<string>complete-logo-Retina.png</string>
 			</array>
 		</dict>
 	</dict>
@@ -44,8 +46,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>
 </plist>

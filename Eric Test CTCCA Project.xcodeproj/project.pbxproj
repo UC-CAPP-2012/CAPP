@@ -34,6 +34,10 @@
 		691F6257162D98A400035964 /* Jaunts.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F6255162D98A300035964 /* Jaunts.png */; };
 		691F625C162D9E0700035964 /* SpinWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F625B162D9E0600035964 /* SpinWheel.png */; };
 		691F625D162D9E0700035964 /* SpinWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F625B162D9E0600035964 /* SpinWheel.png */; };
+		691F6262162ECCA900035964 /* complete-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F6261162ECCA800035964 /* complete-logo.png */; };
+		691F6263162ECCA900035964 /* complete-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F6261162ECCA800035964 /* complete-logo.png */; };
+		691F6265162ECD3C00035964 /* complete-logo-Retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F6264162ECD3C00035964 /* complete-logo-Retina.png */; };
+		691F6266162ECD3C00035964 /* complete-logo-Retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 691F6264162ECD3C00035964 /* complete-logo-Retina.png */; };
 		6927A1671527E27F00667A7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6927A1661527E27F00667A7F /* MapKit.framework */; };
 		6927A17215286D7D00667A7F /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6927A17115286D7D00667A7F /* 73-radar.png */; };
 		6927A17415286DD400667A7F /* 179-notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6927A17315286DD400667A7F /* 179-notepad.png */; };
@@ -197,6 +201,8 @@
 		691F6246162D986700035964 /* Happenings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Happenings.png; sourceTree = "<group>"; };
 		691F6255162D98A300035964 /* Jaunts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Jaunts.png; sourceTree = "<group>"; };
 		691F625B162D9E0600035964 /* SpinWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinWheel.png; sourceTree = "<group>"; };
+		691F6261162ECCA800035964 /* complete-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "complete-logo.png"; sourceTree = "<group>"; };
+		691F6264162ECD3C00035964 /* complete-logo-Retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "complete-logo-Retina.png"; sourceTree = "<group>"; };
 		6927A1661527E27F00667A7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6927A17115286D7D00667A7F /* 73-radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "73-radar.png"; path = "../../../Downloads/glyphish-icons/icons/73-radar.png"; sourceTree = "<group>"; };
 		6927A17315286DD400667A7F /* 179-notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "179-notepad.png"; path = "../../../Downloads/glyphish-icons/icons/179-notepad.png"; sourceTree = "<group>"; };
@@ -633,6 +639,8 @@
 			isa = PBXGroup;
 			children = (
 				692C16DB161E8E6F006063AD /* Default-568h@2x.png */,
+				691F6261162ECCA800035964 /* complete-logo.png */,
+				691F6264162ECD3C00035964 /* complete-logo-Retina.png */,
 				69B00DB215552509006F8898 /* Default.png */,
 				69A5984C1520843F00BDA150 /* Eric Test CTCCA Project */,
 				69A5986A1520844000BDA150 /* Eric Test CTCCA ProjectTests */,
@@ -930,6 +938,8 @@
 				691F624F162D986C00035964 /* Happenings.png in Resources */,
 				691F6256162D98A400035964 /* Jaunts.png in Resources */,
 				691F625C162D9E0700035964 /* SpinWheel.png in Resources */,
+				691F6262162ECCA900035964 /* complete-logo.png in Resources */,
+				691F6265162ECD3C00035964 /* complete-logo-Retina.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +962,8 @@
 				691F6250162D986C00035964 /* Happenings.png in Resources */,
 				691F6257162D98A400035964 /* Jaunts.png in Resources */,
 				691F625D162D9E0700035964 /* SpinWheel.png in Resources */,
+				691F6263162ECCA900035964 /* complete-logo.png in Resources */,
+				691F6266162ECD3C00035964 /* complete-logo-Retina.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
