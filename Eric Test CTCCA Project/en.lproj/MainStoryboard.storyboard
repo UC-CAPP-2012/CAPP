@@ -39,7 +39,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.015686275437474251" blue="0.0039215688593685627" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="loadView" destination="Y4I-sT-21X" id="3W9-PL-p3b"/>
@@ -258,35 +258,20 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bezeled" selectedSegmentIndex="0" id="AKY-D1-dlv">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
-                                <segments>
-                                    <segment title="All"/>
-                                    <segment title="Type"/>
-                                    <segment title="Cost"/>
-                                    <segment title="Suburb"/>
-                                </segments>
-                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="segmentButton:" destination="Yfe-Rv-re9" eventType="valueChanged" id="QxY-vJ-HvL"/>
-                                </connections>
-                            </segmentedControl>
                             <view contentMode="scaleToFill" id="VUG-6p-Ug2" userLabel="ExploreView">
                                 <rect key="frame" x="0.0" y="43" width="320" height="371"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="WR0-LN-oxv" userLabel="MapWindow">
-                                        <rect key="frame" x="0.0" y="-1" width="320" height="373"/>
+                                        <rect key="frame" x="0.0" y="-45" width="320" height="417"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="jiV-j9-FGZ">
-                                                <rect key="frame" x="0.0" y="1" width="320" height="371"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </mapView>
                                             <view contentMode="scaleToFill" id="gzy-GA-j6K">
-                                                <rect key="frame" x="0.0" y="293" width="320" height="80"/>
+                                                <rect key="frame" x="0.0" y="337" width="320" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <view alpha="0.5" contentMode="scaleToFill" id="KnL-ks-HAj">
@@ -390,6 +375,21 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="AKY-D1-dlv">
+                                <rect key="frame" x="0.0" y="6" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Type"/>
+                                    <segment title="Cost"/>
+                                    <segment title="Suburb"/>
+                                </segments>
+                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentButton:" destination="Yfe-Rv-re9" eventType="valueChanged" id="QxY-vJ-HvL"/>
+                                </connections>
+                            </segmentedControl>
                             <view alpha="0.60000002384185791" contentMode="scaleToFill" id="516-JS-JKw" userLabel="LoadView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -548,7 +548,7 @@
                                 <color key="tintColor" red="0.13333334028720856" green="0.70588237047195435" blue="0.39215689897537231" alpha="1" colorSpace="deviceRGB"/>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jWl-Bg-Qyq">
-                                <rect key="frame" x="6" y="243" width="154" height="120"/>
+                                <rect key="frame" x="6" y="275" width="154" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="Jaunts.png">
@@ -563,7 +563,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aaO-Pq-bu3">
-                                <rect key="frame" x="6" y="123" width="154" height="120"/>
+                                <rect key="frame" x="6" y="141" width="154" height="134"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="AroundMe.png">
@@ -578,7 +578,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="frt-P0-6hR">
-                                <rect key="frame" x="6" y="3" width="154" height="120"/>
+                                <rect key="frame" x="6" y="6" width="154" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="SpinWheel.png">
@@ -592,7 +592,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="65l-BA-ri4">
-                                <rect key="frame" x="160" y="3" width="154" height="120"/>
+                                <rect key="frame" x="160" y="6" width="154" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="Blabber.png">
@@ -607,7 +607,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7UL-Ib-pUX">
-                                <rect key="frame" x="160" y="123" width="154" height="120"/>
+                                <rect key="frame" x="160" y="141" width="154" height="134"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="Explore.png">
@@ -622,7 +622,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fxc-hh-H2y">
-                                <rect key="frame" x="160" y="243" width="154" height="120"/>
+                                <rect key="frame" x="160" y="275" width="154" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="Happenings.png">
@@ -639,7 +639,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="TfU-ra-hXM"/>
+                    <navigationItem key="navigationItem" title="Home" id="i0Y-Ze-5xI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzP-qr-Sdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -866,8 +866,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="373"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bezeled" selectedSegmentIndex="0" id="I4v-Zk-YdJ">
-                                                <rect key="frame" x="-9" y="0.0" width="338" height="44"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="I4v-Zk-YdJ">
+                                                <rect key="frame" x="-9" y="7" width="338" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <segments>
@@ -1317,7 +1317,6 @@
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="rDi-9L-zCu">
                                                 <rect key="frame" x="-9" y="163" width="338" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                                                 <segments>
                                                     <segment title="Details"/>
                                                     <segment title="Description"/>

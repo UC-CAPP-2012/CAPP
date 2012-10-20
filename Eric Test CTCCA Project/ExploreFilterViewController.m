@@ -712,7 +712,7 @@ PullToRefreshView *pull;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45;
+    return 50;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -826,7 +826,6 @@ PullToRefreshView *pull;
     }
     
     UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
-    UIImage* imagetrail = [UIImage imageNamed:@"ToursAdd.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
     NSDictionary *dictionary = listingTable[indexPath.section];
     NSMutableArray *array = dictionary[@"Explore"];
@@ -835,7 +834,7 @@ PullToRefreshView *pull;
     
     //ContentView   
     
-    CGRect Button1Frame = CGRectMake(200, 15, 30, 30);
+    CGRect Button1Frame = CGRectMake(150, 10, 30, 30);
     
     UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -845,21 +844,11 @@ PullToRefreshView *pull;
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
     [self.sideSwipeView addSubview:btnTemp];
-    
-    //Accessory View
-    CGRect Button2Frame = CGRectMake(100, 15, 30, 30);    
-    UIButton *btnTemp2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    btnTemp2 =[[UIButton alloc] initWithFrame:Button2Frame];
-    [btnTemp2 setImage:imagetrail forState:UIControlStateNormal];
-    // Make sure the button ends up in the right place when the cell is resized
-    btnTemp2.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-    
+        
     for (int i = 0; i < [listingsList count]; i++) {
         Listing *currentListing = listingsList[i];
         if ([currentListing.listingID isEqualToString:listingID]) {
             btnTemp.tag =i;
-            btnTemp2.tag = i;
         }
     }
     
@@ -868,11 +857,9 @@ PullToRefreshView *pull;
         [btnTemp setEnabled:FALSE];
     }
     // Add the button to the side swipe view
-    [self.sideSwipeView addSubview:btnTemp2];
     
     
     [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
-    [btnTemp2 addTarget:self action:@selector(addToTrail:) forControlEvents:UIControlEventTouchUpInside];
     
     // Animate in the side swipe view
     animatingSideSwipe = YES;
@@ -1028,14 +1015,6 @@ PullToRefreshView *pull;
     NSLog(@"%@",cutString);
     NSLog(@"Button Favourite");
     
-}
-
--(void)addToTrail:(id)sender  // Control for Map View Button to Listing Detail View   
-{      
-    //NSInteger selectedIndex = ((UIButton*)sender).tag;
-    //Listing *selectedListing = [listingsList objectAtIndex:selectedIndex];
-    //NSLog(selectedListing.listingID);
-    NSLog(@"Button Trail");
 }
 
 

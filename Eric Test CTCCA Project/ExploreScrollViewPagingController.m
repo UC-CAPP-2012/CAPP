@@ -113,7 +113,7 @@
         
         
         UIView *subview = [[UIView alloc] initWithFrame:frame];
-        subview.backgroundColor = [UIColor blackColor];
+        subview.backgroundColor = [UIColor whiteColor];
         
         //Map Button
         
@@ -121,6 +121,7 @@
         [mapbutton addTarget:self action:@selector(MapButton:) forControlEvents:UIControlEventTouchDown];
         [mapbutton setTitle:@"Map" forState:UIControlStateNormal];
         
+        [mapbutton setTitleColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1] forState:UIControlStateNormal];
         //SetButton Tag
         mapbutton.tag = i;
         
@@ -134,6 +135,7 @@
         
         UIButton *listbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [listbutton addTarget:self action:@selector(ListButton:) forControlEvents:UIControlEventTouchDown];
+        [listbutton setTitleColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1] forState:UIControlStateNormal];
         [listbutton setTitle:@"List" forState:UIControlStateNormal];
         
         //SetButton Tag
@@ -161,8 +163,8 @@
         
         UILabel *typeLabel = [[UILabel alloc] init];
         typeLabel.text = currType.typeName;
-        typeLabel.textColor = [UIColor yellowColor];
-        typeLabel.backgroundColor = [UIColor blackColor];
+        typeLabel.textColor = [UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1];
+        typeLabel.backgroundColor = [UIColor clearColor];
         typeLabel.textAlignment = UITextAlignmentCenter;
         [typeLabel setFont:[UIFont fontWithName:@"Comic Sans" size:24]];
         typeLabel.font = [UIFont systemFontOfSize:24];
