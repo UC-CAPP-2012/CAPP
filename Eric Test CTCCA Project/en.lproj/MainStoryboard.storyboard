@@ -258,6 +258,21 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bezeled" selectedSegmentIndex="0" id="AKY-D1-dlv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Type"/>
+                                    <segment title="Cost"/>
+                                    <segment title="Suburb"/>
+                                </segments>
+                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentButton:" destination="Yfe-Rv-re9" eventType="valueChanged" id="QxY-vJ-HvL"/>
+                                </connections>
+                            </segmentedControl>
                             <view contentMode="scaleToFill" id="VUG-6p-Ug2" userLabel="ExploreView">
                                 <rect key="frame" x="0.0" y="43" width="320" height="371"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -326,22 +341,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bezeled" selectedSegmentIndex="0" id="AKY-D1-dlv">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
-                                                <segments>
-                                                    <segment title="TBA"/>
-                                                    <segment title="Type"/>
-                                                    <segment title="Cost"/>
-                                                </segments>
-                                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <action selector="segmentButton:" destination="Yfe-Rv-re9" eventType="valueChanged" id="QxY-vJ-HvL"/>
-                                                </connections>
-                                            </segmentedControl>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UeY-S6-YTA">
-                                                <rect key="frame" x="0.0" y="42" width="320" height="329"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all POIs" id="Vc9-CT-8J7">
@@ -389,50 +390,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Area Filter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Bn4-2W-xZ3">
-                                <rect key="frame" x="-8" y="0.0" width="328" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dwu-hE-cZz" userLabel="PreviousMonth">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="Arrow-Left.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="previousArea:" destination="Yfe-Rv-re9" eventType="touchDown" id="opb-Dw-8iu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lYI-sj-8kl" userLabel="NextMonth">
-                                <rect key="frame" x="271" y="0.0" width="49" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="Arrow-Right.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextArea:" destination="Yfe-Rv-re9" eventType="touchDown" id="r2u-Gt-Z5e"/>
-                                </connections>
-                            </button>
                             <view alpha="0.60000002384185791" contentMode="scaleToFill" id="516-JS-JKw" userLabel="LoadView">
-                                <rect key="frame" x="0.0" y="1" width="320" height="459"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="EKz-Ft-D0l">
-                                        <rect key="frame" x="142" y="169" width="37" height="37"/>
+                                        <rect key="frame" x="142" y="170" width="37" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -451,11 +414,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uQr-wx-ssl">
+                                                <rect key="frame" x="-1" y="5" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Aoe-kq-wEp">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="179-notepad.png">
+                                                <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -467,18 +439,27 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="UwB-bu-awN" userLabel="ListView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="caO-jw-vuB">
+                                                <rect key="frame" x="-1" y="5" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5ar-8K-YvW">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="73-radar.png">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="highlighted">
@@ -489,10 +470,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </barButtonItem>
                     </navigationItem>
@@ -503,14 +484,13 @@
                         <outlet property="ListingViewButton" destination="Puk-gO-8Cz" id="Ou2-4o-lWr"/>
                         <outlet property="StartDateLabel" destination="jIx-Jg-O3g" id="Irq-n0-iAI"/>
                         <outlet property="TitleLabel" destination="Av8-Re-cd4" id="5Fx-3Y-sQ3"/>
-                        <outlet property="areaLabel" destination="Bn4-2W-xZ3" id="zKX-E5-YYg"/>
                         <outlet property="exploreView" destination="VUG-6p-Ug2" id="XF8-iz-Smm"/>
+                        <outlet property="listLabel" destination="caO-jw-vuB" id="Bts-gm-bW9"/>
                         <outlet property="loadView" destination="516-JS-JKw" id="KUW-fQ-IHB"/>
+                        <outlet property="mapLabel" destination="uQr-wx-ssl" id="zUj-Lb-fBk"/>
                         <outlet property="mapView" destination="jiV-j9-FGZ" id="h6P-yh-Kmy"/>
                         <outlet property="mapWindow" destination="WR0-LN-oxv" id="BED-gy-PgI"/>
                         <outlet property="navView" destination="n0u-xh-q3E" id="cV3-HG-PRo"/>
-                        <outlet property="nextArea" destination="lYI-sj-8kl" id="2Yl-TK-GNy"/>
-                        <outlet property="previousArea" destination="Dwu-hE-cZz" id="MR0-FX-Vzz"/>
                         <outlet property="searchBar" destination="Vc9-CT-8J7" id="TOd-7g-KLo"/>
                         <outlet property="segmentController" destination="AKY-D1-dlv" id="rfn-lt-McR"/>
                         <outlet property="switchMapView" destination="GYI-wp-gbf" id="rmV-m1-uxw"/>
@@ -891,9 +871,10 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <segments>
-                                                    <segment title="TBA"/>
+                                                    <segment title="All"/>
                                                     <segment title="Type"/>
                                                     <segment title="Cost"/>
+                                                    <segment title="Suburb"/>
                                                 </segments>
                                                 <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
@@ -1144,21 +1125,19 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="PPm-1p-FYk">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.98431378599999997" green="0.83529418710000003" blue="0.18823531269999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <attributedString key="attributedText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fBW-T6-Z7m">
                                         <rect key="frame" x="0.0" y="47" width="97" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zW9-hk-ykp">
                                         <rect key="frame" x="97" y="47" width="143" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="12"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -1166,7 +1145,6 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2OS-CD-HfW">
                                         <rect key="frame" x="240" y="47" width="80" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldItalicMT" family="Arial" pointSize="12"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -2797,7 +2775,9 @@
                 <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="areaLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="exploreView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="listLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mapLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
                 <relationship kind="outlet" name="navView" candidateClass="UIView"/>
@@ -2853,6 +2833,7 @@
                 <relationship kind="action" name="loved:"/>
                 <relationship kind="action" name="myTrial:"/>
                 <relationship kind="action" name="spinWheel:"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="ListingViewController" superclassName="UIViewController">

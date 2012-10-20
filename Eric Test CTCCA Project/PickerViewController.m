@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad
 {
+    [super setTitle:@"spinwheel"];
     [super viewDidLoad];
     
     SubType = [[NSMutableArray alloc] init];

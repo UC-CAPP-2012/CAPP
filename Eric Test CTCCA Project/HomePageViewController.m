@@ -31,6 +31,10 @@
 }
 -(void)viewDidAppear:(BOOL)animated
 {
+    self.navigationController.toolbar.frame =
+    CGRectMake(self.navigationController.toolbar.frame.origin.x,
+               self.navigationController.toolbar.frame.origin.y,
+               self.navigationController.toolbar.frame.size.width, 60);
 
 }
 

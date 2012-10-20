@@ -55,6 +55,8 @@
     NSMutableString *currentElementValue;
     
     IBOutlet UISegmentedControl *segmentController;
+    IBOutlet UILabel *mapLabel;
+    IBOutlet UILabel *listLabel;
 }
 
 -(IBAction)nextArea:(id)sender;
@@ -63,6 +65,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
 @property (nonatomic, assign) bool isFiltered;
+@property (nonatomic, assign) bool listFiltered;
 //Passed from previous Controller.
 @property (strong, nonatomic)NSString *typeID;
 @property (strong, nonatomic)NSString *typeName;
@@ -74,8 +77,8 @@
 - (void) removeSideSwipeView:(BOOL)animated;
 - (BOOL) gestureRecognizersSupported;
 @property(strong, nonatomic)NSArray *listingsDataSource;
-@property(nonatomic, strong)NSMutableArray *areaFilter, *listingTable, *listingsList, *listingsListString;
-@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3;
+@property(nonatomic, strong)NSMutableArray *listFilter,*listingTable, *listingsList, *listingsListString;
+@property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 
 @property int currSel;
 @property int sortSel;

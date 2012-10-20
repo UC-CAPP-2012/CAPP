@@ -51,7 +51,7 @@ PullToRefreshView *pull;
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
     
-    self.navigationItem.title = @"Tours";
+    self.navigationItem.title = @"outings";
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     

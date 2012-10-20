@@ -29,12 +29,12 @@
 PullToRefreshView *pull;
 //Passed from previous controller.
 @synthesize typeName,typeID;
-@synthesize areaFilter;
 @synthesize listingsDataSource,listingTable, listingsList,listingsListString;
-@synthesize sortHeaders1,sortHeaders2,sortHeaders3;
+@synthesize sortHeaders1,sortHeaders2,sortHeaders3, sortHeaders4;
 @synthesize currSel,sortSel;
 @synthesize areaID;
 @synthesize sortID;
+@synthesize listFilter, listFiltered;
 @synthesize mapDefault, listDefault;
 @synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
 
@@ -117,16 +117,18 @@ PullToRefreshView *pull;
 
 -(void)setStartView
 {
-    [self setupArea]; //Area Filter
     if (mapDefault == YES) {
         [exploreView bringSubviewToFront:mapWindow];
-        [navView bringSubviewToFront:switchMapView];    
+        [navView bringSubviewToFront:switchMapView];
+        listLabel.hidden=true;
+        mapLabel.hidden=false;
         [self setupMap]; //Map View Pan
     }
     if (listDefault == YES) {
         [exploreView bringSubviewToFront:tableView];
         [navView bringSubviewToFront:switchTableView];
-        
+        listLabel.hidden=false;
+        mapLabel.hidden=true;
     }
     
 }
@@ -220,90 +222,6 @@ PullToRefreshView *pull;
 
 
 
--(void)setupArea
-{
-    
-    areaFilter = [[NSMutableArray alloc] init];
-    
-    //Area 1
-    AreaClass *area1 = [[AreaClass alloc] init];
-    area1.areaID = @"1";
-    area1.areaName =@"Civic";
-    CLLocationCoordinate2D areaCoordinate;
-    areaCoordinate.latitude = -35.281150;
-    areaCoordinate.longitude = 149.128668;      
-    area1.areaCoordinate = areaCoordinate;
-    area1.spanLat = 0.05f;
-    area1.spanLong = 0.05f;
-    [areaFilter addObject:area1];
-    
-    //Area 2
-    
-    AreaClass *area2 = [[AreaClass alloc] init];
-    area2.areaID = @"2";
-    area2.areaName =@"Gungahlin";
-    CLLocationCoordinate2D areaCoordinate2;
-    areaCoordinate2.latitude = -35.18471;
-    areaCoordinate2.longitude = 149.13254;      
-    area2.areaCoordinate = areaCoordinate2;
-    area2.spanLat = 0.05f;
-    area2.spanLong = 0.05f;    
-    [areaFilter addObject:area2];
-    
-    AreaClass *area3 = [[AreaClass alloc] init];
-    area3.areaID = @"3";
-    area3.areaName =@"Belconnen";
-    CLLocationCoordinate2D areaCoordinate3;
-    areaCoordinate3.latitude = -35.23746;
-    areaCoordinate3.longitude = 149.06725;      
-    area3.areaCoordinate = areaCoordinate3;
-    area3.spanLat = 0.05f;
-    area3.spanLong = 0.05f;    
-    [areaFilter addObject:area3];
-    
-    AreaClass *area4 = [[AreaClass alloc] init];
-    area4.areaID = @"4";
-    area4.areaName =@"Tuggeranong";
-    CLLocationCoordinate2D areaCoordinate4;
-    areaCoordinate4.latitude = -35.41849;
-    areaCoordinate4.longitude = 149.06825;      
-    area4.areaCoordinate = areaCoordinate4;
-    area4.spanLat = 0.05f;
-    area4.spanLong = 0.05f;    
-    [areaFilter addObject:area4];
-    
-    AreaClass *area5 = [[AreaClass alloc] init];
-    area5.areaID = @"5";
-    area5.areaName =@"Woden";
-    CLLocationCoordinate2D areaCoordinate5;
-    areaCoordinate5.latitude = -35.34700;
-    areaCoordinate5.longitude = 149.08568;      
-    area5.areaCoordinate = areaCoordinate5;
-    area5.spanLat = 0.05f;
-    area5.spanLong = 0.05f;    
-    [areaFilter addObject:area5];
-    
-    AreaClass *area6 = [[AreaClass alloc] init];
-    area6.areaID = @"6";
-    area6.areaName =@"Queanbeyan";
-    CLLocationCoordinate2D areaCoordinate6;
-    areaCoordinate6.latitude = -35.35492;
-    areaCoordinate6.longitude = 149.23125;      
-    area6.areaCoordinate = areaCoordinate6;
-    area6.spanLat = 0.05f;
-    area6.spanLong = 0.05f;    
-    [areaFilter addObject:area6];
-    
-    //------------------------------------------
-    
-    //initialise title and current selection.  
-    currSel = 0;
-    previousArea.hidden=TRUE;
-    AreaClass *currArea;
-    currArea = areaFilter[currSel];
-    areaLabel.text = currArea.areaName; 
-    
-}
 
 // --- END Initialisation --
 
@@ -318,14 +236,13 @@ PullToRefreshView *pull;
     [mapView setScrollEnabled:YES];
     [mapView setDelegate:self];
     
-    AreaClass *currArea;
-    currArea = areaFilter[currSel];
     
     //Center Map on area location
     MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
-    region.center = [currArea areaCoordinate];
-    region.span.latitudeDelta = [currArea spanLat]; // Zoom Settings
-    region.span.longitudeDelta = [currArea spanLong]; // Zoom Settings
+    region.center.latitude = -35.281150; //mapView.userLocation.location.coordinate.latitude;
+    region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
+    region.span.latitudeDelta = 0.15f; // Zoom Settings
+    region.span.longitudeDelta = 0.25f; // Zoom Settings
     
     [mapView setRegion:region animated:YES];
     
@@ -360,7 +277,10 @@ PullToRefreshView *pull;
     sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Price Headers
+    sortHeaders4 = [[NSMutableArray alloc] init];
     [listingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+
     for (ListingString *listingStringElement in listingsListString) {
         
         Listing *currListing = [[Listing alloc] init];
@@ -513,8 +433,18 @@ PullToRefreshView *pull;
             NSLog(@"%@", costType);
         }
         
+        NSString *suburb = tempListing.suburb;
+        if(![sortHeaders4 containsObject:suburb])
+        {
+            [sortHeaders4 addObject:suburb];
+            NSLog(@"%@", suburb);
+        }
         
+        if(sortSel==0){
+            [section addObject:currListing];
+        }
     }
+    
     
     
     // ** Table View Population
@@ -523,42 +453,32 @@ PullToRefreshView *pull;
     
     // --- SORT 1 Headers ----
     
-    [sortHeaders1 addObject:@"TBA"];
-    
-    // -----------------------
-    
+    [sortHeaders1 addObject:@"All"];
     
     [sortHeaders2 sortUsingSelector:@selector(compare:)];
     
     [sortHeaders3 sortUsingSelector:@selector(compare:)];
-    
+    [sortHeaders4 sortUsingSelector:@selector(compare:)];
     
     // -----------------------
-    
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-    if (sortSel == 0) 
-    {
-        
-        
-        for (Listing *listingListListing in listingsList)
-        {
-            [section addObject:listingListListing]; 
-        }
-        
+    if(sortSel==0){
         NSDictionary *sectionDict = @{@"Explore": section};
         [listingTable addObject:sectionDict];
     }
-    else{
+    else
+    {
         int count;
         if(sortSel ==1){
             count = [sortHeaders2 count];
-        }else {
+        }else if(sortSel == 2) {
             count = [sortHeaders3 count];
+        }else{
+            count = [sortHeaders4 count];
         }
         
         for (int i = 0; i < count; i++)
         {
-            
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
             
             for (Listing *listingListListing in listingsList) 
             {
@@ -567,19 +487,22 @@ PullToRefreshView *pull;
                 if(sortSel ==1){
                     currSortHeader = sortHeaders2[i];
                     type = listingListListing.subType;
-                }else{
+                }else if(sortSel == 2) {
                     currSortHeader = sortHeaders3[i];
                     type = listingListListing.costType;
+                }else{
+                    currSortHeader = sortHeaders4[i];
+                    type = listingListListing.suburb;
                 }
                 
                 if ([type isEqualToString:currSortHeader]) 
                 {
-                    [section addObject:listingListListing];
+                    [section2 addObject:listingListListing];
                 }
                 
             }
-            NSDictionary *sectionDict = @{@"Explore": section};
-            [listingTable addObject:sectionDict];
+            NSDictionary *sectionDict2 = @{@"Explore": section2};
+            [listingTable addObject:sectionDict2];
         }
         
     }
@@ -703,8 +626,17 @@ PullToRefreshView *pull;
         }
     }
     
+    if (sortSel == 3) {  //Suburb
+        [sectionHeaders removeAllObjects];
+        
+        for(NSString *header in sortHeaders4)
+        {
+            [sectionHeaders addObject:header];
+        }
+    }
+    
     UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
-    [headerView setBackgroundColor:[UIColor yellowColor]];
+    [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];
     
     for (int i = 0; i < [sectionHeaders count]; i++) {
@@ -715,21 +647,21 @@ PullToRefreshView *pull;
     }
     
     headerTitle.text = title;
-    headerTitle.textColor = [UIColor blackColor];
+    headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];
     
     return headerView;
 }
 
--(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     static NSString *cellIdentifier = @"exploreCell";
     SideSwipeTableViewCell *cell = (SideSwipeTableViewCell*)[listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    
-    NSDictionary *dictionary = listingTable[indexPath.section];
+    int section = indexPath.section;
+    NSDictionary *dictionary = listingTable[section];
     NSMutableArray *array = dictionary[@"Explore"];
     Listing *currListing;
     if(isFiltered)
@@ -746,7 +678,7 @@ PullToRefreshView *pull;
     [cellHeading setText: currListing.title];
     
     UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
-    [cellSubtype setText: currListing.suburb];
+    [cellSubtype setText: currListing.subType];
 
     return cell;    
 }
@@ -1117,6 +1049,8 @@ PullToRefreshView *pull;
     NSArray *viewArray = exploreView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
     if (viewArray[1] == mapWindow) // change to table view
     {
+        listLabel.hidden=false;
+        mapLabel.hidden=true;
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -1133,6 +1067,8 @@ PullToRefreshView *pull;
     } 
     else if (viewArray[1] == tableWindow) // change to mapview
     {
+        listLabel.hidden=true;
+        mapLabel.hidden=false;
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -1150,58 +1086,27 @@ PullToRefreshView *pull;
     }
     
 }
--(IBAction)nextArea:(id)sender{
-    previousArea.hidden=FALSE;
-    currSel = currSel + 1;
-    if (currSel == areaFilter.count-1)
-    {
-        nextArea.hidden=TRUE;
-    }
-    
-    AreaClass *currArea;
-    currArea = areaFilter[currSel];
-    
-    areaID = currArea.areaID;
-    areaLabel.text = currArea.areaName; 
-    
-    [self setupArray];
-    [self setupMap];
-    
-}
--(IBAction)previousArea:(id)sender{
-    nextArea.hidden=FALSE;
-    currSel = currSel - 1;
-    if (currSel == 0)
-    {
-        previousArea.hidden=TRUE;
-    }
-    
-    AreaClass *currArea;
-    currArea = areaFilter[currSel];
-    
-    areaID = currArea.areaID;
-    areaLabel.text = currArea.areaName; 
-    
-    [self setupArray];
-    [self setupMap];
-    
-}
+
 -(IBAction)segmentButton:(id)sender{
     
     if (segmentController.selectedSegmentIndex == 0) {
         sortSel = 0;
+        listFiltered = false;
         NSLog(@"Button1");
     }
     else if (segmentController.selectedSegmentIndex == 1) {
         sortSel = 1;
+        listFiltered = true;
         NSLog(@"Button2");
     }
     else if (segmentController.selectedSegmentIndex == 2) {
         sortSel = 2;
+        listFiltered = true;
         NSLog(@"Button3");
     }
     else {
         sortSel = 3;
+        listFiltered = true;
         NSLog(@"Button4");
     }
     [self setupArray];

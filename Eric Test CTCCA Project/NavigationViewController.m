@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad
 {
-    [self customizeApperarance];
+    //[self customizeApperarance];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -34,8 +34,22 @@
     //[[UINavigationBar appearance] setBackgroundColor:[UIColor yellowColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}forState:UIControlStateNormal];
+    //[[UIBarButtonItem appearance] setTitleTextAttributes:@{UITe]
+    
     //[[UIBarButtonItem appearance] setBackgroundColor:[UIColor blackColor]];
 
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+//
+//    CGFloat scale = .9;
+//    CGFloat cy = 10.0 - ( 10.0 * scale );
+//    
+//    CGRect r = self.view.frame;
+//    r.origin.y -= cy;
+//    r.size.height += cy;
+//    self.view.frame = r;
 
 }
 

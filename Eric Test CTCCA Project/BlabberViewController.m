@@ -48,7 +48,7 @@ PullToRefreshView *pull;
 
 - (void)viewDidLoad
 {
-    [super setTitle:@"Blabber"];
+    [super setTitle:@"blabber"];
     
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];

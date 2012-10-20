@@ -47,7 +47,7 @@ PullToRefreshView *pull;
 -(void)viewDidAppear:(BOOL)animated
 {
     [self segmentButton:self];
-    [tableView reloadData];
+    //[tableView reloadData];
 
     [loadView removeFromSuperview];
 }
@@ -58,8 +58,7 @@ PullToRefreshView *pull;
 
 - (void)viewDidLoad
 {
-    
-    self.navigationItem.title =@"Events";
+    self.navigationItem.title =@"happening";
     dateLabel.layer.borderColor = [UIColor blackColor].CGColor;
     dateLabel.layer.borderWidth = 1.0;
     
@@ -136,9 +135,23 @@ PullToRefreshView *pull;
 }
 
 -(void) setupArray // Connection to DataSource
-{ 
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"LLLL, yyyy"];
+    NSDate *dateStartItem = [dateFormat dateFromString:dateLabel.text];
+    
+   
+    NSDate *dateEndItem = [dateFormat dateFromString:monthFilter[currSel+1]];
+    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    NSString *dateStrStart = [dateFormatter stringFromDate:dateStartItem];
+    NSString *dateStrEnd = [dateFormatter stringFromDate:dateEndItem];
+
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-    [mapView removeAnnotations:mapView.annotations];   
+
+    [mapView removeAnnotations:mapView.annotations];
     
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -170,6 +183,7 @@ PullToRefreshView *pull;
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
     for (ListingString *listingStringElement in listingsListString) {
         
         Listing *currListing = [[Listing alloc] init];
@@ -313,29 +327,31 @@ PullToRefreshView *pull;
             NSLog(@"%@", subType);
         }
         
-        NSDate *start = tempListing.startDate;
-        NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-        [dayFormat setDateFormat:@"dd"];
-        NSString *dateString = [dayFormat stringFromDate:start];
-        if(![sortHeaders3 containsObject:dateString])
+        NSString *cost = tempListing.costType;
+        if(![sortHeaders3 containsObject:cost])
         {
-            [sortHeaders3 addObject:dateString];
-            NSLog(@"%@", dateString);
+            [sortHeaders3 addObject:cost];
+            NSLog(@"%@", cost);
         }
         
-        NSString *costType = tempListing.costType;
-        if(![sortHeaders4 containsObject:costType])
+        NSString *suburb = tempListing.suburb;
+        if(![sortHeaders4 containsObject:suburb])
         {
-            [sortHeaders4 addObject:costType];
-            NSLog(@"%@", costType);
+            [sortHeaders4 addObject:suburb];
+            NSLog(@"%@", suburb);
         }
+        
+        if(sortSel==0){
+            [section addObject:currListing];
+        }
+
     }
     
     // ---------------------------
     
     // --- SORT 1 Headers ---- // NAME
     
-    [sortHeaders1 addObject:@"TBA"];
+    [sortHeaders1 addObject:@"All"];
     
     // -----------------------
     
@@ -352,14 +368,9 @@ PullToRefreshView *pull;
     
     // -----------------------
     
-    NSMutableArray *section = [[NSMutableArray alloc] init];
+    
     if (sortSel == 0) 
     {
-        
-        for (Listing *listingListListing in listingsList)
-        {
-            [section addObject:listingListListing]; 
-        }
         
         NSDictionary *sectionDict = @{@"Events": section};
         [listingTable addObject:sectionDict];
@@ -374,6 +385,7 @@ PullToRefreshView *pull;
         }
         
         for (int i =0; i < count; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
             for (Listing *listingListListing in listingsList) 
             {
                 NSString *currSortHeader;
@@ -383,26 +395,25 @@ PullToRefreshView *pull;
                     type = listingListListing.subType;
                 }else if(sortSel == 2){
                     currSortHeader = sortHeaders3[i];
-                    //Do the thing here where you take the start 10 int and compare.
-                    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-                    [dayFormat setDateFormat:@"dd"];
-                    type = [dayFormat stringFromDate:listingListListing.startDate];
+                    type = listingListListing.costType;
                 }else if(sortSel == 3){
                     currSortHeader = sortHeaders4[i];
-                    type = listingListListing.costType;
+                    type = listingListListing.suburb;
                 }
                 
                 
                 if ([type isEqualToString:currSortHeader]) 
                 {
-                    [section addObject:listingListListing];
+                    [section2 addObject:listingListListing];
                 }
             }
-            NSDictionary *sectionDict = @{@"Events": section};
-            [listingTable addObject:sectionDict];
+            NSDictionary *sectionDict2 = @{@"Events": section2};
+            [listingTable addObject:sectionDict2];
         
         }
     }
+    
+    [tableView reloadData];
 }
 
 -(void)setupMap
@@ -619,7 +630,7 @@ PullToRefreshView *pull;
     }
     
     UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
-    [headerView setBackgroundColor:[UIColor yellowColor]];
+    [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];
     
         for (int i = 0; i < [sectionHeaders count]; i++) {
@@ -633,7 +644,7 @@ PullToRefreshView *pull;
 
     
     headerTitle.text = title;
-    headerTitle.textColor = [UIColor blackColor];
+    headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];
     
@@ -1162,8 +1173,9 @@ PullToRefreshView *pull;
         sortSel = 3;
         NSLog(@"Button4");
     }
-    [self setupArray];
     [self setupDate];
+    [self setupArray];
+    
     //[self setupMap];
 }
 

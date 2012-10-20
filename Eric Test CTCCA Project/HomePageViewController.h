@@ -22,6 +22,7 @@
 
 @interface HomePageViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 -(IBAction)spinWheel:(id)sender;
 -(IBAction)blabber:(id)sender;
 -(IBAction)aroundMe:(id)sender;
