@@ -417,17 +417,28 @@
         
         //Address
         AddressLabel.text = ((Listing *) view.annotation).address;
-        
-        //Start Date
-        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-        StartDateLabel.text = startDateString;
+//        
+//        //Start Date
+//        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+//        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+//        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        StartDateLabel.text =  ((Listing *) view.annotation).subType;
        // StartDateLabel.text = @"";
             
         //Detail Image 
         NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        DetailImage.image =[UIImage imageNamed:@"Placeholder.png"];
+            dispatch_queue_t concurrentQueue =
+            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            
+            dispatch_async(concurrentQueue, ^(void){
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    DetailImage.image = image;
+                });
+            });
+
         NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]); 
         
         //Button Press

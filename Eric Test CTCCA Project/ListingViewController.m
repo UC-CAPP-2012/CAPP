@@ -121,7 +121,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = image;
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                imageView.contentMode = UIViewContentModeScaleToFill;
                 loadView.hidden = YES;
             });
         });
@@ -180,21 +180,31 @@
     if ([view.annotation isKindOfClass:[Listing class]] )
     {
         //Title
-        TitleLabel.text = view.annotation.title;
+        TitleLabel.text = ((Listing *) view.annotation).subType;
         
         //Address
         AddressLabel.text = ((Listing *) view.annotation).address;
         
         //Start Date
-        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-        StartDateLabel.text = startDateString;
+//        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+//        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+//        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        StartDateLabel.text = view.annotation.title;
         
         //Detail Image    
         NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]); 
+        DetailImage.image =[UIImage imageNamed:@"Placeholder.png"];
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DetailImage.image = image;
+            });
+        });
+
         
     }
     
@@ -281,10 +291,79 @@
     NSLog(@"Button");
 }
 
-- (IBAction)viewNews:(id)sender {
-    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
-    [self.navigationController pushViewController:blabberView animated:YES];
+- (IBAction)home:(id)sender {
+//    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
+//    [self.navigationController pushViewController:blabberView animated:YES];
+    NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
+    
+    [self presentModalViewController:eventView animated:YES];
 }
+
+- (IBAction)email:(id)sender {
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        
+        mailer.mailComposeDelegate = self;
+        
+        [mailer setSubject:@"A Message from MobileTuts+"];
+        
+        NSArray *toRecipients = [NSArray arrayWithObjects:@"fisrtMail@example.com", @"secondMail@example.com", nil];
+        //[mailer setToRecipients:toRecipients];
+        
+        UIImage *myImage = [UIImage imageNamed:@"complete-logo.png"];
+        NSData *imageData = UIImagePNGRepresentation(myImage);
+        [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"];
+        
+        NSString *emailBody = @"Have you seen the MobileTuts+ web site?";
+        [mailer setMessageBody:emailBody isHTML:NO];
+        
+        // only for iPad
+        // mailer.modalPresentationStyle = UIModalPresentationPageSheet;
+        
+        [self presentModalViewController:mailer animated:YES];
+        
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                        message:@"Your device doesn't support the composer sheet"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+    }
+
+}
+
+#pragma mark - MFMailComposeController delegate
+
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+	switch (result)
+	{
+		case MFMailComposeResultCancelled:
+			NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued");
+			break;
+		case MFMailComposeResultSaved:
+			NSLog(@"Mail saved: you saved the email message in the Drafts folder");
+			break;
+		case MFMailComposeResultSent:
+			NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send the next time the user connects to email");
+			break;
+		case MFMailComposeResultFailed:
+			NSLog(@"Mail failed: the email message was nog saved or queued, possibly due to an error");
+			break;
+		default:
+			NSLog(@"Mail not sent");
+			break;
+	}
+    
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 -(IBAction)changePage{
     CGRect frame;

@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import <MessageUI/MessageUI.h>
 #import "ListingWebViewController.h"
-#import "BlabberViewController.h"
+#import "NavigationViewController.h"
 #import "Listing.h"
 #import "ListingString.h"
 
-@interface ListingViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate>{
+@interface ListingViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate, MFMailComposeViewControllerDelegate>{
     
     //Main Screen View outlets
     IBOutlet UIView *listingView;
@@ -52,6 +53,7 @@
 -(IBAction)segmentButton:(id)sender;
 -(IBAction)addToCalendar:(id)sender;
 -(IBAction)startTour:(id)sender;
-- (IBAction)viewNews:(id)sender;
+- (IBAction)home:(id)sender;
+- (IBAction)email:(id)sender;
 
 @end

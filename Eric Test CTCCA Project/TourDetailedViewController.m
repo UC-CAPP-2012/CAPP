@@ -318,7 +318,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = image;
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                imageView.contentMode = UIViewContentModeScaleToFill;
                 loadView.hidden = YES;
             });
         });
