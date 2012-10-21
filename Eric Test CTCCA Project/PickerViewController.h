@@ -16,8 +16,8 @@
 
 @interface PickerViewController : UIViewController <NSXMLParserDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
 
-    IBOutlet UIButton *feelingAdv;
     IBOutlet UIView *loadView;
+    IBOutlet UIButton *feelingAdv;
     
     IBOutlet UIPickerView *spinWheel;
     NSMutableArray *SubType;

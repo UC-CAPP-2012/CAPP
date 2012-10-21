@@ -184,182 +184,196 @@
 
 -(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
 {
+    loadView.hidden = false;
     resultButtonView.hidden=TRUE;
-    loadView.hidden=false;
-    //[self performSelector:@selector(spin) withObject:nil afterDelay:2.0f];
-    [self spin];
-    [listingsListString removeAllObjects];
-    [listingsList removeAllObjects];
-
-    //The strings to send to the webserver.
-    NSLog(@"%@",selectedCategory);
-    NSLog(@"%@",selectedSuburb);
-    NSLog(@"%@",selectedCost);
+    //[NSThread sleepForTimeInterval:3.0];
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
-    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    
-    
-    [xmlParser setDelegate:self];
-    
-    BOOL worked = [xmlParser parse];
-    
-    if(worked) {
-        //NSLog(@"Amount %i", [listingsListString count]);
-    }
-    else 
-    {
-        NSLog(@"did not work!");
-    }
-    
-    listingsList = [[NSMutableArray alloc] init];
-    
-    for (ListingString *listingStringElement in listingsListString) {
+    dispatch_async(concurrentQueue, ^(void){
+        //[self performSelector:@selector(spin) withObject:nil afterDelay:2.0f];
+        [self spin];
+        [listingsListString removeAllObjects];
+        [listingsList removeAllObjects];
         
-        Listing *currListing = [[Listing alloc] init];
+        //The strings to send to the webserver.
+        NSLog(@"%@",selectedCategory);
+        NSLog(@"%@",selectedSuburb);
+        NSLog(@"%@",selectedCost);
         
-        // ListingID , Title , SubTitle
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
         
-        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
-        currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        // Placemarker
-        
-        CLLocationCoordinate2D tempPlacemarker;
-        
-        NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        double latDouble =[tempLat doubleValue];
-        tempPlacemarker.latitude = latDouble;
-        
-        NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        double lonDouble =[tempLong doubleValue];
-        tempPlacemarker.longitude = lonDouble;
-        
-        currListing.coordinate = tempPlacemarker;
-        
-        //Sort and Filter Types
-        
-        currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        // Address
-        
-        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        
-        // Listing View details
-        
-        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        currListing.videoURL = [NSURL URLWithString:videoUrlString];
-        currListing.websiteURL = [NSURL URLWithString:webUrlString];
-        
-        // Start Date
-        
-        listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int startDay =[listingStringElement.StartDay intValue];
-        int startMonth =[listingStringElement.StartMonth intValue];
-        int startYear =[listingStringElement.StartYear intValue];
-        int startMinute =[listingStringElement.StartMinute intValue];
-        int startHour =[listingStringElement.StartHour intValue];
-        
-        NSDateComponents *startcomps = [[NSDateComponents alloc] init];
-        [startcomps setDay:startDay];
-        [startcomps setMonth:startMonth];
-        [startcomps setYear:startYear];
-        [startcomps setHour:startHour];
-        [startcomps setMinute:startMinute];
-        NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
-        currListing.startDate = startDate;
-        
-        // End Date
-        
-        listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int endDay =[listingStringElement.EndDay intValue];
-        int endMonth =[listingStringElement.EndMonth intValue];
-        int endYear =[listingStringElement.EndYear intValue];
-        int endMinute =[listingStringElement.EndMinute intValue];
-        int endHour =[listingStringElement.EndHour intValue];
-        
-        NSDateComponents *endcomps = [[NSDateComponents alloc] init];
-        [endcomps setDay:endDay];
-        [endcomps setMonth:endMonth];
-        [endcomps setYear:endYear];
-        [endcomps setHour:endHour];
-        [endcomps setMinute:endMinute];
-        NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
-        currListing.endDate = endDate;
+        //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
+        //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
+        //NSURL *url = [[NSURL alloc] initWithString:urlString];
+        //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
         
         
-        // ** CHECKS ------------------------
-        NSLog(@"%@",listingStringElement.ListingName);
-        NSLog(@"%@",listingStringElement.Latitude);
-        NSLog(@"%@",listingStringElement.Longitude);
-        NSLog(@"%f",latDouble);
-        NSLog(@"%f",lonDouble);
-        NSLog(@"%@",listingStringElement.ListingID);
-        NSLog(@"%@",listingStringElement.ListingType);
-        NSLog(@"%@",listingStringElement.AreaID);
-        NSLog(@"%@",listingStringElement.Cost);
-        NSLog(@"%@",listingStringElement.SubType);
-        NSLog(@"%@",listingStringElement.Suburb);    //suburb
-        NSLog(@"%@",listingStringElement.Postcode);  //postcode
-        NSLog(@"%@",listingStringElement.StateID);   //stateID
-        NSLog(@"%@",currListing.address);
-        NSLog(@"%@",listingStringElement.Details);
-        NSLog(@"%@",listingStringElement.ImageURL);
-        NSLog(@"%@",listingStringElement.VideoURL);
-        NSLog(@"%@",listingStringElement.StartDay);
-        NSLog(@"%@",listingStringElement.StartMonth);
-        NSLog(@"%@",listingStringElement.StartYear);
-        NSLog(@"%@",listingStringElement.StartMinute);
-        NSLog(@"%@",listingStringElement.StartHour);
-        NSLog(@"%@",listingStringElement.EndDay);
-        NSLog(@"%@",listingStringElement.EndMonth);
-        NSLog(@"%@",listingStringElement.EndYear);
-        NSLog(@"%@",listingStringElement.Website);
-        NSLog(@"%@",listingStringElement.EndMinute);
-        NSLog(@"%@",listingStringElement.EndHour);
+        [xmlParser setDelegate:self];
         
-        // -----------------------------------------
+        BOOL worked = [xmlParser parse];
         
-        [listingsList addObject:currListing];
-
+        if(worked) {
+            //NSLog(@"Amount %i", [listingsListString count]);
         }
-    result = listingsList[(arc4random() % [listingsList count])];
-    loadView.hidden=TRUE;
-    resultButtonView.hidden=FALSE;
-    [resultButton setTitle:result.title forState:UIControlStateNormal];
-    NSLog(@"%@", result.title);
+        else
+        {
+            NSLog(@"did not work!");
+        }
+        
+        listingsList = [[NSMutableArray alloc] init];
+        
+        for (ListingString *listingStringElement in listingsListString) {
+            
+            Listing *currListing = [[Listing alloc] init];
+            
+            // ListingID , Title , SubTitle
+            
+            currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
+            currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            
+            // Placemarker
+            
+            CLLocationCoordinate2D tempPlacemarker;
+            
+            NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            double latDouble =[tempLat doubleValue];
+            tempPlacemarker.latitude = latDouble;
+            
+            NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            double lonDouble =[tempLong doubleValue];
+            tempPlacemarker.longitude = lonDouble;
+            
+            currListing.coordinate = tempPlacemarker;
+            
+            //Sort and Filter Types
+            
+            currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            
+            // Address
+            
+            currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+            
+            // Listing View details
+            
+            currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
+            NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            currListing.videoURL = [NSURL URLWithString:videoUrlString];
+            currListing.websiteURL = [NSURL URLWithString:webUrlString];
+            
+            // Start Date
+            
+            listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            
+            int startDay =[listingStringElement.StartDay intValue];
+            int startMonth =[listingStringElement.StartMonth intValue];
+            int startYear =[listingStringElement.StartYear intValue];
+            int startMinute =[listingStringElement.StartMinute intValue];
+            int startHour =[listingStringElement.StartHour intValue];
+            
+            NSDateComponents *startcomps = [[NSDateComponents alloc] init];
+            [startcomps setDay:startDay];
+            [startcomps setMonth:startMonth];
+            [startcomps setYear:startYear];
+            [startcomps setHour:startHour];
+            [startcomps setMinute:startMinute];
+            NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
+            currListing.startDate = startDate;
+            
+            // End Date
+            
+            listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            
+            int endDay =[listingStringElement.EndDay intValue];
+            int endMonth =[listingStringElement.EndMonth intValue];
+            int endYear =[listingStringElement.EndYear intValue];
+            int endMinute =[listingStringElement.EndMinute intValue];
+            int endHour =[listingStringElement.EndHour intValue];
+            
+            NSDateComponents *endcomps = [[NSDateComponents alloc] init];
+            [endcomps setDay:endDay];
+            [endcomps setMonth:endMonth];
+            [endcomps setYear:endYear];
+            [endcomps setHour:endHour];
+            [endcomps setMinute:endMinute];
+            NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDate *endDate = [endgregorian dateFromComponents:endcomps];
+            currListing.endDate = endDate;
+            
+            
+            // ** CHECKS ------------------------
+            NSLog(@"%@",listingStringElement.ListingName);
+            NSLog(@"%@",listingStringElement.Latitude);
+            NSLog(@"%@",listingStringElement.Longitude);
+            NSLog(@"%f",latDouble);
+            NSLog(@"%f",lonDouble);
+            NSLog(@"%@",listingStringElement.ListingID);
+            NSLog(@"%@",listingStringElement.ListingType);
+            NSLog(@"%@",listingStringElement.AreaID);
+            NSLog(@"%@",listingStringElement.Cost);
+            NSLog(@"%@",listingStringElement.SubType);
+            NSLog(@"%@",listingStringElement.Suburb);    //suburb
+            NSLog(@"%@",listingStringElement.Postcode);  //postcode
+            NSLog(@"%@",listingStringElement.StateID);   //stateID
+            NSLog(@"%@",currListing.address);
+            NSLog(@"%@",listingStringElement.Details);
+            NSLog(@"%@",listingStringElement.ImageURL);
+            NSLog(@"%@",listingStringElement.VideoURL);
+            NSLog(@"%@",listingStringElement.StartDay);
+            NSLog(@"%@",listingStringElement.StartMonth);
+            NSLog(@"%@",listingStringElement.StartYear);
+            NSLog(@"%@",listingStringElement.StartMinute);
+            NSLog(@"%@",listingStringElement.StartHour);
+            NSLog(@"%@",listingStringElement.EndDay);
+            NSLog(@"%@",listingStringElement.EndMonth);
+            NSLog(@"%@",listingStringElement.EndYear);
+            NSLog(@"%@",listingStringElement.Website);
+            NSLog(@"%@",listingStringElement.EndMinute);
+            NSLog(@"%@",listingStringElement.EndHour);
+            
+            // -----------------------------------------
+            
+            [listingsList addObject:currListing];
+            
+        }
+        result = listingsList[(arc4random() % [listingsList count])];
+        // [NSThread sleepForTimeInterval:3.0];
+        //loadView.hidden=TRUE;
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            loadView.hidden=true;
+            resultButtonView.hidden=FALSE;
+            [resultButton setTitle:result.title forState:UIControlStateNormal];
+            NSLog(@"%@", result.title);
+        });
+    });
+
+    
 }
 
 - (IBAction)goToListing:(id)sender {
