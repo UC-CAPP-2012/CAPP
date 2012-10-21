@@ -15,7 +15,7 @@
 @end
 
 @implementation TourRoutesViewController
-@synthesize mapView;
+@synthesize mapView = _mapView;
 @synthesize path = _path;
 CLLocationManager *locationManager;
 CLGeocoder *geocoder;
@@ -24,27 +24,32 @@ NSString *currentDestination;
 
 - (void)viewDidLoad
 {
-    DetailView.hidden = TRUE;
+    
+    
     Listing *firstLocation = listingsList[0];
     currentDestination = firstLocation.address;
-    [mapView removeAnnotations:mapView.annotations];
+    [_mapView removeAnnotations:_mapView.annotations];
 	locationManager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
 	//_mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] ;
-	//[mapView setDelegate:self];
-	//[self.view addSubview:mapView];
-    mapView.showsUserLocation=TRUE;
-    mapView.showsUserLocation = YES;
+	[_mapView setDelegate:self];
+    
+	[self.view addSubview:_mapView];
+    
+    [self.view addSubview:DetailView];
+    DetailView.hidden = TRUE;
+    _mapView.showsUserLocation=TRUE;
+    _mapView.showsUserLocation = YES;
     locationManager.delegate=self;
     for(int a =0; a<listingsList.count;a++){
-        [mapView addAnnotation:listingsList[a]];
+        [_mapView addAnnotation:listingsList[a]];
     }
     
     
-    [mapView setMapType:MKMapTypeStandard];
-    [mapView setZoomEnabled:YES];
-    [mapView setScrollEnabled:YES];
-    [mapView setDelegate:self];
+    [_mapView setMapType:MKMapTypeStandard];
+    [_mapView setZoomEnabled:YES];
+    [_mapView setScrollEnabled:YES];
+    [_mapView setDelegate:self];
     
     //Center Map on users location;
     //CLLocationCoordinate2D zoomLocation;
@@ -53,7 +58,7 @@ NSString *currentDestination;
     region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
     region.span.latitudeDelta = 0.15f; // Zoom Settings
     region.span.longitudeDelta = 0.25f; // Zoom Settings
-    [mapView setRegion:region animated:YES];
+    [_mapView setRegion:region animated:YES];
         //Get user location
     [locationManager startUpdatingLocation];
     [super viewDidLoad];
@@ -66,9 +71,9 @@ NSString *currentDestination;
     view.pinColor = MKPinAnnotationColorGreen;
     currentDestination = [(Listing *)view.annotation init].address;
     [locationManager startUpdatingLocation];
-    for(id<MKOverlay> overlayToRemove in mapView.overlays){
+    for(id<MKOverlay> overlayToRemove in _mapView.overlays){
         if([overlayToRemove isKindOfClass:[MKPolyline class]]){
-            [mapView removeOverlay:overlayToRemove];
+            [_mapView removeOverlay:overlayToRemove];
         }
     }
     
@@ -195,7 +200,7 @@ NSString *currentDestination;
                  }
                  
                  MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:numberOfSteps];
-                 [mapView addOverlay:polyLine];
+                 [_mapView addOverlay:polyLine];
              } else {
                  
              }
@@ -278,7 +283,7 @@ NSString *currentDestination;
     //MyPin.annotation = annotation;
     
     if ([annotation isKindOfClass:[NVPolylineAnnotation class]]) {
-		return [[NVPolylineAnnotationView alloc] initWithAnnotation:annotation mapView:mapView] ;
+		return [[NVPolylineAnnotationView alloc] initWithAnnotation:annotation mapView:_mapView] ;
 	}
     
     

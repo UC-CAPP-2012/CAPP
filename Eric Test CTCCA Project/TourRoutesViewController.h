@@ -20,6 +20,11 @@
     IBOutlet UILabel *DetailSubtype;
     IBOutlet UIButton *DetailButton;
     IBOutlet UILabel *DetailAddress;
+    
+    UIView* _detailView;
+    
+    // the map view
+	MKMapView* _mapView;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView* mapView;
