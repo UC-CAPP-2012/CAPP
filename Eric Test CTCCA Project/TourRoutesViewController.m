@@ -15,7 +15,7 @@
 @end
 
 @implementation TourRoutesViewController
-@synthesize mapView = _mapView;
+@synthesize mapView;
 @synthesize path = _path;
 CLLocationManager *locationManager;
 CLGeocoder *geocoder;
@@ -24,26 +24,27 @@ NSString *currentDestination;
 
 - (void)viewDidLoad
 {
+    DetailView.hidden = TRUE;
     Listing *firstLocation = listingsList[0];
     currentDestination = firstLocation.address;
-    [_mapView removeAnnotations:_mapView.annotations];
+    [mapView removeAnnotations:mapView.annotations];
 	locationManager = [[CLLocationManager alloc] init];
     geocoder = [[CLGeocoder alloc] init];
-	_mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] ;
-	[_mapView setDelegate:self];
-	[self.view addSubview:_mapView];
-    _mapView.showsUserLocation=TRUE;
-    _mapView.showsUserLocation = YES;
+	//_mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] ;
+	//[mapView setDelegate:self];
+	//[self.view addSubview:mapView];
+    mapView.showsUserLocation=TRUE;
+    mapView.showsUserLocation = YES;
     locationManager.delegate=self;
     for(int a =0; a<listingsList.count;a++){
-        [_mapView addAnnotation:listingsList[a]];
+        [mapView addAnnotation:listingsList[a]];
     }
     
     
-    [_mapView setMapType:MKMapTypeStandard];
-    [_mapView setZoomEnabled:YES];
-    [_mapView setScrollEnabled:YES];
-    [_mapView setDelegate:self];
+    [mapView setMapType:MKMapTypeStandard];
+    [mapView setZoomEnabled:YES];
+    [mapView setScrollEnabled:YES];
+    [mapView setDelegate:self];
     
     //Center Map on users location;
     //CLLocationCoordinate2D zoomLocation;
@@ -52,7 +53,7 @@ NSString *currentDestination;
     region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
     region.span.latitudeDelta = 0.15f; // Zoom Settings
     region.span.longitudeDelta = 0.25f; // Zoom Settings
-    [_mapView setRegion:region animated:YES];
+    [mapView setRegion:region animated:YES];
         //Get user location
     [locationManager startUpdatingLocation];
     [super viewDidLoad];
@@ -61,52 +62,74 @@ NSString *currentDestination;
 -(void)mapView:(MKMapView *)mapViewSelect didSelectAnnotationView:(MKPinAnnotationView *)view
 {
     NSLog(@"didSelectAnnotationView");
-   // DetailView.hidden = FALSE;
+    DetailView.hidden = FALSE;
     view.pinColor = MKPinAnnotationColorGreen;
     currentDestination = [(Listing *)view.annotation init].address;
     [locationManager startUpdatingLocation];
-    for(id<MKOverlay> overlayToRemove in _mapView.overlays){
+    for(id<MKOverlay> overlayToRemove in mapView.overlays){
         if([overlayToRemove isKindOfClass:[MKPolyline class]]){
-            [_mapView removeOverlay:overlayToRemove];
+            [mapView removeOverlay:overlayToRemove];
         }
     }
-//    if ([view.annotation isKindOfClass:[Listing class]] )
-//    {
-//        Listing *selected = [(Listing *)view.annotation init];
-//        //Title
-//        TitleLabel.text = view.annotation.title;
-//        
-//        //Address
-//        AddressLabel.text = ((Listing *) view.annotation).address;
-//        
-//        //Start Date
-//        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-//        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-//        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-//        StartDateLabel.text = startDateString;
-//        
-//        //Detail Image
-//        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//        DetailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
-//        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]);
-//        
-//        NSString *listingID = ((Listing *) view.annotation).listingID;
-//        for (int i = 0; i < [listingsList count]; i++) {
-//            Listing *currentListing = listingsList[i];
-//            if ([currentListing.listingID isEqualToString:listingID]) {
-//                ListingViewButton.tag = i;
-//            }
-//        }
-//        [ListingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
-//    }
     
+    if ([view.annotation isKindOfClass:[Listing class]] )
+    {
+        DetailTitle.text = view.annotation.title;
+        
+        //Address
+        DetailAddress.text = ((Listing *) view.annotation).address;
+        
+        //Start Date
+        //        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        //        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+        //        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        DetailSubtype.text = ((Listing *) view.annotation).subType;
+        
+        //Detail Image
+        NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        DetailImage.image =[UIImage imageNamed:@"Placeholder.png"];
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DetailImage.image = image;
+            });
+        });
+        
+        NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]);
+        
+        //Button Press
+        
+        NSString *listingID = ((Listing *) view.annotation).listingID;
+        for (int i = 0; i < [listingsList count]; i++) {
+            Listing *currentListing = listingsList[i];
+            if ([currentListing.listingID isEqualToString:listingID]) {
+                DetailButton.tag = i;
+            }
+        }
+        [DetailButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+}
+
+-(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
+{
+    ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = listingsList[selectedIndex];
+    listingView.currentListing = selectedListing;
+    [self.navigationController pushViewController:listingView animated:YES];
+    NSLog(@"%@",selectedListing.listingID);
 }
 
 
 -(void)mapView:(MKMapView *)mapViewDeSelect didDeselectAnnotationView:(MKPinAnnotationView *)view
 {
     NSLog(@"didDeselectAnnotationView");
-    //DetailView.hidden = TRUE;
+    DetailView.hidden = TRUE;
     view.pinColor = MKPinAnnotationColorRed;
 }
 
@@ -172,7 +195,7 @@ NSString *currentDestination;
                  }
                  
                  MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:numberOfSteps];
-                 [_mapView addOverlay:polyLine];
+                 [mapView addOverlay:polyLine];
              } else {
                  
              }
@@ -255,24 +278,13 @@ NSString *currentDestination;
     //MyPin.annotation = annotation;
     
     if ([annotation isKindOfClass:[NVPolylineAnnotation class]]) {
-		return [[NVPolylineAnnotationView alloc] initWithAnnotation:annotation mapView:_mapView] ;
+		return [[NVPolylineAnnotationView alloc] initWithAnnotation:annotation mapView:mapView] ;
 	}
     
     
     return MyPin;
 }
 
-
-
--(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
-{
-    ListingViewController *locationlistingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = listingsList[selectedIndex];
-    locationlistingView.currentListing = selectedListing;
-    [self.navigationController pushViewController:locationlistingView animated:YES];
-    NSLog(@"%@",selectedListing.listingID);
-}
 
 
 // END MAP METHODS

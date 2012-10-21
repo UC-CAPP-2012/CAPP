@@ -430,20 +430,33 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     {
         //Title
         TitleLabel.text = view.annotation.title;
-        Listing *selected = [(Listing *)view.annotation init];
+        
         //Address
-        addressLabel.text = selected.address;
-        NSLog(@"%@",selected.address);
+        addressLabel.text = ((Listing *) view.annotation).address;
+        
         //Start Date
-        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
-        startDateLabel.text = startDateString;
+        //        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        //        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+        //        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        startDateLabel.text = ((Listing *) view.annotation).subType;
         
         //Detail Image
         NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        detailImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        detailImage.image =[UIImage imageNamed:@"Placeholder.png"];
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                detailImage.image = image;
+            });
+        });
+        
         NSLog(@"%@",(((Listing *) view.annotation).imageFilenames)[0]);
+        
+        //Button Press
         
         NSString *listingID = ((Listing *) view.annotation).listingID;
         for (int i = 0; i < [listingsList count]; i++) {
@@ -453,8 +466,9 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
             }
         }
         [ListingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
     }
-    
 }
 
 

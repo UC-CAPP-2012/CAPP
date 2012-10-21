@@ -12,10 +12,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ListingViewController.h"
 @interface TourRoutesViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate>{
-    // the map view
-	MKMapView* _mapView;
-	// the data representing the route points.
+    // the data representing the route points.
 	NSMutableArray* _path;
+    IBOutlet UILabel *DetailTitle;
+    IBOutlet UIImageView *DetailImage;
+    IBOutlet UIView *DetailView;
+    IBOutlet UILabel *DetailSubtype;
+    IBOutlet UIButton *DetailButton;
+    IBOutlet UILabel *DetailAddress;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView* mapView;
