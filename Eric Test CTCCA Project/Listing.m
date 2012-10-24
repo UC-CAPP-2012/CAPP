@@ -32,6 +32,7 @@
 @synthesize imageFilenames;
 @synthesize videoURL;
 @synthesize websiteURL;
+@synthesize audioURL;
 @synthesize phone;
 
 // Event Variable

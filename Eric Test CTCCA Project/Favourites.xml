@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListingElements>
 <ListingElement>
-<ListingID>1</ListingID>
-<ListingName>Canberra City YHA</ListingName>
+<ItemID>1</ItemID>
+<ItemName>Canberra City YHA</ItemName>
 <Address>16 Akuna Street, Civic, 2601</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2601</Postcode>
 <Longitude>149.128677368164062500000000000000</Longitude>
 <Latitude>-35.282001495361328125000000000000</Latitude>
+<AudioURL></AudioURL>
 <ImageURL>http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg,http://profile.ak.fbcdn.net/hprofile-ak-ash3/174801_330301470005_1559379430_q.jpg</ImageURL>
-<SubType>Hostel</SubType>
+<SubtypeName>Hostel</SubtypeName>
 <Cost>$</Cost>
-<StartDay>20</StartDay>
+<StartDate>20/11/2012</StartDate>
+<EndDate>20/12/2012</EndDate>
 <Details>Canberra City YHA Description</Details>
 <VideoURL>http://www.youtube.com/watch?v=TUY5zg1fez8</VideoURL>
 <Website>http://www.yha.com.au/hostels/nsw/canberra/canberra-city/</Website>
@@ -21,17 +23,19 @@
 <OpeningHours>9am - 5pm</OpeningHours>
 </ListingElement>
 <ListingElement>
-<ListingID>7</ListingID>
-<ListingName>Canberra Multicultural Festival</ListingName>
+<ItemID>7</ItemID>
+<ItemName>Canberra Multicultural Festival</ItemName>
 <Address>15 Garema Pl, Civic, 2600</Address>
 <Suburb>Civic</Suburb>
 <Postcode>2600</Postcode>
 <Longitude>149.132095336914062500000000000000</Longitude>
 <Latitude>-35.278388977050781250000000000000</Latitude>
+<AudioURL></AudioURL>
 <ImageURL>http://images.canberratimes.com.au/2012/10/03/3684749/KM-article-lead-wide--artist-20121003151742273205-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3685920/pb-Art-Speed-20121003205023588668-620x349.jpg,http://images.canberratimes.com.au/2012/10/03/3684838/KM-thumb--dr-maciver-20121003153819907971-620x349.jpg</ImageURL>
-<SubType>Festival</SubType>
+<SubtypeName>Festival</SubtypeName>
 <Cost>$</Cost>
-<StartDay>19</StartDay>
+<StartDate>20/11/2012</StartDate>
+<EndDate>20/12/2012</EndDate>
 <Details>Canberra Multicultural Festival Description</Details>
 <VideoURL>www.google.com</VideoURL>
 <Website>www.google.com</Website>

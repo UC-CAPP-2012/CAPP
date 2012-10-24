@@ -287,9 +287,10 @@ PullToRefreshView *pull;
         
         // ListingID , Title , SubTitle
         
-        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
-        currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+
         
         // Placemarker
         
@@ -310,7 +311,7 @@ PullToRefreshView *pull;
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subType = [listingStringElement.SubtypeName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
@@ -333,65 +334,29 @@ PullToRefreshView *pull;
         currListing.websiteURL = [NSURL URLWithString:webUrlString];
         
         // Start Date
-        
-        listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int startDay =[listingStringElement.StartDay intValue];
-        int startMonth =[listingStringElement.StartMonth intValue];
-        int startYear =[listingStringElement.StartYear intValue];
-        int startMinute =[listingStringElement.StartMinute intValue];
-        int startHour =[listingStringElement.StartHour intValue];
-        
-        NSDateComponents *startcomps = [[NSDateComponents alloc] init];
-        [startcomps setDay:startDay];
-        [startcomps setMonth:startMonth];
-        [startcomps setYear:startYear];
-        [startcomps setHour:startHour];
-        [startcomps setMinute:startMinute];
-        NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+        // Start Date
+        listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
         currListing.startDate = startDate;
         
         // End Date
-        
-        listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int endDay =[listingStringElement.EndDay intValue];
-        int endMonth =[listingStringElement.EndMonth intValue];
-        int endYear =[listingStringElement.EndYear intValue];
-        int endMinute =[listingStringElement.EndMinute intValue];
-        int endHour =[listingStringElement.EndHour intValue];
-        
-        NSDateComponents *endcomps = [[NSDateComponents alloc] init];
-        [endcomps setDay:endDay];
-        [endcomps setMonth:endMonth];
-        [endcomps setYear:endYear];
-        [endcomps setHour:endHour];
-        [endcomps setMinute:endMinute];
-        NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *endDate = [endgregorian dateFromComponents:endcomps];
+        listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
         currListing.endDate = endDate;
         
-        
         // ** CHECKS ------------------------
-        NSLog(@"%@",listingStringElement.ListingName);
+        NSLog(@"%@",listingStringElement.ItemName);
         NSLog(@"%@",listingStringElement.Latitude);
         NSLog(@"%@",listingStringElement.Longitude);
         NSLog(@"%f",latDouble);
         NSLog(@"%f",lonDouble);
-        NSLog(@"%@",listingStringElement.ListingID);
+        NSLog(@"%@",listingStringElement.ItemID);
         NSLog(@"%@",listingStringElement.ListingType);
         NSLog(@"%@",listingStringElement.AreaID);
         NSLog(@"%@",listingStringElement.Cost);
-        NSLog(@"%@",listingStringElement.SubType);
+        NSLog(@"%@",listingStringElement.SubtypeName);
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
@@ -399,17 +364,9 @@ PullToRefreshView *pull;
         NSLog(@"%@",listingStringElement.Details);
         NSLog(@"%@",listingStringElement.ImageURL);
         NSLog(@"%@",listingStringElement.VideoURL);
-        NSLog(@"%@",listingStringElement.StartDay);
-        NSLog(@"%@",listingStringElement.StartMonth);
-        NSLog(@"%@",listingStringElement.StartYear);
-        NSLog(@"%@",listingStringElement.StartMinute);
-        NSLog(@"%@",listingStringElement.StartHour);
-        NSLog(@"%@",listingStringElement.EndDay);
-        NSLog(@"%@",listingStringElement.EndMonth);
-        NSLog(@"%@",listingStringElement.EndYear);
+        NSLog(@"%@",listingStringElement.StartDate);
+        NSLog(@"%@",listingStringElement.EndDate);
         NSLog(@"%@",listingStringElement.Website);
-        NSLog(@"%@",listingStringElement.EndMinute);
-        NSLog(@"%@",listingStringElement.EndHour);
         
         // -----------------------------------------
         
@@ -1115,7 +1072,7 @@ PullToRefreshView *pull;
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [attributeDict[@"listingID"] stringValue];
+        theList.ItemID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

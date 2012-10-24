@@ -11,17 +11,17 @@
 @interface ListingString : NSObject{
     
     // MAP properties    
-    NSString *ListingName;
+    NSString *ItemName;
     NSString *Latitude;
     NSString *Longitude;
     
     // Identification Properties
-    NSString *ListingID;
+    NSString *ItemID;
     NSString *ListingType;
     
     NSString *AreaID; // regionID
     NSString *Cost; //PriceID
-    NSString *SubType; //subtype
+    NSString *SubtypeName; //subtype
     
     // Listing View Variables
     NSString *Address;
@@ -38,34 +38,25 @@
     NSString *Phone; //phone
     NSString *OpeningHours;
     // Event Variable
-    NSString *StartDay;
-    NSString *StartMonth;
-    NSString *StartYear;
-    NSString *EndDay; 
-    NSString *EndMonth; 
-    NSString *EndYear; 
-    
-    NSString *StartMinute;
-    NSString *StartHour;
-    NSString *EndMinute;
-    NSString *EndHour;
-    
+    NSString *StartDate;
+    NSString *EndDate;
+    NSString *AudioURL;
     
 }
 
 
-@property (nonatomic, copy) NSString *ListingName;
+@property (nonatomic, copy) NSString *ItemName;
 @property (nonatomic, copy) NSString *Latitude;
 @property (nonatomic, copy) NSString *Longitude;
 
 // Identification Properties
-@property (nonatomic, copy) NSString *ListingID;
+@property (nonatomic, copy) NSString *ItemID;
 @property (nonatomic, copy) NSString *ListingType;
 @property (nonatomic, copy) NSString *OpeningHours;
 
 @property (nonatomic, copy) NSString *AreaID;
 @property (nonatomic, copy) NSString *Cost;
-@property (nonatomic, copy) NSString *SubType;
+@property (nonatomic, copy) NSString *SubtypeName;
 
 // Listing View Variables
 
@@ -83,15 +74,7 @@
 @property (nonatomic, copy) NSString *Email;
 
 // Event Variable
-@property (nonatomic, copy) NSString *StartDay;
-@property (nonatomic, copy) NSString *StartMonth; 
-@property (nonatomic, copy) NSString *StartYear;
-@property (nonatomic, copy) NSString *EndDay; 
-@property (nonatomic, copy) NSString *EndMonth;
-@property (nonatomic, copy) NSString *EndYear; 
-@property (nonatomic, copy) NSString *StartMinute;
-@property (nonatomic, copy) NSString *StartHour;
-@property (nonatomic, copy) NSString *EndMinute;
-@property (nonatomic, copy) NSString *EndHour;
-
+@property (nonatomic, copy) NSString *StartDate;
+@property (nonatomic, copy) NSString *EndDate;
+@property (nonatomic, copy) NSString *AudioURL;
 @end

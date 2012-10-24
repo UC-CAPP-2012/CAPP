@@ -10,18 +10,18 @@
 
 @implementation ListingString
 
-@synthesize ListingName;
+@synthesize ItemName;
 @synthesize Latitude;
 @synthesize Longitude;
 
 // Identification Properties
-@synthesize ListingID;
+@synthesize ItemID;
 @synthesize ListingType;
 @synthesize OpeningHours;
 
 @synthesize AreaID;
 @synthesize Cost;
-@synthesize SubType;
+@synthesize SubtypeName;
 
 // Listing View Variables
 @synthesize Address; //address
@@ -37,16 +37,8 @@
 @synthesize Email;
 
 // Event Variable
-@synthesize StartMinute;
-@synthesize StartHour;
-@synthesize StartDay;
-@synthesize StartMonth; 
-@synthesize StartYear;
-@synthesize EndDay; 
-@synthesize EndMonth;
-@synthesize EndYear; 
-@synthesize EndMinute;
-@synthesize EndHour;
+@synthesize StartDate;
+@synthesize EndDate;
 
 
 @end

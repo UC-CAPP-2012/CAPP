@@ -428,7 +428,7 @@
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [attributeDict[@"listingID"] stringValue];
+        theList.ItemID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

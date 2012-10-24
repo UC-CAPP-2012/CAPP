@@ -46,10 +46,11 @@ PullToRefreshView *pull;
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self segmentButton:self];
-    //[tableView reloadData];
-
-    [loadView removeFromSuperview];
+    if([listingsList count]==0){
+        [self segmentButton:self];
+    }
+    [tableView reloadData];
+   [loadView removeFromSuperview];;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -153,14 +154,13 @@ PullToRefreshView *pull;
 
     [mapView removeAnnotations:mapView.annotations];
     
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Happenings.php"];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     
     [xmlParser setDelegate:self];
@@ -190,9 +190,10 @@ PullToRefreshView *pull;
         
         // ListingID , Title , SubTitle
         
-        currListing.listingID = [listingStringElement.ListingID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];       
-        currListing.title = [listingStringElement.ListingName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
+        currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+
         
         // Placemarker
         
@@ -213,7 +214,7 @@ PullToRefreshView *pull;
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subType = [listingStringElement.SubType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subType = [listingStringElement.SubtypeName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         // Address
         
@@ -228,73 +229,31 @@ PullToRefreshView *pull;
         
         currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        NSString *urlTemp = [listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *videoUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *webUrlTemp = [listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *webUrlString = [[NSString stringWithFormat:webUrlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        currListing.videoURL = [NSURL URLWithString:videoUrlString];
-        currListing.websiteURL = [NSURL URLWithString:webUrlString];
+        currListing.videoURL = [NSURL URLWithString:[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        currListing.websiteURL = [NSURL URLWithString:[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        currListing.audioURL = [NSURL URLWithString:[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         
         // Start Date
-        
-        listingStringElement.startDay = [listingStringElement.StartDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMonth = [listingStringElement.StartMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startYear = [listingStringElement.StartYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startMinute = [listingStringElement.StartMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.startHour = [listingStringElement.StartHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int startDay =[listingStringElement.StartDay intValue];
-        int startMonth =[listingStringElement.StartMonth intValue];
-        int startYear =[listingStringElement.StartYear intValue];
-        int startMinute =[listingStringElement.StartMinute intValue];
-        int startHour =[listingStringElement.StartHour intValue];
-        
-        NSDateComponents *startcomps = [[NSDateComponents alloc] init];
-        [startcomps setDay:startDay];
-        [startcomps setMonth:startMonth];
-        [startcomps setYear:startYear];
-        [startcomps setHour:startHour];
-        [startcomps setMinute:startMinute];
-        NSCalendar *gregorianStart = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = [gregorianStart dateFromComponents:startcomps];  
+        listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
         currListing.startDate = startDate;
         
         // End Date
-        
-        listingStringElement.endDay = [listingStringElement.EndDay stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMonth = [listingStringElement.EndMonth stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endYear = [listingStringElement.EndYear stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endMinute = [listingStringElement.EndMinute stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.endHour = [listingStringElement.EndHour stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        int endDay =[listingStringElement.EndDay intValue];
-        int endMonth =[listingStringElement.EndMonth intValue];
-        int endYear =[listingStringElement.EndYear intValue];
-        int endMinute =[listingStringElement.EndMinute intValue];
-        int endHour =[listingStringElement.EndHour intValue];
-        
-        NSDateComponents *endcomps = [[NSDateComponents alloc] init];
-        [endcomps setDay:endDay];
-        [endcomps setMonth:endMonth];
-        [endcomps setYear:endYear];
-        [endcomps setHour:endHour];
-        [endcomps setMinute:endMinute];
-        NSCalendar *endgregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *endDate = [endgregorian dateFromComponents:endcomps];  
+        listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
         currListing.endDate = endDate;
-        
-        
+                
         // ** CHECKS ------------------------
-        NSLog(@"%@",listingStringElement.ListingName);
+        NSLog(@"%@",listingStringElement.ItemName);
         NSLog(@"%@",listingStringElement.Latitude);
         NSLog(@"%@",listingStringElement.Longitude);
         NSLog(@"%f",latDouble);
         NSLog(@"%f",lonDouble);
-        NSLog(@"%@",listingStringElement.ListingID);
+        NSLog(@"%@",listingStringElement.ItemID);
         NSLog(@"%@",listingStringElement.ListingType);
         NSLog(@"%@",listingStringElement.AreaID);
         NSLog(@"%@",listingStringElement.Cost);
-        NSLog(@"%@",listingStringElement.SubType);
+        NSLog(@"%@",listingStringElement.SubtypeName);
         NSLog(@"%@",listingStringElement.Suburb);    //suburb
         NSLog(@"%@",listingStringElement.Postcode);  //postcode
         NSLog(@"%@",listingStringElement.StateID);   //stateID
@@ -302,17 +261,9 @@ PullToRefreshView *pull;
         NSLog(@"%@",listingStringElement.Details);
         NSLog(@"%@",listingStringElement.ImageURL);
         NSLog(@"%@",listingStringElement.VideoURL);
-        NSLog(@"%@",listingStringElement.StartDay);
-        NSLog(@"%@",listingStringElement.StartMonth);
-        NSLog(@"%@",listingStringElement.StartYear);
-        NSLog(@"%@",listingStringElement.StartMinute);
-        NSLog(@"%@",listingStringElement.StartHour);
-        NSLog(@"%@",listingStringElement.EndDay);
-        NSLog(@"%@",listingStringElement.EndMonth);
-        NSLog(@"%@",listingStringElement.EndYear);
+        NSLog(@"%@",listingStringElement.StartDate);
+        NSLog(@"%@",listingStringElement.EndDate);
         NSLog(@"%@",listingStringElement.Website);
-        NSLog(@"%@",listingStringElement.EndMinute);
-        NSLog(@"%@",listingStringElement.EndHour);
         
         // -----------------------------------------
         
@@ -667,9 +618,12 @@ PullToRefreshView *pull;
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
-    [self reloadTableData];
+    self->tableView.contentOffset = CGPointMake(0, -65);
+    [pull setState:PullToRefreshViewStateLoading];
 
- //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+    //[self reloadTableData];
+
+ [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
 -(void) reloadTableData
@@ -684,9 +638,9 @@ PullToRefreshView *pull;
 -(void)foregroundRefresh:(NSNotification *)notification
 {
     
-    self->tableView.contentOffset = CGPointMake(0, -65);
-    [pull setState:PullToRefreshViewStateLoading];
-    [self reloadTableData];
+    //self->tableView.contentOffset = CGPointMake(0, -65);
+    //[pull setState:PullToRefreshViewStateLoading];
+    //[self reloadTableData];
     //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
@@ -1190,7 +1144,7 @@ PullToRefreshView *pull;
     else if ([elementName isEqualToString:@"ListingElement"])
     {
         theList = [[ListingString alloc] init];
-        theList.listingID = [attributeDict[@"listingID"] stringValue];
+        theList.ItemID = [attributeDict[@"listingID"] stringValue];
     }
 }
 

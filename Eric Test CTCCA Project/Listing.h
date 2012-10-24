@@ -29,6 +29,7 @@
     NSArray *imageFilenames;
     NSURL *videoURL;
     NSURL *websiteURL;
+    NSURL *audioURL;
     NSString *majorRegionName;
     NSString *phone;
     NSString *email;
@@ -72,7 +73,7 @@
 @property (nonatomic, copy) NSArray *imageFilenames;
 @property (nonatomic, copy) NSURL *videoURL;
 @property (nonatomic, copy) NSURL *websiteURL;
-
+@property (nonatomic, copy) NSURL *audioURL;
 //Required for Events
 
 @property (nonatomic, copy) NSDate *startDate;
