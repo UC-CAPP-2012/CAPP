@@ -20,12 +20,12 @@
 CLLocationManager *locationManager;
 CLGeocoder *geocoder;
 NSString *currentDestination;
-@synthesize listingsList;
+@synthesize listingsList, tourName;
 
 - (void)viewDidLoad
 {
     
-    
+    [super setTitle:tourName];
     Listing *firstLocation = listingsList[0];
     currentDestination = firstLocation.address;
     [_mapView removeAnnotations:_mapView.annotations];

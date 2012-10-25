@@ -32,5 +32,6 @@
 @property (nonatomic, retain) NSMutableArray* path;
 @property (strong, nonatomic) IBOutlet CLLocationManager *locationManager;
 @property (strong, nonatomic) IBOutlet CLGeocoder *geoCoder;
+@property (strong, nonatomic) NSString *tourName;
 
 @end

@@ -407,9 +407,9 @@
 - (IBAction)lockUnlockCategory:(id)sender {
     NSString *imageName;
     if(categoryLocked){
-        imageName = @"unlock.png";
+        imageName = @"BrokenLink_White.png";
     }else{
-        imageName = @"lock.png";
+        imageName = @"Link_White.png";
     }
     UIImage* image = [UIImage imageNamed:imageName];
     lockCategory.image = image;
@@ -419,9 +419,9 @@
 - (IBAction)lockUnlockSuburb:(id)sender {
     NSString *imageName;
     if(suburbLocked){
-        imageName = @"unlock.png";
+        imageName = @"BrokenLink_White.png";
     }else{
-        imageName = @"lock.png";
+        imageName = @"Link_White.png";
     }
     UIImage* image = [UIImage imageNamed:imageName];
     lockSuburb.image = image;
@@ -431,9 +431,9 @@
 - (IBAction)lockUnlockCost:(id)sender {
     NSString *imageName;
     if(costLocked){
-        imageName = @"unlock.png";
+        imageName = @"BrokenLink_White.png";
     }else{
-        imageName = @"lock.png";
+        imageName = @"Link_White.png";
     }
     UIImage* image = [UIImage imageNamed:imageName];
     lockCost.image = image;

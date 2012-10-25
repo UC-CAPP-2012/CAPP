@@ -515,6 +515,7 @@
 - (IBAction)startTour:(id)sender {
     TourRoutesViewController *tourRoutesView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourRoutesViewController"]; // Listing Detail Page
     tourRoutesView.listingsList = listingsList;
+    tourRoutesView.tourName = [self title];
     [self.navigationController pushViewController:tourRoutesView animated:YES];
 }
 

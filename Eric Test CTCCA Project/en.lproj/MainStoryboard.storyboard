@@ -22,7 +22,7 @@
                             <pageControl autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="8" id="vgE-j9-his">
                                 <rect key="frame" x="0.0" y="380" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" red="0.75717474489795922" green="0.75717474489795922" blue="0.75717474489795922" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changePage:" destination="9rl-tx-XzO" eventType="valueChanged" id="x91-gN-Eyh"/>
                                 </connections>
@@ -665,15 +665,15 @@
                                 <rect key="frame" x="0.0" y="268" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="unlock.png" id="0PM-PW-E37" userLabel="Lock - Category">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="BrokenLink_White.png" id="0PM-PW-E37" userLabel="Lock - Category">
                                         <rect key="frame" x="32" y="7" width="36" height="33"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="unlock.png" id="0ND-EP-jiA" userLabel="Lock - Suburb">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="BrokenLink_White.png" id="0ND-EP-jiA" userLabel="Lock - Suburb">
                                         <rect key="frame" x="139" y="7" width="36" height="33"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="unlock.png" id="2CV-0v-VYv" userLabel="Lock - Cost">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="BrokenLink_White.png" id="2CV-0v-VYv" userLabel="Lock - Cost">
                                         <rect key="frame" x="244" y="7" width="36" height="33"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -1374,22 +1374,22 @@
                                             <action selector="viewWebsite:" destination="fC4-5Y-cLX" id="eYX-mW-tML"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="112-group.png" width="47" style="plain" id="ew3-M9-NI2">
+                                    <barButtonItem image="Facebook_Icon_Small.png" width="47" style="plain" id="ew3-M9-NI2">
                                         <connections>
                                             <action selector="shareWebsite:" destination="fC4-5Y-cLX" id="cQd-Pd-gTo"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="83-calendar.png" width="42" style="plain" id="flD-GU-g4q">
+                                    <barButtonItem image="Calendar_Icon_Small.png" width="42" style="plain" id="flD-GU-g4q">
                                         <connections>
                                             <action selector="addToCalendar:" destination="fC4-5Y-cLX" id="plk-ld-oxt"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="star-hollow.png" style="plain" id="4Qa-xk-huJ">
+                                    <barButtonItem image="Mail_Icon_Small.png" style="plain" id="4Qa-xk-huJ">
                                         <connections>
                                             <action selector="email:" destination="fC4-5Y-cLX" id="6EF-IK-YXf"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="29-heart.png" width="52" style="plain" id="VCy-rC-rkd">
+                                    <barButtonItem image="Favourites_Icon_Small.png" width="52" style="plain" id="VCy-rC-rkd">
                                         <connections>
                                             <action selector="addToFavourties:" destination="fC4-5Y-cLX" id="tJf-a7-1aQ"/>
                                         </connections>
@@ -2212,17 +2212,17 @@
                                 <rect key="frame" x="0.0" y="416" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem image="08-chat.png" width="43" style="plain" id="wgL-rZ-jve">
+                                    <barButtonItem image="Audio_Icon_Small.png" width="43" style="plain" id="wgL-rZ-jve">
                                         <connections>
                                             <action selector="viewNews:" destination="5TO-94-q9J" id="m7N-cb-7YL"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="70-tv.png" width="46" style="plain" id="WOH-uN-SU3">
+                                    <barButtonItem image="Movies_Icon_Small.png" width="46" style="plain" id="WOH-uN-SU3">
                                         <connections>
                                             <action selector="viewWebsite:" destination="5TO-94-q9J" id="xbt-77-4Af"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="112-group.png" width="47" style="plain" id="WkW-zi-uYi">
+                                    <barButtonItem image="Facebook_Icon_Small.png" width="47" style="plain" id="WkW-zi-uYi">
                                         <connections>
                                             <action selector="shareWebsite:" destination="5TO-94-q9J" id="dal-Xu-yOJ"/>
                                         </connections>
@@ -2336,51 +2336,79 @@
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" id="bq3-YC-eFw">
-                                <rect key="frame" x="0.0" y="336" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="303" width="320" height="113"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" id="Z2n-Qz-TnT">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="3" width="320" height="107"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="Zrg-rZ-axV">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Kt-Ex-rfX">
+                                                <rect key="frame" x="88" y="3" width="199" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <color key="textColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Tg9-f4-d3X">
+                                                <rect key="frame" x="88" y="25" width="199" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3IG-tp-x74">
+                                                <rect key="frame" x="88" y="45" width="212" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A3T-U3-oTH">
+                                                <rect key="frame" x="0.0" y="7" width="320" height="103"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uUY-Td-EJO">
+                                                <rect key="frame" x="88" y="70" width="41" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" backgroundImage="Movies_Icon_Small.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2ix-ag-qMr">
+                                                <rect key="frame" x="156" y="70" width="43" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" backgroundImage="Audio_Icon_Small.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="Zrg-rZ-axV">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Tg9-f4-d3X">
-                                        <rect key="frame" x="88" y="33" width="199" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Kt-Ex-rfX">
-                                        <rect key="frame" x="88" y="10" width="199" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                        <color key="textColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3IG-tp-x74">
-                                        <rect key="frame" x="84" y="54" width="212" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A3T-U3-oTH">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -2745,27 +2773,29 @@
     </scenes>
     <resources>
         <image name="08-chat.png" width="24" height="22"/>
-        <image name="112-group.png" width="32" height="21"/>
         <image name="179-notepad.png" width="22" height="28"/>
-        <image name="29-heart.png" width="24" height="21"/>
         <image name="70-tv.png" width="24" height="24"/>
         <image name="73-radar.png" width="27" height="27"/>
-        <image name="83-calendar.png" width="23" height="25"/>
         <image name="AroundMe.png" width="100" height="100"/>
         <image name="Arrow-Left.png" width="48" height="48"/>
         <image name="Arrow-Right.png" width="48" height="48"/>
+        <image name="Audio_Icon_Small.png" width="31" height="31"/>
         <image name="Blabber.png" width="100" height="100"/>
         <image name="BrandingLogo.png" width="197" height="142"/>
+        <image name="BrokenLink_White.png" width="33" height="21"/>
+        <image name="Calendar_Icon_Small.png" width="32" height="32"/>
         <image name="Explore.png" width="100" height="100"/>
+        <image name="Facebook_Icon_Small.png" width="32" height="32"/>
+        <image name="Favourites_Icon_Small.png" width="32" height="32"/>
         <image name="Happenings.png" width="100" height="100"/>
         <image name="Jaunts.png" width="100" height="100"/>
+        <image name="Mail_Icon_Small.png" width="32" height="32"/>
+        <image name="Movies_Icon_Small.png" width="31" height="31"/>
         <image name="SpinWheel.png" width="100" height="100"/>
         <image name="button.png" width="240" height="44"/>
         <image name="cgodefroy.jpg" width="16" height="16"/>
         <image name="currentLocation.png" width="30" height="30"/>
         <image name="splash.png" width="348" height="500"/>
-        <image name="star-hollow.png" width="26" height="27"/>
-        <image name="unlock.png" width="25" height="25"/>
     </resources>
     <classes>
         <class className="AroundMeMapListViewController" superclassName="UIViewController">
@@ -2933,14 +2963,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ListingViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addToCalendar:"/>
-                <relationship kind="action" name="addToFavourties:"/>
                 <relationship kind="action" name="changePage"/>
                 <relationship kind="action" name="email:"/>
                 <relationship kind="action" name="home:"/>
                 <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="action" name="shareWebsite:"/>
                 <relationship kind="action" name="startTour:"/>
-                <relationship kind="action" name="viewWebsite:"/>
                 <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>

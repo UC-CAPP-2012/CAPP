@@ -638,6 +638,7 @@ PullToRefreshView *pull;
         currListing = array[indexPath.row];
     
     //ContentView
+    
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
     cell.imageView.image = image;
     
