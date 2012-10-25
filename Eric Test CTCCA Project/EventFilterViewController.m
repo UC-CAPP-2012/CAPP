@@ -692,6 +692,7 @@ PullToRefreshView *pull;
 {
     // call to reload your data
     [self segmentButton:self];
+    [self setupArray];
     loadView.hidden=TRUE;
     [self->tableView reloadData];
     [pull finishedLoading];
@@ -892,7 +893,22 @@ PullToRefreshView *pull;
     
     UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
-    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
+
     NSMutableArray *array = dictionary[@"Events"];
     Listing *currListing = array[indexPath.row];
     NSString *listingID = currListing.listingID;

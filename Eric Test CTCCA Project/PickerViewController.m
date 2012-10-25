@@ -45,19 +45,19 @@
     [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Accomodation"];
     [SubType addObject:@"Sport"];
-    [SubType addObject:@"Outdoor & Nature"];
+    [SubType addObject:@"Outdoor and Nature"];
     [SubType addObject:@"Family Fun"];
-    [SubType addObject:@"Food & Wine"];
-    [SubType addObject:@"Museums & Galleries"];
+    [SubType addObject:@"Food and Wine"];
+    [SubType addObject:@"Cultural"];
     
     Area =[[NSMutableArray alloc] init];
-    [Area addObject:@"Area1"];
-    [Area addObject:@"Area2"];
-    [Area addObject:@"Area3"];
-    [Area addObject:@"Area4"];
-    [Area addObject:@"Area5"];
-    [Area addObject:@"Area6"];
-    [Area addObject:@"Area7"];
+    [Area addObject:@"Gungahlin"];
+    [Area addObject:@"Belconnen"];
+    [Area addObject:@"Inner North"];
+    [Area addObject:@"Inner South"];
+    [Area addObject:@"Woden/Weston Creek"];
+    [Area addObject:@"Tuggeranong"];
+    [Area addObject:@"Outskirts"];
     
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
@@ -200,15 +200,27 @@
         NSLog(@"%@",selectedCategory);
         NSLog(@"%@",selectedSuburb);
         NSLog(@"%@",selectedCost);
+        if([selectedCost isEqualToString:@"Free"]){
+            selectedCost = @"0";
+        }else if([selectedCost isEqualToString:@"$"]){
+            selectedCost = @"1";
+        }else if([selectedCost isEqualToString:@"$$"]){
+            selectedCost = @"2";
+        }else if([selectedCost isEqualToString:@"$$$"]){
+            selectedCost = @"3";
+        }else if([selectedCost isEqualToString:@"$$$$"]){
+            selectedCost = @"4";
+        }else if([selectedCost isEqualToString:@"$$$$$"]){
+            selectedCost = @"5";
+        }
         
-        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+//        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+//        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
         
-        //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-        //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-        //NSURL *url = [[NSURL alloc] initWithString:urlString];
-        //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+        NSString *urlString = [[NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Spinwheel.php?category=%@&region=%@&cost=%@",selectedCategory,selectedSuburb,selectedCost] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *url = [[NSURL alloc] initWithString:urlString];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
         
         
         [xmlParser setDelegate:self];
@@ -216,11 +228,15 @@
         BOOL worked = [xmlParser parse];
         
         if(worked) {
-            //NSLog(@"Amount %i", [listingsListString count]);
+            NSLog(@"Amount %i", [listingsListString count]);
         }
         else
         {
             NSLog(@"did not work!");
+        }
+        
+        if([listingsListString count]==0 && (!categoryLocked || !suburbLocked || !costLocked)){
+            [self feelingAdventurous:feelingAdv];
         }
         
         listingsList = [[NSMutableArray alloc] init];
@@ -315,16 +331,25 @@
             [listingsList addObject:currListing];
             
         }
-        result = listingsList[(arc4random() % [listingsList count])];
+        if([listingsList count]>0)
+        {
+            result = listingsList[(arc4random() % [listingsList count])];
+        }
         // [NSThread sleepForTimeInterval:3.0];
         //loadView.hidden=TRUE;
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            loadView.hidden=true;
-            resultButtonView.hidden=FALSE;
-            [resultButton setTitle:result.title forState:UIControlStateNormal];
-            NSLog(@"%@", result.title);
+            
+            if([listingsList count]>0)
+            {
+                loadView.hidden=true;
+                resultButtonView.hidden=FALSE;
+                [resultButton setTitle:result.title forState:UIControlStateNormal];
+                NSLog(@"%@", result.title);
+            }else if([listingsList count]==0 && categoryLocked && suburbLocked && costLocked){
+                loadView.hidden=true;
+            }
         });
     });
 

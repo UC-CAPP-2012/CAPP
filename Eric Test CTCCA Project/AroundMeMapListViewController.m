@@ -39,7 +39,9 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [self setupArray];
+    if([listingsList count]==0){
+        [self setupArray];
+    }
     [tableView reloadData];
     loadView.hidden = YES;
 }
@@ -206,16 +208,21 @@
     [listingTable removeAllObjects];
 
     //The strings to send to the webserver.
+    
+    NSDate *todaysDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
+    
+    //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+    //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
 
-    
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
-    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     
     [xmlParser setDelegate:self];

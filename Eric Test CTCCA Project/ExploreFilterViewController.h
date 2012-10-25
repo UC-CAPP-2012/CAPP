@@ -77,7 +77,7 @@
 - (void) removeSideSwipeView:(BOOL)animated;
 - (BOOL) gestureRecognizersSupported;
 @property(strong, nonatomic)NSArray *listingsDataSource;
-@property(nonatomic, strong)NSMutableArray *listFilter,*listingTable, *listingsList, *listingsListString;
+@property(nonatomic, strong)NSMutableArray *listFilter,*listingTable, *listingsList, *typeListingTable, *costListingTable, *suburbListingTable, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 
 @property int currSel;
