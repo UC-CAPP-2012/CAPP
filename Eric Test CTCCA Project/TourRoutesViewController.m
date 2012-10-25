@@ -140,10 +140,10 @@ NSString *currentDestination;
 
 
 - (void)parseResponse:(NSDictionary *)response {
-    NSArray *routes = [response objectForKey:@"routes"];
+    NSArray *routes = response[@"routes"];
     NSDictionary *route = [routes lastObject];
     if (route) {
-        NSString *overviewPolyline = [[route objectForKey: @"overview_polyline"] objectForKey:@"points"];
+        NSString *overviewPolyline = route[@"overview_polyline"][@"points"];
         _path = [self decodePolyLine:overviewPolyline];
     }
 }
@@ -163,7 +163,7 @@ NSString *currentDestination;
      ^(NSArray *placemarks, NSError *error) {
          [locationManager stopUpdatingLocation];
          //Get nearby address
-         CLPlacemark *placemark = [placemarks objectAtIndex:0];
+         CLPlacemark *placemark = placemarks[0];
          
          //String to hold address
          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
@@ -179,9 +179,9 @@ NSString *currentDestination;
          //NSLog(@"%@", placemark.country);
          
          NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-         [parameters setObject:[NSString stringWithFormat:@"%@", [locatedAt stringByReplacingOccurrencesOfString:@" " withString:@"+"]] forKey:@"origin"];
-         [parameters setObject:[NSString stringWithFormat:@"%@", [currentDestination stringByReplacingOccurrencesOfString:@" " withString:@"+"]] forKey:@"destination"];
-         [parameters setObject:@"true" forKey:@"sensor"];
+         parameters[@"origin"] = [NSString stringWithFormat:@"%@", [locatedAt stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+         parameters[@"destination"] = [NSString stringWithFormat:@"%@", [currentDestination stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+         parameters[@"sensor"] = @"true";
          
          NSMutableURLRequest *request = [_httpClient requestWithMethod:@"GET" path: @"maps/api/directions/json" parameters:parameters];
          request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
@@ -194,7 +194,7 @@ NSString *currentDestination;
                  
                  CLLocationCoordinate2D coordinates[numberOfSteps];
                  for (NSInteger index = 0; index < numberOfSteps; index++) {
-                     CLLocation *location = [_path objectAtIndex:index];
+                     CLLocation *location = _path[index];
                      CLLocationCoordinate2D coordinate = location.coordinate;
                      coordinates[index] = coordinate;
                  }

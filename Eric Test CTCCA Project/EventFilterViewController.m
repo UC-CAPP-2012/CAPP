@@ -27,7 +27,7 @@
 @implementation EventFilterViewController
 PullToRefreshView *pull;
 @synthesize monthFilter;
-@synthesize currSel,sortSel;
+@synthesize currSel,sortSel, typeListingTable, costListingTable, suburbListingTable;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
 @synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
@@ -48,6 +48,8 @@ PullToRefreshView *pull;
 {
     if([listingsList count]==0){
         [self segmentButton:self];
+        [self setupDate];
+        [self setupArray];
     }
     [tableView reloadData];
    [loadView removeFromSuperview];;
@@ -146,7 +148,7 @@ PullToRefreshView *pull;
     
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateStrStart = [dateFormatter stringFromDate:dateStartItem];
     NSString *dateStrEnd = [dateFormatter stringFromDate:dateEndItem];
 
@@ -157,8 +159,7 @@ PullToRefreshView *pull;
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
 //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Happenings.php"];
+    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Happenings.php?start=%@&end=%@",dateStrStart,dateStrEnd];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
@@ -178,11 +179,17 @@ PullToRefreshView *pull;
     //This needs to be set via the filter and sorter.    
     listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    suburbListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
+    [typeListingTable removeAllObjects]; // Clear Table 
+    [costListingTable removeAllObjects]; // Clear Table
+    [suburbListingTable removeAllObjects]; // Clear Table
     NSMutableArray *section = [[NSMutableArray alloc] init];
     for (ListingString *listingStringElement in listingsListString) {
         
@@ -234,6 +241,7 @@ PullToRefreshView *pull;
         currListing.audioURL = [NSURL URLWithString:[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         
         // Start Date
+        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
         currListing.startDate = startDate;
@@ -292,11 +300,13 @@ PullToRefreshView *pull;
             NSLog(@"%@", suburb);
         }
         
-        if(sortSel==0){
-            [section addObject:currListing];
-        }
+        
+        [section addObject:currListing];
+        
 
     }
+    NSDictionary *sectionDict = @{@"Events": section};
+    [listingTable addObject:sectionDict];
     
     // ---------------------------
     
@@ -319,51 +329,61 @@ PullToRefreshView *pull;
     
     // -----------------------
     
-    
-    if (sortSel == 0) 
-    {
-        
-        NSDictionary *sectionDict = @{@"Events": section};
-        [listingTable addObject:sectionDict];
-    }else{
-        int count;
-        if(sortSel ==1){
-            count = [sortHeaders2 count];
-        }else if(sortSel == 2){
-            count = [sortHeaders3 count];
-        }else if(sortSel == 3){
-            count = [sortHeaders4 count];
-        }
-        
-        for (int i =0; i < count; i++){
-            NSMutableArray *section2 = [[NSMutableArray alloc] init];
-            for (Listing *listingListListing in listingsList) 
+    for (int i =0; i < [sortHeaders2 count]; i++){
+        NSMutableArray *section2 = [[NSMutableArray alloc] init];
+        NSString *currSortHeader = sortHeaders2[i];
+        for (Listing *listingListListing in listingsList)
+        {
+            NSString *type = listingListListing.subType;
+            
+            if ([type isEqualToString:currSortHeader])
             {
-                NSString *currSortHeader;
-                NSString *type;
-                if(sortSel ==1){
-                    currSortHeader = sortHeaders2[i];
-                    type = listingListListing.subType;
-                }else if(sortSel == 2){
-                    currSortHeader = sortHeaders3[i];
-                    type = listingListListing.costType;
-                }else if(sortSel == 3){
-                    currSortHeader = sortHeaders4[i];
-                    type = listingListListing.suburb;
-                }
-                
-                
-                if ([type isEqualToString:currSortHeader]) 
-                {
-                    [section2 addObject:listingListListing];
-                }
+                [section2 addObject:listingListListing];
             }
-            NSDictionary *sectionDict2 = @{@"Events": section2};
-            [listingTable addObject:sectionDict2];
-        
         }
+        NSDictionary *sectionDict2 = @{@"Events": section2};
+        [typeListingTable addObject:sectionDict2];
+        
     }
     
+    for (int i =0; i < [sortHeaders3 count]; i++){
+        NSMutableArray *section3 = [[NSMutableArray alloc] init];
+        NSString *currSortHeader = sortHeaders3[i];
+        for (Listing *listingListListing in listingsList)
+        {
+            NSString *type = listingListListing.costType;
+            
+            if ([type isEqualToString:currSortHeader])
+            {
+                [section3 addObject:listingListListing];
+            }
+        }
+        NSDictionary *sectionDict3 = @{@"Events": section3};
+        [costListingTable addObject:sectionDict3];
+        
+    }
+    
+    for (int i =0; i < [sortHeaders4 count]; i++){
+        NSMutableArray *section4 = [[NSMutableArray alloc] init];
+        NSString *currSortHeader = sortHeaders4[i];
+        for (Listing *listingListListing in listingsList)
+        {
+            NSString *type = listingListListing.suburb;
+            
+            if ([type isEqualToString:currSortHeader])
+            {
+                [section4 addObject:listingListListing];
+            }
+        }
+        NSDictionary *sectionDict4 = @{@"Events": section4};
+        [suburbListingTable addObject:sectionDict4];
+        
+    }
+    
+    NSLog(@"%i",[listingTable count]);
+    NSLog(@"%i",[typeListingTable count]);
+    NSLog(@"%i",[costListingTable count]);
+    NSLog(@"%i",[suburbListingTable count]);
     [tableView reloadData];
 }
 
@@ -542,20 +562,55 @@ PullToRefreshView *pull;
 // TABLE METHODS
  
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [listingTable count];
+    if(isFiltered){
+        return [filteredTableData count];
+    }
+    else{
+        if (sortSel == 0) { // allphabetically.
+            return [listingTable count];
+        }
+        else if (sortSel == 1) { //Type
+            return [typeListingTable count];
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            return [costListingTable count];
+        }
+        else { // Suburb
+            return [suburbListingTable count];
+        }
+    }
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)listingTableView numberOfRowsInSection:(NSInteger)section
 {
     int rowCount;
-    NSDictionary *dictionary = listingTable[section];
-    NSArray *array = dictionary[@"Events"];
-    
-    if(self.isFiltered)
+    NSDictionary *dictionary;
+    if(self.isFiltered){
         rowCount = filteredTableData.count;
-    else
-        rowCount = [array count];
+    }
+    else{
+
+        if (sortSel == 0) { // allphabetically.
+            dictionary= listingTable[section];
+        }
+        else if (sortSel == 1) { //Type
+            dictionary= typeListingTable[section];
+        }
+        else if (sortSel == 2) {  //Price
+            dictionary= costListingTable[section];
+        }
+        else { // Suburb
+            dictionary= suburbListingTable[section];
+        }
     
+        NSArray *array = dictionary[@"Events"];
+    
+        rowCount = [array count];
+    }
     
     return rowCount;
 }
@@ -570,45 +625,52 @@ PullToRefreshView *pull;
     NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
     NSString *title = nil;
     [sectionHeaders removeAllObjects];
-    if (sortSel == 0) { // allphabetically.
-        sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
+    if(isFiltered){
+        NSMutableArray *header= [[NSMutableArray alloc] init];
+        [header addObject:@"Search Results"];
+        sectionHeaders = [NSArray arrayWithArray:header];
     }
-    else if (sortSel == 1) { //Type    
-        for(NSString *header in sortHeaders2)
-        {
-            [sectionHeaders addObject:header];
+    else{
+        if (sortSel == 0) { // allphabetically.
+            sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
         }
+        else if (sortSel == 1) { //Type
+            for(NSString *header in sortHeaders2)
+            {
+                [sectionHeaders addObject:header];
+            }
         
-    }
-    else if (sortSel == 2) {  //Date
+        }
+        else if (sortSel == 2) {  //Price
         
-        for(NSString *header in sortHeaders3)
-        {
-            [sectionHeaders addObject:header];
+            for(NSString *header in sortHeaders3)
+            {
+                [sectionHeaders addObject:header];
+            }
+        }
+        else if (sortSel == 3) { // Suburb
+            for(NSString *header in sortHeaders4)
+            {
+                [sectionHeaders addObject:header];
+            }
         }
     }
-    else if (sortSel == 3) { // Price     
-        for(NSString *header in sortHeaders4)
-        {
-            [sectionHeaders addObject:header];
-        }
-    }
-    
     UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
     [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];
     
         for (int i = 0; i < [sectionHeaders count]; i++) {
-            if (section == i) 
+            if (section == i)
             {
                 NSString *currHeaders = sectionHeaders[i];
                 title = currHeaders;
             }
-
+            
         }
-
+        
+        
+        headerTitle.text = title;
     
-    headerTitle.text = title;
     headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];
@@ -649,6 +711,7 @@ PullToRefreshView *pull;
     if(text.length == 0)
     {
         isFiltered = FALSE;
+        [self.searchBar resignFirstResponder];
     }
     else
     {
@@ -684,7 +747,21 @@ PullToRefreshView *pull;
 {
     [self.searchBar resignFirstResponder];
     
-    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
     NSArray *array = dictionary[@"Events"];
     Listing *selectedEvent;
     
@@ -713,7 +790,21 @@ PullToRefreshView *pull;
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    NSDictionary *dictionary = listingTable[indexPath.section];
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
     NSArray *array = dictionary[@"Events"];
     Listing *currListing;
     if(isFiltered)
@@ -1126,8 +1217,7 @@ PullToRefreshView *pull;
         sortSel = 3;
         NSLog(@"Button4");
     }
-    [self setupDate];
-    [self setupArray];
+    [tableView reloadData];
     
     //[self setupMap];
 }

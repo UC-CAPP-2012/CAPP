@@ -309,7 +309,7 @@
         
         [mailer setSubject:@"A Message from MobileTuts+"];
         
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"fisrtMail@example.com", @"secondMail@example.com", nil];
+        NSArray *toRecipients = @[@"fisrtMail@example.com", @"secondMail@example.com"];
         //[mailer setToRecipients:toRecipients];
         
         UIImage *myImage = [UIImage imageNamed:@"complete-logo.png"];

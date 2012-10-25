@@ -64,7 +64,7 @@
     
     MainTypeClass *type4 = [[MainTypeClass alloc] init];
     type4.typeID = @"4";
-    type4.typeName = @"Outdoor";
+    type4.typeName = @"Outdoor and Nature";
     type4.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
     [typeDataSource addObject:type4];
     
@@ -76,13 +76,13 @@
     
     MainTypeClass *type6 = [[MainTypeClass alloc] init];
     type6.typeID = @"6";
-    type6.typeName = @"Family";
+    type6.typeName = @"Family Fun";
     type6.imageID = [UIImage imageNamed:@"Family_Large.png"];
     [typeDataSource addObject:type6];
     
     MainTypeClass *type7 = [[MainTypeClass alloc] init];
     type7.typeID = @"7";
-    type7.typeName = @"Food & Wine";
+    type7.typeName = @"Food and Wine";
     type7.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
     [typeDataSource addObject:type7];
     

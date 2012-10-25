@@ -19,6 +19,7 @@
 @synthesize listingType;
 @synthesize suburb;
 @synthesize openingHours;
+@synthesize imageFilenames;
 
 //Sorts - i'd make these ID's...
 //name
@@ -29,10 +30,11 @@
 // Listing View Variables
 @synthesize address;
 @synthesize description;
-@synthesize imageFilenames;
 @synthesize videoURL;
 @synthesize websiteURL;
 @synthesize audioURL;
+@synthesize email;
+
 @synthesize phone;
 
 // Event Variable

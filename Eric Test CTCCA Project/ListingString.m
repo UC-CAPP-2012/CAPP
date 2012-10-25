@@ -9,7 +9,6 @@
 #import "ListingString.h"
 
 @implementation ListingString
-
 @synthesize ItemName;
 @synthesize Latitude;
 @synthesize Longitude;
@@ -29,9 +28,10 @@
 @synthesize Postcode;  //postcode
 @synthesize StateID;   //stateID
 @synthesize MajorRegionName;
-
+@synthesize Details;
 @synthesize ImageURL;
 @synthesize VideoURL;
+@synthesize AudioURL;
 @synthesize Website;
 @synthesize Phone;
 @synthesize Email;

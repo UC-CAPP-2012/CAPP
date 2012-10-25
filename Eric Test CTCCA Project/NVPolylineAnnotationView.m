@@ -52,7 +52,7 @@ const CGFloat POLYLINE_WIDTH = 4.0;
 		CGContextSetLineWidth(context, POLYLINE_WIDTH);
 		
 		for (int i = 0; i < annotation.points.count; i++) {
-			CLLocation* location = [annotation.points objectAtIndex:i];
+			CLLocation* location = (annotation.points)[i];
 			CGPoint point = [_mapView convertCoordinate:location.coordinate toPointToView:self];
 			
 			if (i == 0)
@@ -95,7 +95,7 @@ const CGFloat POLYLINE_WIDTH = 4.0;
 	CGPoint minpt, maxpt;
 	for (int i = 0; i < annotation.points.count; i++)
 	{
-		CLLocation* location = [annotation.points objectAtIndex:i];
+		CLLocation* location = (annotation.points)[i];
 		CGPoint point = [_mapView convertCoordinate:location.coordinate toPointToView:_mapView];	
 		if (point.x < minpt.x || i == 0)
 			minpt.x = point.x;

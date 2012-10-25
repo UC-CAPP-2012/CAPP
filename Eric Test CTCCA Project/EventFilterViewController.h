@@ -62,7 +62,7 @@
 
 @property(strong, nonatomic)NSMutableDictionary *listing;
 @property(strong, nonatomic)NSArray *listingsDataSource;
-@property(nonatomic, strong)NSMutableArray *monthFilter, *listingTable,*listingsList, *listingsListString;
+@property(nonatomic, strong)NSMutableArray *monthFilter, *listingTable, *typeListingTable, *costListingTable, *suburbListingTable, *listingsList, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 
 @property (nonatomic, retain) IBOutlet UIView* sideSwipeView;
