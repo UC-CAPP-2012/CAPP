@@ -59,6 +59,7 @@
 - (IBAction)viewWebsite:(id)sender;
 - (IBAction)viewNews:(id)sender;
 - (IBAction)SwitchView:(id)sender;
+- (IBAction)goHome:(id)sender;
 
 - (IBAction)startTour:(id)sender;
 -(void)setupItineraryTable;

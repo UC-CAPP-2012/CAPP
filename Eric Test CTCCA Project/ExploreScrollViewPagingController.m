@@ -115,29 +115,12 @@
         UIView *subview = [[UIView alloc] initWithFrame:frame];
         subview.backgroundColor = [UIColor whiteColor];
         
-        //Map Button
         
-        UIButton *mapbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [mapbutton addTarget:self action:@selector(MapButton:) forControlEvents:UIControlEventTouchDown];
-        [mapbutton setTitle:@"Map" forState:UIControlStateNormal];
-        
-        [mapbutton setTitleColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1] forState:UIControlStateNormal];
-        //SetButton Tag
-        mapbutton.tag = i;
-        
-        mapbutton.layer.shadowColor = [UIColor blackColor].CGColor;
-        mapbutton.layer.shadowOffset = CGSizeMake(0,1);
-        mapbutton.layer.shadowOpacity = 2;
-        mapbutton.layer.shadowRadius = 5.0;
-        mapbutton.clipsToBounds = NO;
         
         //List Button
         
-        UIButton *listbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *listbutton = [UIButton buttonWithType:UIButtonTypeCustom];
         [listbutton addTarget:self action:@selector(ListButton:) forControlEvents:UIControlEventTouchDown];
-        [listbutton setTitleColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1] forState:UIControlStateNormal];
-        [listbutton setTitle:@"List" forState:UIControlStateNormal];
-        
         //SetButton Tag
         listbutton.tag = i;
         
@@ -171,12 +154,10 @@
         
         
         typeLabel.frame = CGRectMake(0.0, 320, 280, 60.0);
-        mapbutton.frame = CGRectMake(10.0, 140.0, 60.0, 60.0);
-        listbutton.frame = CGRectMake(190.0, 140.0, 60.0, 60.0);
+        listbutton.frame = CGRectMake(25.0f, 30.0f, 210.0f, 280.0f);
         imageView.frame = CGRectMake(25.0f, 30.0f, 210.0f, 280.0f);
         
         [subview addSubview:imageView];
-        [subview addSubview:mapbutton];
         [subview addSubview:listbutton];
         [subview addSubview:typeLabel];
         
@@ -200,28 +181,6 @@
     }
 }
 
-
--(void)MapButton:(UIView*)sender
-{      
-    
-    //Actions to perform after button press
-    ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
-    
-    NSInteger currentIndex = sender.tag;
-    MainTypeClass *currType;
-    currType = typeDataSource[currentIndex];
-    
-    exploreFilterView.typeName=currType.typeName;
-    exploreFilterView.typeID=currType.typeID;
-    
-    exploreFilterView.mapDefault = YES;
-    exploreFilterView.listDefault = NO;
-    
-    [self.navigationController pushViewController:exploreFilterView animated:YES];
-    NSLog(@"Button");
-    
-    
-}
 
 
 - (void)didReceiveMemoryWarning {

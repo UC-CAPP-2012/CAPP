@@ -327,7 +327,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UeY-S6-YTA">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
+                                                <rect key="frame" x="0.0" y="-14" width="320" height="385"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all POIs" id="Vc9-CT-8J7">
@@ -376,7 +376,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="AKY-D1-dlv">
-                                <rect key="frame" x="0.0" y="6" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
@@ -385,7 +385,7 @@
                                     <segment title="Cost"/>
                                     <segment title="Suburb"/>
                                 </segments>
-                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <action selector="segmentButton:" destination="Yfe-Rv-re9" eventType="valueChanged" id="QxY-vJ-HvL"/>
                                 </connections>
@@ -405,29 +405,20 @@
                         <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="eMf-Ms-oxu">
-                        <barButtonItem key="rightBarButtonItem" id="Jex-NY-aKR">
-                            <view key="customView" contentMode="scaleToFill" id="n0u-xh-q3E" userLabel="NavView">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="moH-A6-ozz">
+                            <view key="customView" contentMode="scaleToFill" id="UBv-Rn-xgC" userLabel="NavView">
                                 <rect key="frame" x="275" y="7" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="GYI-wp-gbf" userLabel="MapView">
+                                    <view contentMode="scaleToFill" id="BOO-xK-iAN" userLabel="ListView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uQr-wx-ssl">
-                                                <rect key="frame" x="-1" y="5" width="42" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Aoe-kq-wEp">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U4r-3X-zn5">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal">
+                                                <state key="normal" image="MapIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -435,38 +426,29 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SwitchView" destination="Yfe-Rv-re9" eventType="touchDown" id="RUu-XP-UcJ"/>
+                                                    <action selector="SwitchView" destination="Yfe-Rv-re9" eventType="touchDown" id="OES-Am-Orq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" id="UwB-bu-awN" userLabel="ListView">
+                                    <view contentMode="scaleToFill" id="rxM-I4-kJf" userLabel="MapView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="caO-jw-vuB">
-                                                <rect key="frame" x="-1" y="5" width="42" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5ar-8K-YvW">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="blB-ZV-r5M">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="ListIcon.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="highlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="SwitchView" destination="Yfe-Rv-re9" eventType="touchDown" id="bgk-mX-sMv"/>
+                                                    <action selector="SwitchView" destination="Yfe-Rv-re9" eventType="touchDown" id="5qO-4u-nc6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -485,16 +467,14 @@
                         <outlet property="StartDateLabel" destination="jIx-Jg-O3g" id="Irq-n0-iAI"/>
                         <outlet property="TitleLabel" destination="Av8-Re-cd4" id="5Fx-3Y-sQ3"/>
                         <outlet property="exploreView" destination="VUG-6p-Ug2" id="XF8-iz-Smm"/>
-                        <outlet property="listLabel" destination="caO-jw-vuB" id="Bts-gm-bW9"/>
                         <outlet property="loadView" destination="516-JS-JKw" id="KUW-fQ-IHB"/>
-                        <outlet property="mapLabel" destination="uQr-wx-ssl" id="zUj-Lb-fBk"/>
                         <outlet property="mapView" destination="jiV-j9-FGZ" id="h6P-yh-Kmy"/>
                         <outlet property="mapWindow" destination="WR0-LN-oxv" id="BED-gy-PgI"/>
-                        <outlet property="navView" destination="n0u-xh-q3E" id="cV3-HG-PRo"/>
+                        <outlet property="navView" destination="UBv-Rn-xgC" id="o7a-cY-qf8"/>
                         <outlet property="searchBar" destination="Vc9-CT-8J7" id="TOd-7g-KLo"/>
                         <outlet property="segmentController" destination="AKY-D1-dlv" id="rfn-lt-McR"/>
-                        <outlet property="switchMapView" destination="GYI-wp-gbf" id="rmV-m1-uxw"/>
-                        <outlet property="switchTableView" destination="UwB-bu-awN" id="b8I-nI-9Ps"/>
+                        <outlet property="switchMapView" destination="rxM-I4-kJf" id="n6V-tD-8WL"/>
+                        <outlet property="switchTableView" destination="BOO-xK-iAN" id="26J-gV-NIY"/>
                         <outlet property="tableView" destination="UeY-S6-YTA" id="FqZ-cN-iWE"/>
                         <outlet property="tableWindow" destination="kIL-It-BRA" id="TOz-ve-3Qg"/>
                     </connections>
@@ -795,14 +775,33 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="txm-Pl-j0g">
+                                <rect key="frame" x="20" y="313" width="272" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sorry, there aren't any places found like that.  Unlink and try again." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KIh-KH-1mz">
+                                        <rect key="frame" x="0.0" y="-6" width="272" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="catLock" destination="Wgl-jt-g4I" id="JM6-Z6-RzR"/>
+                        <outlet property="feelAdvBtn" destination="7rC-vr-bYZ" id="Ggu-rk-4AS"/>
                         <outlet property="loadView" destination="NXa-HD-Hr7" id="JQI-OO-W8H"/>
                         <outlet property="lockCategory" destination="0PM-PW-E37" id="oZW-SH-Bsa"/>
                         <outlet property="lockCost" destination="2CV-0v-VYv" id="CSl-ya-9dz"/>
                         <outlet property="lockSuburb" destination="0ND-EP-jiA" id="7pW-Z7-W7g"/>
+                        <outlet property="notFoundView" destination="txm-Pl-j0g" id="ID7-hx-V6k"/>
+                        <outlet property="priceLock" destination="ibe-a5-D2Z" id="VeM-YI-BXD"/>
+                        <outlet property="regionLock" destination="Kgq-uw-f0v" id="3le-MS-ZUZ"/>
                         <outlet property="resultButton" destination="cNz-Tz-stx" id="GOG-VE-9xB"/>
                         <outlet property="resultButtonView" destination="Cp5-bX-4UY" id="Off-fM-n15"/>
                         <outlet property="spinWheel" destination="a4y-zE-XBR" id="KVq-cw-Szn"/>
@@ -889,7 +888,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="I4v-Zk-YdJ">
-                                                <rect key="frame" x="-9" y="7" width="338" height="30"/>
+                                                <rect key="frame" x="-9" y="0.0" width="338" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <segments>
@@ -898,13 +897,13 @@
                                                     <segment title="Cost"/>
                                                     <segment title="Suburb"/>
                                                 </segments>
-                                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                                 <connections>
                                                     <action selector="segmentButton:" destination="qjF-uG-PeD" eventType="valueChanged" id="lZD-8q-Q5d"/>
                                                 </connections>
                                             </segmentedControl>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="47" sectionHeaderHeight="22" sectionFooterHeight="22" id="U98-NE-Jag">
-                                                <rect key="frame" x="0.0" y="42" width="320" height="331"/>
+                                                <rect key="frame" x="0.0" y="29" width="320" height="344"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all events" id="pkU-Ic-oRD">
@@ -1019,7 +1018,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="179-notepad.png">
+                                                <state key="normal" image="ListIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1031,7 +1030,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="sHV-oN-w6o" userLabel="MapView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
@@ -1041,7 +1040,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="73-radar.png">
+                                                <state key="normal" image="MapIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1053,10 +1052,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </barButtonItem>
                     </navigationItem>
@@ -1304,7 +1303,7 @@
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="wwd-tE-lYZ">
                                                 <rect key="frame" x="0.0" y="136" width="320" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.66836734693877553" green="0.66836734693877553" blue="0.66836734693877553" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="changePage" destination="fC4-5Y-cLX" eventType="valueChanged" id="k9O-mY-SiE"/>
                                                 </connections>
@@ -1343,7 +1342,7 @@
                                                     <segment title="Details"/>
                                                     <segment title="Description"/>
                                                 </segments>
-                                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                                 <connections>
                                                     <action selector="segmentButton:" destination="fC4-5Y-cLX" eventType="valueChanged" id="0hX-6w-yZb"/>
                                                 </connections>
@@ -1364,7 +1363,7 @@
                                 <rect key="frame" x="0.0" y="416" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem image="08-chat.png" width="43" style="plain" id="Pk8-yg-tWh">
+                                    <barButtonItem image="HomeIcon.png" width="43" style="plain" id="Pk8-yg-tWh">
                                         <connections>
                                             <action selector="home:" destination="fC4-5Y-cLX" id="0rU-0J-9Ad"/>
                                         </connections>
@@ -1395,6 +1394,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="tintColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1413,7 +1413,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="179-notepad.png">
+                                                <state key="normal" image="ListIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1425,7 +1425,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="FW7-0S-eRa" userLabel="ListView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
@@ -1435,7 +1435,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="73-radar.png">
+                                                <state key="normal" image="MapIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1447,10 +1447,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </barButtonItem>
                     </navigationItem>
@@ -2101,7 +2101,7 @@
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="TL9-v0-lGi">
                                                 <rect key="frame" x="0.0" y="136" width="320" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.62755102040816324" green="0.62755102040816324" blue="0.62755102040816324" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="changePaged:" destination="5TO-94-q9J" eventType="valueChanged" id="2AR-xu-GBG"/>
                                                 </connections>
@@ -2109,26 +2109,6 @@
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ApO-nI-KIw">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <subviews>
-                                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" id="kbz-4m-N76" userLabel="LoadView">
-                                                        <rect key="frame" x="0.0" y="-21" width="320" height="165"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <subviews>
-                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="kJN-y8-ZK8">
-                                                                <rect key="frame" x="142" y="49" width="37" height="37"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            </activityIndicatorView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading images..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qeh-TL-55d">
-                                                                <rect key="frame" x="100" y="89" width="136" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    </view>
-                                                </subviews>
                                                 <connections>
                                                     <outlet property="delegate" destination="5TO-94-q9J" id="6XC-Bs-35b"/>
                                                 </connections>
@@ -2136,17 +2116,35 @@
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WUG-ew-248">
                                                 <rect key="frame" x="-9" y="163" width="338" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                                 <segments>
                                                     <segment title="Details"/>
                                                     <segment title="Description"/>
                                                     <segment title="Itinerary"/>
                                                 </segments>
-                                                <color key="tintColor" white="0.1946567062" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.13333334029999999" green="0.70588237050000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                                 <connections>
                                                     <action selector="segmentButton:" destination="5TO-94-q9J" eventType="valueChanged" id="idF-na-Nrs"/>
                                                 </connections>
                                             </segmentedControl>
+                                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="kbz-4m-N76" userLabel="LoadView">
+                                                <rect key="frame" x="0.0" y="2" width="320" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="kJN-y8-ZK8">
+                                                        <rect key="frame" x="142" y="49" width="37" height="37"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </activityIndicatorView>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading images..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qeh-TL-55d">
+                                                        <rect key="frame" x="100" y="89" width="136" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </view>
                                             <view contentMode="scaleToFill" id="50l-uY-NtX">
                                                 <rect key="frame" x="0.0" y="190" width="320" height="188"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2212,6 +2210,11 @@
                                 <rect key="frame" x="0.0" y="416" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem image="HomeIcon.png" style="plain" id="3jB-Sz-bpk">
+                                        <connections>
+                                            <action selector="goHome:" destination="5TO-94-q9J" id="F1x-gZ-NA8"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem image="Audio_Icon_Small.png" width="43" style="plain" id="wgL-rZ-jve">
                                         <connections>
                                             <action selector="viewNews:" destination="5TO-94-q9J" id="m7N-cb-7YL"/>
@@ -2227,7 +2230,7 @@
                                             <action selector="shareWebsite:" destination="5TO-94-q9J" id="dal-Xu-yOJ"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Start Tour" width="124" style="plain" id="as8-JW-9Xr">
+                                    <barButtonItem title="Start Tour" style="plain" id="as8-JW-9Xr">
                                         <connections>
                                             <action selector="startTour:" destination="5TO-94-q9J" id="9Uh-84-hcl"/>
                                         </connections>
@@ -2251,7 +2254,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="179-notepad.png">
+                                                <state key="normal" image="ListIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2263,7 +2266,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="eR8-vc-GFo" userLabel="ListView">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
@@ -2273,7 +2276,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="73-radar.png">
+                                                <state key="normal" image="MapIcon.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2285,10 +2288,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </barButtonItem>
                     </navigationItem>
@@ -2772,354 +2775,33 @@
         </scene>
     </scenes>
     <resources>
-        <image name="08-chat.png" width="24" height="22"/>
         <image name="179-notepad.png" width="22" height="28"/>
         <image name="70-tv.png" width="24" height="24"/>
         <image name="73-radar.png" width="27" height="27"/>
-        <image name="AroundMe.png" width="100" height="100"/>
+        <image name="AroundMe.png" width="250" height="250"/>
         <image name="Arrow-Left.png" width="48" height="48"/>
         <image name="Arrow-Right.png" width="48" height="48"/>
         <image name="Audio_Icon_Small.png" width="31" height="31"/>
-        <image name="Blabber.png" width="100" height="100"/>
+        <image name="Blabber.png" width="250" height="250"/>
         <image name="BrandingLogo.png" width="197" height="142"/>
         <image name="BrokenLink_White.png" width="33" height="21"/>
         <image name="Calendar_Icon_Small.png" width="32" height="32"/>
-        <image name="Explore.png" width="100" height="100"/>
+        <image name="Explore.png" width="250" height="250"/>
         <image name="Facebook_Icon_Small.png" width="32" height="32"/>
         <image name="Favourites_Icon_Small.png" width="32" height="32"/>
-        <image name="Happenings.png" width="100" height="100"/>
-        <image name="Jaunts.png" width="100" height="100"/>
+        <image name="Happenings.png" width="250" height="250"/>
+        <image name="HomeIcon.png" width="30" height="32"/>
+        <image name="Jaunts.png" width="250" height="250"/>
+        <image name="ListIcon.png" width="30" height="32"/>
         <image name="Mail_Icon_Small.png" width="32" height="32"/>
+        <image name="MapIcon.png" width="36" height="32"/>
         <image name="Movies_Icon_Small.png" width="31" height="31"/>
-        <image name="SpinWheel.png" width="100" height="100"/>
+        <image name="SpinWheel.png" width="250" height="250"/>
         <image name="button.png" width="240" height="44"/>
         <image name="cgodefroy.jpg" width="16" height="16"/>
         <image name="currentLocation.png" width="30" height="30"/>
         <image name="splash.png" width="348" height="500"/>
     </resources>
-    <classes>
-        <class className="AroundMeMapListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AroundMeMapListViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="currentUserLocation:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="aroundMe" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="BlabberImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="BlabberStoryViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberStoryViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="imageClicked:"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="newImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="newsAuthor" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsBody" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="newsDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsPublisher" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newsTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="BlabberViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CLGeocoder" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLGeocoder.h"/>
-        </class>
-        <class className="CLLocationManager" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLLocationManager.h"/>
-        </class>
-        <class className="EventFilterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventFilterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextMonth:"/>
-                <relationship kind="action" name="previousMonth:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="eventView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="nextMonth" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="previousMonth" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableWindow" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ExploreFilterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExploreFilterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextArea:"/>
-                <relationship kind="action" name="previousArea:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="areaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="exploreView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="listLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="nextArea" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="previousArea" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sideSwipeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableWindow" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ExploreScrollViewPagingController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExploreScrollViewPagingController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="FavoritesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchViews"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="MapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="TableWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="detailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="detailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="favView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="startDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="HomePageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomePageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="aroundMe:"/>
-                <relationship kind="action" name="blabber:"/>
-                <relationship kind="action" name="explore:"/>
-                <relationship kind="action" name="happenings:"/>
-                <relationship kind="action" name="jaunts:"/>
-                <relationship kind="action" name="loved:"/>
-                <relationship kind="action" name="myTrial:"/>
-                <relationship kind="action" name="spinWheel:"/>
-                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="ListingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListingViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addToCalendar:"/>
-                <relationship kind="action" name="changePage"/>
-                <relationship kind="action" name="email:"/>
-                <relationship kind="action" name="home:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="action" name="startTour:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="favButton" candidateClass="UIBarItem"/>
-                <relationship kind="outlet" name="infoBox" candidateClass="UIWebView"/>
-                <relationship kind="outlet" name="listingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ListingWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListingWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="NavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NavigationViewController.h"/>
-        </class>
-        <class className="PickerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PickerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="feelingAdventurous:"/>
-                <relationship kind="action" name="goToListing:"/>
-                <relationship kind="action" name="lockUnlockCategory:"/>
-                <relationship kind="action" name="lockUnlockCost:"/>
-                <relationship kind="action" name="lockUnlockSuburb:"/>
-                <relationship kind="outlet" name="feelingAdv" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="lockCategory" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lockCost" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="lockSuburb" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="resultButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="resultButtonView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="spinWheel" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="Subscribe" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Subscribe.h"/>
-            <relationships>
-                <relationship kind="action" name="DismissKeyboard:"/>
-                <relationship kind="action" name="Subscribe:"/>
-                <relationship kind="outlet" name="EmailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="LastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="NickNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="PostCodeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="SubscribeScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="SubscribeYesNo" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="errorMsg" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="spashScreen" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="TourDetailedViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourDetailedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="SwitchView:"/>
-                <relationship kind="action" name="changePaged:"/>
-                <relationship kind="action" name="segmentButton:"/>
-                <relationship kind="action" name="shareWebsite:"/>
-                <relationship kind="action" name="startTour:"/>
-                <relationship kind="action" name="viewNews:"/>
-                <relationship kind="action" name="viewWebsite:"/>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="DetailsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ListingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TourAgentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="desciptionView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="detailedView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="infoBox" candidateClass="UIWebView"/>
-                <relationship kind="outlet" name="itineraryList" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="listingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segmentController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TourMapListRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourMapListRouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tourRoute" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TourMapListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourMapListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="AddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="StartDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="TitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="listingViewButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapWindow" candidateClass="UIView"/>
-                <relationship kind="outlet" name="navView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="switchMapView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="switchTableView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tour" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="TourRoutesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TourRoutesViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="DetailAddress" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="DetailImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="DetailSubtype" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="geoCoder" candidateClass="CLGeocoder"/>
-                <relationship kind="outlet" name="locationManager" candidateClass="CLLocationManager"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

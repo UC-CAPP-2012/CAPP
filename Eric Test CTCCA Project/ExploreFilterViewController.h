@@ -41,10 +41,9 @@
     IBOutlet UILabel *AddressLabel;
     
     //Filter outlets
-    IBOutlet UILabel *areaLabel;
-    IBOutlet UIButton *nextArea;
-    IBOutlet UIButton *previousArea;
     IBOutlet UIButton *ListingViewButton;
+    
+    
     
     ExploreXMLParser *xmlParserSort1;
     ExploreXMLParser *xmlParserSort2;
@@ -55,12 +54,9 @@
     NSMutableString *currentElementValue;
     
     IBOutlet UISegmentedControl *segmentController;
-    IBOutlet UILabel *mapLabel;
-    IBOutlet UILabel *listLabel;
 }
+- (IBAction)SwitchView;
 
--(IBAction)nextArea:(id)sender;
--(IBAction)previousArea:(id)sender;
 -(IBAction)segmentButton:(id)sender;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
@@ -73,6 +69,7 @@
 @property (nonatomic, retain) UITableViewCell* sideSwipeCell;
 @property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
 @property (nonatomic) BOOL animatingSideSwipe;
+- (IBAction)SwitchView:(id)sender;
 
 - (void) removeSideSwipeView:(BOOL)animated;
 - (BOOL) gestureRecognizersSupported;

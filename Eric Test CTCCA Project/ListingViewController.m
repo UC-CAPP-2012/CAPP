@@ -59,7 +59,8 @@
     //Set a activity indicator in here. untill viewDidAppear procs.
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
-    
+    switchTableView.hidden=false;
+    switchMapView.hidden=true;
     [super setTitle:currentListing.title];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -388,7 +389,8 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:listingView cache:YES];
         [listingView bringSubviewToFront:tableView];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -405,7 +407,8 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:listingView cache:YES];        
         [listingView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];

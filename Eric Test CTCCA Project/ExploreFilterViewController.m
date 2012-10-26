@@ -69,20 +69,12 @@ PullToRefreshView *pull;
 {
     //Set Title
     self.navigationItem.title = typeName;
-    
+    switchTableView.hidden=false;
+    switchMapView.hidden=true;
+    segmentController.hidden = false;
     //Initialise variables
     
     [self setStartView]; //List or Map selected from last view.
-    
-    //Top Label Formating - Replace with images when provided.
-    areaLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    areaLabel.layer.borderWidth = 1.0;
-    
-    nextArea.layer.borderColor = [UIColor blackColor].CGColor;
-    nextArea.layer.borderWidth = 1.0;
-    
-    previousArea.layer.borderColor = [UIColor blackColor].CGColor;
-    previousArea.layer.borderWidth = 1.0;
     
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
@@ -123,16 +115,17 @@ PullToRefreshView *pull;
 {
     if (mapDefault == YES) {
         [exploreView bringSubviewToFront:mapWindow];
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
         [navView bringSubviewToFront:switchMapView];
-        listLabel.hidden=true;
-        mapLabel.hidden=false;
         [self setupMap]; //Map View Pan
     }
     if (listDefault == YES) {
         [exploreView bringSubviewToFront:tableView];
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         [navView bringSubviewToFront:switchTableView];
-        listLabel.hidden=false;
-        mapLabel.hidden=true;
+        
     }
     
 }
@@ -672,28 +665,32 @@ PullToRefreshView *pull;
     SideSwipeTableViewCell *cell = (SideSwipeTableViewCell*)[listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    int section = indexPath.section;
-    NSDictionary *dictionary;
-    if (sortSel == 0) { // allphabetically.
-        dictionary= listingTable[indexPath.section];
-    }
-    else if (sortSel == 1) { //Type
-        dictionary= typeListingTable[indexPath.section];
-        
-    }
-    else if (sortSel == 2) {  //Price
-        
-        dictionary= costListingTable[indexPath.section];
-    }
-    else { // Suburb
-        dictionary= suburbListingTable[indexPath.section];
-    }
-    NSMutableArray *array = dictionary[@"Explore"];
+    
     Listing *currListing;
     if(isFiltered)
+    {
         currListing = filteredTableData[indexPath.row];
+    }
     else
+    {
+        NSDictionary *dictionary;
+        if (sortSel == 0) { // allphabetically.
+            dictionary= listingTable[indexPath.section];
+        }
+        else if (sortSel == 1) { //Type
+            dictionary= typeListingTable[indexPath.section];
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            dictionary= costListingTable[indexPath.section];
+        }
+        else { // Suburb
+            dictionary= suburbListingTable[indexPath.section];
+        }
+        NSMutableArray *array = dictionary[@"Explore"];
         currListing = array[indexPath.row];
+    }
     
     //ContentView
     
@@ -982,6 +979,8 @@ PullToRefreshView *pull;
 
 // Remove the side swipe view.
 // If animated is YES, then the removal is animated using a bounce effect
+
+
 - (void) removeSideSwipeView:(BOOL)animated
 {
     // Make sure we have a cell where the side swipe view appears and that we aren't in the middle of animating
@@ -1093,16 +1092,12 @@ PullToRefreshView *pull;
 
 // ---- END TABLE METHODS ----
 
-// ---- Buttons ----
 
--(IBAction)SwitchView {
-    
+- (IBAction)SwitchView {
     //Button to switch between Map and Table view
     NSArray *viewArray = exploreView.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
     if (viewArray[1] == mapWindow) // change to table view
     {
-        listLabel.hidden=false;
-        mapLabel.hidden=true;
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -1114,29 +1109,33 @@ PullToRefreshView *pull;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
+        
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
-    } 
+        segmentController.hidden = false;
+    }
     else if (viewArray[1] == tableWindow) // change to mapview
     {
-        listLabel.hidden=true;
-        mapLabel.hidden=false;
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:exploreView cache:YES];        
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:exploreView cache:YES];
         [exploreView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
-        
+        segmentController.hidden=true;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
         [navView bringSubviewToFront:switchMapView];
         [UIView commitAnimations];
         [self setupMap];
     }
-    
+
 }
 
 -(IBAction)segmentButton:(id)sender{

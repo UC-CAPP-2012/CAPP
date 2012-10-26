@@ -15,8 +15,9 @@
 @end
 
 @implementation PickerViewController
+
 @synthesize listingsList, listingsListString;
-@synthesize categoryLocked,suburbLocked,costLocked;
+@synthesize categoryLocked,suburbLocked,costLocked, count;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,6 +33,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     resultButtonView.hidden=TRUE;
     loadView.hidden=TRUE;
+    notFoundView.hidden=TRUE;
     
 
 }
@@ -40,7 +42,7 @@
 {
     [super setTitle:@"spinwheel"];
     [super viewDidLoad];
-    
+    count = 0;
     SubType = [[NSMutableArray alloc] init];
     [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Accomodation"];
@@ -184,6 +186,11 @@
 
 -(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
 {
+    [feelAdvBtn setEnabled:false];
+    [catLock setEnabled:false];
+    [regionLock setEnabled:false];
+    [priceLock setEnabled:false];
+    notFoundView.hidden = true;
     loadView.hidden = false;
     resultButtonView.hidden=TRUE;
     //[NSThread sleepForTimeInterval:3.0];
@@ -235,8 +242,10 @@
             NSLog(@"did not work!");
         }
         
-        if([listingsListString count]==0 && (!categoryLocked || !suburbLocked || !costLocked)){
-            [self feelingAdventurous:feelingAdv];
+        if([listingsListString count]==0 && (!categoryLocked || !suburbLocked || !costLocked) && count<15){
+            NSLog(@"%i",count);
+            count++;
+            [self feelingAdventurous:feelAdvBtn];
         }
         
         listingsList = [[NSMutableArray alloc] init];
@@ -335,8 +344,7 @@
         {
             result = listingsList[(arc4random() % [listingsList count])];
         }
-        // [NSThread sleepForTimeInterval:3.0];
-        //loadView.hidden=TRUE;
+        
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -346,10 +354,30 @@
                 loadView.hidden=true;
                 resultButtonView.hidden=FALSE;
                 [resultButton setTitle:result.title forState:UIControlStateNormal];
+                [feelAdvBtn setEnabled:TRUE];
+                [catLock setEnabled:TRUE];
+                [regionLock setEnabled:TRUE];
+                [priceLock setEnabled:TRUE];
+                count = 0;
                 NSLog(@"%@", result.title);
             }else if([listingsList count]==0 && categoryLocked && suburbLocked && costLocked){
                 loadView.hidden=true;
+                notFoundView.hidden = false;
+                [feelAdvBtn setEnabled:TRUE];
+                [catLock setEnabled:TRUE];
+                [regionLock setEnabled:TRUE];
+                [priceLock setEnabled:TRUE];
+                count = 0;
+            }else if([listingsList count]==0 && count==15){
+                loadView.hidden=true;
+                [feelAdvBtn setEnabled:TRUE];
+                [catLock setEnabled:TRUE];
+                [regionLock setEnabled:TRUE];
+                [priceLock setEnabled:TRUE];
+                count = 0;
+
             }
+            
         });
     });
 

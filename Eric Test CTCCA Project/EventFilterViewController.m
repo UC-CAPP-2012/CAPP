@@ -73,7 +73,8 @@ PullToRefreshView *pull;
     
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
-
+    switchTableView.hidden=false;
+    switchMapView.hidden=true;
     animatingSideSwipe = NO;
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
     [self setupSideSwipeView];
@@ -791,27 +792,32 @@ PullToRefreshView *pull;
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    NSDictionary *dictionary;
-    if (sortSel == 0) { // allphabetically.
-        dictionary= listingTable[indexPath.section];
-    }
-    else if (sortSel == 1) { //Type
-        dictionary= typeListingTable[indexPath.section];
-        
-    }
-    else if (sortSel == 2) {  //Price
-        
-        dictionary= costListingTable[indexPath.section];
-    }
-    else { // Suburb
-        dictionary= suburbListingTable[indexPath.section];
-    }
-    NSArray *array = dictionary[@"Events"];
+    
     Listing *currListing;
     if(isFiltered)
+    {
         currListing = filteredTableData[indexPath.row];
+    }
     else
+    {
+        NSDictionary *dictionary;
+        if (sortSel == 0) { // allphabetically.
+            dictionary= listingTable[indexPath.section];
+        }
+        else if (sortSel == 1) { //Type
+            dictionary= typeListingTable[indexPath.section];
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            dictionary= costListingTable[indexPath.section];
+        }
+        else { // Suburb
+            dictionary= suburbListingTable[indexPath.section];
+        }
+        NSArray *array = dictionary[@"Events"];
         currListing = array[indexPath.row];
+    }
     
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
     cell.imageView.image = image;
@@ -1151,7 +1157,8 @@ PullToRefreshView *pull;
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:eventView cache:YES];
         [eventView bringSubviewToFront:tableWindow];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -1167,7 +1174,9 @@ PullToRefreshView *pull;
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:eventView cache:YES];        
         [eventView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
+
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];

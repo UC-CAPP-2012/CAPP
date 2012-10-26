@@ -16,9 +16,13 @@
 
 @interface PickerViewController : UIViewController <NSXMLParserDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
 
+    IBOutlet UIView *notFoundView;
     IBOutlet UIView *loadView;
-    IBOutlet UIButton *feelingAdv;
+    IBOutlet UIButton *catLock;
+    IBOutlet UIButton *regionLock;
+    IBOutlet UIButton *priceLock;
     
+    IBOutlet UIButton *feelAdvBtn;
     IBOutlet UIPickerView *spinWheel;
     NSMutableArray *SubType;
     NSMutableArray *Area;
@@ -41,10 +45,12 @@
 
 @property(nonatomic, strong) NSMutableArray *listingsList, *listingsListString;
 
+
 -(IBAction)feelingAdventurous:(id)sender;
 - (IBAction)goToListing:(id)sender;
 -(void)spin;
 @property BOOL categoryLocked;
 @property BOOL suburbLocked;
 @property BOOL costLocked;
+@property int count;
 @end

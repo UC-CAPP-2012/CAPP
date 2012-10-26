@@ -36,6 +36,8 @@
 - (void)viewDidLoad
 {
     [super setTitle:currentTour.TourName];
+    switchTableView.hidden=false;
+    switchMapView.hidden=true;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -483,7 +485,8 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:listingView cache:YES];
         [listingView bringSubviewToFront:tableView];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -497,6 +500,8 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:listingView cache:YES];
+        
+
         [listingView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
         
@@ -504,12 +509,22 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
+
         [navView bringSubviewToFront:switchMapView];
         [UIView commitAnimations];
         [self setupMap];
         
     }
 
+}
+
+- (IBAction)goHome:(id)sender {
+    NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
+    
+    [self presentModalViewController:eventView animated:YES];
 }
 
 - (IBAction)startTour:(id)sender {

@@ -350,6 +350,7 @@
     MyPin.highlighted = YES;
     MyPin.animatesDrop = TRUE;
     MyPin.canShowCallout = NO;
+    //MyPin.image = [UIImage imageNamed:@"Placeholder.png"];
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
     }
