@@ -10,7 +10,7 @@
 #import "SignUpCheck.h"
 #import "RecordSignup.h"
 #import "NavigationViewController.h"
-
+#import "AppDelegate.h"
 
 @implementation Subscribe
 @synthesize SubscribeScrollView;
@@ -64,6 +64,9 @@
             [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupArray];
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                appDelegate.listingsListString = listingsListString;
                 NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
                 eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
                 [self presentModalViewController:eventView animated:YES];
@@ -174,6 +177,10 @@
 
 -(void)skipScreen
 {
+    [self setupArray];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.listingsListString = listingsListString;
+    
     NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
     eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
     
@@ -198,5 +205,91 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+// *** DATA CONNECTION ***
+
+-(void)setupArray // Connection to DataSource
+{
+    [listingsListString removeAllObjects];
+    
+    //The strings to send to the webserver.
+    
+    NSDate *todaysDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
+    
+    //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+    //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    
+    [xmlParser setDelegate:self];
+    
+    BOOL worked = [xmlParser parse];
+    
+    if(worked) {
+        NSLog(@"Amount %i", [listingsListString count]);
+    }
+    else
+    {
+        NSLog(@"did not work!");
+    }
+}
+
+// --- XML Delegate Classes ----
+
+-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"ListingElements"])
+    {
+        self.listingsListString = [[NSMutableArray alloc] init];
+    }
+    else if ([elementName isEqualToString:@"ListingElement"])
+    {
+        theList = [[ListingString alloc] init];
+        theList.ItemID = [attributeDict[@"listingID"] stringValue];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (!currentElementValue)
+    {
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    }
+    else
+    {
+        [currentElementValue appendString:string];
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if ([elementName isEqualToString:@"ListingElements"])
+    {
+        return;
+    }
+    
+    if([elementName isEqualToString:@"ListingElement"])
+    {
+        [self.listingsListString addObject:theList];
+        theList = nil;
+    }
+    else
+    {
+        [theList setValue:currentElementValue forKey:elementName];
+        NSLog(@"%@",currentElementValue);
+        currentElementValue = nil;
+    }
+}
+
+
 
 @end

@@ -101,12 +101,12 @@ PullToRefreshView *pull;
 - (void) setupSideSwipeView
 {
     // Add the background pattern
-    self.sideSwipeView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"dotted-pattern.png"]];
-    
+    //self.sideSwipeView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"dotted-pattern.png"]];
+    self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1];
     // Overlay a shadow image that adds a subtle darker drop shadow around the edges
     UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
     UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
-    shadowImageView.alpha = 0.6;
+    shadowImageView.alpha = 0.2;
     shadowImageView.image = shadow;
     shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.sideSwipeView addSubview:shadowImageView];
@@ -907,7 +907,7 @@ PullToRefreshView *pull;
         sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
     }
     
-    UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
+    UIImage* imageheart = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
     NSDictionary *dictionary;
     if (sortSel == 0) { // allphabetically.
@@ -935,10 +935,10 @@ PullToRefreshView *pull;
     UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeCustom];
     
     btnTemp =[[UIButton alloc] initWithFrame:Button1Frame];
-    [btnTemp setImage:imageheart forState:UIControlStateNormal];
+    
     // Make sure the button ends up in the right place when the cell is resized
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-    [self.sideSwipeView addSubview:btnTemp];
+    
     
     for (int i = 0; i < [listingsList count]; i++) {
         Listing *currentListing = listingsList[i];
@@ -947,14 +947,34 @@ PullToRefreshView *pull;
         }
     }
     
+    [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];
+
+    
     NSString *cutString = [currListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
-        [btnTemp setEnabled:FALSE];
+        [btnTemp setImage:nil forState:UIControlStateNormal];
+        [btnTemp setImage:nil forState:UIControlStateSelected];
+        //btnTemp.imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
+        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
+        [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    
-    [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
-    
+    else{
+        [btnTemp setImage:nil forState:UIControlStateNormal];
+        [btnTemp setImage:nil forState:UIControlStateSelected];
+        [btnTemp setImage:imageheart forState:UIControlStateNormal];
+        [btnTemp setImage:imageheart forState:UIControlStateSelected];
+//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateApplication];
+//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateHighlighted];
+//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateDisabled];
+//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateReserved];
+        [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.sideSwipeView addSubview:btnTemp];
     // Animate in the side swipe view
     animatingSideSwipe = YES;
     [UIView beginAnimations:nil context:nil];
@@ -1108,14 +1128,55 @@ PullToRefreshView *pull;
 -(void)addFavourite:(id)sender  
 {      
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    ((UIButton*)sender).enabled = FALSE;
+    
     Listing *selectedListing = listingsList[selectedIndex];    
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
     
     NSLog(@"%@",cutString);
     NSLog(@"Button Favourite");
+
+
+    //((UIButton*)sender).imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+    [((UIButton*)sender) setImage:nil forState:UIControlStateNormal];
+    [((UIButton*)sender) setImage:nil forState:UIControlStateSelected];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
+    [((UIButton*)sender) addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)unfavourite:(id)sender
+{
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = listingsList[selectedIndex];  
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    for(int i = 0; i<[favData count]; i++){
+        if([favData[i] isEqualToString:[selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""]]){
+            [favData removeObjectAtIndex:i];
+        }
+    }
+     [favData writeToFile:yourArrayFileName atomically:YES];
+    [((UIButton*)sender) setImage:nil forState:UIControlStateNormal];
+    [((UIButton*)sender) setImage:nil forState:UIControlStateSelected];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateNormal];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateSelected];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateApplication];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateDisabled];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateHighlighted];
+//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateReserved];
+    //((UIButton*)sender).imageView.image = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
+    [((UIButton*)sender) addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
+    
+   
 }
 
 -(void)addToCalendar:(id)sender  

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListingString.h"
 @interface Subscribe : UIViewController<NSXMLParserDelegate>
 {
     
@@ -15,7 +16,10 @@
     IBOutlet UILabel *errorMsg;
     
     IBOutlet UIView *loadView;
+    ListingString *theList;
+    NSMutableString *currentElementValue;
 }
+@property(nonatomic, strong)NSMutableArray *listingsListString;
 
 
 @property (strong, nonatomic) IBOutlet UIScrollView *SubscribeScrollView;
@@ -28,7 +32,6 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *NickNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *LastNameTextField;
-@property(nonatomic, strong)NSMutableArray *listingsListString;
 
 -(IBAction)Subscribe:(id)sender;
 

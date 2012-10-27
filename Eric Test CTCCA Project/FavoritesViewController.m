@@ -81,27 +81,29 @@
 //Delete Function
 //--------------------------------------------------------------------------------------------------//
 //Telling the table view that the rows have a delete editing style
-- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
-           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-//Displays the delete button and deletes the row and the entry in the favorites array
-- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
-forRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-    // delete your data for this row from here
-    
-    //Creating a file path under iPhone OS:
-    //1) Search for the app's documents directory (copy+paste from Documentation)
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths[0];
-    //2) Create the full file path by appending the desired file name
-    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
-    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-    [favData removeObjectAtIndex:indexPath.row];
-    [favData writeToFile:yourArrayFileName atomically:YES];
-    [tableViewEdit reloadData];
-}
+//- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
+//           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+//    return UITableViewCellEditingStyleDelete;
+//}
+////Displays the delete button and deletes the row and the entry in the favorites array
+//- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
+//forRowAtIndexPath:(NSIndexPath*)indexPath {
+//    
+//    // delete your data for this row from here
+//    
+//    //Creating a file path under iPhone OS:
+//    //1) Search for the app's documents directory (copy+paste from Documentation)
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = paths[0];
+//    //2) Create the full file path by appending the desired file name
+//    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+//    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+//    [favData removeObjectAtIndex:indexPath.row];
+//    [listingsList removeObjectAtIndex:indexPath.row];
+//    //[listingTable removeObjectAtIndex:indexPath.row];
+//    [favData writeToFile:yourArrayFileName atomically:YES];
+//    [tableViewEdit reloadData];
+//}
 //--------------------------------------------------------------------------------------------------//
 
 

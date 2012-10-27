@@ -43,7 +43,7 @@
     //Filter outlets
     IBOutlet UIButton *ListingViewButton;
     
-    
+    NSMutableArray *favData;
     
     ExploreXMLParser *xmlParserSort1;
     ExploreXMLParser *xmlParserSort2;

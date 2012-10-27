@@ -26,6 +26,7 @@
 @implementation ListingViewController
 @synthesize listingID,listingTitle, listingsList, listingsListString;
 @synthesize currentListing;
+@synthesize favourite;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,10 +40,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     
-    NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if ([SearchArray searchArray:cutString]) {
-        favButton.image = [UIImage imageNamed:@"73-radar"];
-    }
+    
     [self segmentButton:self];
 }
 
@@ -55,13 +53,20 @@
 
 - (void)viewDidLoad
 {
-    
     //Set a activity indicator in here. untill viewDidAppear procs.
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     [super setTitle:currentListing.title];
+    
+    NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if ([SearchArray searchArray:cutString]) {
+        favButton.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+        favourite = true;
+    }else{
+        favourite = false;
+    }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -277,12 +282,35 @@
 
 -(IBAction)addToFavourties:(id)sender
 {
-    NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
-    [SaveToFavorites saveToFavorites:cutString];
+    if(favourite==NO){
+        NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
+        [SaveToFavorites saveToFavorites:cutString];
     
-    favButton.image = [UIImage imageNamed:@"73-radar"];
-    NSLog(@"%@",cutString);
-    NSLog(@"Button Favourite");
+        favButton.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+        NSLog(@"%@",cutString);
+        NSLog(@"Button Favourite");
+        favourite = true;
+    }else{
+        [self unfavourite];
+    }
+}
+
+-(void)unfavourite
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    for(int i = 0; i<[favData count]; i++){
+        if([favData[i] isEqualToString:[currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""]]){
+            [favData removeObjectAtIndex:i];
+        }
+    }
+    favButton.image = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
+    [favData writeToFile:yourArrayFileName atomically:YES];
+    favourite = false;
 }
 
 -(IBAction)startTour:(id)sender

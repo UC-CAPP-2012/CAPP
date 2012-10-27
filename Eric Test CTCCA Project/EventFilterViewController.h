@@ -50,6 +50,8 @@
     IBOutlet UIButton *previousMonth;
     IBOutlet UISegmentedControl *segmentController;
     
+    NSMutableArray *favData;
+    
     IBOutlet UIView *selectMonthLoadView;
     ListingString *theList;
     NSMutableString *currentElementValue;

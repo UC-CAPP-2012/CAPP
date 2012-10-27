@@ -37,6 +37,8 @@
     IBOutlet UIWebView *infoBox;
     IBOutlet UISegmentedControl *segmentController;
 
+    NSMutableArray *favData;
+    
     IBOutlet UIBarItem *favButton;
     ListingString *theList;
     NSMutableString *currentElementValue;
@@ -46,9 +48,9 @@
 @property (strong, nonatomic)NSString *listingID;
 @property (strong, nonatomic)NSString *listingTitle;
 @property (strong, nonatomic)Listing *currentListing;
-
+@property BOOL favourite;
 -(void)setupMap;
-
+-(void)unfavourite;
 -(IBAction)changePage;
 -(IBAction)segmentButton:(id)sender;
 -(IBAction)addToCalendar:(id)sender;
