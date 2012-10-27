@@ -52,18 +52,28 @@
     
     if([self NSStringIsValidEmail:Email] && ![FirstName isEqualToString:@""] && ![LastName isEqualToString:@""] && ![PostCode isEqualToString:@""] && ![Email isEqualToString:@""] && [PostCode length]==4){
         loadView.hidden=FALSE;
-    [RecordSignup recordSignup];
-    
-    
-    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/SignUp.php?firstName=%@&lastName=%@&postcode=%@&email=%@&subscribed=%@", FirstName,LastName,PostCode,Email,Subscribe];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
-    [self presentModalViewController:eventView animated:YES];
-    NSLog(@"Button");
-    }else{
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            [RecordSignup recordSignup];
+            
+            
+            NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/SignUp.php?firstName=%@&lastName=%@&postcode=%@&email=%@&subscribed=%@", FirstName,LastName,PostCode,Email,Subscribe];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+            [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+                eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
+                [self presentModalViewController:eventView animated:YES];
+                NSLog(@"Button");
+
+            });
+        });
+
+        
+        }else{
         if(![self NSStringIsValidEmail:Email]){
             errorMsg.text=@"Your email is invalid. Please try again.";
             errorMsg.hidden=FALSE;

@@ -69,6 +69,14 @@ PullToRefreshView *pull;
 {
     //Set Title
     self.navigationItem.title = typeName;
+    Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
+
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     segmentController.hidden = false;
@@ -625,7 +633,7 @@ PullToRefreshView *pull;
             
             for(NSString *header in sortHeaders3)
             {
-                [sectionHeaders addObject:header];
+                [sectionHeaders addObject: [Cost objectAtIndex:[header intValue]]];
             }
         }
         else if (sortSel == 3) { // Suburb

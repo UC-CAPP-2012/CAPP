@@ -39,7 +39,7 @@
     IBOutlet UILabel *TitleLabel;
     IBOutlet UILabel *StartDateLabel;
     IBOutlet UILabel *AddressLabel;
-    
+    NSMutableArray *Cost;
     //Filter outlets
     IBOutlet UIButton *ListingViewButton;
     

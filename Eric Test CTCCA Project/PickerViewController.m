@@ -14,10 +14,11 @@
 
 @end
 
+int count = 0;
 @implementation PickerViewController
 
 @synthesize listingsList, listingsListString;
-@synthesize categoryLocked,suburbLocked,costLocked, count;
+@synthesize categoryLocked,suburbLocked,costLocked,spinned;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,7 +43,7 @@
 {
     [super setTitle:@"spinwheel"];
     [super viewDidLoad];
-    count = 0;
+    spinned=false;
     SubType = [[NSMutableArray alloc] init];
     [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Accomodation"];
@@ -186,6 +187,7 @@
 
 -(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
 {
+    if(spinned==NO){
     [feelAdvBtn setEnabled:false];
     [catLock setEnabled:false];
     [regionLock setEnabled:false];
@@ -242,7 +244,7 @@
             NSLog(@"did not work!");
         }
         
-        if([listingsListString count]==0 && (!categoryLocked || !suburbLocked || !costLocked) && count<15){
+        if([listingsListString count]==0 && count<15){
             NSLog(@"%i",count);
             count++;
             [self feelingAdventurous:feelAdvBtn];
@@ -359,8 +361,9 @@
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
                 count = 0;
+                spinned = true;
                 NSLog(@"%@", result.title);
-            }else if([listingsList count]==0 && categoryLocked && suburbLocked && costLocked){
+            }else if([listingsList count]==0 && count==15){
                 loadView.hidden=true;
                 notFoundView.hidden = false;
                 [feelAdvBtn setEnabled:TRUE];
@@ -368,19 +371,15 @@
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
                 count = 0;
-            }else if([listingsList count]==0 && count==15){
-                loadView.hidden=true;
-                [feelAdvBtn setEnabled:TRUE];
-                [catLock setEnabled:TRUE];
-                [regionLock setEnabled:TRUE];
-                [priceLock setEnabled:TRUE];
-                count = 0;
+                spinned = true;
 
             }
             
         });
     });
-
+    }else{
+        spinned = NO;
+    }
     
 }
 

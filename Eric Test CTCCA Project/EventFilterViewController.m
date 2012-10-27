@@ -52,7 +52,7 @@ PullToRefreshView *pull;
         [self setupArray];
     }
     [tableView reloadData];
-   [loadView removeFromSuperview];;
+    [loadView removeFromSuperview];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -62,6 +62,14 @@ PullToRefreshView *pull;
 - (void)viewDidLoad
 {
     self.navigationItem.title =@"happening";
+    Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
+    selectMonthLoadView.hidden = true;
     dateLabel.layer.borderColor = [UIColor blackColor].CGColor;
     dateLabel.layer.borderWidth = 1.0;
     
@@ -646,7 +654,7 @@ PullToRefreshView *pull;
         
             for(NSString *header in sortHeaders3)
             {
-                [sectionHeaders addObject:header];
+                [sectionHeaders addObject: [Cost objectAtIndex:[header intValue]]];
             }
         }
         else if (sortSel == 3) { // Suburb
@@ -681,6 +689,7 @@ PullToRefreshView *pull;
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
+    
     self->tableView.contentOffset = CGPointMake(0, -65);
     [pull setState:PullToRefreshViewStateLoading];
 
@@ -691,10 +700,11 @@ PullToRefreshView *pull;
 
 -(void) reloadTableData
 {
+    
     // call to reload your data
     [self segmentButton:self];
     [self setupArray];
-    loadView.hidden=TRUE;
+    
     [self->tableView reloadData];
     [pull finishedLoading];
 }
@@ -1193,7 +1203,11 @@ PullToRefreshView *pull;
 
 
 -(IBAction)nextMonth:(id)sender{
-    
+    selectMonthLoadView.hidden = false;
+    [listingTable removeAllObjects]; // Clear Table
+    [typeListingTable removeAllObjects]; // Clear Table
+    [costListingTable removeAllObjects]; // Clear Table
+    [suburbListingTable removeAllObjects]; // Clear Table
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
     previousMonth.hidden=FALSE;
@@ -1203,11 +1217,25 @@ PullToRefreshView *pull;
         nextMonth.hidden=TRUE;
     }
     dateLabel.text = monthFilter[currSel];
-    [self setupArray];
+    
+    
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(concurrentQueue, ^(void){
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupArray];
+          //  [tableView reloadData];
+            selectMonthLoadView.hidden = true;            
+        });
+    });
+
+    
 
 }
 -(IBAction)previousMonth:(id)sender{
-    
+    selectMonthLoadView.hidden = false;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
     nextMonth.hidden=FALSE;
@@ -1217,8 +1245,18 @@ PullToRefreshView *pull;
         previousMonth.hidden=TRUE;
     }
     dateLabel.text = monthFilter[currSel];
-    [self setupArray];
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
+    dispatch_async(concurrentQueue, ^(void){
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupArray];
+            //  [tableView reloadData];
+            selectMonthLoadView.hidden = true;
+        });
+    });
+
 }
 
 

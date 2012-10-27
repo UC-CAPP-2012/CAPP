@@ -28,6 +28,8 @@
     BOOL animatingSideSwipe;
     IBOutlet UIView *loadView;
     
+    NSMutableArray *Cost;
+    
     //Information Box
     IBOutlet UIView *DetailView;
     IBOutlet UIImageView *DetailImage;
@@ -48,6 +50,7 @@
     IBOutlet UIButton *previousMonth;
     IBOutlet UISegmentedControl *segmentController;
     
+    IBOutlet UIView *selectMonthLoadView;
     ListingString *theList;
     NSMutableString *currentElementValue;
 }
@@ -75,7 +78,6 @@
 
 @property int currSel;
 @property int sortSel;
-
 -(void)setupArray;
 -(void)setupMap;
 @end

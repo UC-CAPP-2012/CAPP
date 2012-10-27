@@ -52,5 +52,5 @@
 @property BOOL categoryLocked;
 @property BOOL suburbLocked;
 @property BOOL costLocked;
-@property int count;
+@property BOOL spinned;
 @end
