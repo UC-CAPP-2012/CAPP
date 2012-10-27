@@ -122,7 +122,7 @@
         // ListingID , Title , SubTitle
         
         currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"" withString:@""];
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"t" withString:@""];
         currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 
         

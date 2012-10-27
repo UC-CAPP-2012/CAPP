@@ -150,6 +150,7 @@ PullToRefreshView *pull;
         // TourID , Title , SubTitle
         
         currTour.TourID = [tourStringElement.TourID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourID = [currTour.TourID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourName = [tourStringElement.TourName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourDetail = tourStringElement.TourDetail;
         currTour.TourAgent = [tourStringElement.TourAgent stringByReplacingOccurrencesOfString:@"\n" withString:@""];

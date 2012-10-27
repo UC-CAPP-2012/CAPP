@@ -63,9 +63,9 @@
     newsBody.text = currentListing.NewsBody;
     NSLog(@"%@",newsBody.text);
     [scrollView setScrollEnabled:TRUE];
-    [scrollView setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+150)];
+    [scrollView setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+110)];
     CGRect newFrame= newsBody.frame;
-    newFrame.size.height = [newsBody contentSize].height+newImage.frame.size.height+500;
+    newFrame.size.height = [newsBody contentSize].height+newImage.frame.size.height+510;
     newsBody.frame = newFrame;
     
     //[newsBody setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+500)];

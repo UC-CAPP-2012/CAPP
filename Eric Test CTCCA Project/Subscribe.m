@@ -43,11 +43,11 @@
     
     if([SubscribeYesNo isOn])
     {
-        Subscribe = @"Yes";
+        Subscribe = @"1";
     }
     else
     {
-        Subscribe = @"No";
+        Subscribe = @"0";
     }
     
     if([self NSStringIsValidEmail:Email] && ![FirstName isEqualToString:@""] && ![LastName isEqualToString:@""] && ![PostCode isEqualToString:@""] && ![Email isEqualToString:@""] && [PostCode length]==4){
@@ -55,7 +55,7 @@
     [RecordSignup recordSignup];
     
     
-    NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?FirstName=%@&LastName=%@&Postcode=%@&Email=%@&Subscribe=%@", FirstName,LastName,PostCode,Email,Subscribe];
+    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/SignUp.php?firstName=%@&lastName=%@&postcode=%@&email=%@&subscribed=%@", FirstName,LastName,PostCode,Email,Subscribe];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
         [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     

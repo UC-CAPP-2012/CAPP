@@ -32,6 +32,19 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+
+    //Load the array
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    if([favData count]>0)
+    {
+        if([listingsList count]==0){
+            [self setupArray];
+        }
+    }
     [tableView reloadData];
     loadView.hidden=TRUE;
 }
@@ -47,17 +60,8 @@
     
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths[0];
-    //2) Create the full file path by appending the desired file name
-    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+        
     
-    //Load the array
-    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-    if([favData count]>0)
-    {
-        [self setupArray];
-    }
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -178,15 +182,15 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     [mapView removeAnnotations:mapView.annotations];
     
-    NSMutableString *stringName = [GenerateFavoritesString createFavoriteString];
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    NSMutableString *ids = [GenerateFavoritesString createFavoriteString];
+    NSLog(@"%@",ids);
+//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
+//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Favs.php?ids=%@",ids];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     
     [xmlParser setDelegate:self];

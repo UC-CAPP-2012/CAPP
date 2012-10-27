@@ -83,14 +83,13 @@ PullToRefreshView *pull;
 {
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
+//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Blabber.php?limit=%i",10];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     
     [xmlParser setDelegate:self];
@@ -117,17 +116,16 @@ PullToRefreshView *pull;
         // ListingID , Title , SubTitle
         
         currNews.NewsID = [newsStringElement.NewsID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+         currNews.NewsID = [currNews.NewsID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsHeading = [newsStringElement.NewsHeading stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsAuthor = [newsStringElement.NewsAuthor stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currNews.NewsBody = newsStringElement.NewsBody;
+        currNews.NewsBody = [newsStringElement.NewsBody stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsPublisher = [newsStringElement.NewsPublisher stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         
         // Listing View details
-        NSString *urlTemp = [newsStringElement.NewsMediaURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *mediaUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        currNews.NewsMediaURL = [NSURL URLWithString:mediaUrlString];
-        
+        NSString *imageName = [newsStringElement.NewsMediaURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currNews.NewsMediaURL = [NSURL URLWithString:[imageName stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
         // Publish Date
         currNews.NewsDateTime = [newsStringElement.NewsDateTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
@@ -368,8 +366,8 @@ PullToRefreshView *pull;
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
-    [self reloadTableData];
-    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+    //[self reloadTableData];
+    [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
 -(void) reloadTableData
@@ -383,9 +381,9 @@ PullToRefreshView *pull;
 
 -(void)foregroundRefresh:(NSNotification *)notification
 {
-    self->tableView.contentOffset = CGPointMake(0, -65);
-    [pull setState:PullToRefreshViewStateLoading];
-    [self reloadTableData];
+    //self->tableView.contentOffset = CGPointMake(0, -65);
+    //[pull setState:PullToRefreshViewStateLoading];
+    //[self reloadTableData];
     //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
