@@ -1264,6 +1264,8 @@ PullToRefreshView *pull;
 
 
 -(IBAction)nextMonth:(id)sender{
+    nextMonth.hidden =true;
+    previousMonth.hidden=true;
     selectMonthLoadView.hidden = false;
     [listingTable removeAllObjects]; // Clear Table
     [typeListingTable removeAllObjects]; // Clear Table
@@ -1271,7 +1273,7 @@ PullToRefreshView *pull;
     [suburbListingTable removeAllObjects]; // Clear Table
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
-    previousMonth.hidden=FALSE;
+    
     currSel = currSel + 1;
     if (currSel == monthFilter.count-1)
     {
@@ -1288,7 +1290,9 @@ PullToRefreshView *pull;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setupArray];
           //  [tableView reloadData];
-            selectMonthLoadView.hidden = true;            
+            selectMonthLoadView.hidden = true;
+            nextMonth.hidden =false;
+            previousMonth.hidden=false;
         });
     });
 
@@ -1296,10 +1300,12 @@ PullToRefreshView *pull;
 
 }
 -(IBAction)previousMonth:(id)sender{
+    nextMonth.hidden =true;
+    previousMonth.hidden=true;
     selectMonthLoadView.hidden = false;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
-    nextMonth.hidden=FALSE;
+    //nextMonth.hidden=FALSE;
     currSel = currSel - 1;
     if (currSel == 0)
     {
@@ -1315,6 +1321,8 @@ PullToRefreshView *pull;
             [self setupArray];
             //  [tableView reloadData];
             selectMonthLoadView.hidden = true;
+            nextMonth.hidden =false;
+            previousMonth.hidden=false;
         });
     });
 
