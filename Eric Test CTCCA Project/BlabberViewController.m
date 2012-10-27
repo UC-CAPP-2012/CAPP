@@ -35,7 +35,9 @@ PullToRefreshView *pull;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [self setupArray];
+    if([newsListingsList count]==0){
+        [self setupArray];
+    }
     [tableView reloadData];
     
     [loadView removeFromSuperview];
@@ -118,6 +120,7 @@ PullToRefreshView *pull;
         currNews.NewsID = [newsStringElement.NewsID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
          currNews.NewsID = [currNews.NewsID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsHeading = [newsStringElement.NewsHeading stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currNews.NewsHeading = [currNews.NewsHeading stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsAuthor = [newsStringElement.NewsAuthor stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsBody = [newsStringElement.NewsBody stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsPublisher = [newsStringElement.NewsPublisher stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -127,7 +130,11 @@ PullToRefreshView *pull;
         NSString *imageName = [newsStringElement.NewsMediaURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsMediaURL = [NSURL URLWithString:[imageName stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
         // Publish Date
-        currNews.NewsDateTime = [newsStringElement.NewsDateTime stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *published = [dateFormatter dateFromString:[newsStringElement.NewsDateTime stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+        currNews.NewsDateTime = [dateFormatter stringFromDate:published];
         
         // ** CHECKS -------------------------------
         NSLog(@"%@",newsStringElement.NewsID);

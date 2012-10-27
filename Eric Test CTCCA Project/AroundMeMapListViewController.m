@@ -174,11 +174,11 @@
     region.span.latitudeDelta = 0.05f; // Zoom Settings
     region.span.longitudeDelta = 0.05f; // Zoom Settings
     [mapView setRegion:region animated:YES];
-    
-    x1 = userLocation.location.coordinate.latitude + 0.05f;
-    x2 = userLocation.location.coordinate.latitude - 0.05f;
-    y1 = userLocation.location.coordinate.longitude  + 0.05f;
-    y2 = userLocation.location.coordinate.longitude  - 0.05f;
+//    
+//    x1 = userLocation.location.coordinate.latitude + 0.05f;
+//    x2 = userLocation.location.coordinate.latitude - 0.05f;
+//    y1 = userLocation.location.coordinate.longitude  + 0.05f;
+//    y2 = userLocation.location.coordinate.longitude  - 0.05f;
 }
 
 
@@ -203,40 +203,42 @@
 -(void)setupArray // Connection to DataSource
 { 
     [mapView removeAnnotations:mapView.annotations];
-    [listingsListString removeAllObjects];
+    //[listingsListString removeAllObjects];
     [listingsList removeAllObjects];
     [listingTable removeAllObjects];
 
     //The strings to send to the webserver.
     
-    NSDate *todaysDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
+    
     
     //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
+    if([listingsListString count]==0){
+        NSDate *todaysDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
+        NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
 
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+        NSURL *url = [[NSURL alloc] initWithString:urlString];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     
-    [xmlParser setDelegate:self];
+        [xmlParser setDelegate:self];
     
-    BOOL worked = [xmlParser parse];
+        BOOL worked = [xmlParser parse];
     
-    if(worked) {
-        NSLog(@"Amount %i", [listingsListString count]);
+        if(worked) {
+            NSLog(@"Amount %i", [listingsListString count]);
+        }
+        else
+        {
+            NSLog(@"did not work!");
+        }
+    
     }
-    else 
-    {
-        NSLog(@"did not work!");
-    }
-    
     listingsList = [[NSMutableArray alloc] init];
     
     for (ListingString *listingStringElement in listingsListString) {

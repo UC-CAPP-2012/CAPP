@@ -19,7 +19,7 @@
 @synthesize EmailTextField;
 @synthesize NickNameTextField;
 @synthesize LastNameTextField;
-
+@synthesize listingsListString;
 -(IBAction)DismissKeyboard:(id)sender
 {
     [sender resignFirstResponder];
@@ -134,6 +134,7 @@
 {
     
     PostCodeTextField.delegate = (id)self;
+    
     [super viewDidLoad];
 }
 
@@ -148,6 +149,9 @@
     }
     
 }
+
+
+
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField.text length] > 4-1) {

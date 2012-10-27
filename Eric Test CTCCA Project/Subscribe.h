@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface Subscribe : UIViewController
+@interface Subscribe : UIViewController<NSXMLParserDelegate>
 {
     
     NSTimer *ActivityTimer;
@@ -29,10 +28,11 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *NickNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *LastNameTextField;
+@property(nonatomic, strong)NSMutableArray *listingsListString;
 
 -(IBAction)Subscribe:(id)sender;
 
 - (IBAction)DismissKeyboard:(id)sender;
-
+-(void)setupArray;
 @end
 

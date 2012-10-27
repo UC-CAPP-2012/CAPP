@@ -54,8 +54,9 @@
     currentListing = self.currentListing;
     NSLog(@"%@",currentListing.NewsID);
     
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:22];
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
     [newsTitle setFont:font];
+  //  [newsTitle setTextColor:[UIColor colorWithRed:0.3 green:0.6 blue:0.54 alpha:1]];
     newsTitle.text = currentListing.NewsHeading;
     newsPublisher.text = currentListing.NewsPublisher;
     newsAuthor.text = currentListing.NewsAuthor;
@@ -63,9 +64,9 @@
     newsBody.text = currentListing.NewsBody;
     NSLog(@"%@",newsBody.text);
     [scrollView setScrollEnabled:TRUE];
-    [scrollView setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+110)];
+    [scrollView setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+200)];
     CGRect newFrame= newsBody.frame;
-    newFrame.size.height = [newsBody contentSize].height+newImage.frame.size.height+510;
+    newFrame.size.height = [newsBody contentSize].height+newImage.frame.size.height+600;
     newsBody.frame = newFrame;
     
     //[newsBody setContentSize:CGSizeMake([newsBody contentSize].width, [newsBody contentSize].height+newImage.frame.size.height+500)];
