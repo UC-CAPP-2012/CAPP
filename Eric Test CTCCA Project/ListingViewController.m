@@ -336,16 +336,16 @@
         
         mailer.mailComposeDelegate = self;
         
-        [mailer setSubject:@"A Message from MobileTuts+"];
+        [mailer setSubject:currentListing.title];
         
-        NSArray *toRecipients = @[@"fisrtMail@example.com", @"secondMail@example.com"];
+       // NSArray *toRecipients = @[@"fisrtMail@example.com", @"secondMail@example.com"];
         //[mailer setToRecipients:toRecipients];
         
         UIImage *myImage = [UIImage imageNamed:@"complete-logo.png"];
         NSData *imageData = UIImagePNGRepresentation(myImage);
-        [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"];
+        [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"CApp"];
         
-        NSString *emailBody = @"Have you seen the MobileTuts+ web site?";
+        NSString *emailBody = [NSString stringWithFormat: @"Have you been here before?\n\n%@\n\n%@",currentListing.title,currentListing.address];
         [mailer setMessageBody:emailBody isHTML:NO];
         
         // only for iPad

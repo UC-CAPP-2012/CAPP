@@ -241,6 +241,13 @@ int count = 0;
         }
         else
         {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                            message:@"Something went wrong. Please make sure you are connected to the internet."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+            [alert show];
+
             NSLog(@"did not work!");
         }
         
@@ -370,6 +377,13 @@ int count = 0;
                 [catLock setEnabled:TRUE];
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                                message:@"There aren't any places found like that.  Unlink and try again."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+                [alert show];
+
                 count = 0;
                 spinned = true;
 

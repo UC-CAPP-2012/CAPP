@@ -239,6 +239,13 @@
     }
     else
     {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                        message:@"Something went wrong. Please make sure you are connected to the internet."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+
         NSLog(@"did not work!");
     }
 }
