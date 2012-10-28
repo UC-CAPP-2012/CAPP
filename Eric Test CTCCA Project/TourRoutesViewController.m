@@ -69,6 +69,7 @@ NSString *currentDestination;
     NSLog(@"didSelectAnnotationView");
     DetailView.hidden = FALSE;
     view.pinColor = MKPinAnnotationColorGreen;
+    view.image = [UIImage imageNamed:@"map_marker_green.png"];
     currentDestination = [(Listing *)view.annotation init].address;
     [locationManager startUpdatingLocation];
     for(id<MKOverlay> overlayToRemove in _mapView.overlays){
@@ -136,6 +137,7 @@ NSString *currentDestination;
     NSLog(@"didDeselectAnnotationView");
     DetailView.hidden = TRUE;
     view.pinColor = MKPinAnnotationColorRed;
+    view.image = [UIImage imageNamed:@"map_marker.png"];
 }
 
 
@@ -267,15 +269,24 @@ NSString *currentDestination;
 
 -(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
 {
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapViewAroundMe dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
     
-    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
-    MyPin.pinColor = MKPinAnnotationColorRed;
+    if (annotationView == nil)
+    {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
+    }
+    annotationView.annotation = annotation;
+    annotationView.canShowCallout = YES; // show the grey popup with location etc
+    UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+    annotationView.rightCalloutAccessoryView = rightButton;
     
-    MyPin.draggable = NO;
-    MyPin.highlighted = YES;
-    MyPin.animatesDrop = TRUE;
-    MyPin.canShowCallout = NO;
+    annotationView.image = [UIImage imageNamed:@"map_marker.png"];
     
+    annotationView.draggable = NO;
+    //annotationView.highlighted = YES;
+    //annotationView.animatesDrop = TRUE;
+    //annotationView.canShowCallout = NO;
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
     }
@@ -287,7 +298,7 @@ NSString *currentDestination;
 	}
     
     
-    return MyPin;
+    return annotationView;
 }
 
 

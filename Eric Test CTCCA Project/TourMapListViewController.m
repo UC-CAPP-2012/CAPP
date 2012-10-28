@@ -48,8 +48,6 @@ PullToRefreshView *pull;
 - (void)viewDidLoad
 {
     
-    DetailView.hidden = TRUE;
-    DetailView.backgroundColor = [UIColor clearColor];
     
     self.navigationItem.title = @"outings";
     [super viewDidLoad];
@@ -76,47 +74,11 @@ PullToRefreshView *pull;
     
 }
 
-// *** MAP VIEW Setup ***
--(void) setupMap
-{
-    // NEED TO ADD A RESTRICTION!
-    // NEED TO TEST OUTSIDE OF CANBERRA
-    // mapView user location coordinate may not work...
-    
-    //Map Settings
-    [mapView setMapType:MKMapTypeStandard];
-    [mapView setZoomEnabled:YES];
-    [mapView setScrollEnabled:YES];
-    [mapView setDelegate:self];
-    
-    //Center Map on users location;
-    //CLLocationCoordinate2D zoomLocation;
-    MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
-    region.center.latitude = -35.281150; //mapView.userLocation.location.coordinate.latitude;
-    region.center.longitude = 149.128668; //mapView.userLocation.location.coordinate.longitude;
-    region.span.latitudeDelta = 0.15f; // Zoom Settings
-    region.span.longitudeDelta = 0.25f; // Zoom Settings
-    [mapView setRegion:region animated:YES];
-    
-    //Place marker on user
-    //mapView.showsUserLocation = YES; // Shows User Location  
-    
-    //if (filter == nil) {
-    //Do actions for map population for filter.
-    //Do action for list population for filter.
-    //}
-    
-    // *** DUMMY DATA ***
-    
-    
-}
-
 // *** DATA CONNECTION ***
 
 -(void) setupArray // Connection to DataSource
 { 
     
-    [mapView removeAnnotations:mapView.annotations];
     NSXMLParser *xmlParser;
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -185,10 +147,7 @@ PullToRefreshView *pull;
         NSString *mediaUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         currTour.TourWebsite = [NSURL URLWithString:mediaUrlString];
         
-        NSString *urlTemp2 = [tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *mediaUrlString2 = [[NSString stringWithFormat:urlTemp2] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        currTour.VideoURL = [NSURL URLWithString:mediaUrlString2];
-        
+        currTour.VideoURL = [NSURL URLWithString:[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         // ** CHECKS -------------------------------
         NSLog(@"%@",tourStringElement.TourID);
         NSLog(@"%@",tourStringElement.TourName);
@@ -201,7 +160,6 @@ PullToRefreshView *pull;
         
         [tourListingsList addObject:currTour];
         [section addObject:currTour];
-        [mapView addAnnotation:currTour];
     }
         
     NSDictionary *sectionDict = @{@"Tours": section};
@@ -209,84 +167,6 @@ PullToRefreshView *pull;
 
 }
 
-// *** MAP METHODS ****
-
-// *** MAP METHODS ****
-
--(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
-{
-    
-    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
-    MyPin.pinColor = MKPinAnnotationColorRed;
-    
-    MyPin.draggable = NO;
-    MyPin.highlighted = YES;
-    MyPin.animatesDrop = TRUE;
-    MyPin.canShowCallout = NO;
-    
-    if (annotation == mapViewAroundMe.userLocation) {
-        return nil;
-    }
-    //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
-    //MyPin.annotation = annotation;
-    
-    return MyPin;
-}
-
-
--(void)mapView:(MKMapView *)mapViewSelect didSelectAnnotationView:(MKPinAnnotationView *)view
-{
-    NSLog(@"didSelectAnnotationView");
-    DetailView.hidden = FALSE;
-    view.pinColor = MKPinAnnotationColorGreen;
-    
-    if ([view.annotation isKindOfClass:[Tour class]] )
-    {
-        Tour *selectedTour = ((Tour *) view.annotation);
-        //Title
-        TitleLabel.text = selectedTour.TourName;
-        
-        //Address
-        AddressLabel.text = selectedTour.TourDetail;
-        
-        StartDateLabel.text = selectedTour.TourAgent;
-        
-        //Detail Image    
-        DetailImage.image = selectedTour.TourIcon;
-        
-        NSString *TourID = ((Tour *) view.annotation).TourID;
-        for (int i = 0; i < [tourListingsList count]; i++) {
-            Tour *currentSelectedTour = tourListingsList[i];
-            if ([currentSelectedTour.TourID isEqualToString:TourID]) {
-                listingViewButton.tag = i;
-            }
-        }
-        [listingViewButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-}
-
--(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
-{
-    TourDetailedViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"TourDetailedViewController"]; // Detail Page
-    NSInteger selectedIndex = ((UIButton*)sender).tag;
-    listingView.currentTour = tourListingsList[selectedIndex];
-    [self.navigationController pushViewController:listingView animated:YES];
-    NSLog(@"Button");
-    
-    NSLog(@"%@",listingView.currentTour.TourID);
-}
-
-
-
--(void)mapView:(MKMapView *)mapViewDeSelect didDeselectAnnotationView:(MKPinAnnotationView *)view
-{
-    NSLog(@"didDeselectAnnotationView");
-    DetailView.hidden = TRUE;
-    view.pinColor = MKPinAnnotationColorRed;
-}
-
-// *** END MAP METHODS
 
 // *** TABLE METHODS ***
 
@@ -466,49 +346,6 @@ PullToRefreshView *pull;
 
 // *** END TABLE METHODS
 
-// Switch View Method
-
--(IBAction)SwitchView {
-    
-    // Will need to insert program view sequence.
-    
-    //Button to switch between Map and Table view
-    NSArray *viewArray = tour.subviews; //Gathers an arrary of 'view' in the 'aroundMe' stack in order.
-    if (viewArray[1] == mapWindow) // change to table view
-    {
-        // Main Window Animation
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:tour cache:YES];
-        [tour bringSubviewToFront:tableView];
-        [UIView commitAnimations];
-        
-        // Navigation Bar Animation
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
-        [navView bringSubviewToFront:switchTableView];
-        [UIView commitAnimations];
-    } 
-    else if (viewArray[1] == tableView) // change to mapview
-    {
-        // Main Window Animation
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:tour cache:YES];        
-        [tour bringSubviewToFront:mapWindow];
-        [UIView commitAnimations];
-        
-        // Navigation Bar Animation
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
-        [navView bringSubviewToFront:switchMapView];
-        [UIView commitAnimations];
-        [self setupMap];
-    }
-    
-}
 
 // END Switch View Method
 

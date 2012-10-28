@@ -22,23 +22,11 @@
 @interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate, PullToRefreshViewDelegate>{
 
 IBOutlet UIView *tour;
-IBOutlet MKMapView *mapView;
-IBOutlet UIView *mapWindow;
 IBOutlet UITableView *tableView;
 
-//Navigation Bar Outlets
-IBOutlet UIView *navView;
-IBOutlet UIView *switchMapView;
-IBOutlet UIView *switchTableView;
     
     IBOutlet UIView *loadView;
     
-    //Information Box
-IBOutlet UIView *DetailView;
-IBOutlet UIImageView *DetailImage;
-IBOutlet UILabel *TitleLabel;
-IBOutlet UILabel *StartDateLabel;
-IBOutlet UILabel *AddressLabel;
     
 IBOutlet UIButton *listingViewButton;
     TourString *tourList;
@@ -57,6 +45,5 @@ IBOutlet UIButton *listingViewButton;
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)setupArray;
--(void)setupMap;
 
 @end

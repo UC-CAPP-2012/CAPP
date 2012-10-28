@@ -371,13 +371,24 @@
 -(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
-    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
-    MyPin.pinColor = MKPinAnnotationColorRed;
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
     
-    MyPin.draggable = NO;
-    MyPin.highlighted = YES;
-    MyPin.animatesDrop = TRUE;
-    MyPin.canShowCallout = NO;
+    if (annotationView == nil)
+    {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
+    }
+    annotationView.annotation = annotation;
+    annotationView.canShowCallout = YES; // show the grey popup with location etc
+    UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+    annotationView.rightCalloutAccessoryView = rightButton;
+    
+    annotationView.image = [UIImage imageNamed:@"map_marker.png"];
+    
+    annotationView.draggable = NO;
+    //annotationView.highlighted = YES;
+    //annotationView.animatesDrop = TRUE;
+    //annotationView.canShowCallout = NO;
     
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
@@ -385,7 +396,7 @@
     //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
     //MyPin.annotation = annotation;
     
-    return MyPin;
+    return annotationView;
 }
 
 
@@ -394,7 +405,7 @@
     NSLog(@"didSelectAnnotationView");
     detailView.hidden = FALSE;
     view.pinColor = MKPinAnnotationColorGreen;
-    
+    view.image = [UIImage imageNamed:@"map_marker_green.png"];
     if ([view.annotation isKindOfClass:[Listing class]] )
     {
         //Title
@@ -446,6 +457,7 @@
     NSLog(@"didDeselectAnnotationView");
     detailView.hidden = TRUE;
     view.pinColor = MKPinAnnotationColorRed;
+    view.image = [UIImage imageNamed:@"map_marker.png"];
 }
 // END MAP METHODS
 

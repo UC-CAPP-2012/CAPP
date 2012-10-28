@@ -52,7 +52,9 @@
     self.navigationItem.title = @"Around Me";
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
-    
+    switchTableView.hidden=true;
+    switchMapView.hidden=false;
+
     [self setupMap];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -357,23 +359,43 @@
 
 -(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
 {
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
     
-    MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];     
-    MyPin.pinColor = MKPinAnnotationColorRed;
+    if (annotationView == nil)
+    {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
+    }
+    annotationView.annotation = annotation;
+    annotationView.canShowCallout = YES; // show the grey popup with location etc
+    //UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+    //annotationView.rightCalloutAccessoryView = rightButton;
     
-    MyPin.draggable = NO;
-    MyPin.highlighted = YES;
-    MyPin.animatesDrop = TRUE;
-    MyPin.canShowCallout = NO;
+    annotationView.image = [UIImage imageNamed:@"map_marker.png"];
+    
+    annotationView.draggable = NO;
+    //annotationView.highlighted = YES;
+    //annotationView.animatesDrop = TRUE;
+    //annotationView.canShowCallout = NO;
+    
+    //MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
+    //MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] init];
+   // MyPin.pinColor = MKPinAnnotationColorRed;
     //MyPin.image = [UIImage imageNamed:@"Placeholder.png"];
+    //MyPin.draggable = NO;
+    //MyPin.highlighted = YES;
+   //// MyPin.animatesDrop = TRUE;
+    //MyPin.canShowCallout = NO;
+    
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
     }
+
     
-    //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
-    //MyPin.annotation = annotation;
+    //MyPin.an = annotationView;
     
-    return MyPin;
+    //return MyPin;
+    return annotationView;
 }
 
 
@@ -385,6 +407,7 @@
     NSLog(@"didSelectAnnotationView");
     DetailView.hidden = FALSE;
     view.pinColor = MKPinAnnotationColorGreen;
+    view.image = [UIImage imageNamed:@"map_marker_green.png"];
     
     if ([view.annotation isKindOfClass:[Listing class]] )
         {
@@ -440,6 +463,7 @@
     NSLog(@"didDeselectAnnotationView");
     DetailView.hidden = TRUE;
     view.pinColor = MKPinAnnotationColorRed;
+    view.image = [UIImage imageNamed:@"map_marker.png"];
 }
 
 -(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
@@ -830,6 +854,9 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
+
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
         self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
@@ -849,6 +876,10 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
+        
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
+
         [navView bringSubviewToFront:switchMapView];
         [UIView commitAnimations];
         
