@@ -54,7 +54,8 @@
     [super setTitle:@"Loved"];
     NSMutableString *stringName = [GenerateFavoritesString createFavoriteString];
     NSLog(@"%@",stringName);
-    
+    switchTableView.hidden=false;
+    switchMapView.hidden=true;
     detailView.hidden = TRUE;
     detailView.backgroundColor = [UIColor clearColor];
     
@@ -524,7 +525,8 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:favView cache:YES];
         [favView bringSubviewToFront:TableWindow];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=false;
+        switchMapView.hidden=true;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -540,7 +542,8 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:favView cache:YES];
         [favView bringSubviewToFront:MapWindow];
         [UIView commitAnimations];
-        
+        switchTableView.hidden=true;
+        switchMapView.hidden=false;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
