@@ -15,6 +15,7 @@
 @end
 
 int count = 0;
+bool allUnlocked = true;
 @implementation PickerViewController
 
 @synthesize listingsList, listingsListString;
@@ -195,6 +196,11 @@ int count = 0;
     notFoundView.hidden = true;
     loadView.hidden = false;
     resultButtonView.hidden=TRUE;
+        if(!costLocked && !categoryLocked && !suburbLocked){
+            allUnlocked = true;
+        }else{
+            allUnlocked = false;
+        }
     //[NSThread sleepForTimeInterval:3.0];
     dispatch_queue_t concurrentQueue =
     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -251,7 +257,7 @@ int count = 0;
             NSLog(@"did not work!");
         }
         
-        if([listingsListString count]==0 && count<15){
+        if([listingsListString count]==0 && (count<15 || allUnlocked)){
             NSLog(@"%i",count);
             count++;
             [self feelingAdventurous:feelAdvBtn];
@@ -368,9 +374,9 @@ int count = 0;
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
                 count = 0;
-                spinned = true;
+                //spinned = true;
                 NSLog(@"%@", result.title);
-            }else if([listingsList count]==0 && count==15){
+            }else if([listingsList count]==0 && count==15 && !allUnlocked){
                 loadView.hidden=true;
                 notFoundView.hidden = false;
                 [feelAdvBtn setEnabled:TRUE];
@@ -385,7 +391,7 @@ int count = 0;
                 [alert show];
 
                 count = 0;
-                spinned = true;
+                //spinned = true;
 
             }
             
