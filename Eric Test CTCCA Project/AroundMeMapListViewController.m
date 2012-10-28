@@ -215,34 +215,37 @@
     //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-//    if([listingsListString count]==0){
-//        NSDate *todaysDate = [NSDate date];
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-//        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//        NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
-//        NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
-//
-//        NSURL *url = [[NSURL alloc] initWithString:urlString];
-//        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-//    
-//    
-//        [xmlParser setDelegate:self];
-//    
-//        BOOL worked = [xmlParser parse];
-//    
-//        if(worked) {
-//            NSLog(@"Amount %i", [listingsListString count]);
-//        }
-//        else
-//        {
-//            NSLog(@"did not work!");
-//        }
-//    
-//    }
+    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     listingsListString= appDelegate.listingsListString;
     listingsList = [[NSMutableArray alloc] init];
+    
+    if([listingsListString count]==0){
+        NSDate *todaysDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateStrToday = [dateFormatter stringFromDate:todaysDate];
+        NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/AroundMe.php?today=%@",dateStrToday];
+
+        NSURL *url = [[NSURL alloc] initWithString:urlString];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    
+        [xmlParser setDelegate:self];
+    
+        BOOL worked = [xmlParser parse];
+    
+        if(worked) {
+            NSLog(@"Amount %i", [listingsListString count]);
+        }
+        else
+        {
+            NSLog(@"did not work!");
+        }
+    
+    }
+    
     
     for (ListingString *listingStringElement in listingsListString) {
         
