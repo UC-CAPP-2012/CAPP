@@ -32,8 +32,9 @@
     IBOutlet UIView *detailedView;
     IBOutlet UITableView *itineraryList;
     IBOutlet UIButton *ListingViewButton;
-    IBOutlet UITextView *desciptionView;
     IBOutlet UILabel *AddressLabel;
+    
+    NSMutableArray *Cost;
     
     IBOutlet UILabel *DetailLabel;
     IBOutlet UILabel *TitleLabel;

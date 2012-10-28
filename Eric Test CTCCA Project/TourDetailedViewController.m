@@ -36,6 +36,16 @@
 - (void)viewDidLoad
 {
     [super setTitle:currentTour.TourName];
+    
+    Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
+
+    
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     [super viewDidLoad];
@@ -61,16 +71,14 @@
 
     if (segmentController.selectedSegmentIndex == 0) {
         [detailedView bringSubviewToFront:infoBox];
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<strong style='color: #1b4583;'>Cost:</strong> %@<p><strong style='color: #1b4583;'>Tour Agent:</strong> %@</p><p><strong style='color: #1b4583;'>Phone:</strong>%@</p><p><strong style='color: #1b4583;'>Website:</strong> %@</p><p><strong style='color: #1b4583;'>Email:</strong>%@</p>",currentTour.TourCost,currentTour.TourAgent, currentTour.TourPhone, [currentTour.TourWebsite absoluteString], currentTour.TourEmail] baseURL:nil];
+        NSString *content = [NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Cost:</strong> %@<p><strong style='color: #1b4583;'>Tour Agent:</strong> %@</p><p><strong style='color: #1b4583;'>Description</strong>%@</p>", currentTour.TourName, [Cost objectAtIndex:[currentTour.TourCost intValue]],currentTour.TourAgent, [currentTour.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"]];
+        NSLog(@"%@",currentTour.TourDetail);
+        [infoBox loadHTMLString:content baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
         
     }
     if (segmentController.selectedSegmentIndex == 1) {
-        [detailedView bringSubviewToFront:desciptionView];
-        desciptionView.text = currentTour.TourDetail;
-    }
-    if (segmentController.selectedSegmentIndex == 2) {
         [detailedView bringSubviewToFront:itineraryList];
     }
     pageControl.currentPage=0;

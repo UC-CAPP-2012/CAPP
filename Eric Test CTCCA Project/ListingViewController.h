@@ -38,6 +38,7 @@
     IBOutlet UISegmentedControl *segmentController;
 
     NSMutableArray *favData;
+    NSMutableArray *Cost;
     
     IBOutlet UIBarItem *favButton;
     ListingString *theList;

@@ -60,6 +60,14 @@
     switchMapView.hidden=true;
     [super setTitle:currentListing.title];
     
+    Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
+    
     NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
         favButton.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
@@ -145,7 +153,7 @@
 -(IBAction)segmentButton:(id)sender{
     
     if (segmentController.selectedSegmentIndex == 0) {
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p><p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p><p><strong style='color: #1b4583;'>Address:</strong>%@</p><p><strong style='color: #1b4583;'>Phone:</strong> %@</p><p><strong style='color: #1b4583;'>Website:</strong> %@</p><p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.subType,currentListing.costType,currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p><p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p><p><strong style='color: #1b4583;'>Address:</strong>%@</p><p><strong style='color: #1b4583;'>Phone:</strong> %@</p><p><strong style='color: #1b4583;'>Website:</strong> %@</p><p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]],currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
  
