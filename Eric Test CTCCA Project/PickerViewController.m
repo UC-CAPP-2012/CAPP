@@ -47,13 +47,15 @@ bool allUnlocked = true;
     spinned=false;
     alert = NO;
     SubType = [[NSMutableArray alloc] init];
-    [SubType addObject:@"Entertainment"];
-    [SubType addObject:@"Accomodation"];
-    [SubType addObject:@"Sport"];
-    [SubType addObject:@"Outdoor and Nature"];
-    [SubType addObject:@"Family Fun"];
+    
     [SubType addObject:@"Food and Wine"];
+    [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Cultural"];
+    [SubType addObject:@"Shopping"];
+    [SubType addObject:@"Accomodation"];
+    [SubType addObject:@"Outdoor"];
+    [SubType addObject:@"Family Fun"];
+    [SubType addObject:@"Sport"];
     
     Area =[[NSMutableArray alloc] init];
     [Area addObject:@"Gungahlin"];
@@ -266,7 +268,7 @@ bool allUnlocked = true;
             NSLog(@"did not work!");
         }
         
-        if([listingsListString count]==0 && (count<15 || allUnlocked)){
+        if([listingsListString count]==0 && (count<20 || allUnlocked)){
             NSLog(@"%i",count);
             count++;
             [self feelingAdventurous];

@@ -17,8 +17,8 @@
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath;
 @end
 
-int currentLimit = 1;
-int limit = 1;
+int currentLimit = 10;
+int limit = 10;
 int numOfNews = 0;
 @implementation BlabberViewController
 PullToRefreshView *pull;

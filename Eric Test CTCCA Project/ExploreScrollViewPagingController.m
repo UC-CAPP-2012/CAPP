@@ -44,29 +44,48 @@
 {
     typeDataSource = [[NSMutableArray alloc] init];
     
-    MainTypeClass *type = [[MainTypeClass alloc] init]; // I Think the leak is here..
+    MainTypeClass *type = [[MainTypeClass alloc] init];
     type.typeID = @"1";
+    type.typeName = @"All";
+    type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+    [typeDataSource addObject:type];
+
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"1";
+    type.typeName = @"Food and Wine";
+    type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+    [typeDataSource addObject:type];
+    
+    
+    type = [[MainTypeClass alloc] init]; // I Think the leak is here..
+    type.typeID = @"2";
     type.typeName = @"Entertainment";
     type.imageID = [UIImage imageNamed:@"Entertainment_Large.png"];
     [typeDataSource addObject:type];
     
-    MainTypeClass *type2 = [[MainTypeClass alloc] init];
-    type2.typeID = @"2";
-    type2.typeName = @"Accommodation";
-    type2.imageID = [UIImage imageNamed:@"Accommodation_Large.png"];
-    [typeDataSource addObject:type2];
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"3";
+    type.typeName = @"Cultural";
+    type.imageID = [UIImage imageNamed:@"Cultural_Large.png"];
+    [typeDataSource addObject:type];
     
-    MainTypeClass *type3 = [[MainTypeClass alloc] init];
-    type3.typeID = @"3";
-    type3.typeName = @"Sport";
-    type3.imageID = [UIImage imageNamed:@"Sport_Large.png"];
-    [typeDataSource addObject:type3];
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"4";
+    type.typeName = @"Shopping";
+    type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+    [typeDataSource addObject:type];
     
-    MainTypeClass *type4 = [[MainTypeClass alloc] init];
-    type4.typeID = @"4";
-    type4.typeName = @"Outdoor and Nature";
-    type4.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
-    [typeDataSource addObject:type4];
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"5";
+    type.typeName = @"Accommodation";
+    type.imageID = [UIImage imageNamed:@"Accommodation_Large.png"];
+    [typeDataSource addObject:type];
+    
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"6";
+    type.typeName = @"Outdoor";
+    type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+    [typeDataSource addObject:type];
     
     //MainTypeClass *type5 = [[MainTypeClass alloc] init];
     //type5.typeID = @"5";
@@ -74,23 +93,19 @@
     //type5.imageID = [UIImage imageNamed:@"sgaw.jpg"];
     //[typeDataSource addObject:type5];
     
-    MainTypeClass *type6 = [[MainTypeClass alloc] init];
-    type6.typeID = @"6";
-    type6.typeName = @"Family Fun";
-    type6.imageID = [UIImage imageNamed:@"Family_Large.png"];
-    [typeDataSource addObject:type6];
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"7";
+    type.typeName = @"Family Fun";
+    type.imageID = [UIImage imageNamed:@"Family_Large.png"];
+    [typeDataSource addObject:type];
     
-    MainTypeClass *type7 = [[MainTypeClass alloc] init];
-    type7.typeID = @"7";
-    type7.typeName = @"Food and Wine";
-    type7.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
-    [typeDataSource addObject:type7];
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"8";
+    type.typeName = @"Sport";
+    type.imageID = [UIImage imageNamed:@"Sport_Large.png"];
+    [typeDataSource addObject:type];
     
-    MainTypeClass *type8 = [[MainTypeClass alloc] init];
-    type8.typeID = @"8";
-    type8.typeName = @"Cultural";
-    type8.imageID = [UIImage imageNamed:@"Cultural_Large.png"];
-    [typeDataSource addObject:type8];
+    
     
     scrollView.clipsToBounds = NO;
     scrollView.pagingEnabled = YES;
