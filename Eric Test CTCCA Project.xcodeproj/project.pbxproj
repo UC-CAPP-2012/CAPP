@@ -56,8 +56,8 @@
 		6987B06216060F1600CA4F3E /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6987B06016060C2600CA4F3E /* SideSwipeTableViewCell.m */; };
 		69894FF6163C402C00DABD78 /* thumbs_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69894FF5163C402B00DABD78 /* thumbs_down@2x.png */; };
 		69894FF7163C402C00DABD78 /* thumbs_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69894FF5163C402B00DABD78 /* thumbs_down@2x.png */; };
-		698B283A163A4BBC0076189C /* Accomodation_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2834163A4BBC0076189C /* Accomodation_Large.png */; };
-		698B283B163A4BBC0076189C /* Accomodation_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2834163A4BBC0076189C /* Accomodation_Large.png */; };
+		698B283A163A4BBC0076189C /* Accommodation_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2834163A4BBC0076189C /* Accommodation_Large.png */; };
+		698B283B163A4BBC0076189C /* Accommodation_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2834163A4BBC0076189C /* Accommodation_Large.png */; };
 		698B283C163A4BBC0076189C /* Cultural_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2835163A4BBC0076189C /* Cultural_Large.png */; };
 		698B283D163A4BBC0076189C /* Cultural_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2835163A4BBC0076189C /* Cultural_Large.png */; };
 		698B283E163A4BBC0076189C /* Family_Large.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2836163A4BBC0076189C /* Family_Large.png */; };
@@ -259,7 +259,7 @@
 		6987B05F16060C2600CA4F3E /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideSwipeTableViewCell.h; sourceTree = "<group>"; };
 		6987B06016060C2600CA4F3E /* SideSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideSwipeTableViewCell.m; sourceTree = "<group>"; };
 		69894FF5163C402B00DABD78 /* thumbs_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbs_down@2x.png"; sourceTree = "<group>"; };
-		698B2834163A4BBC0076189C /* Accomodation_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Accomodation_Large.png; sourceTree = "<group>"; };
+		698B2834163A4BBC0076189C /* Accommodation_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Accommodation_Large.png; sourceTree = "<group>"; };
 		698B2835163A4BBC0076189C /* Cultural_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cultural_Large.png; sourceTree = "<group>"; };
 		698B2836163A4BBC0076189C /* Family_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Family_Large.png; sourceTree = "<group>"; };
 		698B2837163A4BBC0076189C /* FoodandWine_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FoodandWine_Large.png; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 		699B933015496610005A9C5B /* Listing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Listing.m; sourceTree = "<group>"; };
 		69A34813154D791E00F7FF2F /* ListingString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingString.h; sourceTree = "<group>"; };
 		69A34814154D791E00F7FF2F /* ListingString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingString.m; sourceTree = "<group>"; };
-		69A598421520843F00BDA150 /* Eric Test CTCCA Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eric Test CTCCA Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69A598421520843F00BDA150 /* Capp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A598461520843F00BDA150 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69A598481520843F00BDA150 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69A5984A1520843F00BDA150 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -323,7 +323,7 @@
 		69A598591520844000BDA150 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		69A5985B1520844000BDA150 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		69A5985C1520844000BDA150 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		69A598631520844000BDA150 /* Eric Test CTCCA ProjectTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Eric Test CTCCA ProjectTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69A598631520844000BDA150 /* CApp.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CApp.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A598641520844000BDA150 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		69A5986C1520844000BDA150 /* Eric Test CTCCA ProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Eric Test CTCCA ProjectTests-Info.plist"; sourceTree = "<group>"; };
 		69A5986E1520844000BDA150 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -681,8 +681,8 @@
 		69A598431520843F00BDA150 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69A598421520843F00BDA150 /* Eric Test CTCCA Project.app */,
-				69A598631520844000BDA150 /* Eric Test CTCCA ProjectTests.octest */,
+				69A598421520843F00BDA150 /* Capp.app */,
+				69A598631520844000BDA150 /* CApp.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -822,7 +822,7 @@
 		69FAAD1C15370741006441FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				698B2834163A4BBC0076189C /* Accomodation_Large.png */,
+				698B2834163A4BBC0076189C /* Accommodation_Large.png */,
 				698B2835163A4BBC0076189C /* Cultural_Large.png */,
 				698B2836163A4BBC0076189C /* Family_Large.png */,
 				698B2837163A4BBC0076189C /* FoodandWine_Large.png */,
@@ -863,7 +863,7 @@
 			);
 			name = "Eric Test CTCCA Project";
 			productName = "Eric Test CTCCA Project";
-			productReference = 69A598421520843F00BDA150 /* Eric Test CTCCA Project.app */;
+			productReference = 69A598421520843F00BDA150 /* Capp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		69A598621520844000BDA150 /* Eric Test CTCCA ProjectTests */ = {
@@ -882,7 +882,7 @@
 			);
 			name = "Eric Test CTCCA ProjectTests";
 			productName = "Eric Test CTCCA ProjectTests";
-			productReference = 69A598631520844000BDA150 /* Eric Test CTCCA ProjectTests.octest */;
+			productReference = 69A598631520844000BDA150 /* CApp.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -953,7 +953,7 @@
 				699739DF1638CDDB002B1873 /* Topbar_Green.png in Resources */,
 				699739E31638CF01002B1873 /* Audio_Icon_Small.png in Resources */,
 				699739E51638CF01002B1873 /* Movies_Icon_Small.png in Resources */,
-				698B283A163A4BBC0076189C /* Accomodation_Large.png in Resources */,
+				698B283A163A4BBC0076189C /* Accommodation_Large.png in Resources */,
 				698B283C163A4BBC0076189C /* Cultural_Large.png in Resources */,
 				698B283E163A4BBC0076189C /* Family_Large.png in Resources */,
 				698B2840163A4BBC0076189C /* FoodandWine_Large.png in Resources */,
@@ -998,7 +998,7 @@
 				699739E01638CDDB002B1873 /* Topbar_Green.png in Resources */,
 				699739E41638CF01002B1873 /* Audio_Icon_Small.png in Resources */,
 				699739E61638CF01002B1873 /* Movies_Icon_Small.png in Resources */,
-				698B283B163A4BBC0076189C /* Accomodation_Large.png in Resources */,
+				698B283B163A4BBC0076189C /* Accommodation_Large.png in Resources */,
 				698B283D163A4BBC0076189C /* Cultural_Large.png in Resources */,
 				698B283F163A4BBC0076189C /* Family_Large.png in Resources */,
 				698B2841163A4BBC0076189C /* FoodandWine_Large.png in Resources */,
@@ -1217,7 +1217,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA Project/Eric Test CTCCA Project-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Capp;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1232,7 +1232,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA Project/Eric Test CTCCA Project-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Capp;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1250,7 +1250,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA ProjectTests/Eric Test CTCCA ProjectTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CApp;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1268,7 +1268,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Eric Test CTCCA Project/Eric Test CTCCA Project-Prefix.pch";
 				INFOPLIST_FILE = "Eric Test CTCCA ProjectTests/Eric Test CTCCA ProjectTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CApp;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
