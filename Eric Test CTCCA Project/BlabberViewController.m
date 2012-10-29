@@ -17,6 +17,9 @@
 - (void)startIconDownload:(News *)news forIndexPath:(NSIndexPath *)indexPath;
 @end
 
+int currentLimit = 1;
+int limit = 1;
+int numOfNews = 0;
 @implementation BlabberViewController
 PullToRefreshView *pull;
 @synthesize newsListString, newsListingsList, newsListingTable;
@@ -41,7 +44,7 @@ PullToRefreshView *pull;
     [tableView reloadData];
     
     [loadView removeFromSuperview];
-    
+    loadMoreView.hidden = false;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -51,7 +54,10 @@ PullToRefreshView *pull;
 - (void)viewDidLoad
 {
     [super setTitle:@"blabber"];
-    
+    numOfNews = 0;
+    currentLimit=limit;
+    loadMoreView.hidden = true;
+    loadMoreIndicator.hidden = true;
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 	//searchBar.delegate = (id)self;
@@ -89,7 +95,7 @@ PullToRefreshView *pull;
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
 //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Blabber.php?limit=%i",10];
+    NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Blabber.php?limit=%i",currentLimit];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
@@ -161,6 +167,13 @@ PullToRefreshView *pull;
     
     NSDictionary *sectionDict = @{@"News": section};
     [newsListingTable addObject:sectionDict];
+    if(numOfNews==[newsListingsList count]){
+        loadMorebtn.hidden = true;
+        loadMoreIndicator.hidden = true;
+    }
+    else{
+        numOfNews = [newsListingsList count];
+    }
 }
 
 
@@ -467,4 +480,19 @@ PullToRefreshView *pull;
 }
 
 
+- (IBAction)loadMoreNews:(id)sender {
+    currentLimit +=limit;
+    loadMoreIndicator.hidden = false;
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(concurrentQueue, ^(void){
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupArray];
+            [tableView reloadData];
+    loadMoreIndicator.hidden = true;
+        });
+    });
+}
 @end

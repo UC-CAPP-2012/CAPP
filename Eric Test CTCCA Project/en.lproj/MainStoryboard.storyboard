@@ -1528,6 +1528,39 @@
                                         <outlet property="delegate" destination="MTQ-iJ-PnL" id="9CD-OY-wqo"/>
                                     </connections>
                                 </searchBar>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="clc-ht-ab3">
+                                    <rect key="frame" x="0.0" y="445" width="320" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="There are no more news to load." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dfO-So-uzo">
+                                            <rect key="frame" x="35" y="7" width="250" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="m6D-NW-6cZ">
+                                            <rect key="frame" x="35" y="7" width="250" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Load More">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="loadMoreNews:" destination="MTQ-iJ-PnL" eventType="touchUpInside" id="PPT-lt-Cp2"/>
+                                            </connections>
+                                        </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="0HP-3N-QP5">
+                                            <rect key="frame" x="93" y="19" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" rowHeight="134" id="C4A-2S-1mi">
                                         <rect key="frame" x="0.0" y="66" width="320" height="134"/>
@@ -1594,6 +1627,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="loadMoreIndicator" destination="0HP-3N-QP5" id="vTu-5q-NIL"/>
+                        <outlet property="loadMoreView" destination="clc-ht-ab3" id="2rg-cW-dnc"/>
+                        <outlet property="loadMorebtn" destination="m6D-NW-6cZ" id="9Ge-Cj-ILI"/>
                         <outlet property="loadView" destination="CBM-XW-6HH" id="68P-d9-dSi"/>
                         <outlet property="searchBar" destination="Q7V-5X-3Bh" id="SHr-Yc-6FE"/>
                         <outlet property="tableView" destination="qhJ-Wz-CJ7" id="1pS-4l-m4U"/>
@@ -2375,33 +2411,33 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="7PJ-v8-3u9">
                                 <rect key="frame" x="30" y="93" width="89" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" minimumFontSize="12" id="H5P-S2-aQH">
                                 <rect key="frame" x="30" y="179" width="55" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Postcode" lineBreakMode="tailTruncation" minimumFontSize="12" id="KEn-Un-E07">
                                 <rect key="frame" x="32" y="218" width="72" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Hms-nP-gIt">
-                                <rect key="frame" x="4" y="273" width="79" height="27"/>
+                                <rect key="frame" x="4" y="285" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.49999999999999961" height="0.49999999999999961"/>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Yes, I would like to receive marketing messages from The Canberra Times" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="6" id="I8y-Hv-iGy">
-                                <rect key="frame" x="84" y="259" width="236" height="50"/>
+                                <rect key="frame" x="84" y="273" width="236" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2420,10 +2456,10 @@
                                     <action selector="Subscribe:" destination="zSa-LM-ckU" eventType="touchUpInside" id="AmY-yI-4UB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Last Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="byw-aH-98G">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Surname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="byw-aH-98G">
                                 <rect key="frame" x="30" y="133" width="89" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2437,14 +2473,14 @@
                                 </connections>
                             </textField>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your email is invalid. Please try again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UvF-eq-4Ba">
-                                <rect key="frame" x="20" y="307" width="280" height="21"/>
+                                <rect key="frame" x="20" y="332" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view alpha="0.60000002384185791" contentMode="scaleToFill" id="3Ne-Oq-Prm" userLabel="LoadView">
-                                <rect key="frame" x="96" y="289" width="129" height="64"/>
+                                <rect key="frame" x="96" y="304" width="129" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="UPi-Ra-ZAY" userLabel="Large White Activity Indicator">
@@ -2769,6 +2805,10 @@
         <class className="BlabberViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BlabberViewController.h"/>
             <relationships>
+                <relationship kind="action" name="loadMoreNews:"/>
+                <relationship kind="outlet" name="loadMoreIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="loadMoreView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="loadMorebtn" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
