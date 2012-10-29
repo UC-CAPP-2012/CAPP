@@ -524,7 +524,7 @@
                                             <action selector="loved:" destination="Wap-Q8-rd9" id="M9i-1Q-XXb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="About CAPP" width="151" style="plain" id="xL5-9R-E3d">
+                                    <barButtonItem title="About" width="151" style="plain" id="xL5-9R-E3d">
                                         <color key="tintColor" red="0.094117656350135803" green="0.08235294371843338" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <connections>
                                             <action selector="myTrial:" destination="Wap-Q8-rd9" id="AP1-Ax-U20"/>
