@@ -50,7 +50,9 @@
         Subscribe = @"0";
     }
     
-    if([self NSStringIsValidEmail:Email] && ![FirstName isEqualToString:@""] && ![LastName isEqualToString:@""] && ![PostCode isEqualToString:@""] && ![Email isEqualToString:@""] && [PostCode length]==4){
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    
+    if([self NSStringIsValidEmail:Email] && ![FirstName isEqualToString:@""] && ![LastName isEqualToString:@""] && ![PostCode isEqualToString:@""] && ![Email isEqualToString:@""] && [PostCode length]==4 && [PostCode rangeOfCharacterFromSet:notDigits].location == NSNotFound){
         loadView.hidden=FALSE;
         dispatch_queue_t concurrentQueue =
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -99,6 +101,15 @@
         }
         if([PostCode length]!=4){
             errorMsg.text=@"Postcode is invalid. Please try again.";
+            errorMsg.hidden=FALSE;
+        }
+        if([PostCode rangeOfCharacterFromSet:notDigits].location != NSNotFound){
+            errorMsg.text=@"Postcode is invalid. Please try again.";
+            errorMsg.hidden=FALSE;
+        }
+            
+        if([FirstName isEqualToString:@""] && [LastName isEqualToString:@""] && [Email isEqualToString:@""] && [PostCode isEqualToString:@""]){
+            errorMsg.text=@"All fields are required. Please try again.";
             errorMsg.hidden=FALSE;
         }
     }
@@ -158,7 +169,7 @@
         [self skipScreen];
     }
     else {
-        spashScreen.hidden = TRUE;
+        splash.hidden = TRUE;
     }
     
 }
@@ -167,10 +178,10 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([textField.text length] > 4-1) {
-        textField.text = [textField.text substringToIndex:4];
-        return NO;
-    }
+//    if ([textField.text length] > 4-1) {
+//        textField.text = [textField.text substringToIndex:4];
+//        return NO;
+//    }
     return YES;
 }
 

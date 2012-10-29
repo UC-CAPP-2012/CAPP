@@ -12,9 +12,10 @@
 {
     
     NSTimer *ActivityTimer;
-    IBOutlet UIImageView *spashScreen;
+
     IBOutlet UILabel *errorMsg;
     
+    IBOutlet UIView *splash;
     IBOutlet UIView *loadView;
     ListingString *theList;
     NSMutableString *currentElementValue;

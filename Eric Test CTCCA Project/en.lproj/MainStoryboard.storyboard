@@ -2346,22 +2346,6 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="KZZ-I1-OCx">
-                                <rect key="frame" x="-1" y="0.0" width="321" height="460"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="splash.png" id="ccy-6t-iDE">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="G0L-vT-yHw" userLabel="Large White Activity Indicator">
-                                        <rect key="frame" x="150" y="307" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logon_bg.png" id="ZeQ-Zj-hLf">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2379,12 +2363,12 @@
                                 <rect key="frame" x="122" y="171" width="164" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                                 <connections>
                                     <action selector="DismissKeyboard:" destination="zSa-LM-ckU" eventType="editingDidEndOnExit" id="CP5-ix-hzt"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1234" minimumFontSize="17" id="8AQ-yy-VH2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1234" minimumFontSize="17" clearButtonMode="whileEditing" id="8AQ-yy-VH2">
                                 <rect key="frame" x="124" y="214" width="164" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2415,12 +2399,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Hms-nP-gIt">
-                                <rect key="frame" x="4" y="262" width="79" height="27"/>
+                                <rect key="frame" x="4" y="273" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.49999999999999961" height="0.49999999999999961"/>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Yes, I would like to receive marketing messages from The Canberra Times" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="6" id="I8y-Hv-iGy">
-                                <rect key="frame" x="84" y="249" width="236" height="50"/>
+                                <rect key="frame" x="84" y="259" width="236" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2458,7 +2442,7 @@
                                 </connections>
                             </textField>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your email is invalid. Please try again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UvF-eq-4Ba">
-                                <rect key="frame" x="30" y="307" width="256" height="21"/>
+                                <rect key="frame" x="20" y="307" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2471,6 +2455,7 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="UPi-Ra-ZAY" userLabel="Large White Activity Indicator">
                                         <rect key="frame" x="53" y="21" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Processing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="djY-Bd-uSK">
                                         <rect key="frame" x="14" y="43" width="102" height="21"/>
@@ -2481,6 +2466,22 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="KZZ-I1-OCx">
+                                <rect key="frame" x="-1" y="0.0" width="321" height="460"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="splash.png" id="ccy-6t-iDE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="G0L-vT-yHw" userLabel="Large White Activity Indicator">
+                                        <rect key="frame" x="150" y="307" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2494,7 +2495,7 @@
                         <outlet property="SubscribeYesNo" destination="Hms-nP-gIt" id="8p7-Js-K3Y"/>
                         <outlet property="errorMsg" destination="UvF-eq-4Ba" id="Z8q-Dk-MOG"/>
                         <outlet property="loadView" destination="3Ne-Oq-Prm" id="iiX-a7-nBw"/>
-                        <outlet property="spashScreen" destination="ccy-6t-iDE" id="Uc1-Wc-foR"/>
+                        <outlet property="splash" destination="KZZ-I1-OCx" id="B6n-hz-jYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLa-7A-28u" sceneMemberID="firstResponder"/>
@@ -2959,7 +2960,7 @@
                 <relationship kind="outlet" name="SubscribeYesNo" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="errorMsg" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="spashScreen" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="splash" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="TourDetailedViewController" superclassName="UIViewController">
