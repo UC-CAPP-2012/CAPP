@@ -929,7 +929,7 @@ PullToRefreshView *pull;
         sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
     }
     
-    UIImage* imageheart = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
+    UIImage* imageheart = [UIImage imageNamed:@"thumbs_up@2x.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
     NSDictionary *dictionary;
     if (sortSel == 0) { // allphabetically.
@@ -1189,8 +1189,8 @@ PullToRefreshView *pull;
      [favData writeToFile:yourArrayFileName atomically:YES];
     [((UIButton*)sender) setImage:nil forState:UIControlStateNormal];
     [((UIButton*)sender) setImage:nil forState:UIControlStateSelected];
-    [((UIButton*)sender) setImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateNormal];
-    [((UIButton*)sender) setImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateSelected];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_up@2x.png"] forState:UIControlStateNormal];
+    [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_up@2x.png"] forState:UIControlStateSelected];
 //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateApplication];
 //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateDisabled];
 //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateHighlighted];

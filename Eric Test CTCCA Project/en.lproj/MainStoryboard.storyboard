@@ -738,7 +738,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="feelingAdventurous:" destination="NLi-dI-DCd" eventType="touchDown" id="RKC-R5-9VV"/>
+                                    <action selector="feelingAdv:" destination="NLi-dI-DCd" eventType="touchUpInside" id="xk9-7F-suP"/>
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" id="Cp5-bX-4UY">
@@ -1398,27 +1398,22 @@
                                             <action selector="home:" destination="fC4-5Y-cLX" id="0rU-0J-9Ad"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="70-tv.png" width="46" style="plain" id="F2D-II-fOw">
-                                        <connections>
-                                            <action selector="viewWebsite:" destination="fC4-5Y-cLX" id="eYX-mW-tML"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="Facebook_Icon_Small.png" width="47" style="plain" id="ew3-M9-NI2">
+                                    <barButtonItem image="Facebook_Icon_Small.png" width="66" style="plain" id="ew3-M9-NI2">
                                         <connections>
                                             <action selector="shareWebsite:" destination="fC4-5Y-cLX" id="cQd-Pd-gTo"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="Calendar_Icon_Small.png" width="42" style="plain" id="flD-GU-g4q">
+                                    <barButtonItem image="Calendar_Icon_Small.png" width="58" style="plain" id="flD-GU-g4q">
                                         <connections>
                                             <action selector="addToCalendar:" destination="fC4-5Y-cLX" id="plk-ld-oxt"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="Mail_Icon_Small.png" style="plain" id="4Qa-xk-huJ">
+                                    <barButtonItem image="Mail_Icon_Small.png" width="37" style="plain" id="4Qa-xk-huJ">
                                         <connections>
                                             <action selector="email:" destination="fC4-5Y-cLX" id="6EF-IK-YXf"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="Favourites_Icon_Small.png" width="52" style="plain" id="VCy-rC-rkd">
+                                    <barButtonItem image="thumbs_up@2x.png" width="52" style="plain" id="VCy-rC-rkd">
                                         <connections>
                                             <action selector="addToFavourties:" destination="fC4-5Y-cLX" id="tJf-a7-1aQ"/>
                                         </connections>
@@ -2701,7 +2696,6 @@
     </scenes>
     <resources>
         <image name="179-notepad.png" width="16" height="16"/>
-        <image name="70-tv.png" width="24" height="24"/>
         <image name="73-radar.png" width="16" height="16"/>
         <image name="AroundMe.png" width="250" height="250"/>
         <image name="Arrow-Left.png" width="48" height="48"/>
@@ -2712,7 +2706,6 @@
         <image name="Calendar_Icon_Small.png" width="32" height="32"/>
         <image name="Explore.png" width="250" height="250"/>
         <image name="Facebook_Icon_Small.png" width="32" height="32"/>
-        <image name="Favourites_Icon_Small.png" width="32" height="32"/>
         <image name="Happenings.png" width="250" height="250"/>
         <image name="HomeIcon.png" width="30" height="32"/>
         <image name="Jaunts.png" width="250" height="250"/>
@@ -2727,6 +2720,7 @@
         <image name="logon_bg.png" width="640" height="960"/>
         <image name="logon_btn.png" width="534" height="66"/>
         <image name="splash.png" width="640" height="960"/>
+        <image name="thumbs_up@2x.png" width="32" height="32"/>
     </resources>
     <classes>
         <class className="AroundMeMapListViewController" superclassName="UIViewController">
@@ -2928,7 +2922,7 @@
         <class className="PickerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PickerViewController.h"/>
             <relationships>
-                <relationship kind="action" name="feelingAdventurous:"/>
+                <relationship kind="action" name="feelingAdv:"/>
                 <relationship kind="action" name="goToListing:"/>
                 <relationship kind="action" name="lockUnlockCategory:"/>
                 <relationship kind="action" name="lockUnlockCost:"/>

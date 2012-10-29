@@ -45,12 +45,14 @@
 
 @property(nonatomic, strong) NSMutableArray *listingsList, *listingsListString;
 
+- (IBAction)feelingAdv:(id)sender;
 
--(IBAction)feelingAdventurous:(id)sender;
+-(void)feelingAdventurous;
 - (IBAction)goToListing:(id)sender;
 -(void)spin;
 @property BOOL categoryLocked;
 @property BOOL suburbLocked;
 @property BOOL costLocked;
 @property BOOL spinned;
+@property BOOL alert;
 @end

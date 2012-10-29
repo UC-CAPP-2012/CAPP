@@ -19,7 +19,7 @@ bool allUnlocked = true;
 @implementation PickerViewController
 
 @synthesize listingsList, listingsListString;
-@synthesize categoryLocked,suburbLocked,costLocked,spinned;
+@synthesize categoryLocked,suburbLocked,costLocked,spinned, alert;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,6 +45,7 @@ bool allUnlocked = true;
     [super setTitle:@"spinwheel"];
     [super viewDidLoad];
     spinned=false;
+    alert = NO;
     SubType = [[NSMutableArray alloc] init];
     [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Accomodation"];
@@ -186,8 +187,16 @@ bool allUnlocked = true;
     //stop and hide animating image
 }
 
--(void)feelingAdventurous:(id)sender  // Control for Map View Button to Listing Detail View   
+- (IBAction)feelingAdv:(id)sender {
+    count=0;
+    alert = NO;
+    [self feelingAdventurous];
+}
+
+-(void)feelingAdventurous  // Control for Map View Button to Listing Detail View   
 {
+    
+    
     if(spinned==NO){
     [feelAdvBtn setEnabled:false];
     [catLock setEnabled:false];
@@ -260,7 +269,7 @@ bool allUnlocked = true;
         if([listingsListString count]==0 && (count<15 || allUnlocked)){
             NSLog(@"%i",count);
             count++;
-            [self feelingAdventurous:feelAdvBtn];
+            [self feelingAdventurous];
         }
         
         listingsList = [[NSMutableArray alloc] init];
@@ -373,7 +382,7 @@ bool allUnlocked = true;
                 [catLock setEnabled:TRUE];
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
-                count = 0;
+                //count = 0;
                 //spinned = true;
                 NSLog(@"%@", result.title);
             }else if([listingsList count]==0 && count==15 && !allUnlocked){
@@ -383,14 +392,16 @@ bool allUnlocked = true;
                 [catLock setEnabled:TRUE];
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                                 message:@"There aren't any places found like that.  Unlink and try again."
                                                                delegate:nil
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles: nil];
-                [alert show];
-
-                count = 0;
+                if(alert==NO){
+                    [alertBox show];
+                    alert = YES;
+                }
+                //count = 0;
                 //spinned = true;
 
             }
