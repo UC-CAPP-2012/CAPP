@@ -34,8 +34,10 @@ PullToRefreshView *pull;
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    
-    [self setupArray];
+    if([tourListingsList count]==0)
+    {
+        [self setupArray];
+    }
     [tableView reloadData];
     loadView.hidden = YES;
 }

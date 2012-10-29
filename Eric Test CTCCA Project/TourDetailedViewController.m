@@ -33,6 +33,8 @@
     if([listingsList count]==0){
         [self setupItineraryTable];
     }
+    [itineraryList reloadData];
+    [self setupPictures];
 }
 
 - (void)viewDidLoad
@@ -85,7 +87,7 @@
     }
     pageControl.currentPage=0;
     [self setupArray];
-    [self setupPictures];
+    
 
 }
 
@@ -104,7 +106,10 @@
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
 //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
+    dispatch_async(concurrentQueue, ^(void){
     //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
     NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/TourLocations.php?tour=%@",currentTour.TourID];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -222,13 +227,14 @@
         [mapView addAnnotation:currListing];
     }
     
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
     listingTable = [[NSMutableArray alloc] init];
     NSMutableArray *section = [[NSMutableArray alloc] initWithArray:listingsList];
     NSDictionary *sectionDict = @{@"Itinenary": section};
     [listingTable addObject:sectionDict];
     [itineraryList reloadData];
-    
+    });
+    });
 }
 
 -(void)setupMap
