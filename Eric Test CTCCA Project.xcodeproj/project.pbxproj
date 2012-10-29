@@ -11,8 +11,6 @@
 		65EE8B251625C7A300D4C1A3 /* TourString.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B241625C7A300D4C1A3 /* TourString.m */; };
 		65EE8B281625C7AD00D4C1A3 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B271625C7AD00D4C1A3 /* Location.m */; };
 		65EE8B2B1625C7BA00D4C1A3 /* LocationString.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE8B2A1625C7BA00D4C1A3 /* LocationString.m */; };
-		65EE8B2E1625CCE400D4C1A3 /* tour.xml in Resources */ = {isa = PBXBuildFile; fileRef = 65EE8B2C1625CCE400D4C1A3 /* tour.xml */; };
-		65EE8B2F1625CCE400D4C1A3 /* location.xml in Resources */ = {isa = PBXBuildFile; fileRef = 65EE8B2D1625CCE400D4C1A3 /* location.xml */; };
 		690CB71A154022B600C729C0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 690CB719154022B600C729C0 /* EventKit.framework */; };
 		690CB71C154022BC00C729C0 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 690CB71B154022BC00C729C0 /* EventKitUI.framework */; };
 		690CB7201540433B00C729C0 /* 08-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 690CB71F1540433B00C729C0 /* 08-chat.png */; };
@@ -132,7 +130,6 @@
 		699A99F8163034B200AFDE79 /* complete-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 699A99F6163034B200AFDE79 /* complete-logo.png */; };
 		699A9A0216338FB600AFDE79 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 699A9A0116338FB600AFDE79 /* MessageUI.framework */; };
 		699B92E71545481B005A9C5B /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B92E61545481B005A9C5B /* HomePageViewController.m */; };
-		699B9311154817BE005A9C5B /* TourMapListRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B9310154817BE005A9C5B /* TourMapListRouteViewController.m */; };
 		699B93181548202C005A9C5B /* BlabberStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B93171548202C005A9C5B /* BlabberStoryViewController.m */; };
 		699B931C15482521005A9C5B /* MainTypeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B931B15482521005A9C5B /* MainTypeClass.m */; };
 		699B932E154957B7005A9C5B /* AreaClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B932D154957B7005A9C5B /* AreaClass.m */; };
@@ -214,8 +211,6 @@
 		65EE8B271625C7AD00D4C1A3 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		65EE8B291625C7BA00D4C1A3 /* LocationString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationString.h; sourceTree = "<group>"; };
 		65EE8B2A1625C7BA00D4C1A3 /* LocationString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationString.m; sourceTree = "<group>"; };
-		65EE8B2C1625CCE400D4C1A3 /* tour.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tour.xml; sourceTree = "<group>"; };
-		65EE8B2D1625CCE400D4C1A3 /* location.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = location.xml; sourceTree = "<group>"; };
 		690CB719154022B600C729C0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		690CB71B154022BC00C729C0 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		690CB71F1540433B00C729C0 /* 08-chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-chat.png"; sourceTree = "<group>"; };
@@ -311,8 +306,6 @@
 		699A9A0116338FB600AFDE79 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		699B92E51545481B005A9C5B /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
 		699B92E61545481B005A9C5B /* HomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
-		699B930F154817BE005A9C5B /* TourMapListRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourMapListRouteViewController.h; sourceTree = "<group>"; };
-		699B9310154817BE005A9C5B /* TourMapListRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourMapListRouteViewController.m; sourceTree = "<group>"; };
 		699B93161548202C005A9C5B /* BlabberStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlabberStoryViewController.h; sourceTree = "<group>"; };
 		699B93171548202C005A9C5B /* BlabberStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlabberStoryViewController.m; sourceTree = "<group>"; };
 		699B931A15482521005A9C5B /* MainTypeClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTypeClass.h; sourceTree = "<group>"; };
@@ -550,12 +543,8 @@
 		69530E021535807900B6FB5E /* Tours */ = {
 			isa = PBXGroup;
 			children = (
-				65EE8B2C1625CCE400D4C1A3 /* tour.xml */,
-				65EE8B2D1625CCE400D4C1A3 /* location.xml */,
 				69530E0F1535906800B6FB5E /* TourMapListViewController.h */,
 				69530E101535906800B6FB5E /* TourMapListViewController.m */,
-				699B930F154817BE005A9C5B /* TourMapListRouteViewController.h */,
-				699B9310154817BE005A9C5B /* TourMapListRouteViewController.m */,
 				69E4EB5F1628E3CA003A60A3 /* TourDetailedViewController.h */,
 				69E4EB601628E3CA003A60A3 /* TourDetailedViewController.m */,
 				69E4EB6E16297917003A60A3 /* TourRoutesViewController.h */,
@@ -952,8 +941,6 @@
 				692C16EC1620091C006063AD /* arrow_icon.png in Resources */,
 				692C17011621248B006063AD /* button.png in Resources */,
 				692C171216215027006063AD /* Placeholder.png in Resources */,
-				65EE8B2E1625CCE400D4C1A3 /* tour.xml in Resources */,
-				65EE8B2F1625CCE400D4C1A3 /* location.xml in Resources */,
 				6992703E1626FFA0004506D1 /* arrow.png in Resources */,
 				699270401626FFA0004506D1 /* arrow@2x.png in Resources */,
 				69E4EB5316281094003A60A3 /* currentLocation.png in Resources */,
@@ -1080,7 +1067,6 @@
 				699534C2153C45DD005EAACE /* EventFilterViewController.m in Sources */,
 				690CB7291541282400C729C0 /* ListingWebViewController.m in Sources */,
 				699B92E71545481B005A9C5B /* HomePageViewController.m in Sources */,
-				699B9311154817BE005A9C5B /* TourMapListRouteViewController.m in Sources */,
 				699B93181548202C005A9C5B /* BlabberStoryViewController.m in Sources */,
 				699B931C15482521005A9C5B /* MainTypeClass.m in Sources */,
 				699B932E154957B7005A9C5B /* AreaClass.m in Sources */,

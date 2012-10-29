@@ -79,15 +79,15 @@ PullToRefreshView *pull;
 -(void) setupArray // Connection to DataSource
 { 
     
-    NSXMLParser *xmlParser;
-    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    xmlParser = [[NSXMLParser alloc] initWithData:data];
+//    NSXMLParser *xmlParser;
+//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
+//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+//    xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
-    //NSString *urlString = [NSString stringWithFormat:@"http://www.itp2012.com/CMS/IPHONE/AroundMe.php?x1=-36&x2=-34&y1=150&y2=149"];
-    //NSURL *url = [[NSURL alloc] initWithString:urlString];
-    //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Outings.php"];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     [xmlParser setDelegate:self];
     BOOL worked = [xmlParser parse];
@@ -121,37 +121,26 @@ PullToRefreshView *pull;
         currTour.TourID = [tourStringElement.TourID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourID = [currTour.TourID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourName = [tourStringElement.TourName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currTour.TourDetail = tourStringElement.TourDetail;
+        currTour.TourName = [currTour.TourName stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currTour.TourDetail = [tourStringElement.TourDetails stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourAgent = [tourStringElement.TourAgent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourAgent = [currTour.TourAgent stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourCost = tourStringElement.TourCost;
         currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourPhone = [tourStringElement.TourPhone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.ImageFileNames = [tourStringElement.ImageURL componentsSeparatedByString:@","];
         
-        // Placemarker
-        
-        CLLocationCoordinate2D tempPlacemarker;
-        
-        NSString *tempLat = [tourStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        double latDouble =[tempLat doubleValue];
-        tempPlacemarker.latitude = latDouble;
-        
-        NSString *tempLong = [tourStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        double lonDouble =[tempLong doubleValue];
-        tempPlacemarker.longitude = lonDouble;
-        
-        currTour.coordinate = tempPlacemarker;
         
         // Listing View details
-        NSString *urlTemp = [tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *mediaUrlString = [[NSString stringWithFormat:urlTemp] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        currTour.TourWebsite = [NSURL URLWithString:mediaUrlString];
+        currTour.TourWebsite = [NSURL URLWithString:[tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         
         currTour.VideoURL = [NSURL URLWithString:[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        
+        currTour.AudioURL = [NSURL URLWithString:[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
         // ** CHECKS -------------------------------
         NSLog(@"%@",tourStringElement.TourID);
         NSLog(@"%@",tourStringElement.TourName);
-        NSLog(@"%@",tourStringElement.TourDetail);
+        NSLog(@"%@",tourStringElement.TourDetails);
         NSLog(@"%@",tourStringElement.TourCost);
         NSLog(@"%@",tourStringElement.TourEmail);
         NSLog(@"%@",tourStringElement.TourPhone);

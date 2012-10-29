@@ -20,10 +20,9 @@
     NSArray *ImageFileNames;
     NSURL *VideoURL;
     UIImage *TourIcon;
-    CLLocationCoordinate2D coordinate;
+    NSURL *AudioURL;
 }
 
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *TourID;
 @property (nonatomic, copy) NSString *TourName;
 @property (nonatomic, copy) NSString *TourDetail;
@@ -34,5 +33,6 @@
 @property (nonatomic, copy) NSString *TourEmail;
 @property (nonatomic, copy) NSArray *ImageFileNames;
 @property (nonatomic, copy) NSURL *VideoURL;
+@property (nonatomic, copy) NSURL *AudioURL;
 @property (nonatomic, copy) UIImage *TourIcon;
 @end

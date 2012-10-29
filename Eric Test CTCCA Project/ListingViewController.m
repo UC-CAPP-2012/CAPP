@@ -13,7 +13,6 @@
 // + Geo Co-ordinate for map view.
 
 #import "ListingViewController.h"
-#import "TourMapListRouteViewController.h"
 #import <EventKitUI/EventKitUI.h>
 #import <EventKit/EventKit.h>
 #import "SaveToFavorites.h"
@@ -331,13 +330,6 @@
     favButton.image = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
     [favData writeToFile:yourArrayFileName atomically:YES];
     favourite = false;
-}
-
--(IBAction)startTour:(id)sender
-{
-    TourMapListRouteViewController *tourView= [self.storyboard instantiateViewControllerWithIdentifier:@"TourMapListRouteViewController"]; // Listing Detail Page
-    [self.navigationController pushViewController:tourView animated:YES];
-    NSLog(@"Button");
 }
 
 - (IBAction)home:(id)sender {

@@ -55,7 +55,6 @@
 -(IBAction)changePage;
 -(IBAction)segmentButton:(id)sender;
 -(IBAction)addToCalendar:(id)sender;
--(IBAction)startTour:(id)sender;
 - (IBAction)home:(id)sender;
 - (IBAction)email:(id)sender;
 

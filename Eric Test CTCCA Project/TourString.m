@@ -11,15 +11,14 @@
 @implementation TourString
 @synthesize TourID;
 @synthesize TourName;
-@synthesize TourDetail;
+@synthesize TourDetails;
 @synthesize TourCost;
 @synthesize TourPhone;
 @synthesize TourWebsite;
 @synthesize TourEmail;
 @synthesize ImageURL;
 @synthesize VideoURL;
-@synthesize Latitude;
-@synthesize Longitude;
+@synthesize AudioURL;
 @synthesize TourAgent;
 @end
 
