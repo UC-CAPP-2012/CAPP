@@ -163,9 +163,9 @@ PullToRefreshView *pull;
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
-    [self reloadTableData];
+    //[self reloadTableData];
     
-    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+    [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
 -(void) reloadTableData
@@ -180,9 +180,9 @@ PullToRefreshView *pull;
 -(void)foregroundRefresh:(NSNotification *)notification
 {
     
-    self->tableView.contentOffset = CGPointMake(0, -65);
-    [pull setState:PullToRefreshViewStateLoading];
-    [self reloadTableData];
+    //self->tableView.contentOffset = CGPointMake(0, -65);
+    //[pull setState:PullToRefreshViewStateLoading];
+    //[self reloadTableData];
     //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 

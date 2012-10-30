@@ -47,7 +47,7 @@
     MainTypeClass *type = [[MainTypeClass alloc] init];
     type.typeID = @"1";
     type.typeName = @"All";
-    type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+    type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
     [typeDataSource addObject:type];
 
     type = [[MainTypeClass alloc] init];
@@ -72,7 +72,7 @@
     type = [[MainTypeClass alloc] init];
     type.typeID = @"4";
     type.typeName = @"Shopping";
-    type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+    type.imageID = [UIImage imageNamed:@"Shopping_Large.PNG"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];

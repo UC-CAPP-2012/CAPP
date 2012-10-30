@@ -191,6 +191,7 @@ bool allUnlocked = true;
 
 - (IBAction)feelingAdv:(id)sender {
     count=0;
+    spinned = NO;
     alert = NO;
     [self feelingAdventurous];
 }
@@ -385,9 +386,9 @@ bool allUnlocked = true;
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
                 //count = 0;
-                //spinned = true;
+                spinned = YES;
                 NSLog(@"%@", result.title);
-            }else if([listingsList count]==0 && count==15 && !allUnlocked){
+            }else if([listingsList count]==0 && count==20){
                 loadView.hidden=true;
                 notFoundView.hidden = false;
                 [feelAdvBtn setEnabled:TRUE];
@@ -404,16 +405,12 @@ bool allUnlocked = true;
                     alert = YES;
                 }
                 //count = 0;
-                //spinned = true;
+                spinned = YES;
 
             }
-            
         });
     });
-    }else{
-        spinned = NO;
-    }
-    
+    }    
 }
 
 - (IBAction)goToListing:(id)sender {
