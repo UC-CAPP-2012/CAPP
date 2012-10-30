@@ -487,14 +487,6 @@ bool errorMsgShown;
 
 -(IBAction)viewWebsite:(id)sender
 {
-    ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
-    webView.Website = currentTour.VideoURL;
-    [self.navigationController pushViewController:webView animated:YES];
-    NSLog(@"Button");
-}
-
--(IBAction)shareWebsite:(id)sender
-{
     NSString *videoURL = [currentTour.VideoURL absoluteString];
     if([videoURL isEqualToString:@""]){
         UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
@@ -504,6 +496,16 @@ bool errorMsgShown;
                                                  otherButtonTitles: nil];
         [alertBox show];
     }else{
+    ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+    webView.Website = currentTour.VideoURL;
+    [self.navigationController pushViewController:webView animated:YES];
+    NSLog(@"Button");
+    }
+}
+
+-(IBAction)shareWebsite:(id)sender
+{
+   
 
     ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
     NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
@@ -513,7 +515,7 @@ bool errorMsgShown;
     
     [self.navigationController pushViewController:webView animated:YES];
     NSLog(@"Button");
-    }
+   
 }
 
 
