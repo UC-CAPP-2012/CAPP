@@ -491,6 +491,16 @@
 
 -(IBAction)shareWebsite:(id)sender
 {
+    NSString *videoURL = [currentTour.VideoURL absoluteString];
+    if([videoURL isEqualToString:@""]){
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This tour does not have any video."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+    }else{
+
     ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
     NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
     NSString *website = [currentTour.TourWebsite absoluteString];
@@ -499,12 +509,27 @@
     
     [self.navigationController pushViewController:webView animated:YES];
     NSLog(@"Button");
+    }
 }
 
 
 - (IBAction)viewNews:(id)sender {
-    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
-    [self.navigationController pushViewController:blabberView animated:YES];
+    NSError *error;
+    
+    NSString *audioURL = [currentTour.AudioURL absoluteString];
+    if([audioURL isEqualToString:@""]){
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This tour does not have any audio."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+    }else{
+        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:currentTour.AudioURL error:&error];
+        audioPlayer.numberOfLoops = -1;
+    
+        [audioPlayer play];
+    }
 }
 
 - (IBAction)SwitchView:(id)sender {

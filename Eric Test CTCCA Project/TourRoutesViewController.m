@@ -114,6 +114,8 @@ NSString *currentDestination;
             Listing *currentListing = listingsList[i];
             if ([currentListing.listingID isEqualToString:listingID]) {
                 DetailButton.tag = i;
+                videoBtn.tag =i;
+                audioBtn.tag = i;
             }
         }
         [DetailButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
@@ -304,8 +306,45 @@ NSString *currentDestination;
 
 
 // END MAP METHODS
+- (IBAction)viewVideo:(id)sender {
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = listingsList[selectedIndex];
+    
+    NSString *videoURL = [selectedListing.videoURL absoluteString];
+    if([videoURL isEqualToString:@""]){
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This tour location does not have any video."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+    }else{
 
+    ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+    webView.Website = selectedListing.videoURL;
+    [self.navigationController pushViewController:webView animated:YES];
+    NSLog(@"Button");
+    }
+}
 
+- (IBAction)audio:(id)sender {
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = listingsList[selectedIndex];
+    NSString *audioURL = [selectedListing.audioURL absoluteString];
+    if([audioURL isEqualToString:@""]){
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This tour location does not have any audio."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+    }else{
 
-
+    NSError *error;
+    AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:selectedListing.audioURL error:&error];
+    audioPlayer.numberOfLoops = -1;
+    
+    [audioPlayer play];
+    }
+}
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ListingViewController.h"
@@ -20,7 +21,8 @@
     IBOutlet UILabel *DetailSubtype;
     IBOutlet UIButton *DetailButton;
     IBOutlet UILabel *DetailAddress;
-    
+    IBOutlet UIButton *videoBtn;
+    IBOutlet UIButton *audioBtn;
     UIView* _detailView;
     
     // the map view
@@ -33,5 +35,7 @@
 @property (strong, nonatomic) IBOutlet CLLocationManager *locationManager;
 @property (strong, nonatomic) IBOutlet CLGeocoder *geoCoder;
 @property (strong, nonatomic) NSString *tourName;
+- (IBAction)viewVideo:(id)sender;
+- (IBAction)audio:(id)sender;
 
 @end
