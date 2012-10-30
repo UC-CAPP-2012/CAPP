@@ -12,6 +12,7 @@
 #import "NavigationViewController.h"
 #import "AppDelegate.h"
 
+bool errorMsgShown;
 @implementation Subscribe
 @synthesize SubscribeScrollView;
 @synthesize SubscribeYesNo;
@@ -158,7 +159,7 @@
 {
     
     PostCodeTextField.delegate = (id)self;
-    
+    errorMsgShown = NO;
     [super viewDidLoad];
 }
 
@@ -257,7 +258,10 @@
                                               otherButtonTitles: nil];
         [alert show];
 
-        NSLog(@"did not work!");
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
     }
 }
 

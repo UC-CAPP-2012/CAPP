@@ -16,6 +16,7 @@
 
 int count = 0;
 bool allUnlocked = true;
+bool errorMsgShown;
 @implementation PickerViewController
 
 @synthesize listingsList, listingsListString;
@@ -42,8 +43,10 @@ bool allUnlocked = true;
 
 - (void)viewDidLoad
 {
+    errorMsgShown = NO;
     [super setTitle:@"spinwheel"];
     [super viewDidLoad];
+    
     spinned=false;
     alert = NO;
     SubType = [[NSMutableArray alloc] init];
@@ -264,7 +267,10 @@ bool allUnlocked = true;
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
-            [alert show];
+            if(errorMsgShown==NO){
+                [alert show];
+                errorMsgShown = YES;
+            }
 
             NSLog(@"did not work!");
         }

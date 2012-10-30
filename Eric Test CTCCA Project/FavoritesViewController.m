@@ -18,6 +18,7 @@
 
 @end
 
+bool errorMsgShown;
 @implementation FavoritesViewController
 @synthesize currSel,sortSel;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
@@ -58,7 +59,7 @@
     switchMapView.hidden=true;
     detailView.hidden = TRUE;
     detailView.backgroundColor = [UIColor clearColor];
-    
+    errorMsgShown = NO;
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
         
@@ -210,7 +211,10 @@
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

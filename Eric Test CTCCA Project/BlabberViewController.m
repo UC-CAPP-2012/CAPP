@@ -20,6 +20,7 @@
 int currentLimit = 10;
 int limit = 10;
 int numOfNews = 0;
+bool errorMsgShown;
 @implementation BlabberViewController
 PullToRefreshView *pull;
 @synthesize newsListString, newsListingsList, newsListingTable;
@@ -55,6 +56,7 @@ PullToRefreshView *pull;
 {
     [super setTitle:@"blabber"];
     numOfNews = 0;
+    errorMsgShown = NO;
     currentLimit=limit;
     loadMoreView.hidden = true;
     loadMoreIndicator.hidden = true;
@@ -114,7 +116,10 @@ PullToRefreshView *pull;
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

@@ -15,6 +15,7 @@
 - (void)startIconDownload:(Tour *)tourCurrent forIndexPath:(NSIndexPath *)indexPath;
 @end
 
+bool errorMsgShown;
 @implementation TourMapListViewController
 PullToRefreshView *pull;
 @synthesize tourListString, tourListingsList, tourListingTable;
@@ -52,6 +53,7 @@ PullToRefreshView *pull;
     
     
     self.navigationItem.title = @"outings";
+    errorMsgShown = NO;
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
@@ -104,7 +106,10 @@ PullToRefreshView *pull;
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

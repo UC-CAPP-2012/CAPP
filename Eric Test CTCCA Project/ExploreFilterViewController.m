@@ -25,6 +25,7 @@
 - (void) swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction;
 @end
 
+bool errorMsgShown;
 @implementation ExploreFilterViewController
 PullToRefreshView *pull;
 //Passed from previous controller.
@@ -77,6 +78,7 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
 
+    errorMsgShown = NO;
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     segmentController.hidden = false;
@@ -279,7 +281,10 @@ PullToRefreshView *pull;
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

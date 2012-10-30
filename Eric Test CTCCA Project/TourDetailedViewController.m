@@ -16,6 +16,7 @@
 
 @end
 
+bool errorMsgShown;
 @implementation TourDetailedViewController
 @synthesize currentTour;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
@@ -40,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super setTitle:currentTour.TourName];
-    
+    errorMsgShown = NO;
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
     [Cost addObject:@"$"];
@@ -130,7 +131,10 @@
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

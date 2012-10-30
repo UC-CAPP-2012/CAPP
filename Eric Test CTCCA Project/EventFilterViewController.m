@@ -24,6 +24,7 @@
 - (void) swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction;
 @end
 
+bool errorMsgShown;
 @implementation EventFilterViewController
 PullToRefreshView *pull;
 @synthesize monthFilter;
@@ -62,6 +63,7 @@ PullToRefreshView *pull;
 - (void)viewDidLoad
 {
     self.navigationItem.title =@"happening";
+    errorMsgShown=NO;
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
     [Cost addObject:@"$"];
@@ -188,7 +190,10 @@ PullToRefreshView *pull;
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
-        [alert show];
+        if(errorMsgShown==NO){
+            [alert show];
+            errorMsgShown = YES;
+        }
 
         NSLog(@"did not work!");
     }

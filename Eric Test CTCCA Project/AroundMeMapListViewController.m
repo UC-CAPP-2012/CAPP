@@ -24,6 +24,7 @@
 
 @end
 
+bool errorMsgShown;
 @implementation AroundMeMapListViewController
 @synthesize listingTable,listingsTableDataSource,listingsList,listingsListString;
 @synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
@@ -54,7 +55,7 @@
     DetailView.backgroundColor = [UIColor clearColor];
     switchTableView.hidden=true;
     switchMapView.hidden=false;
-
+    errorMsgShown = NO;
     [self setupMap];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -248,8 +249,10 @@
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
-            [alert show];
-
+            if(errorMsgShown==NO){
+                [alert show];
+                errorMsgShown = YES;
+            }
             NSLog(@"did not work!");
         }
     
