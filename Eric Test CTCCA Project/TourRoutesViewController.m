@@ -339,12 +339,12 @@ NSString *currentDestination;
                                                  otherButtonTitles: nil];
         [alertBox show];
     }else{
+        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:selectedListing.audioURL];
+        player.movieSourceType = MPMovieSourceTypeStreaming;
+        player.view.hidden = YES;
+        [self.view addSubview:player.view];
+        [player play];
 
-    NSError *error;
-    AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:selectedListing.audioURL error:&error];
-    audioPlayer.numberOfLoops = -1;
-    
-    [audioPlayer play];
     }
 }
 @end

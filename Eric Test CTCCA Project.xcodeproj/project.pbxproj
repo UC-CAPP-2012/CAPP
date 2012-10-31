@@ -88,6 +88,7 @@
 		698B2875163A9DA60076189C /* SpinWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B2869163A9DA60076189C /* SpinWheel.png */; };
 		699088A6164113CE00E64C13 /* BrokenLink_White.png in Resources */ = {isa = PBXBuildFile; fileRef = 699088A5164113CE00E64C13 /* BrokenLink_White.png */; };
 		699088A7164113CE00E64C13 /* BrokenLink_White.png in Resources */ = {isa = PBXBuildFile; fileRef = 699088A5164113CE00E64C13 /* BrokenLink_White.png */; };
+		699088A916416ADB00E64C13 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 699088A816416ADB00E64C13 /* MediaPlayer.framework */; };
 		6991C448163D6C6E0063AAA1 /* map_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6991C447163D6C6E0063AAA1 /* map_marker@2x.png */; };
 		6991C449163D6C6E0063AAA1 /* map_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6991C447163D6C6E0063AAA1 /* map_marker@2x.png */; };
 		6991C44E163D6E360063AAA1 /* map_marker_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 6991C44D163D6E360063AAA1 /* map_marker_green.png */; };
@@ -282,6 +283,7 @@
 		698B2868163A9DA60076189C /* Jaunts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Jaunts.png; sourceTree = "<group>"; };
 		698B2869163A9DA60076189C /* SpinWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpinWheel.png; sourceTree = "<group>"; };
 		699088A5164113CE00E64C13 /* BrokenLink_White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BrokenLink_White.png; sourceTree = "<group>"; };
+		699088A816416ADB00E64C13 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		6991C447163D6C6E0063AAA1 /* map_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_marker@2x.png"; sourceTree = "<group>"; };
 		6991C44D163D6E360063AAA1 /* map_marker_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_marker_green.png; sourceTree = "<group>"; };
 		6991C450163D6E4E0063AAA1 /* map_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_marker.png; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				699088A916416ADB00E64C13 /* MediaPlayer.framework in Frameworks */,
 				6991C474163FCB970063AAA1 /* AVFoundation.framework in Frameworks */,
 				699A9A0216338FB600AFDE79 /* MessageUI.framework in Frameworks */,
 				69FAAD071536FC23006441FE /* QuartzCore.framework in Frameworks */,
@@ -701,6 +704,7 @@
 		69A598451520843F00BDA150 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				699088A816416ADB00E64C13 /* MediaPlayer.framework */,
 				6991C473163FCB970063AAA1 /* AVFoundation.framework */,
 				699A9A0116338FB600AFDE79 /* MessageUI.framework */,
 				690CB71B154022BC00C729C0 /* EventKitUI.framework */,

@@ -204,10 +204,9 @@ bool errorMsgShown;
         currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currListing.description = [currListing.description stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        currListing.videoURL = [NSURL URLWithString:[[[[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currListing.videoURL = [NSURL URLWithString:[[[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         currListing.websiteURL = [NSURL URLWithString:[[[[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        currListing.audioURL = [NSURL URLWithString:[[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        
+        currListing.audioURL = [NSURL URLWithString:[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         // Start Date
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"dd/MM/yyyy"];
@@ -551,9 +550,9 @@ bool errorMsgShown;
 
 
 - (IBAction)viewNews:(id)sender {
-    NSError *error;
     
     NSString *audioURL = [currentTour.AudioURL absoluteString];
+    NSLog(@"%@", audioURL);
     if([audioURL isEqualToString:@""]){
         UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                            message:@"This tour does not have any audio."
@@ -562,10 +561,18 @@ bool errorMsgShown;
                                                  otherButtonTitles: nil];
         [alertBox show];
     }else{
-        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:currentTour.AudioURL error:&error];
-        audioPlayer.numberOfLoops = -1;
-    
-        [audioPlayer play];
+//        ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+//        webView.Website = currentTour.AudioURL;
+//        [self.navigationController pushViewController:webView animated:YES];
+//        NSLog(@"Button");
+
+        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:currentTour.AudioURL];
+        player.movieSourceType = MPMovieSourceTypeStreaming;
+        player.view.hidden = YES;
+        [self.view addSubview:player.view];
+        [player play];
+        
+        
     }
 }
 

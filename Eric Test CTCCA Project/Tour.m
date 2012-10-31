@@ -20,5 +20,6 @@
 @synthesize VideoURL;
 @synthesize TourIcon;
 @synthesize TourAgent;
+@synthesize AudioURL;
 @end
 

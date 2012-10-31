@@ -14,8 +14,10 @@
 #import "BlabberViewController.h"
 #import "TourRoutesViewController.h"
 #import "ListingString.h"
-
-@interface TourDetailedViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate>{
+#import <MediaPlayer/MediaPlayer.h>
+@interface TourDetailedViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate>
+    {
+    //AVAudioPlayer *audioPlayer;
     IBOutlet UIView *switchMapView;
     IBOutlet UIView *navView;
     IBOutlet UIView *switchTableView;

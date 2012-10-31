@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ListingViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 @interface TourRoutesViewController : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate>{
     // the data representing the route points.
 	NSMutableArray* _path;

@@ -132,7 +132,8 @@ PullToRefreshView *pull;
         currTour.TourDetail = [tourStringElement.TourDetails stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourAgent = [tourStringElement.TourAgent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourAgent = [currTour.TourAgent stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currTour.TourCost = tourStringElement.TourCost;
+        currTour.TourCost = [tourStringElement.TourCost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourCost = [currTour.TourCost stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currTour.TourEmail = [currTour.TourEmail stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourPhone = [tourStringElement.TourPhone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -143,7 +144,7 @@ PullToRefreshView *pull;
         // Listing View details
         currTour.VideoURL = [NSURL URLWithString:[[[[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         currTour.TourWebsite = [NSURL URLWithString:[[[[tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        currTour.AudioURL = [NSURL URLWithString:[[[[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currTour.AudioURL = [NSURL URLWithString:[[[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
         // ** CHECKS -------------------------------
         NSLog(@"%@",tourStringElement.TourID);
