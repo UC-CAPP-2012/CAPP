@@ -52,7 +52,7 @@
 
     type = [[MainTypeClass alloc] init];
     type.typeID = @"1";
-    type.typeName = @"Food and Wine";
+    type.typeName = @"Food & Wine";
     type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
     [typeDataSource addObject:type];
     
@@ -95,7 +95,7 @@
     
     type = [[MainTypeClass alloc] init];
     type.typeID = @"7";
-    type.typeName = @"Family Fun";
+    type.typeName = @"Family";
     type.imageID = [UIImage imageNamed:@"Family_Large.png"];
     [typeDataSource addObject:type];
     
@@ -183,7 +183,7 @@
     self->scrollView.contentSize = CGSizeMake(self->scrollView.frame.size.width * pageControl.numberOfPages, self->scrollView.frame.size.height);
     CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
     [self->scrollView setContentSize:scrollableSize]; 
-    self->pageControl.currentPage=0;
+    //self->pageControl.currentPage=0;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

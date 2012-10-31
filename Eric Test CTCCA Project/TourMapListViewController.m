@@ -134,16 +134,17 @@ PullToRefreshView *pull;
         currTour.TourAgent = [currTour.TourAgent stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourCost = tourStringElement.TourCost;
         currTour.TourEmail = [tourStringElement.TourEmail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourEmail = [currTour.TourEmail stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.TourPhone = [tourStringElement.TourPhone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currTour.TourPhone = [currTour.TourPhone stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currTour.ImageFileNames = [tourStringElement.ImageURL componentsSeparatedByString:@","];
         
         
         // Listing View details
-        currTour.TourWebsite = [NSURL URLWithString:[tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-        
-        currTour.VideoURL = [NSURL URLWithString:[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-        
-        currTour.AudioURL = [NSURL URLWithString:[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        currTour.VideoURL = [NSURL URLWithString:[[[[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currTour.TourWebsite = [NSURL URLWithString:[[[[tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currTour.AudioURL = [NSURL URLWithString:[[[[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
         // ** CHECKS -------------------------------
         NSLog(@"%@",tourStringElement.TourID);
         NSLog(@"%@",tourStringElement.TourName);

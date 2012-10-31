@@ -152,7 +152,29 @@
 -(IBAction)segmentButton:(id)sender{
     
     if (segmentController.selectedSegmentIndex == 0) {
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p><p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p><p><strong style='color: #1b4583;'>Address:</strong>%@</p><p><strong style='color: #1b4583;'>Phone:</strong> %@</p><p><strong style='color: #1b4583;'>Website:</strong> %@</p><p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]],currentListing.openingHours,currentListing.address, currentListing.phone, [currentListing.websiteURL absoluteString],currentListing.email] baseURL:nil];
+        NSString *openingHrs = [[NSString alloc] init];
+        if(![currentListing.openingHours isEqualToString:@""] && ![currentListing.openingHours isEqualToString:@" "]){
+            openingHrs=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p>",currentListing.openingHours];
+        }
+        
+        NSString *phoneStr = [[NSString alloc] init];
+        if(![currentListing.phone isEqualToString:@""] && ![currentListing.phone isEqualToString:@" "]){
+            phoneStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Phone:</strong> %@</p>",currentListing.phone];
+        }
+        
+        NSString *websiteStr = [[NSString alloc] init];
+        NSString *web = [currentListing.websiteURL absoluteString];
+        
+        NSLog(@"%@",web);
+        if(web!=NULL){
+            websiteStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Website:</strong> %@</p>",[currentListing.websiteURL absoluteString]];
+        }
+        
+        NSString *emailStr = [[NSString alloc] init];
+        if(![currentListing.email isEqualToString:@""] && ![currentListing.email isEqualToString:@" "]){
+            emailStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.email];
+        }
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@<p><strong style='color: #1b4583;'>Address:</strong>%@</p> %@ %@ %@",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]],openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
  
@@ -289,6 +311,11 @@
 
 -(IBAction)shareWebsite:(id)sender
 {
+    NSString *web = [currentListing.websiteURL absoluteString];
+    
+    NSLog(@"%@",web);
+    if(web!=NULL && ![web isEqualToString:@""]){
+
     ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
     NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
     NSString *website = [currentListing.websiteURL absoluteString];
@@ -297,6 +324,14 @@
     
     [self.navigationController pushViewController:webView animated:YES];
     NSLog(@"Button");
+    }else{
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This item does not have any website to share."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+        }
 }
 
 -(IBAction)addToFavourties:(id)sender

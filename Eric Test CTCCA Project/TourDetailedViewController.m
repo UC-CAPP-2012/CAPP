@@ -75,8 +75,13 @@ bool errorMsgShown;
     
 
     if (segmentController.selectedSegmentIndex == 0) {
+        NSString *tourAgent = [[NSString alloc] init];
+        if(![currentTour.TourAgent isEqualToString:@""] && ![currentTour.TourAgent isEqualToString:@" "]){
+            tourAgent=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Opening Hours:</strong> %@</p>",currentTour.TourAgent];
+        }
+
         [detailedView bringSubviewToFront:infoBox];
-        NSString *content = [NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Cost:</strong> %@<p><strong style='color: #1b4583;'>Tour Agent:</strong> %@</p><p><strong style='color: #1b4583;'>Description</strong>%@</p>", currentTour.TourName, [Cost objectAtIndex:[currentTour.TourCost intValue]],currentTour.TourAgent, [currentTour.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"]];
+        NSString *content = [NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Cost:</strong> %@ %@<p><strong style='color: #1b4583;'>Description</strong>%@</p>", currentTour.TourName, [Cost objectAtIndex:[currentTour.TourCost intValue]],tourAgent, [currentTour.TourDetail stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"]];
         NSLog(@"%@",currentTour.TourDetail);
         [infoBox loadHTMLString:content baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
@@ -148,19 +153,21 @@ bool errorMsgShown;
         // ListingID , Title , SubTitle
         
         currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"t" withString:@""];
+        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-
+        currListing.title = [currListing.title stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         
         // Placemarker
         
         CLLocationCoordinate2D tempPlacemarker;
         
         NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tempLat = [tempLat stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         double latDouble =[tempLat doubleValue];
         tempPlacemarker.latitude = latDouble;
         
         NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tempLong = [tempLong stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         double lonDouble =[tempLong doubleValue];
         tempPlacemarker.longitude = lonDouble;
         
@@ -169,40 +176,52 @@ bool errorMsgShown;
         //Sort and Filter Types
         
         currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.listingType = [currListing.listingType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.areaID = [currListing.areaID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.costType =[currListing.costType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.subType = [listingStringElement.SubtypeName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.subType = [currListing.subType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         
         // Address
         
-        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.majorRegionName = [currListing.majorRegionName stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.phone = [currListing.phone stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.email = [currListing.email stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.suburb = [currListing.suburb stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.openingHours = [currListing.openingHours stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         
         // Listing View details
         
         currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        currListing.description = [currListing.description stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        currListing.videoURL = [NSURL URLWithString:[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-        currListing.websiteURL = [NSURL URLWithString:[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-        currListing.audioURL = [NSURL URLWithString:[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+        currListing.videoURL = [NSURL URLWithString:[[[[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currListing.websiteURL = [NSURL URLWithString:[[[[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        currListing.audioURL = [NSURL URLWithString:[[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
         // Start Date
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"dd/MM/yyyy"];
         // Start Date
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
         currListing.startDate = startDate;
         
         // End Date
         listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
         currListing.endDate = endDate;
-        
         // ** CHECKS ------------------------
         NSLog(@"%@",listingStringElement.ItemName);
         NSLog(@"%@",listingStringElement.Latitude);
@@ -505,7 +524,11 @@ bool errorMsgShown;
 
 -(IBAction)shareWebsite:(id)sender
 {
-   
+    NSString *web = [currentTour.TourWebsite absoluteString];
+    
+    NSLog(@"%@",web);
+    if(web!=NULL && ![web isEqualToString:@""]){
+
 
     ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
     NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
@@ -515,6 +538,14 @@ bool errorMsgShown;
     
     [self.navigationController pushViewController:webView animated:YES];
     NSLog(@"Button");
+    }else{
+        UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                           message:@"This tour does not have any website to share."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+        [alertBox show];
+    }
    
 }
 
