@@ -232,6 +232,7 @@ PullToRefreshView *pull;
     else
     {
         cellImage.image = currListing.NewsIcon;
+        cellImage.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     //dispatch_async(dispatch_get_main_queue(), ^{
@@ -351,6 +352,7 @@ PullToRefreshView *pull;
         // Display the newly loaded image
         UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
         cellImage.image = iconDownloader.news.NewsIcon;
+        cellImage.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     // Remove the IconDownloader from the in progress list.

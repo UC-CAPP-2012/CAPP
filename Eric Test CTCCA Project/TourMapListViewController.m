@@ -242,6 +242,7 @@ PullToRefreshView *pull;
     }
          
     UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
+    
     if (!cellValue.TourIcon)
     {
         if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
@@ -254,6 +255,8 @@ PullToRefreshView *pull;
     else
     {
         cellImage.image = cellValue.TourIcon;
+        cellImage.contentMode = UIViewContentModeScaleAspectFit;
+
     }
 
     UILabel *cellHeading = (UILabel *)[cell viewWithTag:1];
@@ -459,6 +462,7 @@ PullToRefreshView *pull;
         // Display the newly loaded image
         UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
         cellImage.image = iconDownloader.tour.TourIcon;
+        cellImage.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     // Remove the IconDownloader from the in progress list.
