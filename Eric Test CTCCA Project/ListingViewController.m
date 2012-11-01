@@ -362,7 +362,7 @@
             [favData removeObjectAtIndex:i];
         }
     }
-    favButton.image = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
+    favButton.image = [UIImage imageNamed:@"thumbs_up@2x.png"];
     [favData writeToFile:yourArrayFileName atomically:YES];
     favourite = false;
 }
