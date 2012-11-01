@@ -51,13 +51,16 @@ PullToRefreshView *pull;
         [self segmentButton:self];
         [self setupDate];
         [self setupArray];
+        [tableView reloadData];
     }
-    [tableView reloadData];
+    
     [loadView removeFromSuperview];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+    if([listingsList count]==0){
+        tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+    }
 }
 
 - (void)viewDidLoad

@@ -38,13 +38,17 @@ PullToRefreshView *pull;
     if([tourListingsList count]==0)
     {
         [self setupArray];
+        [tableView reloadData];
     }
-    [tableView reloadData];
+    
     loadView.hidden = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+    if([tourListingsList count]==0)
+    {
+        tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+    }
 }
 
 // *** Initialisation ***

@@ -41,15 +41,18 @@ PullToRefreshView *pull;
 - (void)viewDidAppear:(BOOL)animated{
     if([newsListingsList count]==0){
         [self setupArray];
+        [tableView reloadData];
     }
-    [tableView reloadData];
+    
     
     [loadView removeFromSuperview];
     loadMoreView.hidden = false;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    if([newsListingsList count]==0){
     tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+    }
 }
 
 - (void)viewDidLoad
