@@ -220,10 +220,11 @@ bool errorMsgShown;
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    listingsListString= appDelegate.listingsListString;
-    listingsList = [[NSMutableArray alloc] init];
+    listingsList= appDelegate.listingsList;
+    //
     
-    if([listingsListString count]==0){
+    if([listingsList count]==0){
+        listingsList = [[NSMutableArray alloc] init];
         NSDate *todaysDate = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
@@ -256,7 +257,7 @@ bool errorMsgShown;
             NSLog(@"did not work!");
         }
     
-    }
+    
     
     
     for (ListingString *listingStringElement in listingsListString) {
@@ -363,7 +364,11 @@ bool errorMsgShown;
         [mapView addAnnotation:currListing];
     }
     
-
+    }else{
+        for(int i =0; i<[listingsList count]; i++){
+            [mapView addAnnotation:listingsList[i]];
+        }
+    }
     listingTable = [[NSMutableArray alloc] init];
     NSMutableArray *section = [[NSMutableArray alloc] initWithArray:listingsList];
     NSDictionary *sectionDict = @{@"AroundMe": section};

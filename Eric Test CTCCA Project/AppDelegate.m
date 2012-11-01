@@ -11,7 +11,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize listingsListString;
+@synthesize listingsList;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 {
@@ -38,7 +38,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    listingsListString = [[NSMutableArray alloc] init];
+    //listingsListString = [[NSMutableArray alloc] init];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

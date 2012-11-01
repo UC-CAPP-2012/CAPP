@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ListingString.h"
+#import "Listing.h"
 @interface Subscribe : UIViewController<NSXMLParserDelegate>
 {
     
@@ -20,7 +21,7 @@
     ListingString *theList;
     NSMutableString *currentElementValue;
 }
-@property(nonatomic, strong)NSMutableArray *listingsListString;
+@property(nonatomic, strong)NSMutableArray *listingsListString,*listingsList;
 
 
 @property (strong, nonatomic) IBOutlet UIScrollView *SubscribeScrollView;
