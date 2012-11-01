@@ -7,7 +7,7 @@
 //
 
 #import "NavigationViewController.h"
-
+#import "AppDelegate.h"
 @interface NavigationViewController ()
 
 @end
@@ -61,6 +61,22 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (appDelegate.isLanscapeOk) {
+        // for iPhone, you could also return UIInterfaceOrientationMaskAllButUpsideDown
+        return UIInterfaceOrientationMaskAll;
+    }
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

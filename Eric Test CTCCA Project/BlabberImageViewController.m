@@ -7,7 +7,7 @@
 //
 
 #import "BlabberImageViewController.h"
-
+#import "AppDelegate.h"
 @interface BlabberImageViewController ()
 
 @end
@@ -38,8 +38,16 @@
     return imageView;
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.isLanscapeOk = NO;
+}
+
 - (void)viewDidLoad
 {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.isLanscapeOk = YES;
+
     [super setTitle:title];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
