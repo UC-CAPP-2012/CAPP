@@ -208,9 +208,9 @@
 
 // *** MAP METHODS ****
 
--(MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation 
+-(MKAnnotationView *) mapView:(MKMapView *)mapViewListing viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapViewListing dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
     
     if (annotationView == nil)
     {
@@ -218,9 +218,9 @@
     }
     annotationView.annotation = annotation;
     annotationView.canShowCallout = YES; // show the grey popup with location etc
-    UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+   // UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
-    annotationView.rightCalloutAccessoryView = rightButton;
+    //annotationView.rightCalloutAccessoryView = rightButton;
     
     annotationView.image = [UIImage imageNamed:@"map_marker.png"];
     

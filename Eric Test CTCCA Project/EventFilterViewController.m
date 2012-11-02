@@ -518,7 +518,7 @@ PullToRefreshView *pull;
 
 // *** MAP METHODS ****
 
--(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
+-(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
@@ -530,9 +530,20 @@ PullToRefreshView *pull;
     annotationView.annotation = annotation;
     annotationView.canShowCallout = YES; // show the grey popup with location etc
     UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
-    annotationView.rightCalloutAccessoryView = rightButton;
-    
+    if ([annotation isKindOfClass:[Listing class]] )
+    {
+        Listing *current = ((Listing *) annotation);
+        for (int i = 0; i < [listingsList count]; i++) {
+            Listing *currentListing = listingsList[i];
+            if ([currentListing.listingID isEqualToString:current.listingID]) {
+                rightButton.tag = i;
+            }
+        }
+        
+        [rightButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+        
+        annotationView.rightCalloutAccessoryView = rightButton;
+    }
     annotationView.image = [UIImage imageNamed:@"map_marker.png"];
     
     annotationView.draggable = NO;
@@ -540,13 +551,11 @@ PullToRefreshView *pull;
     //annotationView.animatesDrop = TRUE;
     //annotationView.canShowCallout = NO;
     
-    
-    
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
     }
     //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
-    //MyPin.annotation = annotation;
+    //annotationView.annotation = annotation;
     
     return annotationView;
 }

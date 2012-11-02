@@ -43,6 +43,7 @@ bool errorMsgShown;
 {
     if([listingsList count]==0){
         [self setupArray];
+        [self setupMap];
     }
     [tableView reloadData];
     loadView.hidden = YES;
@@ -56,7 +57,7 @@ bool errorMsgShown;
     switchTableView.hidden=true;
     switchMapView.hidden=false;
     errorMsgShown = NO;
-    [self setupMap];
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -200,6 +201,16 @@ bool errorMsgShown;
     [mapView setDelegate:self];    
     mapView.userTrackingMode = YES;
     mapView.showsUserLocation = YES;
+    
+    //Center Map on area location
+//    MKUserLocation *userLocation = mapView.userLocation;
+//    MKCoordinateRegion region = {{0.0, 0.0}, {0.0,0.0}};
+//    region.center.latitude = userLocation.location.coordinate.latitude;
+//    region.center.longitude = userLocation.location.coordinate.longitude;
+//    region.span.latitudeDelta = 0.15f; // Zoom Settings
+//    region.span.longitudeDelta = 0.25f; // Zoom Settings
+//    
+//    [mapView setRegion:region animated:YES];
 }
 
 // *** DATA CONNECTION ***
@@ -323,7 +334,7 @@ bool errorMsgShown;
         currListing.audioURL = [NSURL URLWithString:[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         // Start Date
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         // Start Date
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
@@ -365,8 +376,10 @@ bool errorMsgShown;
     }
     
     }else{
-        for(int i =0; i<[listingsList count]; i++){
-            [mapView addAnnotation:listingsList[i]];
+        NSMutableArray *list = appDelegate.listingsList;
+        for(int i =0; i<[list count]; i++){
+            Listing *listing = (Listing *) list[i];
+            [mapView addAnnotation:listing];
         }
     }
     listingTable = [[NSMutableArray alloc] init];
@@ -378,9 +391,9 @@ bool errorMsgShown;
 }
 
 // *** MAP METHODS ****
-
--(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
+-(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
 {
+    
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
     
     if (annotationView == nil)
@@ -389,10 +402,21 @@ bool errorMsgShown;
     }
     annotationView.annotation = annotation;
     annotationView.canShowCallout = YES; // show the grey popup with location etc
-    //UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
-    //annotationView.rightCalloutAccessoryView = rightButton;
+    UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    if ([annotation isKindOfClass:[Listing class]] )
+    {
+    Listing *current = ((Listing *) annotation);
+    for (int i = 0; i < [listingsList count]; i++) {
+        Listing *currentListing = listingsList[i];
+        if ([currentListing.listingID isEqualToString:current.listingID]) {
+            rightButton.tag = i;
+        }
+    }
     
+    [rightButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    annotationView.rightCalloutAccessoryView = rightButton;
+    }
     annotationView.image = [UIImage imageNamed:@"map_marker.png"];
     
     annotationView.draggable = NO;
@@ -400,25 +424,15 @@ bool errorMsgShown;
     //annotationView.animatesDrop = TRUE;
     //annotationView.canShowCallout = NO;
     
-    //MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"current"];
-    //MKPinAnnotationView *MyPin = [[MKPinAnnotationView alloc] init];
-   // MyPin.pinColor = MKPinAnnotationColorRed;
-    //MyPin.image = [UIImage imageNamed:@"Placeholder.png"];
-    //MyPin.draggable = NO;
-    //MyPin.highlighted = YES;
-   //// MyPin.animatesDrop = TRUE;
-    //MyPin.canShowCallout = NO;
-    
     if (annotation == mapViewAroundMe.userLocation) {
         return nil;
     }
-
+    //MyPin.image = [UIImage imageNamed:@"Map-Marker-Marker-Outside-Azure-256.png"];
+    //annotationView.annotation = annotation;
     
-    //MyPin.an = annotationView;
-    
-    //return MyPin;
     return annotationView;
 }
+
 
 
 -(void)mapView:(MKMapView *)mapViewSelect didSelectAnnotationView:(MKPinAnnotationView *)view
