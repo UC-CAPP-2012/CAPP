@@ -44,68 +44,63 @@
 {
     typeDataSource = [[NSMutableArray alloc] init];
     
-    MainTypeClass *type = [[MainTypeClass alloc] init];
-    type.typeID = @"1";
-    type.typeName = @"All";
-    type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
-    [typeDataSource addObject:type];
+    
 
-    type = [[MainTypeClass alloc] init];
-    type.typeID = @"1";
+    MainTypeClass *type = [[MainTypeClass alloc] init];
+    type.typeID = @"0";
     type.typeName = @"Food & Wine";
     type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
     [typeDataSource addObject:type];
     
     
     type = [[MainTypeClass alloc] init]; // I Think the leak is here..
-    type.typeID = @"2";
+    type.typeID = @"1";
     type.typeName = @"Entertainment";
     type.imageID = [UIImage imageNamed:@"Entertainment_Large.png"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"3";
+    type.typeID = @"2";
     type.typeName = @"Cultural";
     type.imageID = [UIImage imageNamed:@"Cultural_Large.png"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"4";
+    type.typeID = @"3";
     type.typeName = @"Shopping";
     type.imageID = [UIImage imageNamed:@"Shopping_Large.PNG"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"5";
+    type.typeID = @"4";
     type.typeName = @"Accommodation";
     type.imageID = [UIImage imageNamed:@"Accommodation_Large.png"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"6";
+    type.typeID = @"5";
     type.typeName = @"Outdoor";
     type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
     [typeDataSource addObject:type];
     
-    //MainTypeClass *type5 = [[MainTypeClass alloc] init];
-    //type5.typeID = @"5";
-    //type5.typeName = @"Events";
-    //type5.imageID = [UIImage imageNamed:@"sgaw.jpg"];
-    //[typeDataSource addObject:type5];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"7";
+    type.typeID = @"6";
     type.typeName = @"Family";
     type.imageID = [UIImage imageNamed:@"Family_Large.png"];
     [typeDataSource addObject:type];
     
     type = [[MainTypeClass alloc] init];
-    type.typeID = @"8";
+    type.typeID = @"7";
     type.typeName = @"Sport";
     type.imageID = [UIImage imageNamed:@"Sport_Large.png"];
     [typeDataSource addObject:type];
     
-    
+    type = [[MainTypeClass alloc] init];
+    type.typeID = @"8";
+    type.typeName = @"All";
+    type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+    [typeDataSource addObject:type];
     
     scrollView.clipsToBounds = NO;
     scrollView.pagingEnabled = YES;

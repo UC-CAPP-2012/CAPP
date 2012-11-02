@@ -50,7 +50,7 @@ bool errorMsgShown;
     spinned=false;
     alert = NO;
     SubType = [[NSMutableArray alloc] init];
-    
+    [SubType addObject:@"Any"];
     [SubType addObject:@"Food & Wine"];
     [SubType addObject:@"Entertainment"];
     [SubType addObject:@"Cultural"];
@@ -61,6 +61,7 @@ bool errorMsgShown;
     [SubType addObject:@"Sport"];
     
     Area =[[NSMutableArray alloc] init];
+    [Area addObject:@"Any"];
     [Area addObject:@"Gungahlin"];
     [Area addObject:@"Belconnen"];
     [Area addObject:@"Inner North"];
@@ -74,6 +75,7 @@ bool errorMsgShown;
     [Area addObject:@"Civic"];
     
     Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Any"];
     [Cost addObject:@"Free"];
     [Cost addObject:@"$"];
     [Cost addObject:@"$$"];
@@ -104,8 +106,31 @@ bool errorMsgShown;
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
+    if(![selectedCategory isEqualToString:@"Any"]){
+        categoryLocked = NO;
+        [self lockUnlockCategory:catLock];
+    }else{
+        categoryLocked = YES;
+        [self lockUnlockCategory:catLock];
+    }
+    
     selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
+    if(![selectedSuburb isEqualToString:@"Any"]){
+        suburbLocked = NO;
+        [self lockUnlockSuburb:regionLock];
+    }else{
+        suburbLocked = YES;
+        [self lockUnlockSuburb:regionLock];
+    }
+    
     selectedCost = Cost[[pickerView selectedRowInComponent:cost]];
+    if(![selectedCost isEqualToString:@"Any"]){
+        costLocked = NO;
+        [self lockUnlockCost:priceLock];
+    }else{
+        costLocked = YES;
+        [self lockUnlockCost:priceLock];
+    }
     NSLog(@"%@",selectedCategory);
     NSLog(@"%@",selectedSuburb);
     NSLog(@"%@",selectedCost);
@@ -173,6 +198,9 @@ bool errorMsgShown;
 {
     if(!categoryLocked){
         int random = (arc4random() % [SubType count]);
+        while(random==0){
+            random = (arc4random() % [SubType count]);
+        }
         selectedCategory = SubType[random];
         [spinWheel selectRow:random inComponent:subtype animated:YES];
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
@@ -180,6 +208,9 @@ bool errorMsgShown;
     
     if(!suburbLocked){
         int random2 = (arc4random() % [Area count]);
+        while(random2==0){
+            random2 = (arc4random() % [Area count]);
+        }
         selectedSuburb = Area[random2];
         [spinWheel selectRow:random2 inComponent:area animated:YES];
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
@@ -188,6 +219,9 @@ bool errorMsgShown;
     
     if(!costLocked){
         int random3 = (arc4random() % [Cost count]);
+        while(random3==0){
+            random3 = (arc4random() % [Cost count]);
+        }
         selectedCost = Cost[random3];
         [spinWheel selectRow:random3 inComponent:cost animated:YES];
         
