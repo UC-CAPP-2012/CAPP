@@ -14,6 +14,7 @@
 #import "BlabberViewController.h"
 #import "FavoritesViewController.h"
 #import "PickerViewController.h"
+#import "AboutViewController.h"
 
 //add the spin wheel header to this also
 //as well as the favourites 'loved'

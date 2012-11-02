@@ -111,9 +111,11 @@
 }
 -(void)myTrial:(id)sender  // Control for Map View Button to Listing Detail View   
 {      
-    //ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
-    //[self.navigationController pushViewController:listingView animated:YES];
-    NSLog(@"myTrial");
+    AboutViewController *aboutView = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"]; // Listing Detail Page
+    [self.navigationController pushViewController:aboutView animated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+    NSLog(@"about");
+
     
 }
 
