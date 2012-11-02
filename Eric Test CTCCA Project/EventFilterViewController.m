@@ -370,6 +370,8 @@ PullToRefreshView *pull;
     
     // -----------------------
     
+    if([listingsList count]>0){
+    
     for (int i =0; i < [sortHeaders2 count]; i++){
         NSMutableArray *section2 = [[NSMutableArray alloc] init];
         NSString *currSortHeader = sortHeaders2[i];
@@ -425,7 +427,13 @@ PullToRefreshView *pull;
     NSLog(@"%i",[typeListingTable count]);
     NSLog(@"%i",[costListingTable count]);
     NSLog(@"%i",[suburbListingTable count]);
+        noEventsMsg.hidden = TRUE;
+        tableView.hidden = NO;
     [tableView reloadData];
+    }else{
+        tableView.hidden = TRUE;
+        noEventsMsg.hidden = NO;
+    }
 }
 
 -(void)setupMap
