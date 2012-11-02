@@ -15,7 +15,7 @@
 #import "Listing.h"
 #import "ListingString.h"
 
-@interface ListingViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate, MFMailComposeViewControllerDelegate>{
+@interface ListingViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate, MFMailComposeViewControllerDelegate, UIWebViewDelegate>{
     
     //Main Screen View outlets
     IBOutlet UIView *listingView;

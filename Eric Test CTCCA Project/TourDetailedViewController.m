@@ -42,6 +42,7 @@ bool errorMsgShown;
 {
     [super setTitle:currentTour.TourName];
     errorMsgShown = NO;
+    [infoBox setDelegate:self];
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
     [Cost addObject:@"$"];
@@ -292,6 +293,15 @@ bool errorMsgShown;
     currentTour = self.currentTour;
     //[mapView addAnnotation:self.currentTour];
     pageControl.numberOfPages = [currentTour.ImageFileNames count];
+}
+
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(void) setupPictures

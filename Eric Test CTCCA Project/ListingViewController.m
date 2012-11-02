@@ -66,7 +66,7 @@
     [Cost addObject:@"$$$"];
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
-    
+    [infoBox setDelegate:self];
     NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
         favButton.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
@@ -76,6 +76,15 @@
     }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)setupMap
