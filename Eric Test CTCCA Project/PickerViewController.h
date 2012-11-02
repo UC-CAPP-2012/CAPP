@@ -27,6 +27,8 @@
     NSMutableArray *SubType;
     NSMutableArray *Area;
     NSMutableArray *Cost;
+    
+    NSMutableArray *CostArray;
     NSString *selectedCategory;
     NSString *selectedSuburb;
     NSString *selectedCost;

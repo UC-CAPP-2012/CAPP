@@ -83,7 +83,13 @@ bool errorMsgShown;
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
     
-    
+    CostArray = [[NSMutableArray alloc] init];
+    [CostArray addObject:@"Free"];
+    [CostArray addObject:@"$"];
+    [CostArray addObject:@"$$"];
+    [CostArray addObject:@"$$$"];
+    [CostArray addObject:@"$$$$"];
+    [CostArray addObject:@"$$$$$"];
     
 	// Do any additional setup after loading the view.
 }
@@ -105,6 +111,7 @@ bool errorMsgShown;
 }
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if(![selectedCategory isEqualToString:SubType[[pickerView selectedRowInComponent:subtype]]]){
     selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
     if(![selectedCategory isEqualToString:@"Any"]){
         categoryLocked = NO;
@@ -113,7 +120,9 @@ bool errorMsgShown;
         categoryLocked = YES;
         [self lockUnlockCategory:catLock];
     }
+    }
     
+    if(![selectedSuburb isEqualToString:Area[[pickerView selectedRowInComponent:area]]]){
     selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
     if(![selectedSuburb isEqualToString:@"Any"]){
         suburbLocked = NO;
@@ -122,14 +131,17 @@ bool errorMsgShown;
         suburbLocked = YES;
         [self lockUnlockSuburb:regionLock];
     }
+    }
     
-    selectedCost = Cost[[pickerView selectedRowInComponent:cost]];
-    if(![selectedCost isEqualToString:@"Any"]){
-        costLocked = NO;
-        [self lockUnlockCost:priceLock];
-    }else{
-        costLocked = YES;
-        [self lockUnlockCost:priceLock];
+    if(![selectedCost isEqualToString:Cost[[pickerView selectedRowInComponent:cost]]]){
+        selectedCost = Cost[[pickerView selectedRowInComponent:cost]];
+        if(![selectedCost isEqualToString:@"Any"]){
+            costLocked = NO;
+            [self lockUnlockCost:priceLock];
+        }else{
+            costLocked = YES;
+            [self lockUnlockCost:priceLock];
+        }
     }
     NSLog(@"%@",selectedCategory);
     NSLog(@"%@",selectedSuburb);
@@ -445,6 +457,7 @@ bool errorMsgShown;
                 [priceLock setEnabled:TRUE];
                 //count = 0;
                 spinned = YES;
+                selectedCost = CostArray[[selectedCost intValue]];
                 NSLog(@"%@", result.title);
             }else if([listingsList count]==0 && count==20){
                 loadView.hidden=true;
@@ -453,6 +466,7 @@ bool errorMsgShown;
                 [catLock setEnabled:TRUE];
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
+                selectedCost = CostArray[[selectedCost intValue]];
                 UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                                 message:@"There aren't any places found like that.  Unlink and try again."
                                                                delegate:nil
