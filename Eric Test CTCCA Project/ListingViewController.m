@@ -174,7 +174,26 @@
         if(![currentListing.email isEqualToString:@""] && ![currentListing.email isEqualToString:@" "]){
             emailStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Email:</strong> %@</p>",currentListing.email];
         }
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@<p><strong style='color: #1b4583;'>Address:</strong>%@</p> %@ %@ %@",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]],openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+        
+        NSString *startStr = [dateFormatter stringFromDate:currentListing.startDate];
+        
+        NSString *startDateStr = [[NSString alloc] init];
+        if(![startStr isEqualToString:@""] && ![startStr isEqualToString:@" "] && startStr!=NULL){
+            startDateStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Start Date:</strong> %@</p>",startStr];
+        }
+        
+        NSString *endStr = [dateFormatter stringFromDate:currentListing.endDate];
+        
+        NSString *endDateStr = [[NSString alloc] init];
+        if(![endStr isEqualToString:@""] && ![endStr isEqualToString:@" "]&& endStr!=NULL){
+            endDateStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>End Date:</strong> %@</p>",endStr];
+        }
+        
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@  %@ %@<p><strong style='color: #1b4583;'>Address:</strong> %@</p> %@ %@ %@",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]], startDateStr,endDateStr,openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
  

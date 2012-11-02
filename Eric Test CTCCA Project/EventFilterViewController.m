@@ -280,7 +280,7 @@ PullToRefreshView *pull;
         
         // Start Date
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         // Start Date
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];

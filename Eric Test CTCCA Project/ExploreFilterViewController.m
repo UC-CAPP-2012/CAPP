@@ -15,6 +15,8 @@
 #import "SaveToFavorites.h"
 #import "SearchArray.h"
 #import "SideSwipeTableViewCell.h"
+#import "AppDelegate.h"
+
 #define USE_GESTURE_RECOGNIZERS YES
 #define BOUNCE_PIXELS 5.0
 #define PUSH_STYLE_ANIMATION NO
@@ -259,12 +261,144 @@ PullToRefreshView *pull;
 }
 -(void) setupArray // Connection to DataSource
 { 
-    [mapView removeAnnotations:mapView.annotations];   
+    [mapView removeAnnotations:mapView.annotations];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //This needs to be set via the filter and sorter.
+    
+    listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    suburbListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
+    sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
+    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
+    sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
+    [listingTable removeAllObjects]; // Clear Table
+    [typeListingTable removeAllObjects]; // Clear Table
+    [costListingTable removeAllObjects]; // Clear Table
+    [suburbListingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+    
+    listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
+
 //    NSXMLParser *xmlParser;
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
 //    xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
+    if([typeName isEqualToString:@"All"] && [appDelegate.listingsList count]!=0){
+        NSMutableArray *list = appDelegate.listingsList;
+        for(int i =0; i<[list count]; i++){
+            Listing *listing = (Listing *) list[i];
+            if(listing.startDate==nil){
+                [mapView addAnnotation:list[i]];
+                [listingsList addObject:listing];
+                
+                [mapView addAnnotation:listing];
+                
+                Listing *tempListing = listing;
+                NSString *subType = tempListing.subType;
+                if(![sortHeaders2 containsObject:subType])
+                {
+                    [sortHeaders2 addObject:subType];
+                    NSLog(@"%@", subType);
+                }
+                
+                
+                NSString *costType = tempListing.costType;
+                if(![sortHeaders3 containsObject:costType])
+                {
+                    [sortHeaders3 addObject:costType];
+                    NSLog(@"%@", costType);
+                }
+                
+                NSString *suburb = tempListing.suburb;
+                if(![sortHeaders4 containsObject:suburb])
+                {
+                    [sortHeaders4 addObject:suburb];
+                    NSLog(@"%@", suburb);
+                }
+                
+                [section addObject:listing];
+
+            }
+        }
+        NSDictionary *sectionDict = @{@"Explore": section};
+        [listingTable addObject:sectionDict];
+        
+        
+        // ** Table View Population
+        
+        // ---------------------------
+        
+        // --- SORT 1 Headers ----
+        
+        [sortHeaders1 addObject:@"All"];
+        
+        [sortHeaders2 sortUsingSelector:@selector(compare:)];
+        
+        [sortHeaders3 sortUsingSelector:@selector(compare:)];
+        [sortHeaders4 sortUsingSelector:@selector(compare:)];
+        
+        // -----------------------
+        
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict2 = @{@"Explore": section2};
+            [typeListingTable addObject:sectionDict2];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Explore": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Explore": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
+        
+        NSLog(@"%i",[listingTable count]);
+        NSLog(@"%i",[typeListingTable count]);
+        NSLog(@"%i",[costListingTable count]);
+        NSLog(@"%i",[suburbListingTable count]);
+
+        
+    }else{
     NSString *urlString = [[NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Explore.php?category=%@",typeName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [[NSURL alloc] initWithString:[urlString stringByReplacingOccurrencesOfString:@"&" withString:@"%26"]];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
@@ -292,21 +426,7 @@ PullToRefreshView *pull;
         NSLog(@"did not work!");
     }
     
-    //This needs to be set via the filter and sorter.
-    listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
-    listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
-    typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
-    costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
-    suburbListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
-    sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
-    sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
-    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
-    sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
-    [listingTable removeAllObjects]; // Clear Table
-    [typeListingTable removeAllObjects]; // Clear Table
-    [costListingTable removeAllObjects]; // Clear Table
-    [suburbListingTable removeAllObjects]; // Clear Table
-    NSMutableArray *section = [[NSMutableArray alloc] init];
+    
 
     for (ListingString *listingStringElement in listingsListString) {
         
@@ -514,6 +634,7 @@ PullToRefreshView *pull;
     NSLog(@"%i",[typeListingTable count]);
     NSLog(@"%i",[costListingTable count]);
     NSLog(@"%i",[suburbListingTable count]);
+    }
     [tableView reloadData];
 }
 
