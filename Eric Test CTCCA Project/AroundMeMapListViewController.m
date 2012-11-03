@@ -1444,7 +1444,6 @@ PullToRefreshView *pull;
 
     NSMutableArray *array = dictionary[@"AroundMe"];
     Listing *currListing = array[indexPath.row];
-    NSString *listingID = currListing.listingID;
     
     //ContentView
     CGRect Button1Frame = CGRectMake(150, 10, 30, 30);
@@ -1456,12 +1455,8 @@ PullToRefreshView *pull;
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
     
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *currentListing = listingsList[i];
-        if ([currentListing.listingID isEqualToString:listingID]) {
-            btnTemp.tag =i;
-        }
-    }
+    btnTemp.tag =indexPath.row;
+       
     
     [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];
     

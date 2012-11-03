@@ -44,9 +44,10 @@ bool errorMsgShown;
     {
         if([listingsList count]==0){
             [self setupArray];
+            [tableView reloadData];
         }
     }
-    [tableView reloadData];
+    
     loadView.hidden=TRUE;
 }
 
@@ -83,29 +84,38 @@ bool errorMsgShown;
 //Delete Function
 //--------------------------------------------------------------------------------------------------//
 //Telling the table view that the rows have a delete editing style
-//- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
-//           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-//    return UITableViewCellEditingStyleDelete;
-//}
-////Displays the delete button and deletes the row and the entry in the favorites array
-//- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
-//forRowAtIndexPath:(NSIndexPath*)indexPath {
-//    
-//    // delete your data for this row from here
-//    
-//    //Creating a file path under iPhone OS:
-//    //1) Search for the app's documents directory (copy+paste from Documentation)
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = paths[0];
-//    //2) Create the full file path by appending the desired file name
-//    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
-//    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-//    [favData removeObjectAtIndex:indexPath.row];
-//    [listingsList removeObjectAtIndex:indexPath.row];
-//    //[listingTable removeObjectAtIndex:indexPath.row];
-//    [favData writeToFile:yourArrayFileName atomically:YES];
-//    [tableViewEdit reloadData];
-//}
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
+           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+//Displays the delete button and deletes the row and the entry in the favorites array
+- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
+forRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+    // delete your data for this row from here
+    
+    //Creating a file path under iPhone OS:
+    //1) Search for the app's documents directory (copy+paste from Documentation)
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    [favData removeObjectAtIndex:indexPath.row];
+    [listingsList removeObjectAtIndex:indexPath.row];
+    [listingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+    
+    for(int i =0; i<[listingsList count]; i++){
+        [section addObject:listingsList[i]];
+    }
+    NSDictionary *sectionDict = @{@"Favourites": section};
+    [listingTable addObject:sectionDict];
+    //[listingTable removeObjectAtIndex:indexPath.row];
+    [favData writeToFile:yourArrayFileName atomically:YES];
+    [tableView reloadData];
+ 
+}
 //--------------------------------------------------------------------------------------------------//
 
 
@@ -146,30 +156,44 @@ bool errorMsgShown;
     //[cellLabel setText:[favData objectAtIndex:indexPath.row]];
     
     
-    NSString *cellValue = currListing.title;
     UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
     cell.imageView.image = image;
     //ContentView
-    CGRect Label1Frame = CGRectMake(70, 10, 240, 25);
-    CGRect Label2Frame = CGRectMake(70, 33, 240, 25);
-    //CGRect Label1Frame = CGRectMake(5, 10, 240, 25);
-    //CGRect Label2Frame = CGRectMake(5, 33, 240, 25);
-    //CGRect Button1Frame = CGRectMake(250, 20, 20, 20);
+    //ContentView
+    UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
+    [cellHeading setText: currListing.title];
     
-    UILabel *lblTemp;
-    //UIButton *btnTemp;
+    UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
+    [cellSubtype setText: currListing.suburb];
     
-    //UIImage* imageTBA = [UIImage imageNamed:@"83-calendar"];
-    //UIImage* imageCal = [UIImage imageNamed:@"TabHeartIt.png"];
-    
-    lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
-    lblTemp.text = cellValue;
-    [cell.contentView addSubview:lblTemp];
-    
-    lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
-    lblTemp.text = currListing.suburb;
-    [cell.contentView addSubview:lblTemp];
+    UIButton *cellBtn = (UIButton *)[cell viewWithTag:1];
+    cellBtn.tag = indexPath.row;
+    [cellBtn addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
+}
+
+-(void)unfavourite:(id)sender
+{
+    
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    [favData removeObjectAtIndex:selectedIndex];
+    [listingsList removeObjectAtIndex:selectedIndex];
+    [listingTable removeAllObjects]; // Clear Table
+    NSMutableArray *section = [[NSMutableArray alloc] init];
+    
+    for(int i =0; i<[listingsList count]; i++){
+        [section addObject:listingsList[i]];
+    }
+    NSDictionary *sectionDict = @{@"Favourites": section};
+    [listingTable addObject:sectionDict];
+    //[listingTable removeObjectAtIndex:indexPath.row];
+    [favData writeToFile:yourArrayFileName atomically:YES];
+    [tableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
