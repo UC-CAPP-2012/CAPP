@@ -694,21 +694,6 @@
                                 <rect key="frame" x="0.0" y="-45" width="320" height="505"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bvC-r9-oXA">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="485"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="closeOverlay:" destination="Wap-Q8-rd9" eventType="touchUpInside" id="IIH-vD-fog"/>
-                                        </connections>
-                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Blabber.png" id="q4f-Wa-Egf">
                                         <rect key="frame" x="171" y="44" width="149" height="139"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -735,10 +720,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loved instruction text goes here" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h8L-UA-WAH">
-                                        <rect key="frame" x="186" y="386" width="119" height="51"/>
+                                        <rect key="frame" x="181" y="360" width="119" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap on screen to close" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dNz-g0-3C1">
+                                        <rect key="frame" x="189" y="456" width="129" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.81176477670000002" blue="0.33725491169999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="SpinWheel.png" id="yLj-Iv-5kA">
@@ -757,6 +749,21 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bvC-r9-oXA">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="485"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeOverlay:" destination="Wap-Q8-rd9" eventType="touchUpInside" id="IIH-vD-fog"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
@@ -943,6 +950,42 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <view alpha="0.94999999999999996" contentMode="scaleToFill" id="Ohl-E9-g79">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Instructions about link and unlink goes here" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MPh-JV-RtD">
+                                        <rect key="frame" x="41" y="203" width="138" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap on screen to close" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Lx-ae-07t">
+                                        <rect key="frame" x="191" y="389" width="129" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.81176477670000002" blue="0.33725491169999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tnl-aK-nIb">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeOverlay:" destination="NLi-dI-DCd" eventType="touchUpInside" id="ApT-y9-CMu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                     </view>
                     <connections>
@@ -953,6 +996,7 @@
                         <outlet property="lockCost" destination="2CV-0v-VYv" id="CSl-ya-9dz"/>
                         <outlet property="lockSuburb" destination="0ND-EP-jiA" id="7pW-Z7-W7g"/>
                         <outlet property="notFoundView" destination="txm-Pl-j0g" id="ID7-hx-V6k"/>
+                        <outlet property="overlayView" destination="Ohl-E9-g79" id="8eW-Ed-zIT"/>
                         <outlet property="priceLock" destination="ibe-a5-D2Z" id="VeM-YI-BXD"/>
                         <outlet property="regionLock" destination="Kgq-uw-f0v" id="3le-MS-ZUZ"/>
                         <outlet property="resultButton" destination="cNz-Tz-stx" id="GOG-VE-9xB"/>
@@ -3173,6 +3217,7 @@
                 <relationship kind="action" name="lockUnlockCategory:"/>
                 <relationship kind="action" name="lockUnlockCost:"/>
                 <relationship kind="action" name="lockUnlockSuburb:"/>
+                <relationship kind="action" name="removeOverlay:"/>
                 <relationship kind="outlet" name="catLock" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="feelAdvBtn" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loadView" candidateClass="UIView"/>
@@ -3180,6 +3225,7 @@
                 <relationship kind="outlet" name="lockCost" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="lockSuburb" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="notFoundView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="priceLock" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="regionLock" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="resultButton" candidateClass="UIButton"/>

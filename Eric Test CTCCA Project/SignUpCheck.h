@@ -11,5 +11,5 @@
 @interface SignUpCheck : NSObject
 
 +(BOOL) checkForSugnup;
-
++(BOOL) checkForSpinwheelOverlay;
 @end

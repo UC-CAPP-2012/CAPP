@@ -11,5 +11,5 @@
 @interface RecordSignup : NSObject
 
 +(void)recordSignup;
-
++(void)recordSpinwheelOverlay;
 @end

@@ -9,6 +9,8 @@
 #import "PickerViewController.h"
 #import "ListingString.h"
 #import "Listing.h"
+#import "SignUpCheck.h"
+#import "RecordSignup.h"
 
 @interface PickerViewController ()
 
@@ -37,6 +39,13 @@ bool errorMsgShown;
     resultButtonView.hidden=TRUE;
     loadView.hidden=TRUE;
     notFoundView.hidden=TRUE;
+    
+    //if ([SignUpCheck checkForSpinwheelOverlay]) {
+     //   [overlayView removeFromSuperview];
+    //}
+  //  else {
+   //     [self.navigationController setNavigationBarHidden:YES];
+   // }
     
 
 }
@@ -242,6 +251,12 @@ bool errorMsgShown;
     //stop and hide animating image
 }
 
+- (IBAction)removeOverlay:(id)sender {
+    [overlayView removeFromSuperview];
+    //[RecordSignup recordSpinwheelOverlay];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 - (IBAction)feelingAdv:(id)sender {
     count=0;
     spinned = NO;
@@ -312,13 +327,13 @@ bool errorMsgShown;
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+            UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                             message:@"Something went wrong. Please make sure you are connected to the internet."
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
             if(errorMsgShown==NO){
-                [alert show];
+                [alertBox show];
                 errorMsgShown = YES;
             }
 

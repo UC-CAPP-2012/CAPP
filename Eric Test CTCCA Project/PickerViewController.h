@@ -16,6 +16,7 @@
 
 @interface PickerViewController : UIViewController <NSXMLParserDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
 
+    IBOutlet UIView *overlayView;
     IBOutlet UIView *notFoundView;
     IBOutlet UIView *loadView;
     IBOutlet UIButton *catLock;
@@ -45,7 +46,9 @@
 - (IBAction)lockUnlockSuburb:(id)sender;
 - (IBAction)lockUnlockCost:(id)sender;
 
+
 @property(nonatomic, strong) NSMutableArray *listingsList, *listingsListString;
+- (IBAction)removeOverlay:(id)sender;
 
 - (IBAction)feelingAdv:(id)sender;
 
