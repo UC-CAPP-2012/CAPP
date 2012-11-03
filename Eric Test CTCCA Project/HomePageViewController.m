@@ -25,9 +25,9 @@
 
 - (void)viewDidLoad
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //if(appDelegate.showHomeOverlay==NO){
-        [overlayView removeFromSuperview];
+     //   [overlayView removeFromSuperview];
    // }
     [super viewDidLoad];
  
