@@ -34,7 +34,7 @@ IBOutlet UIButton *listingViewButton;
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each news
     
 }
-
+@property BOOL refreshing;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
 @property (nonatomic, assign) bool isFiltered;

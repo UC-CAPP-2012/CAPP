@@ -70,7 +70,7 @@
 @property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
 @property (nonatomic) BOOL animatingSideSwipe;
 - (IBAction)SwitchView:(id)sender;
-
+@property BOOL refreshing;
 - (void) removeSideSwipeView:(BOOL)animated;
 - (BOOL) gestureRecognizersSupported;
 @property(strong, nonatomic)NSArray *listingsDataSource;

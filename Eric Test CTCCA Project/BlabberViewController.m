@@ -27,7 +27,7 @@ PullToRefreshView *pull;
 @synthesize currentNews;
 @synthesize imageDownloadsInProgress;
 @synthesize filteredTableData;
-@synthesize isFiltered;
+@synthesize isFiltered, refreshing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -94,6 +94,7 @@ PullToRefreshView *pull;
 
 -(void) setupArray // Connection to DataSource
 {
+    refreshing = TRUE;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
@@ -182,6 +183,7 @@ PullToRefreshView *pull;
     else{
         numOfNews = [newsListingsList count];
     }
+    refreshing = NO;
 }
 
 
@@ -195,6 +197,7 @@ PullToRefreshView *pull;
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
+    if(refreshing == NO){
     NSDictionary *dictionary = newsListingTable[indexPath.section];
     NSArray *array = dictionary[@"News"];
     News *currListing;
@@ -243,6 +246,7 @@ PullToRefreshView *pull;
     
     //});
     //});
+    }
     return cell;
 }
 

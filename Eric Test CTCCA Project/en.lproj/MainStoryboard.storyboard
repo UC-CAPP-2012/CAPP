@@ -64,16 +64,39 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="47" sectionHeaderHeight="22" sectionFooterHeight="55" id="kkr-JC-4So">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                        <rect key="frame" x="0.0" y="27" width="320" height="389"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search all" id="vCC-1u-Gpq">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="nzE-mQ-kXc" id="xLu-oj-x15"/>
+                                            </connections>
+                                        </searchBar>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="aroundMeCell" id="eDk-9I-lPd">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="47"/>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="aroundMeCell" id="eDk-9I-lPd">
+                                                <rect key="frame" x="0.0" y="66" width="320" height="47"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="46"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CoC-Pz-9QS">
+                                                            <rect key="frame" x="62" y="2" width="240" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3tW-QH-XzD">
+                                                            <rect key="frame" x="62" y="24" width="240" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </tableViewCell>
@@ -143,17 +166,6 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </view>
-                                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="dDL-DX-CqA" userLabel="LoadView">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="425"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="KcL-X6-rja">
-                                                        <rect key="frame" x="142" y="135" width="37" height="37"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    </activityIndicatorView>
-                                                </subviews>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="On7-xC-yGb">
                                                 <rect key="frame" x="20" y="11" width="46" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -173,6 +185,31 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ky6-p3-jXi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Type"/>
+                                    <segment title="Cost"/>
+                                    <segment title="Suburb"/>
+                                </segments>
+                                <color key="tintColor" red="0.23529413339999999" green="0.66666668650000005" blue="0.28627452250000002" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="segmentedButton:" destination="nzE-mQ-kXc" eventType="valueChanged" id="evs-FV-vFs"/>
+                                </connections>
+                            </segmentedControl>
+                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="dDL-DX-CqA" userLabel="LoadView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="443"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="KcL-X6-rja">
+                                        <rect key="frame" x="142" y="153" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -244,6 +281,8 @@
                         <outlet property="mapView" destination="jtp-ws-v55" id="zc6-I8-36b"/>
                         <outlet property="mapWindow" destination="Udc-PX-mfN" id="kM8-IP-wqX"/>
                         <outlet property="navView" destination="jPq-zm-Blf" id="S0I-LB-cj8"/>
+                        <outlet property="searchBar" destination="vCC-1u-Gpq" id="dDR-Hd-8m2"/>
+                        <outlet property="segmentControll" destination="Ky6-p3-jXi" id="AvU-M2-1RO"/>
                         <outlet property="switchMapView" destination="tAT-3l-eeV" id="Tom-OE-xW7"/>
                         <outlet property="switchTableView" destination="kvs-AH-ena" id="0ML-VY-q0I"/>
                         <outlet property="tableView" destination="kkr-JC-4So" id="AMB-Dr-Ije"/>

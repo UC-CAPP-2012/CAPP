@@ -22,7 +22,7 @@ PullToRefreshView *pull;
 @synthesize currentTour;
 @synthesize imageDownloadsInProgress;
 @synthesize filteredTableData;
-@synthesize isFiltered;
+@synthesize isFiltered,refreshing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,7 +41,7 @@ PullToRefreshView *pull;
         [tableView reloadData];
     }
     
-    loadView.hidden = YES;
+    [loadView removeFromSuperview];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -85,8 +85,10 @@ PullToRefreshView *pull;
 // *** DATA CONNECTION ***
 
 -(void) setupArray // Connection to DataSource
-{ 
-    
+{
+    refreshing = TRUE;
+    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+
 //    NSXMLParser *xmlParser;
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -166,7 +168,7 @@ PullToRefreshView *pull;
         
     NSDictionary *sectionDict = @{@"Tours": section};
     [tourListingTable addObject:sectionDict];
-
+    refreshing =NO;
 }
 
 
@@ -231,6 +233,7 @@ PullToRefreshView *pull;
     static NSString *cellIdentifier = @"tourCell";
     UITableViewCell *cell = (UITableViewCell *) [listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
+    if(refreshing==NO){
     NSDictionary *dictionary = tourListingTable[indexPath.section];
     NSArray *array = dictionary[@"Tours"];
     
@@ -271,8 +274,8 @@ PullToRefreshView *pull;
 
     UILabel *cellDetail = (UILabel *)[cell viewWithTag:3];
     [cellDetail setText: cellValue.TourDetail];
-        
-    return cell;    
+    }
+    return cell;
 }
 
 // Load images for all onscreen rows when scrolling is finished

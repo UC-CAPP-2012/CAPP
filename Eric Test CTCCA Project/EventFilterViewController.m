@@ -32,7 +32,7 @@ PullToRefreshView *pull;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
 @synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
-
+@synthesize refreshing;
 @synthesize filteredTableData;
 @synthesize isFiltered;
 
@@ -154,6 +154,9 @@ PullToRefreshView *pull;
 
 -(void) setupArray // Connection to DataSource
 {
+    refreshing = TRUE;
+    [mapView removeAnnotations:mapView.annotations];
+    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"LLLL, yyyy"];
     NSDate *dateStartItem = [dateFormat dateFromString:dateLabel.text];
@@ -167,9 +170,9 @@ PullToRefreshView *pull;
     NSString *dateStrStart = [dateFormatter stringFromDate:dateStartItem];
     NSString *dateStrEnd = [dateFormatter stringFromDate:dateEndItem];
 
-    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+   
 
-    [mapView removeAnnotations:mapView.annotations];
+    
     
 //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
 //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -429,11 +432,13 @@ PullToRefreshView *pull;
     NSLog(@"%i",[suburbListingTable count]);
         noEventsMsg.hidden = TRUE;
         tableView.hidden = NO;
+        
     [tableView reloadData];
     }else{
         tableView.hidden = TRUE;
         noEventsMsg.hidden = NO;
     }
+    refreshing = NO;
 }
 
 -(void)setupMap
@@ -765,7 +770,22 @@ PullToRefreshView *pull;
 {
     
     // call to reload your data
-    [self segmentButton:self];
+    if (segmentController.selectedSegmentIndex == 0) {
+        sortSel = 0;
+        NSLog(@"Button1");
+    }
+    if (segmentController.selectedSegmentIndex == 1) {
+        sortSel = 1;
+        NSLog(@"Button2");
+    }
+    if (segmentController.selectedSegmentIndex == 2) {
+        sortSel = 2;
+        NSLog(@"Button3");
+    }
+    if (segmentController.selectedSegmentIndex == 3) {
+        sortSel = 3;
+        NSLog(@"Button4");
+    }
     [self setupArray];
     
     [self->tableView reloadData];
@@ -865,6 +885,7 @@ PullToRefreshView *pull;
     if (cell == nil)
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
+    if(refreshing ==NO){
     
     Listing *currListing;
     if(isFiltered)
@@ -901,8 +922,8 @@ PullToRefreshView *pull;
     
     UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
     [cellSubtype setText: currListing.suburb];
-    
-    return cell;    
+    }
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

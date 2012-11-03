@@ -62,6 +62,7 @@
 -(IBAction)previousMonth:(id)sender;
 -(IBAction)segmentButton:(id)sender;
 
+@property BOOL refreshing;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
 @property (nonatomic, assign) bool isFiltered;
