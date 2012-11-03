@@ -13,4 +13,5 @@
 @property (strong, nonatomic) UIWindow *window;
 @property(nonatomic, strong)NSMutableArray *listingsList;
 @property BOOL isLanscapeOk;
+@property BOOL showHomeOverlay;
 @end

@@ -165,12 +165,17 @@ bool errorMsgShown;
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+
     loadView.hidden=TRUE;
     if ([SignUpCheck checkForSugnup]) {
+        appDelegate.showHomeOverlay = NO;
+
         [self skipScreen];
     }
     else {
         splash.hidden = TRUE;
+        appDelegate.showHomeOverlay = YES;
     }
     
 }

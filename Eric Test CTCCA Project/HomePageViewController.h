@@ -22,7 +22,10 @@
 
 
 @interface HomePageViewController : UIViewController
-{}
+{
+    IBOutlet UIView *overlayView;
+
+}
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 -(IBAction)spinWheel:(id)sender;
@@ -33,5 +36,7 @@
 -(IBAction)happenings:(id)sender;
 -(IBAction)loved:(id)sender;
 -(IBAction)myTrial:(id)sender;
+- (IBAction)closeOverlay:(id)sender;
+
 
 @end

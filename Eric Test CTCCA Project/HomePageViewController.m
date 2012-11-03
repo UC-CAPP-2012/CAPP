@@ -7,6 +7,7 @@
 //
 
 #import "HomePageViewController.h"
+#import "AppDelegate.h"
 @interface HomePageViewController ()
 
 @end
@@ -24,6 +25,10 @@
 
 - (void)viewDidLoad
 {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //if(appDelegate.showHomeOverlay==NO){
+        [overlayView removeFromSuperview];
+   // }
     [super viewDidLoad];
  
 	// Do any additional setup after loading the view.
@@ -117,6 +122,10 @@
     NSLog(@"about");
 
     
+}
+
+- (IBAction)closeOverlay:(id)sender {
+    [overlayView removeFromSuperview];
 }
 
 
