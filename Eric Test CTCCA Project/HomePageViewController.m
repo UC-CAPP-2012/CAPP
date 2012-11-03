@@ -25,16 +25,21 @@
 
 - (void)viewDidLoad
 {
-    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //if(appDelegate.showHomeOverlay==NO){
-     //   [overlayView removeFromSuperview];
-   // }
-    [super viewDidLoad];
+    
+        [super viewDidLoad];
  
 	// Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //if(appDelegate.showHomeOverlay==NO){
+    //    [overlayView removeFromSuperview];
+    //    toolbarView.hidden = false;
+    //}
+    //else{
+        toolbarView.hidden = true;
+    //}
     [self.navigationController setNavigationBarHidden:YES];
 
 }
@@ -126,6 +131,9 @@
 
 - (IBAction)closeOverlay:(id)sender {
     [overlayView removeFromSuperview];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.showHomeOverlay = NO;
+    toolbarView.hidden = false;
 }
 
 

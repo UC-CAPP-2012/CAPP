@@ -25,6 +25,7 @@
 {
     IBOutlet UIView *overlayView;
 
+    IBOutlet UIToolbar *toolbarView;
 }
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
