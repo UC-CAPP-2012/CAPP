@@ -38,7 +38,7 @@
     //    toolbarView.hidden = false;
     //}
     //else{
-        toolbarView.hidden = true;
+     //   toolbarView.hidden = true;
     //}
     [self.navigationController setNavigationBarHidden:YES];
 

@@ -12,9 +12,12 @@
 #import "ListingViewController.h"
 #import <EventKitUI/EventKitUI.h>
 #import "ListingString.h"
+#import "PullToRefreshView.h"
 
-@interface FavoritesViewController : UIViewController <NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate>
+@interface FavoritesViewController : UIViewController <NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate,PullToRefreshViewDelegate>
 {
+    IBOutlet UISegmentedControl *segmentController;
+    IBOutlet UISearchBar *searchBar;
     IBOutlet UIView *MapWindow;
     NSMutableArray *favData;
     IBOutlet UIView *favView;
@@ -22,6 +25,8 @@
     IBOutlet UIView *loadView;
     IBOutlet UIView *navView;
     IBOutlet UIView *switchMapView;
+    
+    NSMutableArray *Cost;
     
     IBOutlet UIView *TableWindow;
     IBOutlet UIButton *ListingViewButton;
@@ -36,10 +41,14 @@
     NSMutableString *currentElementValue;
 }
 - (IBAction)switchViews;
-
+- (IBAction)segmentedButton:(id)sender;
+@property BOOL refreshing;
 @property(strong, nonatomic)NSMutableDictionary *listing;
 @property(strong, nonatomic)NSArray *listingsDataSource;
-@property(nonatomic, strong)NSMutableArray *monthFilter, *listingTable,*listingsList, *listingsListString;
+@property (strong, nonatomic) NSMutableArray* filteredTableData;
+@property (nonatomic, assign) bool isFiltered;
+
+@property(nonatomic, strong)NSMutableArray  *listingTable,*listingsList,*typeListingTable, *costListingTable, *suburbListingTable, *listingsListString;
 @property(nonatomic)NSMutableArray *sortHeaders1,*sortHeaders2,*sortHeaders3,*sortHeaders4;
 @property int currSel;
 @property int sortSel;

@@ -1305,7 +1305,6 @@ PullToRefreshView *pull;
         NSArray *array = dictionary[@"AroundMe"];
         currListing= array[indexPath.row];
     }
-    NSString *cellValue = currListing.title;
     
     //UIImage* imageheart = [UIImage imageNamed:@"TabHeartIt.png"];
     //UIImage* imagetrail = [UIImage imageNamed:@"ToursAdd.png"];
@@ -1440,9 +1439,23 @@ PullToRefreshView *pull;
     
     UIImage* imageheart = [UIImage imageNamed:@"thumbs_up@2x.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
-    NSDictionary *dictionary = listingTable[indexPath.section];
-
-    NSMutableArray *array = dictionary[@"AroundMe"];
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
+    
+    NSMutableArray *array = dictionary[@"Events"];
     Listing *currListing = array[indexPath.row];
     
     //ContentView
@@ -1455,7 +1468,12 @@ PullToRefreshView *pull;
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
     
-    btnTemp.tag =indexPath.row;
+    for (int i = 0; i < [listingsList count]; i++) {
+        Listing *currentListing = listingsList[i];
+        if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+            btnTemp.tag =i;
+        }
+    }
        
     
     [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];
@@ -1688,12 +1706,12 @@ PullToRefreshView *pull;
 
 // END Switch View Method
 
--(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+-(void)searchBar:(UISearchBar*)searchBarUI textDidChange:(NSString*)text
 {
     if(text.length == 0)
     {
         isFiltered = FALSE;
-        [searchBar resignFirstResponder];
+        [searchBarUI resignFirstResponder];
     }
     else
     {

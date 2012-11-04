@@ -1023,7 +1023,13 @@ PullToRefreshView *pull;
     // Make sure the button ends up in the right place when the cell is resized
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
-    btnTemp.tag =indexPath.row;
+    for (int i = 0; i < [listingsList count]; i++) {
+        Listing *currentListing = listingsList[i];
+        if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+            btnTemp.tag =i;
+        }
+    }
+
  
     
     [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];

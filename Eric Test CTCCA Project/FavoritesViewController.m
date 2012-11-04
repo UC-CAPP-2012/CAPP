@@ -20,9 +20,11 @@
 
 bool errorMsgShown;
 @implementation FavoritesViewController
-@synthesize currSel,sortSel;
-@synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
+PullToRefreshView *pull;
+@synthesize currSel,sortSel, typeListingTable, costListingTable, suburbListingTable, refreshing;
+@synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString,filteredTableData, isFiltered;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,7 +50,7 @@ bool errorMsgShown;
         }
     }
     
-    loadView.hidden=TRUE;
+    [loadView removeFromSuperview];
 }
 
 - (void)viewDidLoad
@@ -64,8 +66,25 @@ bool errorMsgShown;
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
         
-    
+    currSel=0;
+    Cost = [[NSMutableArray alloc] init];
+    [Cost addObject:@"Free"];
+    [Cost addObject:@"$"];
+    [Cost addObject:@"$$"];
+    [Cost addObject:@"$$$"];
+    [Cost addObject:@"$$$$"];
+    [Cost addObject:@"$$$$$"];
+
     [super viewDidLoad];
+    
+    pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) tableView];
+    [pull setDelegate:self];
+    [tableView addSubview:pull];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(foregroundRefresh:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -73,10 +92,73 @@ bool errorMsgShown;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
+{
+    
+    tableView.contentOffset = CGPointMake(0, -65);
+    [pull setState:PullToRefreshViewStateLoading];
+    
+    // [self reloadTableData];
+    
+    [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+-(void) reloadTableData
+{
+    
+    // call to reload your data
+    if (segmentController.selectedSegmentIndex == 0) {
+        sortSel = 0;
+        NSLog(@"Button1");
+    }
+    if (segmentController.selectedSegmentIndex == 1) {
+        sortSel = 1;
+        NSLog(@"Button2");
+    }
+    if (segmentController.selectedSegmentIndex == 2) {
+        sortSel = 2;
+        NSLog(@"Button3");
+    }
+    if (segmentController.selectedSegmentIndex == 3) {
+        sortSel = 3;
+        NSLog(@"Button4");
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    //2) Create the full file path by appending the desired file name
+    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+    
+    //Load the array
+    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    if([favData count]>0)
+    {
+        
+        [self setupArray];
+    
+        [tableView reloadData];
+    }
+    [pull finishedLoading];
+}
+
+-(void)foregroundRefresh:(NSNotification *)notification
+{
+    
+    //self->tableView.contentOffset = CGPointMake(0, -65);
+    //[pull setState:PullToRefreshViewStateLoading];
+    //[self reloadTableData];
+    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+}
+
+
+
 //Reload With Tab Bar
 //--------------------------------------------------------------------------------------------------//
 //Reloads the table view when navigated to with the tab bar controller.
 - (void)viewWillAppear:(BOOL)animated {
+    if([listingsList count]==0){
+        tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    }
 
 }
 //---------------------------------------------------------------------------------------------------//
@@ -103,14 +185,90 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
     [favData removeObjectAtIndex:indexPath.row];
     [listingsList removeObjectAtIndex:indexPath.row];
-    [listingTable removeAllObjects]; // Clear Table
+
+    if (sortSel == 0) { // allphabetically.
+        
+        [listingTable removeAllObjects]; // Clear Table
+    }
+    else if (sortSel == 1) { //Type
+        [typeListingTable removeAllObjects]; // Clear Table
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        [costListingTable removeAllObjects]; // Clear Table
+    }
+    else { // Suburb
+        [suburbListingTable removeAllObjects]; // Clear Table
+    }
+
     NSMutableArray *section = [[NSMutableArray alloc] init];
     
-    for(int i =0; i<[listingsList count]; i++){
-        [section addObject:listingsList[i]];
+    if([listingsList count]>0){
+        for(int i =0; i<[listingsList count]; i++){
+            [section addObject:listingsList[i]];
+        }
+        NSDictionary *sectionDict = @{@"Favourites": section};
+        [listingTable addObject:sectionDict];
+    
+    
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict2 = @{@"Favourites": section2};
+            [typeListingTable addObject:sectionDict2];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Favourites": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Favourites": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
+        
+        NSLog(@"%i",[listingTable count]);
+        NSLog(@"%i",[typeListingTable count]);
+        NSLog(@"%i",[costListingTable count]);
+        NSLog(@"%i",[suburbListingTable count]);
     }
-    NSDictionary *sectionDict = @{@"Favourites": section};
-    [listingTable addObject:sectionDict];
+
     //[listingTable removeObjectAtIndex:indexPath.row];
     [favData writeToFile:yourArrayFileName atomically:YES];
     [tableView reloadData];
@@ -123,16 +281,114 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 // Return number of sections in table (always 1 for this demo!)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [listingTable count];
+    if(isFiltered){
+        return 1;
+    }
+    else{
+        if (sortSel == 0) { // allphabetically.
+            return 1;
+        }
+        else if (sortSel == 1) { //Type
+            return [typeListingTable count];
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            return [costListingTable count];
+        }
+        else { // Suburb
+            return [suburbListingTable count];
+        }
+
+    }
 }
 
 // Return the amount of items in our table (the total items in our array above)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = listingTable[section];
-    NSArray *array = dictionary[@"Favourites"];
-    return [array count];
+    if(self.isFiltered){
+        return filteredTableData.count;
+    }
+    else{
+        
+        NSDictionary *dictionary;
+        if (sortSel == 0) { // allphabetically.
+            dictionary= listingTable[section];
+        }
+        else if (sortSel == 1) { //Type
+            dictionary= typeListingTable[section];
+        }
+        else if (sortSel == 2) {  //Price
+            dictionary= costListingTable[section];
+        }
+        else { // Suburb
+            dictionary= suburbListingTable[section];
+        }
+        
+        NSArray *array = dictionary[@"Favourites"];
+        return [array count];
+
+    }
 }
+
+-(UIView *)tableView:(UITableView *)tableViewHeader viewForHeaderInSection:(NSInteger)section
+{
+    NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
+    NSString *title = nil;
+    [sectionHeaders removeAllObjects];
+    if(isFiltered){
+        NSMutableArray *header= [[NSMutableArray alloc] init];
+        [header addObject:@"Search Results"];
+        sectionHeaders = [NSArray arrayWithArray:header];
+    }
+    else{
+        if (sortSel == 0) { // allphabetically.
+            sectionHeaders = [NSArray arrayWithArray:sortHeaders1];
+        }
+        else if (sortSel == 1) { //Type
+            for(NSString *header in sortHeaders2)
+            {
+                [sectionHeaders addObject:header];
+            }
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            for(NSString *header in sortHeaders3)
+            {
+                [sectionHeaders addObject: [Cost objectAtIndex:[header intValue]]];
+            }
+        }
+        else if (sortSel == 3) { // Suburb
+            for(NSString *header in sortHeaders4)
+            {
+                [sectionHeaders addObject:header];
+            }
+        }
+    }
+    UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
+    [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];
+    
+    for (int i = 0; i < [sectionHeaders count]; i++) {
+        if (section == i)
+        {
+            NSString *currHeaders = sectionHeaders[i];
+            title = currHeaders;
+        }
+        
+    }
+    
+    
+    headerTitle.text = title;
+    
+    headerTitle.textColor = [UIColor whiteColor];
+    headerTitle.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:headerTitle];
+    
+    return headerView;
+}
+
 
 // Return a cell for the table
 - (UITableViewCell *)tableView:(UITableView *)tableViewSection cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,10 +401,32 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    NSDictionary *dictionary = listingTable[indexPath.section];
-    NSArray *array = dictionary[@"Favourites"];
-    Listing *currListing = array[indexPath.row];
+    if(refreshing==NO){
+    Listing *currListing;
+    if(isFiltered)
+    {
+        currListing = filteredTableData[indexPath.row];
+    }
+    else
+    {
+        NSDictionary *dictionary;
+        if (sortSel == 0) { // allphabetically.
+            dictionary= listingTable[indexPath.section];
+        }
+        else if (sortSel == 1) { //Type
+            dictionary= typeListingTable[indexPath.section];
+            
+        }
+        else if (sortSel == 2) {  //Price
+            
+            dictionary= costListingTable[indexPath.section];
+        }
+        else { // Suburb
+            dictionary= suburbListingTable[indexPath.section];
+        }
+        NSArray *array = dictionary[@"Favourites"];
+        currListing= array[indexPath.row];
+    }
     
     // Get the cell label using its tag and set it
     //UILabel *cellLabel;
@@ -166,9 +444,31 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
     [cellSubtype setText: currListing.suburb];
     
-    UIButton *cellBtn = (UIButton *)[cell viewWithTag:1];
-    cellBtn.tag = indexPath.row;
-    [cellBtn addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+        //ContentView
+        CGRect Button1Frame = CGRectMake(230, 30, 65, 25);
+        UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        btnTemp.frame =Button1Frame;
+        
+        // Make sure the button ends up in the right place when the cell is resized
+        btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+        
+        [btnTemp setTitle:@"Remove" forState:UIControlStateNormal];
+        //[btnTemp setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+        btnTemp.clipsToBounds = YES;
+        
+        //[btnTemp setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:1] forState:UIControlStateNormal];
+        for (int i = 0; i < [listingsList count]; i++) {
+            Listing *currentListing = listingsList[i];
+            if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+                btnTemp.tag =i;
+            }
+        }
+    
+        
+            [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:btnTemp];
+    }
     return cell;
 }
 
@@ -176,22 +476,130 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 {
     
     NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selected = listingsList[selectedIndex];
+    [listingsList removeObjectAtIndex:selectedIndex];
+
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-    [favData removeObjectAtIndex:selectedIndex];
-    [listingsList removeObjectAtIndex:selectedIndex];
-    [listingTable removeAllObjects]; // Clear Table
+    for(int x = 0; x<[favData count]; x++){
+        NSString *listingId = favData[x];
+        if([listingId isEqualToString:selected.listingID]){
+            [favData removeObjectAtIndex:x];
+        }
+        
+    }
+        
+//    NSMutableArray *tempList = listingsList;
+//    [listingsList removeAllObjects];
+//    listingsList = [[NSMutableArray alloc] init];
+//    for(int y=0; y<[tempList count]; y++){
+//        Listing *listingItem = (Listing *)tempList[y];
+//        if(![listingItem.listingID isEqualToString:selected.listingID]){
+//            [listingsList addObject:listingItem];
+//        }
+//    }
+   
+    [listingTable removeAllObjects];
+    [typeListingTable removeAllObjects];
+    
+    [costListingTable removeAllObjects];
+    [suburbListingTable removeAllObjects];
+
+    listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    suburbListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
+    sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
+    sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
+    sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
+
     NSMutableArray *section = [[NSMutableArray alloc] init];
     
-    for(int i =0; i<[listingsList count]; i++){
-        [section addObject:listingsList[i]];
+    if([listingsList count]>0){
+        for(int i =0; i<[listingsList count]; i++){
+            [section addObject:listingsList[i]];
+            Listing *tempListing = listingsList[i];
+            NSString *subType = tempListing.subType;
+            if(![sortHeaders2 containsObject:subType])
+            {
+                [sortHeaders2 addObject:subType];
+                NSLog(@"%@", subType);
+            }
+            
+            NSString *cost = tempListing.costType;
+            if(![sortHeaders3 containsObject:cost])
+            {
+                [sortHeaders3 addObject:cost];
+                NSLog(@"%@", cost);
+            }
+            
+            NSString *suburb = tempListing.suburb;
+            if(![sortHeaders4 containsObject:suburb])
+            {
+                [sortHeaders4 addObject:suburb];
+                NSLog(@"%@", suburb);
+            }
+
+        }
+        NSDictionary *sectionDict = @{@"Favourites": section};
+        [listingTable addObject:sectionDict];
+        
+        
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict2 = @{@"Favourites": section2};
+            [typeListingTable addObject:sectionDict2];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Favourites": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Favourites": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
     }
-    NSDictionary *sectionDict = @{@"Favourites": section};
-    [listingTable addObject:sectionDict];
-    //[listingTable removeObjectAtIndex:indexPath.row];
     [favData writeToFile:yourArrayFileName atomically:YES];
     [tableView reloadData];
 }
@@ -202,11 +610,12 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
 }
 
 -(void) setupArray // Connection to DataSource
 {
+    refreshing = TRUE;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     [mapView removeAnnotations:mapView.annotations];
     
@@ -244,13 +653,22 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     }
     
     //This needs to be set via the filter and sorter.
+    //[listingsListString removeAllObjects];
+    [listingsList removeAllObjects];
+    [listingTable removeAllObjects];
     listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    suburbListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     sortHeaders1 = [[NSMutableArray alloc] init]; //No Headers
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
+    [typeListingTable removeAllObjects]; // Clear Table
+    [costListingTable removeAllObjects]; // Clear Table
+    [suburbListingTable removeAllObjects]; // Clear Table
     NSMutableArray *section = [[NSMutableArray alloc] init];
     for (ListingString *listingStringElement in listingsListString) {
         
@@ -356,10 +774,31 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
 
         [mapView addAnnotation:currListing];
         
-        [section addObject:currListing];
-        
-        
+        Listing *tempListing = currListing;
+        NSString *subType = tempListing.subType;
+        if(![sortHeaders2 containsObject:subType])
+        {
+            [sortHeaders2 addObject:subType];
+            NSLog(@"%@", subType);
         }
+        
+        NSString *cost = tempListing.costType;
+        if(![sortHeaders3 containsObject:cost])
+        {
+            [sortHeaders3 addObject:cost];
+            NSLog(@"%@", cost);
+        }
+        
+        NSString *suburb = tempListing.suburb;
+        if(![sortHeaders4 containsObject:suburb])
+        {
+            [sortHeaders4 addObject:suburb];
+            NSLog(@"%@", suburb);
+        }
+        
+        
+        [section addObject:currListing];
+    }
     
     // --------------------------
     
@@ -367,22 +806,160 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary *sectionDict = @{@"Favourites": section};
     [listingTable addObject:sectionDict];
 
+    // --- SORT 1 Headers ---- // NAME
+    
+    [sortHeaders1 addObject:@"All"];
+    
+    // -----------------------
     
     
+    [sortHeaders2 sortUsingSelector:@selector(compare:)];
+    
+    
+    
+    [sortHeaders3 sortUsingSelector:@selector(compare:)];
+    
+    
+    
+    [sortHeaders4 sortUsingSelector:@selector(compare:)];
+    
+    // -----------------------
+    
+    if([listingsList count]>0){
+        
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict2 = @{@"Favourites": section2};
+            [typeListingTable addObject:sectionDict2];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Favourites": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Favourites": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
+        
+        NSLog(@"%i",[listingTable count]);
+        NSLog(@"%i",[typeListingTable count]);
+        NSLog(@"%i",[costListingTable count]);
+        NSLog(@"%i",[suburbListingTable count]);
+    }
+    refreshing = NO;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath // Control for Map View Button to Listing Detail View
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dictionary = listingTable[indexPath.section];
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDetailsForIndexPath:indexPath];
+}
+
+-(void) showDetailsForIndexPath:(NSIndexPath*)indexPath
+{
+    [searchBar resignFirstResponder];
+    
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
     NSArray *array = dictionary[@"Favourites"];
-    Listing *selectedEvent = array[indexPath.row];
+    Listing *selectedEvent;
+    
+    if(isFiltered)
+    {
+        selectedEvent = filteredTableData[indexPath.row];
+    }
+    else
+    {
+        selectedEvent = array[indexPath.row];
+    }
     
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     listingView.currentListing = selectedEvent;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
-    
 }
+
+-(void)searchBar:(UISearchBar*)searchBarUI textDidChange:(NSString*)text
+{
+    if(text.length == 0)
+    {
+        isFiltered = FALSE;
+        [searchBarUI resignFirstResponder];
+    }
+    else
+    {
+        isFiltered = true;
+        filteredTableData = [[NSMutableArray alloc] init];
+        
+        for (Listing* listingSearch in listingsList)
+        {
+            NSRange nameRange = [listingSearch.title rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange suburbRange = [listingSearch.suburb rangeOfString:text options:NSCaseInsensitiveSearch];
+            
+            if(nameRange.location != NSNotFound || suburbRange.location!=NSNotFound)
+            {
+                [filteredTableData addObject:listingSearch];
+            }
+        }
+    }
+    
+    [tableView reloadData];
+}
+
 
 -(void)setupMap
 {
@@ -599,6 +1176,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         [UIView commitAnimations];
         switchTableView.hidden=false;
         switchMapView.hidden=true;
+        segmentController.hidden = false;
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -616,15 +1194,38 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         [UIView commitAnimations];
         switchTableView.hidden=true;
         switchMapView.hidden=false;
+        
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:navView cache:YES];
         [navView bringSubviewToFront:switchMapView];
+        segmentController.hidden = TRUE;
         [UIView commitAnimations];
         [self setupMap];
         
     }
+
+}
+
+- (IBAction)segmentedButton:(id)sender {
+    if (segmentController.selectedSegmentIndex == 0) {
+        sortSel = 0;
+        NSLog(@"Button1");
+    }
+    if (segmentController.selectedSegmentIndex == 1) {
+        sortSel = 1;
+        NSLog(@"Button2");
+    }
+    if (segmentController.selectedSegmentIndex == 2) {
+        sortSel = 2;
+        NSLog(@"Button3");
+    }
+    if (segmentController.selectedSegmentIndex == 3) {
+        sortSel = 3;
+        NSLog(@"Button4");
+    }
+    [tableView reloadData];
 
 }
 
