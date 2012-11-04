@@ -12,6 +12,8 @@
 #import "NavigationViewController.h"
 #import "AppDelegate.h"
 #import "Listing.h"
+#import "MainTypeClass.h"
+
 bool errorMsgShown;
 @implementation Subscribe
 @synthesize SubscribeScrollView;
@@ -20,7 +22,7 @@ bool errorMsgShown;
 @synthesize EmailTextField;
 @synthesize NickNameTextField;
 @synthesize LastNameTextField;
-@synthesize listingsListString, listingsList;
+@synthesize listingsListString, listingsList, typeDataSource;
 -(IBAction)DismissKeyboard:(id)sender
 {
     [sender resignFirstResponder];
@@ -170,6 +172,75 @@ bool errorMsgShown;
     loadView.hidden=TRUE;
     if ([SignUpCheck checkForSugnup]) {
         appDelegate.showHomeOverlay = NO;
+        typeDataSource = [[NSMutableArray alloc] init];
+        
+        
+        
+        MainTypeClass *type = [[MainTypeClass alloc] init];
+        type.typeID = @"0";
+        type.typeName = @"Food & Wine";
+        type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+        [typeDataSource addObject:type];
+        
+        
+        type = [[MainTypeClass alloc] init]; // I Think the leak is here..
+        type.typeID = @"1";
+        type.typeName = @"Entertainment";
+        type.imageID = [UIImage imageNamed:@"Entertainment_Large.png"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"2";
+        type.typeName = @"Cultural";
+        type.imageID = [UIImage imageNamed:@"Cultural_Large.png"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"3";
+        type.typeName = @"Shopping";
+        type.imageID = [UIImage imageNamed:@"Shopping_Large.PNG"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"4";
+        type.typeName = @"Accommodation";
+        type.imageID = [UIImage imageNamed:@"Accommodation_Large.png"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"5";
+        type.typeName = @"Outdoor";
+        type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+        [typeDataSource addObject:type];
+        
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"6";
+        type.typeName = @"Family";
+        type.imageID = [UIImage imageNamed:@"Family_Large.png"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"7";
+        type.typeName = @"Sport";
+        type.imageID = [UIImage imageNamed:@"Sport_Large.png"];
+        [typeDataSource addObject:type];
+        
+        type = [[MainTypeClass alloc] init];
+        type.typeID = @"8";
+        type.typeName = @"All";
+        type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+        [typeDataSource addObject:type];
+        
+        scrollView.clipsToBounds = NO;
+        scrollView.pagingEnabled = YES;
+        scrollView.showsHorizontalScrollIndicator = NO;
+        scrollView.showsVerticalScrollIndicator = NO;
+        
+        pageControl.numberOfPages = [typeDataSource count];
+        
+        pageControlBeingUsed = NO;
+        [self setUpFrame:pageControl.numberOfPages]; 
 
         [self skipScreen];
     }
@@ -180,6 +251,51 @@ bool errorMsgShown;
     
 }
 
+- (void)setUpFrame: (NSInteger) pages {
+    for (int i = 0; i < pageControl.numberOfPages; i++)
+    {
+        CGRect frame;
+        frame.origin.x = scrollView.frame.size.width *i;
+        frame.origin.y = 0;
+        CGSize size = scrollView.frame.size;
+        frame.size = size;
+        
+        
+        UIView *subview = [[UIView alloc] initWithFrame:frame];
+        [subview setBackgroundColor:[UIColor whiteColor]];
+        
+        
+        
+        //Image View
+        
+        UIImageView *imageView = [[UIImageView alloc]init];
+        MainTypeClass *currType = typeDataSource[i];
+        imageView.image = currType.imageID;
+        
+        
+        imageView.contentMode = UIViewContentModeCenter;
+        
+        imageView.layer.shadowColor = [UIColor blackColor].CGColor;
+        imageView.layer.shadowOffset = CGSizeMake(0,1);
+        imageView.layer.shadowOpacity = 2;
+        imageView.layer.shadowRadius = 10.0;
+        imageView.clipsToBounds = NO;
+        
+        
+        
+        imageView.frame = CGRectMake(0.0f, 0.0f, 320.0f, 380.0f);
+        
+        [subview addSubview:imageView];
+        
+        [self->scrollView addSubview:subview];
+        
+    }
+    
+    self->scrollView.contentSize = CGSizeMake(self->scrollView.frame.size.width * pageControl.numberOfPages, self->scrollView.frame.size.height);
+    CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
+    [self->scrollView setContentSize:scrollableSize];
+    //self->pageControl.currentPage=0;
+}
 
 
 
@@ -194,15 +310,25 @@ bool errorMsgShown;
 
 -(void)skipScreen
 {
+    dispatch_queue_t concurrentQueue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(concurrentQueue, ^(void){
+
     [self setupArray];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.listingsList = listingsList;
+            
     
     NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
     eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
     
     [self presentModalViewController:eventView animated:YES];
-    NSLog(@"Button"); 
+    NSLog(@"Button");
+        });
+    });
 }
 
 - (void)viewDidUnload
@@ -377,6 +503,16 @@ bool errorMsgShown;
     
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if(!pageControlBeingUsed)
+    {
+        CGFloat pageWidth = self->scrollView.frame.size.width;
+        CGFloat offset = self->scrollView.contentOffset.x;
+        int page = floor((offset - pageWidth /2) / pageWidth) + 1;
+        self->pageControl.currentPage = page;
+    }
+}
+
 // --- XML Delegate Classes ----
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
@@ -426,4 +562,12 @@ bool errorMsgShown;
 
 
 
+- (IBAction)changePage:(id)sender {
+    CGRect frame;
+    frame.origin.x = self->scrollView.frame.size.width * self->pageControl.currentPage;
+    frame.origin.y=0;
+    frame.size = self->scrollView.frame.size;
+    [self->scrollView scrollRectToVisible:frame animated:YES];
+    pageControlBeingUsed = YES;
+}
 @end

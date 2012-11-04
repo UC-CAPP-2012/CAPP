@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QuartzCore/CALayer.h"
 #import "ListingString.h"
 #import "Listing.h"
 @interface Subscribe : UIViewController<NSXMLParserDelegate>
@@ -15,14 +16,17 @@
     NSTimer *ActivityTimer;
 
     IBOutlet UILabel *errorMsg;
-    
+    IBOutlet UIPageControl *pageControl;
+     BOOL pageControlBeingUsed;
+    IBOutlet UIScrollView *scrollView;
     IBOutlet UIView *splash;
     IBOutlet UIView *loadView;
     ListingString *theList;
     NSMutableString *currentElementValue;
 }
+- (IBAction)changePage:(id)sender;
 @property(nonatomic, strong)NSMutableArray *listingsListString,*listingsList;
-
+@property(nonatomic, strong)NSMutableArray *typeDataSource;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *SubscribeScrollView;
 
