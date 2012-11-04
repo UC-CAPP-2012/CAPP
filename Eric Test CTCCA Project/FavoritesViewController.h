@@ -38,6 +38,7 @@
     IBOutlet UIView *detailView;
     IBOutlet UIView *switchTableView;
     ListingString *theList;
+    IBOutlet UILabel *emptyListMsg;
     NSMutableString *currentElementValue;
 }
 - (IBAction)switchViews;

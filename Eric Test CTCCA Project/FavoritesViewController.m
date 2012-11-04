@@ -44,13 +44,25 @@ PullToRefreshView *pull;
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
     if([favData count]>0)
     {
-        if([listingsList count]==0){
+        if([listingsList count]==0 || [listingsList count]!= [favData count] ){
             [self setupArray];
             [tableView reloadData];
         }
+        
+    }else{
+        tableView.hidden = true;
+        emptyListMsg.hidden = false;
     }
     
     [loadView removeFromSuperview];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    emptyListMsg.hidden = TRUE;
+
+    if([listingsList count]==0){
+        tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    }
 }
 
 - (void)viewDidLoad
@@ -155,125 +167,120 @@ PullToRefreshView *pull;
 //Reload With Tab Bar
 //--------------------------------------------------------------------------------------------------//
 //Reloads the table view when navigated to with the tab bar controller.
-- (void)viewWillAppear:(BOOL)animated {
-    if([listingsList count]==0){
-        tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
-    }
 
-}
 //---------------------------------------------------------------------------------------------------//
 
 //Delete Function
 //--------------------------------------------------------------------------------------------------//
 //Telling the table view that the rows have a delete editing style
-- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
-           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-//Displays the delete button and deletes the row and the entry in the favorites array
-- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
-forRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-    // delete your data for this row from here
-    
-    //Creating a file path under iPhone OS:
-    //1) Search for the app's documents directory (copy+paste from Documentation)
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths[0];
-    //2) Create the full file path by appending the desired file name
-    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
-    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
-    [favData removeObjectAtIndex:indexPath.row];
-    [listingsList removeObjectAtIndex:indexPath.row];
-
-    if (sortSel == 0) { // allphabetically.
-        
-        [listingTable removeAllObjects]; // Clear Table
-    }
-    else if (sortSel == 1) { //Type
-        [typeListingTable removeAllObjects]; // Clear Table
-        
-    }
-    else if (sortSel == 2) {  //Price
-        
-        [costListingTable removeAllObjects]; // Clear Table
-    }
-    else { // Suburb
-        [suburbListingTable removeAllObjects]; // Clear Table
-    }
-
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-    
-    if([listingsList count]>0){
-        for(int i =0; i<[listingsList count]; i++){
-            [section addObject:listingsList[i]];
-        }
-        NSDictionary *sectionDict = @{@"Favourites": section};
-        [listingTable addObject:sectionDict];
-    
-    
-        for (int i =0; i < [sortHeaders2 count]; i++){
-            NSMutableArray *section2 = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = sortHeaders2[i];
-            for (Listing *listingListListing in listingsList)
-            {
-                NSString *type = listingListListing.subType;
-                
-                if ([type isEqualToString:currSortHeader])
-                {
-                    [section2 addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict2 = @{@"Favourites": section2};
-            [typeListingTable addObject:sectionDict2];
-            
-        }
-        
-        for (int i =0; i < [sortHeaders3 count]; i++){
-            NSMutableArray *section3 = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = sortHeaders3[i];
-            for (Listing *listingListListing in listingsList)
-            {
-                NSString *type = listingListListing.costType;
-                
-                if ([type isEqualToString:currSortHeader])
-                {
-                    [section3 addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict3 = @{@"Favourites": section3};
-            [costListingTable addObject:sectionDict3];
-            
-        }
-        
-        for (int i =0; i < [sortHeaders4 count]; i++){
-            NSMutableArray *section4 = [[NSMutableArray alloc] init];
-            NSString *currSortHeader = sortHeaders4[i];
-            for (Listing *listingListListing in listingsList)
-            {
-                NSString *type = listingListListing.suburb;
-                
-                if ([type isEqualToString:currSortHeader])
-                {
-                    [section4 addObject:listingListListing];
-                }
-            }
-            NSDictionary *sectionDict4 = @{@"Favourites": section4};
-            [suburbListingTable addObject:sectionDict4];
-            
-        }
-        
-        NSLog(@"%i",[listingTable count]);
-        NSLog(@"%i",[typeListingTable count]);
-        NSLog(@"%i",[costListingTable count]);
-        NSLog(@"%i",[suburbListingTable count]);
-    }
-
-    //[listingTable removeObjectAtIndex:indexPath.row];
-    [favData writeToFile:yourArrayFileName atomically:YES];
-    [tableView reloadData];
- 
-}
+//- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
+//           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+//    return UITableViewCellEditingStyleDelete;
+//}
+////Displays the delete button and deletes the row and the entry in the favorites array
+//- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
+//forRowAtIndexPath:(NSIndexPath*)indexPath {
+//    
+//    // delete your data for this row from here
+//    
+//    //Creating a file path under iPhone OS:
+//    //1) Search for the app's documents directory (copy+paste from Documentation)
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = paths[0];
+//    //2) Create the full file path by appending the desired file name
+//    NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
+//    favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+//    [favData removeObjectAtIndex:indexPath.row];
+//    [listingsList removeObjectAtIndex:indexPath.row];
+//
+//    if (sortSel == 0) { // allphabetically.
+//        
+//        [listingTable removeAllObjects]; // Clear Table
+//    }
+//    else if (sortSel == 1) { //Type
+//        [typeListingTable removeAllObjects]; // Clear Table
+//        
+//    }
+//    else if (sortSel == 2) {  //Price
+//        
+//        [costListingTable removeAllObjects]; // Clear Table
+//    }
+//    else { // Suburb
+//        [suburbListingTable removeAllObjects]; // Clear Table
+//    }
+//
+//    NSMutableArray *section = [[NSMutableArray alloc] init];
+//    
+//    if([listingsList count]>0){
+//        for(int i =0; i<[listingsList count]; i++){
+//            [section addObject:listingsList[i]];
+//        }
+//        NSDictionary *sectionDict = @{@"Favourites": section};
+//        [listingTable addObject:sectionDict];
+//    
+//    
+//        for (int i =0; i < [sortHeaders2 count]; i++){
+//            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+//            NSString *currSortHeader = sortHeaders2[i];
+//            for (Listing *listingListListing in listingsList)
+//            {
+//                NSString *type = listingListListing.subType;
+//                
+//                if ([type isEqualToString:currSortHeader])
+//                {
+//                    [section2 addObject:listingListListing];
+//                }
+//            }
+//            NSDictionary *sectionDict2 = @{@"Favourites": section2};
+//            [typeListingTable addObject:sectionDict2];
+//            
+//        }
+//        
+//        for (int i =0; i < [sortHeaders3 count]; i++){
+//            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+//            NSString *currSortHeader = sortHeaders3[i];
+//            for (Listing *listingListListing in listingsList)
+//            {
+//                NSString *type = listingListListing.costType;
+//                
+//                if ([type isEqualToString:currSortHeader])
+//                {
+//                    [section3 addObject:listingListListing];
+//                }
+//            }
+//            NSDictionary *sectionDict3 = @{@"Favourites": section3};
+//            [costListingTable addObject:sectionDict3];
+//            
+//        }
+//        
+//        for (int i =0; i < [sortHeaders4 count]; i++){
+//            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+//            NSString *currSortHeader = sortHeaders4[i];
+//            for (Listing *listingListListing in listingsList)
+//            {
+//                NSString *type = listingListListing.suburb;
+//                
+//                if ([type isEqualToString:currSortHeader])
+//                {
+//                    [section4 addObject:listingListListing];
+//                }
+//            }
+//            NSDictionary *sectionDict4 = @{@"Favourites": section4};
+//            [suburbListingTable addObject:sectionDict4];
+//            
+//        }
+//        
+//        NSLog(@"%i",[listingTable count]);
+//        NSLog(@"%i",[typeListingTable count]);
+//        NSLog(@"%i",[costListingTable count]);
+//        NSLog(@"%i",[suburbListingTable count]);
+//    }
+//
+//    //[listingTable removeObjectAtIndex:indexPath.row];
+//    [favData writeToFile:yourArrayFileName atomically:YES];
+//    [tableView reloadData];
+// 
+//}
 //--------------------------------------------------------------------------------------------------//
 
 
@@ -310,7 +317,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         return filteredTableData.count;
     }
     else{
-        
+        if([listingsList count]>0){
         NSDictionary *dictionary;
         if (sortSel == 0) { // allphabetically.
             dictionary= listingTable[section];
@@ -327,6 +334,9 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         
         NSArray *array = dictionary[@"Favourites"];
         return [array count];
+        }else{
+            return 0;
+        }
 
     }
 }
@@ -599,6 +609,10 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
             [suburbListingTable addObject:sectionDict4];
             
         }
+    }else{
+        tableView.hidden = true;
+        emptyListMsg.hidden = false;
+        
     }
     [favData writeToFile:yourArrayFileName atomically:YES];
     [tableView reloadData];
@@ -882,6 +896,12 @@ forRowAtIndexPath:(NSIndexPath*)indexPath {
         NSLog(@"%i",[typeListingTable count]);
         NSLog(@"%i",[costListingTable count]);
         NSLog(@"%i",[suburbListingTable count]);
+        tableView.hidden = false;
+        emptyListMsg.hidden = true;
+    }else{
+        tableView.hidden = true;
+        emptyListMsg.hidden = false;
+
     }
     refreshing = NO;
 }
