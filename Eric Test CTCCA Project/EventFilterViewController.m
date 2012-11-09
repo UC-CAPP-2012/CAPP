@@ -1031,7 +1031,7 @@ PullToRefreshView *pull;
 
  
     
-    [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];
+  //  [btnTemp setBackgroundColor:[UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1]];
 
     
     NSString *cutString = [currListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
