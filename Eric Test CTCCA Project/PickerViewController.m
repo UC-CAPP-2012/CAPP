@@ -261,7 +261,9 @@ bool errorMsgShown;
     count=0;
     spinned = NO;
     alert = NO;
+   // spinWheel.userInteractionEnabled = NO;
     [self feelingAdventurous];
+   // spinWheel.userInteractionEnabled = YES;
 }
 
 -(void)feelingAdventurous  // Control for Map View Button to Listing Detail View   
@@ -269,13 +271,14 @@ bool errorMsgShown;
     
     
     if(spinned==NO){
-    [feelAdvBtn setEnabled:false];
-    [catLock setEnabled:false];
-    [regionLock setEnabled:false];
-    [priceLock setEnabled:false];
-    notFoundView.hidden = true;
-    loadView.hidden = false;
-    resultButtonView.hidden=TRUE;
+        [feelAdvBtn setEnabled:false];
+        [catLock setEnabled:false];
+        [regionLock setEnabled:false];
+        [priceLock setEnabled:false];
+        [spinWheel setUserInteractionEnabled:false];
+        notFoundView.hidden = true;
+        loadView.hidden = false;
+        resultButtonView.hidden=TRUE;
         if(!costLocked && !categoryLocked && !suburbLocked){
             allUnlocked = true;
         }else{
@@ -470,6 +473,7 @@ bool errorMsgShown;
                 [catLock setEnabled:TRUE];
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
+                [spinWheel setUserInteractionEnabled:true];
                 //count = 0;
                 spinned = YES;
                 selectedCost = CostArray[[selectedCost intValue]];
@@ -482,6 +486,7 @@ bool errorMsgShown;
                 [regionLock setEnabled:TRUE];
                 [priceLock setEnabled:TRUE];
                 selectedCost = CostArray[[selectedCost intValue]];
+                [spinWheel setUserInteractionEnabled:true];
                 UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                                 message:@"There aren't any places found like that.  Unlink and try again."
                                                                delegate:nil
