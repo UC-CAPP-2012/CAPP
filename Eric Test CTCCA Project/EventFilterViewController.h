@@ -16,6 +16,7 @@
 
 @interface EventFilterViewController : UIViewController<NSXMLParserDelegate,MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,EKEventEditViewDelegate, PullToRefreshViewDelegate>{
     
+    IBOutlet UIView *eventMonthFilter;
     //Main Screen View outlets
     IBOutlet UIView *eventView;
     IBOutlet MKMapView *mapView;
@@ -62,6 +63,7 @@
 -(IBAction)previousMonth:(id)sender;
 -(IBAction)segmentButton:(id)sender;
 
+@property BOOL isFilteringByMonth;
 @property BOOL refreshing;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;

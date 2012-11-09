@@ -27,7 +27,7 @@
 bool errorMsgShown;
 @implementation EventFilterViewController
 PullToRefreshView *pull;
-@synthesize monthFilter;
+@synthesize monthFilter,isFilteringByMonth;
 @synthesize currSel,sortSel, typeListingTable, costListingTable, suburbListingTable;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
@@ -1349,44 +1349,55 @@ PullToRefreshView *pull;
 
 
 -(IBAction)nextMonth:(id)sender{
-    nextMonth.hidden =true;
-    previousMonth.hidden=true;
-    selectMonthLoadView.hidden = false;
-    [listingTable removeAllObjects]; // Clear Table
-    [typeListingTable removeAllObjects]; // Clear Table
-    [costListingTable removeAllObjects]; // Clear Table
-    [suburbListingTable removeAllObjects]; // Clear Table
-    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-    
-    
-    currSel = currSel + 1;
-    if (currSel == monthFilter.count-1)
-    {
-        nextMonth.hidden=TRUE;
-    }
-    dateLabel.text = monthFilter[currSel];
-    
-    
-    dispatch_queue_t concurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(concurrentQueue, ^(void){
-    
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setupArray];
-          //  [tableView reloadData];
-            selectMonthLoadView.hidden = true;
-            nextMonth.hidden =false;
-            previousMonth.hidden=false;
+    if(isFilteringByMonth==NO){
+        isFilteringByMonth=YES;
+        nextMonth.hidden =true;
+        previousMonth.hidden=true;
+        [nextMonth setUserInteractionEnabled:false];
+        [previousMonth setUserInteractionEnabled:false];
+        selectMonthLoadView.hidden = false;
+        eventMonthFilter.hidden = true;
+        [listingTable removeAllObjects]; // Clear Table
+        [typeListingTable removeAllObjects]; // Clear Table
+        [costListingTable removeAllObjects]; // Clear Table
+        [suburbListingTable removeAllObjects]; // Clear Table
+        [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+        
+        
+        currSel = currSel + 1;
+        if (currSel == monthFilter.count-1)
+        {
+            nextMonth.hidden=TRUE;
+        }
+        dateLabel.text = monthFilter[currSel];
+        
+        
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupArray];
+                //  [tableView reloadData];
+                selectMonthLoadView.hidden = true;
+                //  nextMonth.hidden =false;
+                //previousMonth.hidden=false;
+                eventMonthFilter.hidden=false;
+                nextMonth.hidden =false;
+                previousMonth.hidden=false;
+                [nextMonth setUserInteractionEnabled:true];
+                [previousMonth setUserInteractionEnabled:true];
+                isFilteringByMonth=NO;
+            });
         });
-    });
-
-    
-
+    }
 }
 -(IBAction)previousMonth:(id)sender{
-    nextMonth.hidden =true;
-    previousMonth.hidden=true;
+   // nextMonth.hidden =true;
+    //previousMonth.hidden=true;
+    [nextMonth setUserInteractionEnabled:false];
+    [previousMonth setUserInteractionEnabled:false];
     selectMonthLoadView.hidden = false;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
@@ -1402,12 +1413,13 @@ PullToRefreshView *pull;
     
     dispatch_async(concurrentQueue, ^(void){
         
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setupArray];
             //  [tableView reloadData];
             selectMonthLoadView.hidden = true;
-            nextMonth.hidden =false;
-            previousMonth.hidden=false;
+            [nextMonth setUserInteractionEnabled:true];
+            [previousMonth setUserInteractionEnabled:true];
         });
     });
 
