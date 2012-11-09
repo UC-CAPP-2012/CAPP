@@ -63,7 +63,7 @@ PullToRefreshView *pull;
 
 - (void)viewDidLoad
 {
-    self.navigationItem.title = @"Around Me";
+    self.navigationItem.title = @"around me";
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
     switchTableView.hidden=true;

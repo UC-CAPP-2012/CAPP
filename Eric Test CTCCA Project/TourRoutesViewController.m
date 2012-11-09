@@ -347,6 +347,11 @@ NSString *currentDestination;
                                                  otherButtonTitles: nil];
         [alertBox show];
     }else{
+        //        ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+        //        webView.Website = currentTour.AudioURL;
+        //        [self.navigationController pushViewController:webView animated:YES];
+        //        NSLog(@"Button");
+        
         MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:selectedListing.audioURL];
         player.movieSourceType = MPMovieSourceTypeStreaming;
         player.view.hidden = YES;

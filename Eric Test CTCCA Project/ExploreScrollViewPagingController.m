@@ -35,7 +35,7 @@
     [super viewDidLoad];
     pageControlBeingUsed = NO;
     
-    self.title = @"Explore";
+    self.title = @"explore";
     //ARRAY FROM DB
     
 }

@@ -67,7 +67,7 @@ PullToRefreshView *pull;
 
 - (void)viewDidLoad
 {
-    [super setTitle:@"Loved"];
+    [super setTitle:@"loved"];
     NSMutableString *stringName = [GenerateFavoritesString createFavoriteString];
     NSLog(@"%@",stringName);
     switchTableView.hidden=false;
