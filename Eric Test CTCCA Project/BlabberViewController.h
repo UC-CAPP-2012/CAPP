@@ -36,6 +36,7 @@
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
 @property (nonatomic, assign) bool isFiltered;
 @property BOOL refreshing;
+@property BOOL isPulledDownToRefresh;
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void) setupArray;
 @end

@@ -27,7 +27,7 @@ PullToRefreshView *pull;
 @synthesize currentNews;
 @synthesize imageDownloadsInProgress;
 @synthesize filteredTableData;
-@synthesize isFiltered, refreshing;
+@synthesize isFiltered, refreshing, isPulledDownToRefresh;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -176,12 +176,14 @@ PullToRefreshView *pull;
     
     NSDictionary *sectionDict = @{@"News": section};
     [newsListingTable addObject:sectionDict];
-    if(numOfNews==[newsListingsList count]){
-        loadMorebtn.hidden = true;
-        loadMoreIndicator.hidden = true;
-    }
-    else{
-        numOfNews = [newsListingsList count];
+    if(isPulledDownToRefresh==NO){
+        if(numOfNews==[newsListingsList count]){
+            loadMorebtn.hidden = true;
+            loadMoreIndicator.hidden = true;
+        }
+        else{
+            numOfNews = [newsListingsList count];
+        }
     }
     refreshing = NO;
 }
@@ -414,10 +416,12 @@ PullToRefreshView *pull;
 -(void) reloadTableData
 {
     // call to reload your data
+    isPulledDownToRefresh=YES;
     [self setupArray];
     loadView.hidden=TRUE;
     [self->tableView reloadData];
     [pull finishedLoading];
+    isPulledDownToRefresh = NO;
 }
 
 -(void)foregroundRefresh:(NSNotification *)notification
