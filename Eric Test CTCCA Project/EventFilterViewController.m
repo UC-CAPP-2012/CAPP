@@ -108,12 +108,11 @@ PullToRefreshView *pull;
 - (void) setupSideSwipeView
 {
     // Add the background pattern
-    //self.sideSwipeView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"dotted-pattern.png"]];
-    self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.28 green:0.56 blue:0.28 alpha:1];
+    self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.5];
     // Overlay a shadow image that adds a subtle darker drop shadow around the edges
     UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
     UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
-    shadowImageView.alpha = 0.2;
+    shadowImageView.alpha = 0.4;
     shadowImageView.image = shadow;
     shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.sideSwipeView addSubview:shadowImageView];
