@@ -1320,7 +1320,10 @@ PullToRefreshView *pull;
         //cell.imageView.image = image;
         
         //ContentView
-        UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
+        UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",currListing.subType]];
+        if(image==NULL){
+            image = [UIImage imageNamed:@"star-hollow@2x.png"];
+        }
         cell.imageView.image = image;
         
         UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];

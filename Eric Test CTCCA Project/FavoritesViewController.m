@@ -47,7 +47,7 @@ PullToRefreshView *pull;
     NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
-
+    
     //Load the array
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
     if([favData count]>0)
@@ -67,7 +67,7 @@ PullToRefreshView *pull;
 
 - (void)viewWillAppear:(BOOL)animated{
     emptyListMsg.hidden = TRUE;
-
+    
     if([listingsList count]==0){
         tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
     }
@@ -85,7 +85,7 @@ PullToRefreshView *pull;
     errorMsgShown = NO;
     //Creating a file path under iPhone OS:
     //1) Search for the app's documents directory (copy+paste from Documentation)
-        
+    
     currSel=0;
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
@@ -94,7 +94,7 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$"];
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
-
+    
     [super viewDidLoad];
     animatingSideSwipe = NO;
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
@@ -107,7 +107,7 @@ PullToRefreshView *pull;
                                              selector:@selector(foregroundRefresh:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -238,7 +238,7 @@ PullToRefreshView *pull;
     {
         
         [self setupArray];
-    
+        
         [tableView reloadData];
     }
     [pull finishedLoading];
@@ -264,16 +264,16 @@ PullToRefreshView *pull;
 //Delete Function
 //--------------------------------------------------------------------------------------------------//
 //Telling the table view that the rows have a delete editing style
-//- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView 
+//- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView
 //           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
 //    return UITableViewCellEditingStyleDelete;
 //}
 ////Displays the delete button and deletes the row and the entry in the favorites array
-//- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style 
+//- (void)tableView:(UITableView*)tableViewEdit commitEditingStyle:(UITableViewCellEditingStyle)style
 //forRowAtIndexPath:(NSIndexPath*)indexPath {
-//    
+//
 //    // delete your data for this row from here
-//    
+//
 //    //Creating a file path under iPhone OS:
 //    //1) Search for the app's documents directory (copy+paste from Documentation)
 //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -285,15 +285,15 @@ PullToRefreshView *pull;
 //    [listingsList removeObjectAtIndex:indexPath.row];
 //
 //    if (sortSel == 0) { // allphabetically.
-//        
+//
 //        [listingTable removeAllObjects]; // Clear Table
 //    }
 //    else if (sortSel == 1) { //Type
 //        [typeListingTable removeAllObjects]; // Clear Table
-//        
+//
 //    }
 //    else if (sortSel == 2) {  //Price
-//        
+//
 //        [costListingTable removeAllObjects]; // Clear Table
 //    }
 //    else { // Suburb
@@ -301,22 +301,22 @@ PullToRefreshView *pull;
 //    }
 //
 //    NSMutableArray *section = [[NSMutableArray alloc] init];
-//    
+//
 //    if([listingsList count]>0){
 //        for(int i =0; i<[listingsList count]; i++){
 //            [section addObject:listingsList[i]];
 //        }
 //        NSDictionary *sectionDict = @{@"Favourites": section};
 //        [listingTable addObject:sectionDict];
-//    
-//    
+//
+//
 //        for (int i =0; i < [sortHeaders2 count]; i++){
 //            NSMutableArray *section2 = [[NSMutableArray alloc] init];
 //            NSString *currSortHeader = sortHeaders2[i];
 //            for (Listing *listingListListing in listingsList)
 //            {
 //                NSString *type = listingListListing.subType;
-//                
+//
 //                if ([type isEqualToString:currSortHeader])
 //                {
 //                    [section2 addObject:listingListListing];
@@ -324,16 +324,16 @@ PullToRefreshView *pull;
 //            }
 //            NSDictionary *sectionDict2 = @{@"Favourites": section2};
 //            [typeListingTable addObject:sectionDict2];
-//            
+//
 //        }
-//        
+//
 //        for (int i =0; i < [sortHeaders3 count]; i++){
 //            NSMutableArray *section3 = [[NSMutableArray alloc] init];
 //            NSString *currSortHeader = sortHeaders3[i];
 //            for (Listing *listingListListing in listingsList)
 //            {
 //                NSString *type = listingListListing.costType;
-//                
+//
 //                if ([type isEqualToString:currSortHeader])
 //                {
 //                    [section3 addObject:listingListListing];
@@ -341,16 +341,16 @@ PullToRefreshView *pull;
 //            }
 //            NSDictionary *sectionDict3 = @{@"Favourites": section3};
 //            [costListingTable addObject:sectionDict3];
-//            
+//
 //        }
-//        
+//
 //        for (int i =0; i < [sortHeaders4 count]; i++){
 //            NSMutableArray *section4 = [[NSMutableArray alloc] init];
 //            NSString *currSortHeader = sortHeaders4[i];
 //            for (Listing *listingListListing in listingsList)
 //            {
 //                NSString *type = listingListListing.suburb;
-//                
+//
 //                if ([type isEqualToString:currSortHeader])
 //                {
 //                    [section4 addObject:listingListListing];
@@ -358,9 +358,9 @@ PullToRefreshView *pull;
 //            }
 //            NSDictionary *sectionDict4 = @{@"Favourites": section4};
 //            [suburbListingTable addObject:sectionDict4];
-//            
+//
 //        }
-//        
+//
 //        NSLog(@"%i",[listingTable count]);
 //        NSLog(@"%i",[typeListingTable count]);
 //        NSLog(@"%i",[costListingTable count]);
@@ -370,7 +370,7 @@ PullToRefreshView *pull;
 //    //[listingTable removeObjectAtIndex:indexPath.row];
 //    [favData writeToFile:yourArrayFileName atomically:YES];
 //    [tableView reloadData];
-// 
+//
 //}
 //--------------------------------------------------------------------------------------------------//
 
@@ -397,7 +397,7 @@ PullToRefreshView *pull;
         else { // Suburb
             return [suburbListingTable count];
         }
-
+        
     }
 }
 
@@ -409,26 +409,26 @@ PullToRefreshView *pull;
     }
     else{
         if([listingsList count]>0){
-        NSDictionary *dictionary;
-        if (sortSel == 0) { // allphabetically.
-            dictionary= listingTable[section];
-        }
-        else if (sortSel == 1) { //Type
-            dictionary= typeListingTable[section];
-        }
-        else if (sortSel == 2) {  //Price
-            dictionary= costListingTable[section];
-        }
-        else { // Suburb
-            dictionary= suburbListingTable[section];
-        }
-        
-        NSArray *array = dictionary[@"Favourites"];
-        return [array count];
+            NSDictionary *dictionary;
+            if (sortSel == 0) { // allphabetically.
+                dictionary= listingTable[section];
+            }
+            else if (sortSel == 1) { //Type
+                dictionary= typeListingTable[section];
+            }
+            else if (sortSel == 2) {  //Price
+                dictionary= costListingTable[section];
+            }
+            else { // Suburb
+                dictionary= suburbListingTable[section];
+            }
+            
+            NSArray *array = dictionary[@"Favourites"];
+            return [array count];
         }else{
             return 0;
         }
-
+        
     }
 }
 
@@ -503,70 +503,73 @@ PullToRefreshView *pull;
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     if(refreshing==NO){
-    Listing *currListing;
-    if(isFiltered)
-    {
-        currListing = filteredTableData[indexPath.row];
-    }
-    else
-    {
-        NSDictionary *dictionary;
-        if (sortSel == 0) { // allphabetically.
-            dictionary= listingTable[indexPath.section];
+        Listing *currListing;
+        if(isFiltered)
+        {
+            currListing = filteredTableData[indexPath.row];
         }
-        else if (sortSel == 1) { //Type
-            dictionary= typeListingTable[indexPath.section];
-            
+        else
+        {
+            NSDictionary *dictionary;
+            if (sortSel == 0) { // allphabetically.
+                dictionary= listingTable[indexPath.section];
+            }
+            else if (sortSel == 1) { //Type
+                dictionary= typeListingTable[indexPath.section];
+                
+            }
+            else if (sortSel == 2) {  //Price
+                
+                dictionary= costListingTable[indexPath.section];
+            }
+            else { // Suburb
+                dictionary= suburbListingTable[indexPath.section];
+            }
+            NSArray *array = dictionary[@"Favourites"];
+            currListing= array[indexPath.row];
         }
-        else if (sortSel == 2) {  //Price
-            
-            dictionary= costListingTable[indexPath.section];
+        
+        // Get the cell label using its tag and set it
+        //UILabel *cellLabel;
+        
+        //[cellLabel setText:[favData objectAtIndex:indexPath.row]];
+        
+        
+        UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",currListing.subType]];
+        if(image==NULL){
+            image = [UIImage imageNamed:@"star-hollow@2x.png"];
         }
-        else { // Suburb
-            dictionary= suburbListingTable[indexPath.section];
-        }
-        NSArray *array = dictionary[@"Favourites"];
-        currListing= array[indexPath.row];
-    }
-    
-    // Get the cell label using its tag and set it
-    //UILabel *cellLabel;
- 
-    //[cellLabel setText:[favData objectAtIndex:indexPath.row]];
-    
-    
-    UIImage* image = [UIImage imageNamed:@"star-hollow@2x.png"];
-    cell.imageView.image = image;
-    //ContentView
-    //ContentView
-    UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
-    [cellHeading setText: currListing.title];
-    
-    UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
-    [cellSubtype setText: currListing.suburb];
-    
+        cell.imageView.image = image;
         //ContentView
-//        CGRect Button1Frame = CGRectMake(230, 30, 65, 25);
-//        UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//        
-//        btnTemp.frame =Button1Frame;
-//        
-//        // Make sure the button ends up in the right place when the cell is resized
-//        btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-//        
-//        [btnTemp setTitle:@"Remove" forState:UIControlStateNormal];
-//        btnTemp.clipsToBounds = YES;
-//        
-//        //[btnTemp setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:1] forState:UIControlStateNormal];
-//        for (int i = 0; i < [listingsList count]; i++) {
-//            Listing *currentListing = listingsList[i];
-//            if ([currentListing.listingID isEqualToString:currListing.listingID]) {
-//                btnTemp.tag =i;
-//            }
-//        }
-//    
-//        
-//            [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+        //ContentView
+        UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
+        [cellHeading setText: currListing.title];
+        
+        UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
+        [cellSubtype setText: currListing.suburb];
+        
+        //ContentView
+        //        CGRect Button1Frame = CGRectMake(230, 30, 65, 25);
+        //        UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        //
+        //        btnTemp.frame =Button1Frame;
+        //
+        //        // Make sure the button ends up in the right place when the cell is resized
+        //        btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+        //
+        //        [btnTemp setTitle:@"Remove" forState:UIControlStateNormal];
+        //        btnTemp.clipsToBounds = YES;
+        //
+        //        //[btnTemp setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:1] forState:UIControlStateNormal];
+        //        for (int i = 0; i < [listingsList count]; i++) {
+        //            Listing *currentListing = listingsList[i];
+        //            if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+        //                btnTemp.tag =i;
+        //            }
+        //        }
+        //
+        //
+        //            [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
         //[cell addSubview:btnTemp];
     }
     return cell;
@@ -630,7 +633,6 @@ PullToRefreshView *pull;
         sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
     }
     
-    UIImage* imageheart = [UIImage imageNamed:@"thumbs_up@2x.png"];
     NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
     NSDictionary *dictionary;
     if (sortSel == 0) { // allphabetically.
@@ -670,17 +672,17 @@ PullToRefreshView *pull;
     
     
     [btnTemp setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1]];
-        [btnTemp setImage:nil forState:UIControlStateNormal];
-        [btnTemp setImage:nil forState:UIControlStateSelected];
-        //btnTemp.imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
-        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
-        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
-        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
-        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
-        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
-        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
-        [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
-       [self.sideSwipeView addSubview:btnTemp];
+    [btnTemp setImage:nil forState:UIControlStateNormal];
+    [btnTemp setImage:nil forState:UIControlStateSelected];
+    //btnTemp.imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+    [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
+    [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
+    //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
+    //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
+    //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
+    //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
+    [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+    [self.sideSwipeView addSubview:btnTemp];
     
     
     // Animate in the side swipe view
@@ -829,7 +831,7 @@ PullToRefreshView *pull;
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     Listing *selected = listingsList[selectedIndex];
     [listingsList removeObjectAtIndex:selectedIndex];
-
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     //2) Create the full file path by appending the desired file name
@@ -842,23 +844,23 @@ PullToRefreshView *pull;
         }
         
     }
-        
-//    NSMutableArray *tempList = listingsList;
-//    [listingsList removeAllObjects];
-//    listingsList = [[NSMutableArray alloc] init];
-//    for(int y=0; y<[tempList count]; y++){
-//        Listing *listingItem = (Listing *)tempList[y];
-//        if(![listingItem.listingID isEqualToString:selected.listingID]){
-//            [listingsList addObject:listingItem];
-//        }
-//    }
-   
+    
+    //    NSMutableArray *tempList = listingsList;
+    //    [listingsList removeAllObjects];
+    //    listingsList = [[NSMutableArray alloc] init];
+    //    for(int y=0; y<[tempList count]; y++){
+    //        Listing *listingItem = (Listing *)tempList[y];
+    //        if(![listingItem.listingID isEqualToString:selected.listingID]){
+    //            [listingsList addObject:listingItem];
+    //        }
+    //    }
+    
     [listingTable removeAllObjects];
     [typeListingTable removeAllObjects];
     
     [costListingTable removeAllObjects];
     [suburbListingTable removeAllObjects];
-
+    
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     costListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
@@ -867,7 +869,7 @@ PullToRefreshView *pull;
     sortHeaders2 = [[NSMutableArray alloc] init]; //Distinct Type Headers
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
-
+    
     NSMutableArray *section = [[NSMutableArray alloc] init];
     
     if([listingsList count]>0){
@@ -894,7 +896,7 @@ PullToRefreshView *pull;
                 [sortHeaders4 addObject:suburb];
                 NSLog(@"%@", suburb);
             }
-
+            
         }
         NSDictionary *sectionDict = @{@"Favourites": section};
         [listingTable addObject:sectionDict];
@@ -976,9 +978,9 @@ PullToRefreshView *pull;
     
     NSMutableString *ids = [GenerateFavoritesString createFavoriteString];
     NSLog(@"%@",ids);
-//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Favourites.xml"];
+    //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Favs.php?ids=%@",ids];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -1003,7 +1005,7 @@ PullToRefreshView *pull;
             [alert show];
             errorMsgShown = YES;
         }
-
+        
         NSLog(@"did not work!");
     }
     
@@ -1126,7 +1128,7 @@ PullToRefreshView *pull;
         // -----------------------------------------
         
         [listingsList addObject:currListing];
-
+        
         [mapView addAnnotation:currListing];
         
         Listing *tempListing = currListing;
@@ -1160,7 +1162,7 @@ PullToRefreshView *pull;
     
     NSDictionary *sectionDict = @{@"Favourites": section};
     [listingTable addObject:sectionDict];
-
+    
     // --- SORT 1 Headers ---- // NAME
     
     [sortHeaders1 addObject:@"All"];
@@ -1242,7 +1244,7 @@ PullToRefreshView *pull;
     }else{
         tableView.hidden = true;
         emptyListMsg.hidden = false;
-
+        
     }
     refreshing = NO;
 }
@@ -1566,7 +1568,7 @@ PullToRefreshView *pull;
         [self setupMap];
         
     }
-
+    
 }
 
 - (IBAction)segmentedButton:(id)sender {
@@ -1587,7 +1589,7 @@ PullToRefreshView *pull;
         NSLog(@"Button4");
     }
     [tableView reloadData];
-
+    
 }
 
 -(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
