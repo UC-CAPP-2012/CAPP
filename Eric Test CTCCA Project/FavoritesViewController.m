@@ -14,13 +14,21 @@
 #import "MainTypeClass.h"
 #import "SearchArray.h"
 #import "SaveToFavorites.h"
-@interface FavoritesViewController ()
+#import "SideSwipeTableViewCell.h"
+#define USE_GESTURE_RECOGNIZERS YES
+#define BOUNCE_PIXELS 5.0
+#define PUSH_STYLE_ANIMATION NO
 
+@interface FavoritesViewController (PrivateStuff)
+- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction;
+- (void) setupGestureRecognizers;
+- (void) swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction;
 @end
 
 bool errorMsgShown;
 @implementation FavoritesViewController
 PullToRefreshView *pull;
+@synthesize sideSwipeView, sideSwipeCell, sideSwipeDirection, animatingSideSwipe;
 @synthesize currSel,sortSel, typeListingTable, costListingTable, suburbListingTable, refreshing;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString,filteredTableData, isFiltered;
 @synthesize sortHeaders1,sortHeaders2,sortHeaders3,sortHeaders4;
@@ -88,7 +96,10 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$$$"];
 
     [super viewDidLoad];
-    
+    animatingSideSwipe = NO;
+    self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
+    [self setupSideSwipeView];
+    [self setupGestureRecognizers];
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) tableView];
     [pull setDelegate:self];
     [tableView addSubview:pull];
@@ -103,6 +114,86 @@ PullToRefreshView *pull;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+- (void) setupSideSwipeView
+{
+    // Add the background pattern
+    //self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.5];
+    // Overlay a shadow image that adds a subtle darker drop shadow around the edges
+    UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
+    UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
+    shadowImageView.alpha = 0.2;
+    shadowImageView.image = shadow;
+    shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.sideSwipeView addSubview:shadowImageView];
+    
+    
+}
+
+- (BOOL) gestureRecognizersSupported
+{
+    if (!USE_GESTURE_RECOGNIZERS) return NO;
+    
+    // Apple's docs: Although this class was publicly available starting with iOS 3.2, it was in development a short period prior to that
+    // check if it responds to the selector locationInView:. This method was not added to the class until iOS 3.2.
+    return [[[UISwipeGestureRecognizer alloc] init] respondsToSelector:@selector(locationInView:)];
+}
+
+- (void) setupGestureRecognizers
+{
+    // Do nothing under 3.x
+    if (![self gestureRecognizersSupported]) return;
+    
+    // Setup a right swipe gesture recognizer
+    UISwipeGestureRecognizer* rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
+    rightSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [tableView addGestureRecognizer:rightSwipeGestureRecognizer];
+    
+    // Setup a left swipe gesture recognizer
+    UISwipeGestureRecognizer* leftSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
+    leftSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [tableView addGestureRecognizer:leftSwipeGestureRecognizer];
+}
+
+// Called when a left swipe occurred
+- (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer
+{
+    [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
+}
+
+// Called when a right swipe ocurred
+- (void)swipeRight:(UISwipeGestureRecognizer *)recognizer
+{
+    [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
+}
+
+// Handle a left or right swipe
+- (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction
+{
+    if (recognizer && recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        // Get the table view cell where the swipe occured
+        CGPoint location = [recognizer locationInView:tableView];
+        NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        // If we are already showing the swipe view, remove it
+        if (cell.frame.origin.x != 0)
+        {
+            [self removeSideSwipeView:YES];
+            return;
+        }
+        
+        // Make sure we are starting out with the side swipe view and cell in the proper location
+        [self removeSideSwipeView:NO];
+        
+        // If this isn't the cell that already has thew side swipe view and we aren't in the middle of animating
+        // then start animating in the the side swipe view
+        if (cell!= sideSwipeCell && !animatingSideSwipe)
+            [self addSwipeViewTo:cell direction:direction];
+    }
+}
+
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view;
 {
@@ -407,10 +498,10 @@ PullToRefreshView *pull;
     static NSString *CellIdentifier = @"CellFavorites";
     
     // Create or reuse a cell
-    UITableViewCell *cell = [tableViewSection dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    SideSwipeTableViewCell *cell = (SideSwipeTableViewCell*)[tableViewSection dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+        cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
     if(refreshing==NO){
     Listing *currListing;
     if(isFiltered)
@@ -455,32 +546,282 @@ PullToRefreshView *pull;
     [cellSubtype setText: currListing.suburb];
     
         //ContentView
-        CGRect Button1Frame = CGRectMake(230, 30, 65, 25);
-        UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        
-        btnTemp.frame =Button1Frame;
-        
-        // Make sure the button ends up in the right place when the cell is resized
-        btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-        
-        [btnTemp setTitle:@"Remove" forState:UIControlStateNormal];
-        //[btnTemp setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
-        btnTemp.clipsToBounds = YES;
-        
-        //[btnTemp setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:1] forState:UIControlStateNormal];
-        for (int i = 0; i < [listingsList count]; i++) {
-            Listing *currentListing = listingsList[i];
-            if ([currentListing.listingID isEqualToString:currListing.listingID]) {
-                btnTemp.tag =i;
-            }
-        }
-    
-        
-            [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:btnTemp];
+//        CGRect Button1Frame = CGRectMake(230, 30, 65, 25);
+//        UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//        
+//        btnTemp.frame =Button1Frame;
+//        
+//        // Make sure the button ends up in the right place when the cell is resized
+//        btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+//        
+//        [btnTemp setTitle:@"Remove" forState:UIControlStateNormal];
+//        btnTemp.clipsToBounds = YES;
+//        
+//        //[btnTemp setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:1] forState:UIControlStateNormal];
+//        for (int i = 0; i < [listingsList count]; i++) {
+//            Listing *currentListing = listingsList[i];
+//            if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+//                btnTemp.tag =i;
+//            }
+//        }
+//    
+//        
+//            [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+        //[cell addSubview:btnTemp];
     }
     return cell;
 }
+
+- (void)tableView:(UITableView *)theTableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If we are using gestures, then don't do anything
+    if ([self gestureRecognizersSupported]) return;
+    
+    // Get the table view cell where the swipe occured
+    UITableViewCell* cell = [theTableView cellForRowAtIndexPath:indexPath];
+    
+    // Make sure we are starting out with the side swipe view and cell in the proper location
+    [self removeSideSwipeView:NO];
+    
+    // If this isn't the cell that already has thew side swipe view and we aren't in the middle of animating
+    // then start animating in the the side swipe view. We don't have access to the direction, so we always assume right
+    if (cell!= sideSwipeCell && !animatingSideSwipe)
+        [self addSwipeViewTo:cell direction:UISwipeGestureRecognizerDirectionRight];
+}
+
+// Apple's docs: To enable the swipe-to-delete feature of table views (wherein a user swipes horizontally across a row to display a Delete button), you must implement the tableView:commitEditingStyle:forRowAtIndexPath: method.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If we are using gestures, then don't allow editing
+    if ([self gestureRecognizersSupported])
+        return NO;
+    else
+        return YES;
+}
+
+#pragma mark Adding the side swipe view
+- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction
+{
+    // Change the frame of the side swipe view to match the cell
+    sideSwipeView.frame = cell.frame;
+    
+    // Add the side swipe view to the table below the cell
+    [tableView insertSubview:sideSwipeView belowSubview:cell];
+    
+    // Remember which cell the side swipe view is displayed on and the swipe direction
+    self.sideSwipeCell = cell;
+    sideSwipeDirection = direction;
+    
+    CGRect cellFrame = cell.frame;
+    if (PUSH_STYLE_ANIMATION)
+    {
+        // Move the side swipe view offscreen either to the left or the right depending on the swipe direction
+        sideSwipeView.frame = CGRectMake(direction == UISwipeGestureRecognizerDirectionRight ? -cellFrame.size.width : cellFrame.size.width, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
+        
+        
+    }
+    else
+    {
+        // Move the side swipe view to offset 0
+        sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
+    }
+    
+    UIImage* imageheart = [UIImage imageNamed:@"thumbs_up@2x.png"];
+    NSIndexPath* indexPath = [tableView indexPathForCell:sideSwipeCell];
+    NSDictionary *dictionary;
+    if (sortSel == 0) { // allphabetically.
+        dictionary= listingTable[indexPath.section];
+    }
+    else if (sortSel == 1) { //Type
+        dictionary= typeListingTable[indexPath.section];
+        
+    }
+    else if (sortSel == 2) {  //Price
+        
+        dictionary= costListingTable[indexPath.section];
+    }
+    else { // Suburb
+        dictionary= suburbListingTable[indexPath.section];
+    }
+    
+    NSMutableArray *array = dictionary[@"Events"];
+    Listing *currListing = array[indexPath.row];
+    
+    //ContentView
+    CGRect Button1Frame = CGRectMake(150, 10, 30, 30);
+    UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btnTemp =[[UIButton alloc] initWithFrame:Button1Frame];
+    
+    // Make sure the button ends up in the right place when the cell is resized
+    btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+    
+    
+    for (int i = 0; i < [listingsList count]; i++) {
+        Listing *currentListing = listingsList[i];
+        if ([currentListing.listingID isEqualToString:currListing.listingID]) {
+            btnTemp.tag =i;
+        }
+    }
+    
+    
+    [btnTemp setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1]];
+        [btnTemp setImage:nil forState:UIControlStateNormal];
+        [btnTemp setImage:nil forState:UIControlStateSelected];
+        //btnTemp.imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
+        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
+        [btnTemp setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
+        //[btnTemp setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
+        [btnTemp addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
+       [self.sideSwipeView addSubview:btnTemp];
+    
+    
+    // Animate in the side swipe view
+    animatingSideSwipe = YES;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStopAddingSwipeView:finished:context:)];
+    if (PUSH_STYLE_ANIMATION)
+    {
+        // Move the side swipe view to offset 0
+        // While simultaneously moving the cell's frame offscreen
+        // The net effect is that the side swipe view is pushing the cell offscreen
+        sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
+    }
+    cell.frame = CGRectMake(direction == UISwipeGestureRecognizerDirectionRight ? cellFrame.size.width : -cellFrame.size.width, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
+    [UIView commitAnimations];
+}
+
+// Note that the animation is done
+- (void)animationDidStopAddingSwipeView:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    animatingSideSwipe = NO;
+}
+
+#pragma mark Removing the side swipe view
+// UITableViewDelegate
+// When a row is selected, animate the removal of the side swipe view
+- (NSIndexPath *)tableView:(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self removeSideSwipeView:YES];
+    return indexPath;
+}
+
+// UIScrollViewDelegate
+// When the table is scrolled, animate the removal of the side swipe view
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self removeSideSwipeView:YES];
+}
+
+// When the table is scrolled to the top, remove the side swipe view
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self removeSideSwipeView:NO];
+    return YES;
+}
+
+// Remove the side swipe view.
+// If animated is YES, then the removal is animated using a bounce effect
+- (void) removeSideSwipeView:(BOOL)animated
+{
+    // Make sure we have a cell where the side swipe view appears and that we aren't in the middle of animating
+    if (!sideSwipeCell || animatingSideSwipe) return;
+    
+    if (animated)
+    {
+        // The first step in a bounce animation is to move the side swipe view a bit offscreen
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        if (sideSwipeDirection == UISwipeGestureRecognizerDirectionRight)
+        {
+            if (PUSH_STYLE_ANIMATION)
+                sideSwipeView.frame = CGRectMake(-sideSwipeView.frame.size.width + BOUNCE_PIXELS,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+            sideSwipeCell.frame = CGRectMake(BOUNCE_PIXELS, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+        }
+        else
+        {
+            if (PUSH_STYLE_ANIMATION)
+                sideSwipeView.frame = CGRectMake(sideSwipeView.frame.size.width - BOUNCE_PIXELS,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+            sideSwipeCell.frame = CGRectMake(-BOUNCE_PIXELS, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+        }
+        animatingSideSwipe = YES;
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStopOne:finished:context:)];
+        [UIView commitAnimations];
+    }
+    else
+    {
+        [sideSwipeView removeFromSuperview];
+        sideSwipeCell.frame = CGRectMake(0,sideSwipeCell.frame.origin.y,sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+        self.sideSwipeCell = nil;
+    }
+}
+
+#pragma mark Bounce animation when removing the side swipe view
+// The next step in a bounce animation is to move the side swipe view a bit on screen
+- (void)animationDidStopOne:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    if (sideSwipeDirection == UISwipeGestureRecognizerDirectionRight)
+    {
+        if (PUSH_STYLE_ANIMATION)
+            sideSwipeView.frame = CGRectMake(-sideSwipeView.frame.size.width + BOUNCE_PIXELS*2,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+        sideSwipeCell.frame = CGRectMake(BOUNCE_PIXELS*2, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+    }
+    else
+    {
+        if (PUSH_STYLE_ANIMATION)
+            sideSwipeView.frame = CGRectMake(sideSwipeView.frame.size.width - BOUNCE_PIXELS*2,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+        sideSwipeCell.frame = CGRectMake(-BOUNCE_PIXELS*2, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+    }
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStopTwo:finished:context:)];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView commitAnimations];
+}
+
+// The final step in a bounce animation is to move the side swipe completely offscreen
+- (void)animationDidStopTwo:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [UIView commitAnimations];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    if (sideSwipeDirection == UISwipeGestureRecognizerDirectionRight)
+    {
+        if (PUSH_STYLE_ANIMATION)
+            sideSwipeView.frame = CGRectMake(-sideSwipeView.frame.size.width ,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+        sideSwipeCell.frame = CGRectMake(0, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+    }
+    else
+    {
+        if (PUSH_STYLE_ANIMATION)
+            sideSwipeView.frame = CGRectMake(sideSwipeView.frame.size.width ,sideSwipeView.frame.origin.y,sideSwipeView.frame.size.width, sideSwipeView.frame.size.height);
+        sideSwipeCell.frame = CGRectMake(0, sideSwipeCell.frame.origin.y, sideSwipeCell.frame.size.width, sideSwipeCell.frame.size.height);
+    }
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStopThree:finished:context:)];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView commitAnimations];
+}
+
+// When the bounce animation is completed, remove the side swipe view and reset some state
+- (void)animationDidStopThree:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    animatingSideSwipe = NO;
+    self.sideSwipeCell = nil;
+    [sideSwipeView removeFromSuperview];
+}
+
 
 -(void)unfavourite:(id)sender
 {

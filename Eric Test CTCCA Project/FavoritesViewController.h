@@ -25,7 +25,11 @@
     IBOutlet UIView *loadView;
     IBOutlet UIView *navView;
     IBOutlet UIView *switchMapView;
-    
+    IBOutlet UIView* sideSwipeView;
+    UITableViewCell* sideSwipeCell;
+    UISwipeGestureRecognizerDirection sideSwipeDirection;
+    BOOL animatingSideSwipe;
+
     NSMutableArray *Cost;
     
     IBOutlet UIView *TableWindow;
@@ -41,6 +45,13 @@
     IBOutlet UILabel *emptyListMsg;
     NSMutableString *currentElementValue;
 }
+@property (nonatomic, strong) IBOutlet UIView* sideSwipeView;
+@property (nonatomic, strong) UITableViewCell* sideSwipeCell;
+@property (nonatomic) UISwipeGestureRecognizerDirection sideSwipeDirection;
+@property (nonatomic) BOOL animatingSideSwipe;
+- (void) removeSideSwipeView:(BOOL)animated;
+- (BOOL) gestureRecognizersSupported;
+
 - (IBAction)switchViews;
 - (IBAction)segmentedButton:(id)sender;
 @property BOOL refreshing;
