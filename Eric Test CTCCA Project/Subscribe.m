@@ -568,6 +568,6 @@ bool errorMsgShown;
     frame.origin.y=0;
     frame.size = self->scrollView.frame.size;
     [self->scrollView scrollRectToVisible:frame animated:YES];
-    pageControlBeingUsed = YES;
+    //pageControlBeingUsed = YES;
 }
 @end
