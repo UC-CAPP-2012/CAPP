@@ -297,7 +297,10 @@ bool errorMsgShown;
     //self->pageControl.currentPage=0;
 }
 
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 //    if ([textField.text length] > 4-1) {
@@ -307,6 +310,16 @@ bool errorMsgShown;
     return YES;
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (appDelegate.isLanscapeOk) {
+        // for iPhone, you could also return UIInterfaceOrientationMaskAllButUpsideDown
+        return UIInterfaceOrientationMaskAll;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 -(void)skipScreen
 {
@@ -343,11 +356,7 @@ bool errorMsgShown;
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+
 
 // *** DATA CONNECTION ***
 

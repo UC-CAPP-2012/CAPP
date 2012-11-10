@@ -90,6 +90,7 @@ PullToRefreshView *pull;
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     animatingSideSwipe = NO;
+    isFilteringByMonth = NO;
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
     [self setupSideSwipeView];
     [self setupGestureRecognizers];
@@ -108,7 +109,7 @@ PullToRefreshView *pull;
 - (void) setupSideSwipeView
 {
     // Add the background pattern
-   // self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.5];
+    // self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.5];
     // Overlay a shadow image that adds a subtle darker drop shadow around the edges
     UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
     UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
@@ -122,17 +123,17 @@ PullToRefreshView *pull;
 
 -(void) setupDate
 {
-    int dateRange = 12; // Date Range of months.
+    int dateRange = 13; // Date Range of months.
     monthFilter = [[NSMutableArray alloc] init];
     
-    NSDate *todaysDate = [NSDate date];    
+    NSDate *todaysDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [dateFormatter setDateFormat:@"MMMM, YYYY"];    
+    [dateFormatter setDateFormat:@"MMMM, YYYY"];
     NSString *dateString = [dateFormatter stringFromDate:todaysDate];
     [monthFilter addObject:dateString];
     
-    for (int i = 1; i<=dateRange; i++) 
+    for (int i = 1; i<=dateRange; i++)
     {
         NSDate *todaysDate = [NSDate date];
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -142,14 +143,14 @@ PullToRefreshView *pull;
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setDateFormat:@"MMMM, YYYY"];    
+        [dateFormatter setDateFormat:@"MMMM, YYYY"];
         NSString *dateString = [dateFormatter stringFromDate:addMonth];
         [monthFilter addObject:dateString];
     }
-        
+    
     currSel = 0;
     previousMonth.hidden=TRUE;
-    dateLabel.text = monthFilter[currSel];    
+    dateLabel.text = monthFilter[currSel];
 }
 
 -(void) setupArray // Connection to DataSource
@@ -161,7 +162,7 @@ PullToRefreshView *pull;
     [dateFormat setDateFormat:@"LLLL, yyyy"];
     NSDate *dateStartItem = [dateFormat dateFromString:dateLabel.text];
     
-   
+    
     NSDate *dateEndItem = [dateFormat dateFromString:monthFilter[currSel+1]];
     
     
@@ -169,14 +170,14 @@ PullToRefreshView *pull;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateStrStart = [dateFormatter stringFromDate:dateStartItem];
     NSString *dateStrEnd = [dateFormatter stringFromDate:dateEndItem];
-
-   
-
     
     
-//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    
+    
+    //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+    //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Happenings.php?start=%@&end=%@",dateStrStart,dateStrEnd];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
@@ -189,7 +190,7 @@ PullToRefreshView *pull;
     if(worked) {
         NSLog(@"Amount %i", [listingsListString count]);
     }
-    else 
+    else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                         message:@"Something went wrong. Please make sure you are connected to the internet."
@@ -200,11 +201,11 @@ PullToRefreshView *pull;
             [alert show];
             errorMsgShown = YES;
         }
-
+        
         NSLog(@"did not work!");
     }
     
-    //This needs to be set via the filter and sorter.    
+    //This needs to be set via the filter and sorter.
     listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
     typeListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
@@ -215,7 +216,7 @@ PullToRefreshView *pull;
     sortHeaders3 = [[NSMutableArray alloc] init]; //Distinct Rating Headers
     sortHeaders4 = [[NSMutableArray alloc] init]; //Distinct Price Headers
     [listingTable removeAllObjects]; // Clear Table
-    [typeListingTable removeAllObjects]; // Clear Table 
+    [typeListingTable removeAllObjects]; // Clear Table
     [costListingTable removeAllObjects]; // Clear Table
     [suburbListingTable removeAllObjects]; // Clear Table
     NSMutableArray *section = [[NSMutableArray alloc] init];
@@ -347,7 +348,7 @@ PullToRefreshView *pull;
         
         [section addObject:currListing];
         
-
+        
     }
     NSDictionary *sectionDict = @{@"Events": section};
     [listingTable addObject:sectionDict];
@@ -363,10 +364,10 @@ PullToRefreshView *pull;
     
     [sortHeaders2 sortUsingSelector:@selector(compare:)];
     
- 
+    
     
     [sortHeaders3 sortUsingSelector:@selector(compare:)];
-
+    
     
     
     [sortHeaders4 sortUsingSelector:@selector(compare:)];
@@ -374,71 +375,72 @@ PullToRefreshView *pull;
     // -----------------------
     
     if([listingsList count]>0){
-    
-    for (int i =0; i < [sortHeaders2 count]; i++){
-        NSMutableArray *section2 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders2[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.subType;
-            
-            if ([type isEqualToString:currSortHeader])
-            {
-                [section2 addObject:listingListListing];
-            }
-        }
-        NSDictionary *sectionDict2 = @{@"Events": section2};
-        [typeListingTable addObject:sectionDict2];
         
-    }
-    
-    for (int i =0; i < [sortHeaders3 count]; i++){
-        NSMutableArray *section3 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders3[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.costType;
-            
-            if ([type isEqualToString:currSortHeader])
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
             {
-                [section3 addObject:listingListListing];
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
             }
-        }
-        NSDictionary *sectionDict3 = @{@"Events": section3};
-        [costListingTable addObject:sectionDict3];
-        
-    }
-    
-    for (int i =0; i < [sortHeaders4 count]; i++){
-        NSMutableArray *section4 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders4[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.suburb;
+            NSDictionary *sectionDict2 = @{@"Events": section2};
+            [typeListingTable addObject:sectionDict2];
             
-            if ([type isEqualToString:currSortHeader])
-            {
-                [section4 addObject:listingListListing];
-            }
         }
-        NSDictionary *sectionDict4 = @{@"Events": section4};
-        [suburbListingTable addObject:sectionDict4];
         
-    }
-    
-    NSLog(@"%i",[listingTable count]);
-    NSLog(@"%i",[typeListingTable count]);
-    NSLog(@"%i",[costListingTable count]);
-    NSLog(@"%i",[suburbListingTable count]);
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Events": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Events": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
+        
+        NSLog(@"%i",[listingTable count]);
+        NSLog(@"%i",[typeListingTable count]);
+        NSLog(@"%i",[costListingTable count]);
+        NSLog(@"%i",[suburbListingTable count]);
         noEventsMsg.hidden = TRUE;
         tableView.hidden = NO;
         
-    [tableView reloadData];
+        [tableView reloadData];
     }else{
         tableView.hidden = TRUE;
         noEventsMsg.hidden = NO;
     }
     refreshing = NO;
+    
 }
 
 -(void)setupMap
@@ -461,7 +463,7 @@ PullToRefreshView *pull;
     region.span.latitudeDelta = 0.15f; // Zoom Settings
     region.span.longitudeDelta = 0.25f; // Zoom Settings
     [mapView setRegion:region animated:YES];
-        
+    
 }
 
 - (BOOL) gestureRecognizersSupported
@@ -637,7 +639,7 @@ PullToRefreshView *pull;
 // END MAP METHODS
 
 // TABLE METHODS
- 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if(isFiltered){
         return [filteredTableData count];
@@ -670,7 +672,7 @@ PullToRefreshView *pull;
         rowCount = filteredTableData.count;
     }
     else{
-
+        
         if (sortSel == 0) { // allphabetically.
             dictionary= listingTable[section];
         }
@@ -683,9 +685,9 @@ PullToRefreshView *pull;
         else { // Suburb
             dictionary= suburbListingTable[section];
         }
-    
+        
         NSArray *array = dictionary[@"Events"];
-    
+        
         rowCount = [array count];
     }
     
@@ -694,7 +696,7 @@ PullToRefreshView *pull;
 
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    //return @"Test";
+//return @"Test";
 //}
 
 -(UIView *)tableView:(UITableView *)tableViewHeader viewForHeaderInSection:(NSInteger)section
@@ -716,10 +718,10 @@ PullToRefreshView *pull;
             {
                 [sectionHeaders addObject:header];
             }
-        
+            
         }
         else if (sortSel == 2) {  //Price
-        
+            
             for(NSString *header in sortHeaders3)
             {
                 [sectionHeaders addObject: [Cost objectAtIndex:[header intValue]]];
@@ -736,17 +738,17 @@ PullToRefreshView *pull;
     [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];
     
-        for (int i = 0; i < [sectionHeaders count]; i++) {
-            if (section == i)
-            {
-                NSString *currHeaders = sectionHeaders[i];
-                title = currHeaders;
-            }
-            
+    for (int i = 0; i < [sectionHeaders count]; i++) {
+        if (section == i)
+        {
+            NSString *currHeaders = sectionHeaders[i];
+            title = currHeaders;
         }
         
-        
-        headerTitle.text = title;
+    }
+    
+    
+    headerTitle.text = title;
     
     headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
@@ -760,10 +762,10 @@ PullToRefreshView *pull;
     
     self->tableView.contentOffset = CGPointMake(0, -65);
     [pull setState:PullToRefreshViewStateLoading];
-
+    
     //[self reloadTableData];
-
- [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
+    
+    [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
 -(void) reloadTableData
@@ -817,7 +819,7 @@ PullToRefreshView *pull;
         {
             NSRange nameRange = [listingSearch.title rangeOfString:text options:NSCaseInsensitiveSearch];
             NSRange suburbRange = [listingSearch.suburb rangeOfString:text options:NSCaseInsensitiveSearch];
-
+            
             if(nameRange.location != NSNotFound || suburbRange.location!=NSNotFound)
             {
                 [filteredTableData addObject:listingSearch];
@@ -886,45 +888,45 @@ PullToRefreshView *pull;
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
     if(refreshing ==NO){
-    
-    Listing *currListing;
-    if(isFiltered)
-    {
-        currListing = filteredTableData[indexPath.row];
-    }
-    else
-    {
-        NSDictionary *dictionary;
-        if (sortSel == 0) { // allphabetically.
-            dictionary= listingTable[indexPath.section];
+        
+        Listing *currListing;
+        if(isFiltered)
+        {
+            currListing = filteredTableData[indexPath.row];
         }
-        else if (sortSel == 1) { //Type
-            dictionary= typeListingTable[indexPath.section];
-            
+        else
+        {
+            NSDictionary *dictionary;
+            if (sortSel == 0) { // allphabetically.
+                dictionary= listingTable[indexPath.section];
+            }
+            else if (sortSel == 1) { //Type
+                dictionary= typeListingTable[indexPath.section];
+                
+            }
+            else if (sortSel == 2) {  //Price
+                
+                dictionary= costListingTable[indexPath.section];
+            }
+            else { // Suburb
+                dictionary= suburbListingTable[indexPath.section];
+            }
+            NSArray *array = dictionary[@"Events"];
+            currListing = array[indexPath.row];
         }
-        else if (sortSel == 2) {  //Price
-            
-            dictionary= costListingTable[indexPath.section];
-        }
-        else { // Suburb
-            dictionary= suburbListingTable[indexPath.section];
-        }
-        NSArray *array = dictionary[@"Events"];
-        currListing = array[indexPath.row];
-    }
-    
+        
         UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",currListing.subType]];
         if(image==NULL){
             image = [UIImage imageNamed:@"star-hollow@2x.png"];
         }
-    cell.imageView.image = image;
-
-    //ContentView
-    UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
-    [cellHeading setText: currListing.title];
-    
-    UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
-    [cellSubtype setText: currListing.suburb];
+        cell.imageView.image = image;
+        
+        //ContentView
+        UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
+        [cellHeading setText: currListing.title];
+        
+        UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
+        [cellSubtype setText: currListing.suburb];
     }
     return cell;
 }
@@ -1011,7 +1013,7 @@ PullToRefreshView *pull;
     else { // Suburb
         dictionary= suburbListingTable[indexPath.section];
     }
-
+    
     NSMutableArray *array = dictionary[@"Events"];
     Listing *currListing = array[indexPath.row];
     
@@ -1031,11 +1033,11 @@ PullToRefreshView *pull;
             btnTemp.tag =i;
         }
     }
-
- 
     
-   [btnTemp setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1]]; 
-
+    
+    
+    [btnTemp setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1]];
+    
     
     NSString *cutString = [currListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([SearchArray searchArray:cutString]) {
@@ -1055,10 +1057,10 @@ PullToRefreshView *pull;
         [btnTemp setImage:nil forState:UIControlStateSelected];
         [btnTemp setImage:imageheart forState:UIControlStateNormal];
         [btnTemp setImage:imageheart forState:UIControlStateSelected];
-//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateApplication];
-//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateHighlighted];
-//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateDisabled];
-//        [btnTemp setBackgroundImage:imageheart forState:UIControlStateReserved];
+        //        [btnTemp setBackgroundImage:imageheart forState:UIControlStateApplication];
+        //        [btnTemp setBackgroundImage:imageheart forState:UIControlStateHighlighted];
+        //        [btnTemp setBackgroundImage:imageheart forState:UIControlStateDisabled];
+        //        [btnTemp setBackgroundImage:imageheart forState:UIControlStateReserved];
         [btnTemp addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self.sideSwipeView addSubview:btnTemp];
@@ -1202,8 +1204,8 @@ PullToRefreshView *pull;
 }
 
 
--(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View   
-{      
+-(void)ListingView:(id)sender  // Control for Map View Button to Listing Detail View
+{
     ListingViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"ListingViewController"]; // Listing Detail Page
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     Listing *selectedListing = listingsList[selectedIndex];
@@ -1212,27 +1214,27 @@ PullToRefreshView *pull;
     NSLog(@"%@",selectedListing.listingID);
 }
 
--(void)addFavourite:(id)sender  
-{      
+-(void)addFavourite:(id)sender
+{
     NSInteger selectedIndex = ((UIButton*)sender).tag;
     
-    Listing *selectedListing = listingsList[selectedIndex];    
+    Listing *selectedListing = listingsList[selectedIndex];
     NSString *cutString = [selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
     [SaveToFavorites saveToFavorites:cutString];
     
     NSLog(@"%@",cutString);
     NSLog(@"Button Favourite");
-
-
+    
+    
     //((UIButton*)sender).imageView.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
     [((UIButton*)sender) setImage:nil forState:UIControlStateNormal];
     [((UIButton*)sender) setImage:nil forState:UIControlStateSelected];
     [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateNormal];
     [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateSelected];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateApplication];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateDisabled];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateHighlighted];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"thumbs_down@2x.png"] forState:UIControlStateReserved];
     [((UIButton*)sender) addTarget:self action:@selector(unfavourite:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -1244,50 +1246,50 @@ PullToRefreshView *pull;
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     NSInteger selectedIndex = ((UIButton*)sender).tag;
-    Listing *selectedListing = listingsList[selectedIndex];  
+    Listing *selectedListing = listingsList[selectedIndex];
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
     for(int i = 0; i<[favData count]; i++){
         if([favData[i] isEqualToString:[selectedListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""]]){
             [favData removeObjectAtIndex:i];
         }
     }
-     [favData writeToFile:yourArrayFileName atomically:YES];
+    [favData writeToFile:yourArrayFileName atomically:YES];
     [((UIButton*)sender) setImage:nil forState:UIControlStateNormal];
     [((UIButton*)sender) setImage:nil forState:UIControlStateSelected];
     [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_up@2x.png"] forState:UIControlStateNormal];
     [((UIButton*)sender) setImage:[UIImage imageNamed:@"thumbs_up@2x.png"] forState:UIControlStateSelected];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateApplication];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateDisabled];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateHighlighted];
-//    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateReserved];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateApplication];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateDisabled];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateHighlighted];
+    //    [((UIButton*)sender) setBackgroundImage:[UIImage imageNamed:@"Favourites_Icon_Small.png"] forState:UIControlStateReserved];
     //((UIButton*)sender).imageView.image = [UIImage imageNamed:@"Favourites_Icon_Small.png"];
     [((UIButton*)sender) addTarget:self action:@selector(addFavourite:) forControlEvents:UIControlEventTouchUpInside];
     
-   
+    
 }
 
--(void)addToCalendar:(id)sender  
-{      
+-(void)addToCalendar:(id)sender
+{
     
-        NSInteger selectedIndex = ((UIButton*)sender).tag;
-        Listing *selectedListing = listingsList[selectedIndex];
-        //Event Store Object
-        EKEventStore *eventStore = [[EKEventStore alloc] init];
-        EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-        EKEventEditViewController *controller = [[EKEventEditViewController alloc] init];
-        
-        event.title=selectedListing.title;
-        event.location=selectedListing.address;
-        if (selectedListing.listingType == @"Event") {
-            event.startDate = selectedListing.startDate;
-            event.endDate = selectedListing.endDate;
-        }
-        controller.event = event;
-        controller.eventStore = eventStore;
-        controller.editViewDelegate = self;
-        
-        [self presentModalViewController: controller animated:YES];
-
+    NSInteger selectedIndex = ((UIButton*)sender).tag;
+    Listing *selectedListing = listingsList[selectedIndex];
+    //Event Store Object
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+    EKEventEditViewController *controller = [[EKEventEditViewController alloc] init];
+    
+    event.title=selectedListing.title;
+    event.location=selectedListing.address;
+    if (selectedListing.listingType == @"Event") {
+        event.startDate = selectedListing.startDate;
+        event.endDate = selectedListing.endDate;
+    }
+    controller.event = event;
+    controller.eventStore = eventStore;
+    controller.editViewDelegate = self;
+    
+    [self presentModalViewController: controller animated:YES];
+    
     NSLog(@"%@",selectedListing.listingID);
     NSLog(@"Button Trail");
 }
@@ -1323,18 +1325,18 @@ PullToRefreshView *pull;
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
-    } 
+    }
     else if (viewArray[1] == tableWindow) // change to mapview
     {
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:eventView cache:YES];        
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:eventView cache:YES];
         [eventView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
         switchTableView.hidden=true;
         switchMapView.hidden=false;
-
+        
         // Navigation Bar Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
@@ -1352,11 +1354,14 @@ PullToRefreshView *pull;
 
 -(IBAction)nextMonth:(id)sender{
     if(isFilteringByMonth==NO){
-        isFilteringByMonth=YES;
-        nextMonth.hidden =true;
-        previousMonth.hidden=true;
+        
+        
         [nextMonth setUserInteractionEnabled:false];
         [previousMonth setUserInteractionEnabled:false];
+        nextMonth.enabled = false;
+        previousMonth.enabled = false;
+        nextMonth.hidden =true;
+        previousMonth.hidden=true;
         selectMonthLoadView.hidden = false;
         eventMonthFilter.hidden = true;
         [listingTable removeAllObjects]; // Clear Table
@@ -1367,9 +1372,10 @@ PullToRefreshView *pull;
         
         
         currSel = currSel + 1;
-        if (currSel == monthFilter.count-1)
+        if (currSel == monthFilter.count-2)
         {
             nextMonth.hidden=TRUE;
+            isFilteringByMonth=YES;
         }
         dateLabel.text = monthFilter[currSel];
         
@@ -1381,50 +1387,77 @@ PullToRefreshView *pull;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setupArray];
+                
+                
                 //  [tableView reloadData];
                 selectMonthLoadView.hidden = true;
-                //  nextMonth.hidden =false;
-                //previousMonth.hidden=false;
                 eventMonthFilter.hidden=false;
-                nextMonth.hidden =false;
+                if(isFilteringByMonth==NO){
+                    nextMonth.hidden =false;
+                    [nextMonth setUserInteractionEnabled:true];
+                    nextMonth.enabled = true;
+                }
+                isFilteringByMonth=YES;
                 previousMonth.hidden=false;
-                [nextMonth setUserInteractionEnabled:true];
                 [previousMonth setUserInteractionEnabled:true];
+                previousMonth.enabled = true;
                 isFilteringByMonth=NO;
+                
             });
         });
     }
 }
--(IBAction)previousMonth:(id)sender{
-   // nextMonth.hidden =true;
-    //previousMonth.hidden=true;
-    [nextMonth setUserInteractionEnabled:false];
-    [previousMonth setUserInteractionEnabled:false];
-    selectMonthLoadView.hidden = false;
-    [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-    
-    //nextMonth.hidden=FALSE;
-    currSel = currSel - 1;
-    if (currSel == 0)
-    {
-        previousMonth.hidden=TRUE;
-    }
-    dateLabel.text = monthFilter[currSel];
-    dispatch_queue_t concurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(concurrentQueue, ^(void){
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setupArray];
-            //  [tableView reloadData];
-            selectMonthLoadView.hidden = true;
-            [nextMonth setUserInteractionEnabled:true];
-            [previousMonth setUserInteractionEnabled:true];
-        });
-    });
 
+-(IBAction)previousMonth:(id)sender{
+    if(isFilteringByMonth==NO){
+        
+        
+        [nextMonth setUserInteractionEnabled:false];
+        [previousMonth setUserInteractionEnabled:false];
+        nextMonth.enabled = false;
+        previousMonth.enabled = false;
+        nextMonth.hidden =true;
+        previousMonth.hidden=true;
+        selectMonthLoadView.hidden = false;
+        eventMonthFilter.hidden = true;
+        [listingTable removeAllObjects]; // Clear Table
+        [typeListingTable removeAllObjects]; // Clear Table
+        [costListingTable removeAllObjects]; // Clear Table
+        [suburbListingTable removeAllObjects]; // Clear Table
+        [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
+        currSel = currSel - 1;
+        if (currSel == 0)
+        {
+            previousMonth.hidden=TRUE;
+            isFilteringByMonth=YES;
+        }
+        dateLabel.text = monthFilter[currSel];
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupArray];
+                selectMonthLoadView.hidden = true;
+                eventMonthFilter.hidden=false;
+                                if(isFilteringByMonth==NO){
+                    previousMonth.hidden=false;
+                    [previousMonth setUserInteractionEnabled:true];
+                    previousMonth.enabled = true;
+                }
+                nextMonth.hidden =false;
+                [nextMonth setUserInteractionEnabled:true];
+                nextMonth.enabled = true;
+
+                isFilteringByMonth=YES;
+                
+                isFilteringByMonth=NO;
+                
+            });
+        });
+    }
 }
 
 
@@ -1458,7 +1491,7 @@ PullToRefreshView *pull;
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"ListingElements"]) 
+    if ([elementName isEqualToString:@"ListingElements"])
     {
         self.listingsListString = [[NSMutableArray alloc] init];
     }
@@ -1472,10 +1505,10 @@ PullToRefreshView *pull;
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     if (!currentElementValue)
-    {   
+    {
         currentElementValue = [[NSMutableString alloc] initWithString:string];
     }
-    else 
+    else
     {
         [currentElementValue appendString:string];
     }
@@ -1493,7 +1526,7 @@ PullToRefreshView *pull;
         [self.listingsListString addObject:theList];
         theList = nil;
     }
-    else 
+    else
     {
         [theList setValue:currentElementValue forKey:elementName];
         NSLog(@"%@",currentElementValue);
