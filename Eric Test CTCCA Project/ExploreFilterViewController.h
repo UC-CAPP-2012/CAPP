@@ -10,8 +10,6 @@
 #import <MapKit/MapKit.h>
 #import "QuartzCore/QuartzCore.h"
 #import "ListingViewController.h"
-#import "ExploreXMLParser.h"
-#import "AreaXMLParser.h"
 #import "ListingString.h"
 #import "PullToRefreshView.h"
 
@@ -27,7 +25,7 @@
     UITableViewCell* sideSwipeCell;
     UISwipeGestureRecognizerDirection sideSwipeDirection;
     BOOL animatingSideSwipe;
-
+    
     //Navigation Bar View outlets
     IBOutlet UIView *navView;
     IBOutlet UIView *switchMapView;
@@ -45,10 +43,6 @@
     
     NSMutableArray *favData;
     
-    ExploreXMLParser *xmlParserSort1;
-    ExploreXMLParser *xmlParserSort2;
-    ExploreXMLParser *xmlParserSort3;
-    AreaXMLParser *areaXmlParser;
     
     ListingString *theList;
     NSMutableString *currentElementValue;

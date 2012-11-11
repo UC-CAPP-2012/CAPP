@@ -41,13 +41,13 @@ bool errorMsgShown;
     notFoundView.hidden=TRUE;
     
     //if ([SignUpCheck checkForSpinwheelOverlay]) {
-     //   [overlayView removeFromSuperview];
+    //   [overlayView removeFromSuperview];
     //}
-  //  else {
-   //     [self.navigationController setNavigationBarHidden:YES];
-   // }
+    //  else {
+    //     [self.navigationController setNavigationBarHidden:YES];
+    // }
     
-
+    
 }
 
 - (void)viewDidLoad
@@ -82,6 +82,7 @@ bool errorMsgShown;
     [Area addObject:@"Yass"];
     [Area addObject:@"Bungendore"];
     [Area addObject:@"Civic"];
+    [Area addObject:@"Queanbeyan"];
     
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Any"];
@@ -121,25 +122,25 @@ bool errorMsgShown;
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if(![selectedCategory isEqualToString:SubType[[pickerView selectedRowInComponent:subtype]]]){
-    selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
-    if(![selectedCategory isEqualToString:@"Any"]){
-        categoryLocked = NO;
-        [self lockUnlockCategory:catLock];
-    }else{
-        categoryLocked = YES;
-        [self lockUnlockCategory:catLock];
-    }
+        selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
+        if(![selectedCategory isEqualToString:@"Any"]){
+            categoryLocked = NO;
+            [self lockUnlockCategory:catLock];
+        }else{
+            categoryLocked = YES;
+            [self lockUnlockCategory:catLock];
+        }
     }
     
     if(![selectedSuburb isEqualToString:Area[[pickerView selectedRowInComponent:area]]]){
-    selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
-    if(![selectedSuburb isEqualToString:@"Any"]){
-        suburbLocked = NO;
-        [self lockUnlockSuburb:regionLock];
-    }else{
-        suburbLocked = YES;
-        [self lockUnlockSuburb:regionLock];
-    }
+        selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
+        if(![selectedSuburb isEqualToString:@"Any"]){
+            suburbLocked = NO;
+            [self lockUnlockSuburb:regionLock];
+        }else{
+            suburbLocked = YES;
+            [self lockUnlockSuburb:regionLock];
+        }
     }
     
     if(![selectedCost isEqualToString:Cost[[pickerView selectedRowInComponent:cost]]]){
@@ -159,9 +160,9 @@ bool errorMsgShown;
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     switch(component) {
-            case subtype: return 110;
-            case area: return 110;
-            case cost: return 70;
+        case subtype: return 110;
+        case area: return 110;
+        case cost: return 70;
         default: return 22;
     }
     
@@ -180,7 +181,7 @@ bool errorMsgShown;
             retval.text = SubType[row];
             retval.adjustsFontSizeToFitWidth = YES;
             [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
-
+            
             return retval;
         }
         case area: {
@@ -194,7 +195,7 @@ bool errorMsgShown;
             [retval setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20]];
             return retval;
         }
-
+            
         case cost: {
             UILabel *retval = (id)view;
             if (!retval) {
@@ -235,7 +236,7 @@ bool errorMsgShown;
         selectedSuburb = Area[random2];
         [spinWheel selectRow:random2 inComponent:area animated:YES];
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
-
+        
     }
     
     if(!costLocked){
@@ -261,12 +262,12 @@ bool errorMsgShown;
     count=0;
     spinned = NO;
     alert = NO;
-   // spinWheel.userInteractionEnabled = NO;
+    // spinWheel.userInteractionEnabled = NO;
     [self feelingAdventurous];
-   // spinWheel.userInteractionEnabled = YES;
+    // spinWheel.userInteractionEnabled = YES;
 }
 
--(void)feelingAdventurous  // Control for Map View Button to Listing Detail View   
+-(void)feelingAdventurous  // Control for Map View Button to Listing Detail View
 {
     
     
@@ -502,7 +503,7 @@ bool errorMsgShown;
                 }
             });
         });
-    }    
+    }
 }
 
 - (IBAction)goToListing:(id)sender {
@@ -510,7 +511,7 @@ bool errorMsgShown;
     listingView.currentListing = result;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"%@",result.title);
-
+    
 }
 
 
@@ -518,7 +519,7 @@ bool errorMsgShown;
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"ListingElements"]) 
+    if ([elementName isEqualToString:@"ListingElements"])
     {
         self.listingsListString = [[NSMutableArray alloc] init];
     }
@@ -532,10 +533,10 @@ bool errorMsgShown;
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     if (!currentElementValue)
-    {   
+    {
         currentElementValue = [[NSMutableString alloc] initWithString:string];
     }
-    else 
+    else
     {
         [currentElementValue appendString:string];
     }
@@ -553,7 +554,7 @@ bool errorMsgShown;
         [self.listingsListString addObject:theList];
         theList = nil;
     }
-    else 
+    else
     {
         [theList setValue:currentElementValue forKey:elementName];
         NSLog(@"%@",currentElementValue);
@@ -574,9 +575,6 @@ bool errorMsgShown;
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-
-
 
 - (IBAction)lockUnlockCategory:(id)sender {
     NSString *imageName;

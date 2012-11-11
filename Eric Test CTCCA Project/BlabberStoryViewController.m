@@ -24,14 +24,14 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-     [self setupArray];
+    [self setupArray];
     
 }
 
 - (void)viewDidLoad
 {
     [super setTitle:@"Blabber"];
-   
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -56,7 +56,7 @@
     
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
     [newsTitle setFont:font];
-  //  [newsTitle setTextColor:[UIColor colorWithRed:0.3 green:0.6 blue:0.54 alpha:1]];
+    //  [newsTitle setTextColor:[UIColor colorWithRed:0.3 green:0.6 blue:0.54 alpha:1]];
     newsTitle.text = currentListing.NewsHeading;
     newsPublisher.text = currentListing.NewsPublisher;
     newsAuthor.text = currentListing.NewsAuthor;
@@ -74,10 +74,10 @@
     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(concurrentQueue, ^(void){
-
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentListing.NewsMediaURL]];
+        
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentListing.NewsMediaURL]];
         dispatch_async(dispatch_get_main_queue(), ^{
-        newImage.image = image;
+            newImage.image = image;
             loadView.hidden=TRUE;
         });
     });
@@ -87,7 +87,7 @@
 - (IBAction)imageClicked:(id)sender {
     BlabberImageViewController *listingView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberImageViewController"]; // News Detail image Page
     listingView.selectedImage = currentListing.NewsMediaURL;
-    listingView.title = currentListing.NewsHeading;
+    listingView.newsTitle = currentListing.NewsHeading;
     [self.navigationController pushViewController:listingView animated:YES];
     NSLog(@"Button");
 }

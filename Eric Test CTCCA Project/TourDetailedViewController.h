@@ -16,7 +16,7 @@
 #import "ListingString.h"
 #import <MediaPlayer/MediaPlayer.h>
 @interface TourDetailedViewController : UIViewController<NSXMLParserDelegate, MKMapViewDelegate,EKEventEditViewDelegate, UIWebViewDelegate>
-    {
+{
     //AVAudioPlayer *audioPlayer;
     IBOutlet UIView *switchMapView;
     IBOutlet UIView *navView;

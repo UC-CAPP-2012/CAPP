@@ -14,10 +14,10 @@
 {
     
     NSTimer *ActivityTimer;
-
+    
     IBOutlet UILabel *errorMsg;
     IBOutlet UIPageControl *pageControl;
-     BOOL pageControlBeingUsed;
+    BOOL pageControlBeingUsed;
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIView *splash;
     IBOutlet UIView *loadView;

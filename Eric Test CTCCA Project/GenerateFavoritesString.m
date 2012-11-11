@@ -37,8 +37,8 @@
             }
             else
             {
-                [favString appendString: [NSString stringWithFormat:@"%@",element]];   
-            }                     
+                [favString appendString: [NSString stringWithFormat:@"%@",element]];
+            }
             //}
             
         }

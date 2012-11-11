@@ -36,20 +36,20 @@
     //[[UIBarButtonItem appearance] setTitleTextAttributes:@{UITe]
     
     //[[UIBarButtonItem appearance] setBackgroundColor:[UIColor blackColor]];
-
-
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-//
-//    CGFloat scale = .9;
-//    CGFloat cy = 10.0 - ( 10.0 * scale );
-//    
-//    CGRect r = self.view.frame;
-//    r.origin.y -= cy;
-//    r.size.height += cy;
-//    self.view.frame = r;
-
+    //
+    //    CGFloat scale = .9;
+    //    CGFloat cy = 10.0 - ( 10.0 * scale );
+    //
+    //    CGRect r = self.view.frame;
+    //    r.origin.y -= cy;
+    //    r.size.height += cy;
+    //    self.view.frame = r;
+    
 }
 
 - (void)viewDidUnload

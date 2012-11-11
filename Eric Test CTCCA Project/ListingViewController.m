@@ -112,11 +112,11 @@
 {
     NSLog(@"%@",listingID);
     //Select * from ListingElements where listingID = listing ID
-    [mapView removeAnnotations:mapView.annotations];   
+    [mapView removeAnnotations:mapView.annotations];
     
     currentListing = self.currentListing;
     [mapView addAnnotation:self.currentListing];
-    pageControl.numberOfPages = [currentListing.imageFilenames count];    
+    pageControl.numberOfPages = [currentListing.imageFilenames count];
 }
 
 -(void) setupPictures
@@ -205,7 +205,7 @@
         [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@  %@ %@<p><strong style='color: #1b4583;'>Address:</strong> %@</p> %@ %@ %@",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]], startDateStr,endDateStr,openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
- 
+        
     }
     if (segmentController.selectedSegmentIndex == 1) {
         [infoBox loadHTMLString:[NSString stringWithFormat:@"%@", currentListing.description] baseURL:nil];
@@ -227,7 +227,7 @@
     }
     annotationView.annotation = annotation;
     annotationView.canShowCallout = YES; // show the grey popup with location etc
-   // UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    // UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     ///[rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
     //annotationView.rightCalloutAccessoryView = rightButton;
     
@@ -260,12 +260,12 @@
         AddressLabel.text = ((Listing *) view.annotation).address;
         
         //Start Date
-//        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-//        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-//        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        //        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        //        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+        //        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
         StartDateLabel.text = view.annotation.title;
         
-        //Detail Image    
+        //Detail Image
         NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         DetailImage.image =[UIImage imageNamed:@"Placeholder.png"];
         dispatch_queue_t concurrentQueue =
@@ -278,7 +278,7 @@
                 DetailImage.image = image;
             });
         });
-
+        
         
     }
     
@@ -343,15 +343,15 @@
     
     NSLog(@"%@",web);
     if(web!=NULL && ![web isEqualToString:@""]){
-
-    ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
-    NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
-    NSString *website = [currentListing.websiteURL absoluteString];
-    NSString *shareWebsite = [NSString stringWithFormat:@"%@%@",facebookShare,website];
-    webView.Website = [NSURL URLWithString:shareWebsite];
-    
-    [self.navigationController pushViewController:webView animated:YES];
-    NSLog(@"Button");
+        
+        ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+        NSString *facebookShare = @"http://www.facebook.com/share.php?u=";
+        NSString *website = [currentListing.websiteURL absoluteString];
+        NSString *shareWebsite = [NSString stringWithFormat:@"%@%@",facebookShare,website];
+        webView.Website = [NSURL URLWithString:shareWebsite];
+        
+        [self.navigationController pushViewController:webView animated:YES];
+        NSLog(@"Button");
     }else{
         UIAlertView *alertBox = [[UIAlertView alloc] initWithTitle:@"Sorry"
                                                            message:@"This item does not have any website to share."
@@ -359,7 +359,7 @@
                                                  cancelButtonTitle:@"OK"
                                                  otherButtonTitles: nil];
         [alertBox show];
-        }
+    }
 }
 
 -(IBAction)addToFavourties:(id)sender
@@ -367,7 +367,7 @@
     if(favourite==NO){
         NSString *cutString = [currentListing.listingID stringByReplacingOccurrencesOfString:@" " withString:@""];
         [SaveToFavorites saveToFavorites:cutString];
-    
+        
         favButton.image = [UIImage imageNamed:@"thumbs_down@2x.png"];
         NSLog(@"%@",cutString);
         NSLog(@"Button Favourite");
@@ -396,8 +396,8 @@
 }
 
 - (IBAction)home:(id)sender {
-//    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
-//    [self.navigationController pushViewController:blabberView animated:YES];
+    //    BlabberViewController *blabberView = [self.storyboard instantiateViewControllerWithIdentifier:@"BlabberViewController"]; // Listing Detail Page
+    //    [self.navigationController pushViewController:blabberView animated:YES];
     NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
     eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
     
@@ -413,7 +413,7 @@
         
         [mailer setSubject:currentListing.title];
         
-       // NSArray *toRecipients = @[@"fisrtMail@example.com", @"secondMail@example.com"];
+        // NSArray *toRecipients = @[@"fisrtMail@example.com", @"secondMail@example.com"];
         //[mailer setToRecipients:toRecipients];
         
         UIImage *myImage = [UIImage imageNamed:@"complete-logo.png"];
@@ -438,7 +438,7 @@
                                               otherButtonTitles: nil];
         [alert show];
     }
-
+    
 }
 
 #pragma mark - MFMailComposeController delegate
@@ -500,14 +500,14 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:navView cache:YES];
         [navView bringSubviewToFront:switchTableView];
         [UIView commitAnimations];
-    } 
+    }
     else if (viewArray[1] == tableView) // change to mapview
     {
         [self setupMap];
         // Main Window Animation
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:listingView cache:YES];        
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:listingView cache:YES];
         [listingView bringSubviewToFront:mapWindow];
         [UIView commitAnimations];
         switchTableView.hidden=true;
@@ -527,7 +527,7 @@
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"ListingElements"]) 
+    if ([elementName isEqualToString:@"ListingElements"])
     {
         self.listingsListString = [[NSMutableArray alloc] init];
     }
@@ -541,10 +541,10 @@
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     if (!currentElementValue)
-    {   
+    {
         currentElementValue = [[NSMutableString alloc] initWithString:string];
     }
-    else 
+    else
     {
         [currentElementValue appendString:string];
     }
@@ -562,7 +562,7 @@
         [self.listingsListString addObject:theList];
         theList = nil;
     }
-    else 
+    else
     {
         [theList setValue:currentElementValue forKey:elementName];
         NSLog(@"%@",currentElementValue);

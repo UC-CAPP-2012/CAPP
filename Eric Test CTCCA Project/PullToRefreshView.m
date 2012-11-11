@@ -149,7 +149,7 @@
 			[self showActivity:YES animated:YES];
             [self setImageFlipped:NO];
             scrollView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
-			    break;
+            break;
             
 		default:
 			break;
@@ -163,7 +163,7 @@
     if ([keyPath isEqualToString:@"contentOffset"]) {
         if (scrollView.isDragging) {
             if (state == PullToRefreshViewStateReady) {
-                if (scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f) 
+                if (scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f)
                     [self setState:PullToRefreshViewStateNormal];
             } else if (state == PullToRefreshViewStateNormal) {
                 if (scrollView.contentOffset.y < -65.0f)

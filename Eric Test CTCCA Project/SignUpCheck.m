@@ -27,7 +27,7 @@
         yourArray = [[NSMutableArray alloc] initWithCapacity:20];
     }
     
-    if ([yourArray containsObject:signup]) 
+    if ([yourArray containsObject:signup])
     {
         return YES;
     }

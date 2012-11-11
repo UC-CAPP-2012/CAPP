@@ -67,7 +67,7 @@ bool errorMsgShown;
             NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/SignUp.php?firstName=%@&lastName=%@&postcode=%@&email=%@&subscribed=%@", FirstName,LastName,PostCode,Email,Subscribe];
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
             [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setupArray];
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -76,12 +76,12 @@ bool errorMsgShown;
                 eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
                 [self presentModalViewController:eventView animated:YES];
                 NSLog(@"Button");
-
+                
             });
         });
-
         
-        }else{
+        
+    }else{
         if(![self NSStringIsValidEmail:Email]){
             errorMsg.text=@"Your email is invalid. Please try again.";
             errorMsg.hidden=FALSE;
@@ -110,7 +110,7 @@ bool errorMsgShown;
             errorMsg.text=@"Postcode is invalid. Please try again.";
             errorMsg.hidden=FALSE;
         }
-            
+        
         if([FirstName isEqualToString:@""] && [LastName isEqualToString:@""] && [Email isEqualToString:@""] && [PostCode isEqualToString:@""]){
             errorMsg.text=@"All fields are required. Please try again.";
             errorMsg.hidden=FALSE;
@@ -168,7 +168,7 @@ bool errorMsgShown;
 -(void)viewDidAppear:(BOOL)animated
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
+    
     loadView.hidden=TRUE;
     if ([SignUpCheck checkForSugnup]) {
         appDelegate.showHomeOverlay = NO;
@@ -240,8 +240,8 @@ bool errorMsgShown;
         pageControl.numberOfPages = [typeDataSource count];
         
         pageControlBeingUsed = NO;
-        [self setUpFrame:pageControl.numberOfPages]; 
-
+        [self setUpFrame:pageControl.numberOfPages];
+        
         [self skipScreen];
     }
     else {
@@ -303,10 +303,10 @@ bool errorMsgShown;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-//    if ([textField.text length] > 4-1) {
-//        textField.text = [textField.text substringToIndex:4];
-//        return NO;
-//    }
+    //    if ([textField.text length] > 4-1) {
+    //        textField.text = [textField.text substringToIndex:4];
+    //        return NO;
+    //    }
     return YES;
 }
 
@@ -327,19 +327,19 @@ bool errorMsgShown;
     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(concurrentQueue, ^(void){
-
-    [self setupArray];
+        
+        [self setupArray];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.listingsList = listingsList;
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            appDelegate.listingsList = listingsList;
             
-    
-    NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
-    
-    [self presentModalViewController:eventView animated:YES];
-    NSLog(@"Button");
+            
+            NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+            eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
+            
+            [self presentModalViewController:eventView animated:YES];
+            NSLog(@"Button");
         });
     });
 }
@@ -397,7 +397,7 @@ bool errorMsgShown;
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
         [alert show];
-
+        
         if(errorMsgShown==NO){
             [alert show];
             errorMsgShown = YES;
@@ -508,7 +508,7 @@ bool errorMsgShown;
         [listingsList addObject:currListing];
         
     }
-
+    
     
 }
 

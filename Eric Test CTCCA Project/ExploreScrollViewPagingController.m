@@ -45,7 +45,7 @@
     typeDataSource = [[NSMutableArray alloc] init];
     
     
-
+    
     MainTypeClass *type = [[MainTypeClass alloc] init];
     type.typeID = @"0";
     type.typeName = @"Food & Wine";
@@ -109,15 +109,15 @@
     
     pageControl.numberOfPages = [typeDataSource count];
     
-    [self setUpFrame:pageControl.numberOfPages]; 
+    [self setUpFrame:pageControl.numberOfPages];
 }
 
 - (void)setUpFrame: (NSInteger) pages {
-    for (int i = 0; i < pageControl.numberOfPages; i++) 
+    for (int i = 0; i < pageControl.numberOfPages; i++)
     {
         CGRect frame;
         frame.origin.x = scrollView.frame.size.width *i;
-        frame.origin.y = 0; 
+        frame.origin.y = 0;
         CGSize size = scrollView.frame.size;
         frame.size = size;
         
@@ -173,11 +173,11 @@
         
         [self->scrollView addSubview:subview];
         
-    } 
+    }
     
     self->scrollView.contentSize = CGSizeMake(self->scrollView.frame.size.width * pageControl.numberOfPages, self->scrollView.frame.size.height);
     CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
-    [self->scrollView setContentSize:scrollableSize]; 
+    [self->scrollView setContentSize:scrollableSize];
     //self->pageControl.currentPage=0;
 }
 
@@ -208,7 +208,7 @@
 }
 
 -(void)ListButton:(UIView*)sender
-{   
+{
     //Actions to perform after button press
     ExploreFilterViewController *exploreFilterView = [self.storyboard instantiateViewControllerWithIdentifier:@"ExploreFilterViewController"];
     

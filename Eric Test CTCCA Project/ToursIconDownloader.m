@@ -63,20 +63,9 @@
 {
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
-    
-//    if (image.size.width != kAppIconWidth || image.size.height != kAppIconHeight)
-//	{
-//        CGSize itemSize = CGSizeMake(kAppIconWidth, kAppIconHeight);
-//		UIGraphicsBeginImageContext(itemSize);
-//		CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-//		[image drawInRect:imageRect];
-//		self.tour.TourIcon = UIGraphicsGetImageFromCurrentImageContext();
-//		UIGraphicsEndImageContext();
-//    }
-//    else
-    //{
-        self.tour.TourIcon = image;
-    //}
+
+    self.tour.TourIcon = image;
+
     
     self.activeDownload = nil;
     

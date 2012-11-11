@@ -51,7 +51,7 @@ PullToRefreshView *pull;
 
 -(void)viewWillAppear:(BOOL)animated{
     if([newsListingsList count]==0){
-    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+        tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
     }
 }
 
@@ -89,7 +89,7 @@ PullToRefreshView *pull;
     
     NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
-
+    
 }
 
 -(void) setupArray // Connection to DataSource
@@ -97,9 +97,9 @@ PullToRefreshView *pull;
     refreshing = TRUE;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
     
-//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"news.xml"];
+    //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Blabber.php?limit=%i",currentLimit];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -124,23 +124,23 @@ PullToRefreshView *pull;
             [alert show];
             errorMsgShown = YES;
         }
-
+        
         NSLog(@"did not work!");
     }
     
     //This needs to be set via the filter and sorter.
-    newsListingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
-    newsListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
+    newsListingsList = [[NSMutableArray alloc] init]; //Complete List of news articles
+    newsListingTable = [[NSMutableArray alloc] init]; //News displayed in the Table
     NSMutableArray *section = [[NSMutableArray alloc] init];
     [newsListingTable removeAllObjects]; // Clear Table
     for (NewsString *newsStringElement in  newsListString) {
         
         News *currNews = [[News alloc] init];
         
-        // ListingID , Title , SubTitle
+        // News ID , Title , body, publisher, author
         
         currNews.NewsID = [newsStringElement.NewsID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-         currNews.NewsID = [currNews.NewsID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+        currNews.NewsID = [currNews.NewsID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsHeading = [newsStringElement.NewsHeading stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsHeading = [currNews.NewsHeading stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         currNews.NewsAuthor = [newsStringElement.NewsAuthor stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -148,9 +148,10 @@ PullToRefreshView *pull;
         currNews.NewsPublisher = [newsStringElement.NewsPublisher stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         
         
-        // Listing View details
+        // News image details
         NSString *imageName = [newsStringElement.NewsMediaURL stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         currNews.NewsMediaURL = [NSURL URLWithString:[imageName stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
+        
         // Publish Date
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -200,54 +201,44 @@ PullToRefreshView *pull;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     if(refreshing == NO){
-    NSDictionary *dictionary = newsListingTable[indexPath.section];
-    NSArray *array = dictionary[@"News"];
-    News *currListing;
-    if(isFiltered)
-        currListing = filteredTableData[indexPath.row];
-    else
-        currListing = array[indexPath.row];
-
-    // Configure the cell...
-    UILabel *cellHeading = (UILabel *)[cell viewWithTag:3];
-    [cellHeading setText: currListing.NewsHeading];
-    
-    UILabel *cellDate = (UILabel *)[cell viewWithTag:2];
-    [cellDate setText: currListing.NewsDateTime];
-    UILabel *cellFilters = (UILabel *)[cell viewWithTag:4];
-    [cellFilters setText: [NSString stringWithFormat:@"%@ | %@", currListing.NewsAuthor, currListing.NewsPublisher]];
-    
-    UILabel *cellBody = (UILabel *)[cell viewWithTag:5];
-    [cellBody setText: currListing.NewsBody];
-    
-    UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
-    
-    
-    
-    //dispatch_queue_t concurrentQueue =
-    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    //dispatch_async(concurrentQueue, ^(void){
-    if (!currListing.NewsIcon)
-    {
-        if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
+        NSDictionary *dictionary = newsListingTable[indexPath.section];
+        NSArray *array = dictionary[@"News"];
+        News *currListing;
+        if(isFiltered)
+            currListing = filteredTableData[indexPath.row];
+        else
+            currListing = array[indexPath.row];
+        
+        // Configure the cell...
+        UILabel *cellHeading = (UILabel *)[cell viewWithTag:3];
+        [cellHeading setText: currListing.NewsHeading];
+        
+        UILabel *cellDate = (UILabel *)[cell viewWithTag:2];
+        [cellDate setText: currListing.NewsDateTime];
+        UILabel *cellFilters = (UILabel *)[cell viewWithTag:4];
+        [cellFilters setText: [NSString stringWithFormat:@"%@ | %@", currListing.NewsAuthor, currListing.NewsPublisher]];
+        
+        UILabel *cellBody = (UILabel *)[cell viewWithTag:5];
+        [cellBody setText: currListing.NewsBody];
+        
+        UIImageView *cellImage = (UIImageView *)[cell viewWithTag:1];
+        
+        
+        if (!currListing.NewsIcon)
         {
-            [self startIconDownload:currListing forIndexPath:indexPath];
+            if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
+            {
+                [self startIconDownload:currListing forIndexPath:indexPath];
+            }
+            // if a download is deferred or in progress, return a placeholder image
+            cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
         }
-        // if a download is deferred or in progress, return a placeholder image
-        cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
-    }
-    else
-    {
-        cellImage.image = currListing.NewsIcon;
-        cellImage.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    
-    //dispatch_async(dispatch_get_main_queue(), ^{
-    //cellImage.image = image;
-    
-    //});
-    //});
+        else
+        {
+            cellImage.image = currListing.NewsIcon;
+            cellImage.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        
     }
     return cell;
 }
@@ -505,11 +496,11 @@ PullToRefreshView *pull;
     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(concurrentQueue, ^(void){
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setupArray];
             [tableView reloadData];
-    loadMoreIndicator.hidden = true;
+            loadMoreIndicator.hidden = true;
         });
     });
 }

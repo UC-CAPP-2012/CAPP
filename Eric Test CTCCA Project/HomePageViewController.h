@@ -18,13 +18,11 @@
 
 //add the spin wheel header to this also
 //as well as the favourites 'loved'
-//as well as trails.
-
 
 @interface HomePageViewController : UIViewController
 {
     IBOutlet UIView *overlayView;
-
+    
     IBOutlet UIToolbar *toolbarView;
 }
 
@@ -37,7 +35,7 @@
 -(IBAction)happenings:(id)sender;
 -(IBAction)loved:(id)sender;
 -(IBAction)myTrial:(id)sender;
-- (IBAction)closeOverlay:(id)sender;
+-(IBAction)closeOverlay:(id)sender;
 
 
 @end

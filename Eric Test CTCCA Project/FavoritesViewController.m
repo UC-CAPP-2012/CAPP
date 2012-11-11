@@ -44,12 +44,16 @@ PullToRefreshView *pull;
 
 -(void)viewDidAppear:(BOOL)animated{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
     NSString *documentsDirectory = paths[0];
+    
     //2) Create the full file path by appending the desired file name
     NSString *yourArrayFileName = [documentsDirectory stringByAppendingPathComponent:@"example.dat"];
     
     //Load the array
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
+    
+    //If user has something in the favourite list then initialise it. if not, don't bother
     if([favData count]>0)
     {
         if([listingsList count]==0 || [listingsList count]!= [favData count] ){
@@ -83,8 +87,6 @@ PullToRefreshView *pull;
     detailView.hidden = TRUE;
     detailView.backgroundColor = [UIColor clearColor];
     errorMsgShown = NO;
-    //Creating a file path under iPhone OS:
-    //1) Search for the app's documents directory (copy+paste from Documentation)
     
     currSel=0;
     Cost = [[NSMutableArray alloc] init];
@@ -98,27 +100,24 @@ PullToRefreshView *pull;
     [super viewDidLoad];
     animatingSideSwipe = NO;
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
+    
+    //Set up side swipe for table cell
     [self setupSideSwipeView];
+    
+    //Set up gesture recogniser for the side swipe cell
     [self setupGestureRecognizers];
+    
+    //Add pull down to refresh view to table
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) tableView];
     [pull setDelegate:self];
     [tableView addSubview:pull];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(foregroundRefresh:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void) setupSideSwipeView
 {
     // Add the background pattern
     //self.sideSwipeView.backgroundColor = [UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.5];
+    
     // Overlay a shadow image that adds a subtle darker drop shadow around the edges
     UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
     UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
@@ -201,8 +200,6 @@ PullToRefreshView *pull;
     tableView.contentOffset = CGPointMake(0, -65);
     [pull setState:PullToRefreshViewStateLoading];
     
-    // [self reloadTableData];
-    
     [self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
 }
 
@@ -236,22 +233,12 @@ PullToRefreshView *pull;
     favData = [[NSMutableArray alloc] initWithContentsOfFile: yourArrayFileName];
     if([favData count]>0)
     {
-        
         [self setupArray];
-        
         [tableView reloadData];
     }
     [pull finishedLoading];
 }
 
--(void)foregroundRefresh:(NSNotification *)notification
-{
-    
-    //self->tableView.contentOffset = CGPointMake(0, -65);
-    //[pull setState:PullToRefreshViewStateLoading];
-    //[self reloadTableData];
-    //[self performSelectorInBackground:@selector(reloadTableData) withObject:nil];
-}
 
 
 
@@ -467,6 +454,8 @@ PullToRefreshView *pull;
             }
         }
     }
+    
+    //Set up header
     UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
     [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableViewHeader.bounds.size.width - 10, 20)];

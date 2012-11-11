@@ -20,15 +20,15 @@
 #import "PullToRefreshView.h"
 
 @interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate, PullToRefreshViewDelegate>{
-
-IBOutlet UIView *tour;
-IBOutlet UITableView *tableView;
-
+    
+    IBOutlet UIView *tour;
+    IBOutlet UITableView *tableView;
+    
     
     IBOutlet UIView *loadView;
     
     
-IBOutlet UIButton *listingViewButton;
+    IBOutlet UIButton *listingViewButton;
     TourString *tourList;
     NSMutableString *currentElementValue;
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each news

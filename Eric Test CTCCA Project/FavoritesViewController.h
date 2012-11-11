@@ -29,7 +29,7 @@
     UITableViewCell* sideSwipeCell;
     UISwipeGestureRecognizerDirection sideSwipeDirection;
     BOOL animatingSideSwipe;
-
+    
     NSMutableArray *Cost;
     
     IBOutlet UIView *TableWindow;

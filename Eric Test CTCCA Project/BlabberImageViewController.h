@@ -16,5 +16,5 @@
 }
 
 @property (strong, nonatomic)NSURL  *selectedImage;
-@property (strong, nonatomic)NSString  *title;
+@property (strong, nonatomic)NSString  *newsTitle;
 @end

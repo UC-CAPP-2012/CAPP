@@ -26,7 +26,7 @@
         //Array file didn't exist... create a new one
         yourArray = [[NSMutableArray alloc] initWithCapacity:20];
     }
-    if ([yourArray containsObject:listingName]) 
+    if ([yourArray containsObject:listingName])
     {
         return YES;
     }

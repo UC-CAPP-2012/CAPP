@@ -30,7 +30,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 typedef enum {
-  PullToRefreshViewStateNormal = 0,
+    PullToRefreshViewStateNormal = 0,
 	PullToRefreshViewStateReady,
 	PullToRefreshViewStateLoading
 } PullToRefreshViewState;

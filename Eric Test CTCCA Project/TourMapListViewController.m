@@ -88,11 +88,11 @@ PullToRefreshView *pull;
 {
     refreshing = TRUE;
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-
-//    NSXMLParser *xmlParser;
-//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    //    NSXMLParser *xmlParser;
+    //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"tour.xml"];
+    //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //    xmlParser = [[NSXMLParser alloc] initWithData:data];
     
     //NSString * urlString = [NSString stringWithFormat:@"http://itp2012.com/CMS/IPHONE/subscribe.php?Name=%@&Postcode=%@&Email=%@&Subscribe=%@", x1,x2,y1,y2];
     NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Outings.php"];
@@ -116,10 +116,10 @@ PullToRefreshView *pull;
             [alert show];
             errorMsgShown = YES;
         }
-
+        
         NSLog(@"did not work!");
     }
-
+    
     //This needs to be set via the filter and sorter.
     tourListingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
     tourListingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
@@ -151,7 +151,7 @@ PullToRefreshView *pull;
         currTour.VideoURL = [NSURL URLWithString:[[[[tourStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         currTour.TourWebsite = [NSURL URLWithString:[[[[tourStringElement.TourWebsite stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         currTour.AudioURL = [NSURL URLWithString:[[[tourStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+        
         // ** CHECKS -------------------------------
         NSLog(@"%@",tourStringElement.TourID);
         NSLog(@"%@",tourStringElement.TourName);
@@ -165,7 +165,7 @@ PullToRefreshView *pull;
         [tourListingsList addObject:currTour];
         [section addObject:currTour];
     }
-        
+    
     NSDictionary *sectionDict = @{@"Tours": section};
     [tourListingTable addObject:sectionDict];
     refreshing =NO;
@@ -215,7 +215,7 @@ PullToRefreshView *pull;
         rowCount = [array count];
     
     return rowCount;
-
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -232,48 +232,48 @@ PullToRefreshView *pull;
 {
     static NSString *cellIdentifier = @"tourCell";
     UITableViewCell *cell = (UITableViewCell *) [listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
+    
     if(refreshing==NO){
-    NSDictionary *dictionary = tourListingTable[indexPath.section];
-    NSArray *array = dictionary[@"Tours"];
-    
-    Tour *cellValue;
-    if(isFiltered)
-        cellValue = filteredTableData[indexPath.row];
-    else
-        cellValue = array[indexPath.row];
-
-    if(cell == nil) 
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-    }
-         
-    UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
-    
-    if (!cellValue.TourIcon)
-    {
-        if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
+        NSDictionary *dictionary = tourListingTable[indexPath.section];
+        NSArray *array = dictionary[@"Tours"];
+        
+        Tour *cellValue;
+        if(isFiltered)
+            cellValue = filteredTableData[indexPath.row];
+        else
+            cellValue = array[indexPath.row];
+        
+        if(cell == nil)
         {
-            [self startIconDownload:cellValue forIndexPath:indexPath];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         }
-        // if a download is deferred or in progress, return a placeholder image
-        cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
-    }
-    else
-    {
-        cellImage.image = cellValue.TourIcon;
-        cellImage.contentMode = UIViewContentModeScaleAspectFit;
-
-    }
-
-    UILabel *cellHeading = (UILabel *)[cell viewWithTag:1];
-    [cellHeading setText: cellValue.TourName];
-    
-    UILabel *cellSubtitle = (UILabel *)[cell viewWithTag:2];
-    [cellSubtitle setText: cellValue.TourAgent];
-
-    UILabel *cellDetail = (UILabel *)[cell viewWithTag:3];
-    [cellDetail setText: cellValue.TourDetail];
+        
+        UIImageView *cellImage = (UIImageView *)[cell viewWithTag:4];
+        
+        if (!cellValue.TourIcon)
+        {
+            if (self->tableView.dragging == NO && self->tableView.decelerating == NO)
+            {
+                [self startIconDownload:cellValue forIndexPath:indexPath];
+            }
+            // if a download is deferred or in progress, return a placeholder image
+            cellImage.image = [UIImage imageNamed:@"Placeholder.png"];
+        }
+        else
+        {
+            cellImage.image = cellValue.TourIcon;
+            cellImage.contentMode = UIViewContentModeScaleAspectFit;
+            
+        }
+        
+        UILabel *cellHeading = (UILabel *)[cell viewWithTag:1];
+        [cellHeading setText: cellValue.TourName];
+        
+        UILabel *cellSubtitle = (UILabel *)[cell viewWithTag:2];
+        [cellSubtitle setText: cellValue.TourAgent];
+        
+        UILabel *cellDetail = (UILabel *)[cell viewWithTag:3];
+        [cellDetail setText: cellValue.TourDetail];
     }
     return cell;
 }

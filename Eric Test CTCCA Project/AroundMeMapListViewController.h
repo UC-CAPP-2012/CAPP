@@ -23,7 +23,7 @@
     IBOutlet UISearchBar *searchBar;
     UISwipeGestureRecognizerDirection sideSwipeDirection;
     BOOL animatingSideSwipe;
-
+    
     IBOutlet UISegmentedControl *segmentControll;
     IBOutlet UIView *loadView;
     
@@ -42,11 +42,6 @@
     NSMutableArray *favData;
     ListingString *theList;
     NSMutableString *currentElementValue;
-//    
-//    float x1;
-//    float x2;
-//    float y1;
-//    float y2;
     
 }
 - (IBAction)segmentedButton:(id)sender;

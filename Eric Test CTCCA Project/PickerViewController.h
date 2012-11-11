@@ -15,7 +15,7 @@
 #define cost 2
 
 @interface PickerViewController : UIViewController <NSXMLParserDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
-
+    
     IBOutlet UIView *overlayView;
     IBOutlet UIView *notFoundView;
     IBOutlet UIView *loadView;

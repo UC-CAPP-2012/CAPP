@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad
 {
-        //Change this the video URL passed from the other screen.
+    //Change this the video URL passed from the other screen.
     [webView loadRequest:[NSURLRequest requestWithURL:Website]];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -34,8 +34,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     activityIndicator.hidden=true;
-
-//
+    
+    //
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
@@ -44,7 +44,7 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-   [activityIndicator stopAnimating];
+    [activityIndicator stopAnimating];
     activityIndicator.hidesWhenStopped=YES;
 }
 

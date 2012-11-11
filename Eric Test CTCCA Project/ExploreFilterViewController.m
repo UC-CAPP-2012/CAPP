@@ -8,10 +8,7 @@
 
 #import "ExploreFilterViewController.h"
 #import "Listing.h"
-#import "AreaClass.h"
-#import "AreaClassString.h"
 #import "MainTypeClass.h"
-#import "AreaClassString.h"
 #import "SaveToFavorites.h"
 #import "SearchArray.h"
 #import "SideSwipeTableViewCell.h"
@@ -67,7 +64,7 @@ PullToRefreshView *pull;
 
 -(void)viewWillAppear:(BOOL)animated{
     if([listingsList count]==0){
-    tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+        tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
     }
 }
 
@@ -83,7 +80,7 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$"];
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
-
+    
     errorMsgShown = NO;
     switchTableView.hidden=false;
     switchMapView.hidden=true;
@@ -234,7 +231,7 @@ PullToRefreshView *pull;
         sortSel = 3;
         NSLog(@"Button4");
     }
-
+    
     [self setupArray];
     loadView.hidden=TRUE;
     //[self->tableView reloadData];
@@ -254,10 +251,10 @@ PullToRefreshView *pull;
 
 // --- END Initialisation --
 
-// -- Datasource -- 
+// -- Datasource --
 
 -(void)setupMap
-{    
+{
     
     //Map Settings
     [mapView setMapType:MKMapTypeStandard];
@@ -285,9 +282,9 @@ PullToRefreshView *pull;
 {
     refreshing = TRUE;
     [mapView removeAnnotations:mapView.annotations];
-
+    
     [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //This needs to be set via the filter and sorter.
     
     listingTable = [[NSMutableArray alloc] init]; //List Displayed in the Table
@@ -305,11 +302,11 @@ PullToRefreshView *pull;
     NSMutableArray *section = [[NSMutableArray alloc] init];
     
     listingsList = [[NSMutableArray alloc] init]; //Complete List of Listings
-
-//    NSXMLParser *xmlParser;
-//    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    //    NSXMLParser *xmlParser;
+    //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
+    //    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    //    xmlParser = [[NSXMLParser alloc] initWithData:data];
     if([typeName isEqualToString:@"All"] && [appDelegate.listingsList count]!=0){
         NSMutableArray *list = appDelegate.listingsList;
         for(int i =0; i<[list count]; i++){
@@ -343,7 +340,7 @@ PullToRefreshView *pull;
                 }
                 
                 [section addObject:listing];
-
+                
             }
         }
         NSDictionary *sectionDict = @{@"Explore": section};
@@ -420,254 +417,254 @@ PullToRefreshView *pull;
         NSLog(@"%i",[typeListingTable count]);
         NSLog(@"%i",[costListingTable count]);
         NSLog(@"%i",[suburbListingTable count]);
-
+        
         
     }else{
-    NSString *urlString = [[NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Explore.php?category=%@",typeName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [[NSURL alloc] initWithString:[urlString stringByReplacingOccurrencesOfString:@"&" withString:@"%26"]];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    
-
-    
-    [xmlParser setDelegate:self];
-    BOOL worked = [xmlParser parse];
-    
-    if(worked) {
-        NSLog(@"Amount %i", [listingsListString count]);
-    }
-    else 
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
-                                                        message:@"Something went wrong. Please make sure you are connected to the internet."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-        if(errorMsgShown==NO){
-            [alert show];
-            errorMsgShown = YES;
+        NSString *urlString = [[NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Explore.php?category=%@",typeName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *url = [[NSURL alloc] initWithString:[urlString stringByReplacingOccurrencesOfString:@"&" withString:@"%26"]];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+        
+        
+        
+        [xmlParser setDelegate:self];
+        BOOL worked = [xmlParser parse];
+        
+        if(worked) {
+            NSLog(@"Amount %i", [listingsListString count]);
         }
-
-        NSLog(@"did not work!");
-    }
-    
-    
-
-    for (ListingString *listingStringElement in listingsListString) {
-        
-        Listing *currListing = [[Listing alloc] init];
-        
-        // ListingID , Title , SubTitle
-        
-        currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-         currListing.title = [currListing.title stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        
-        // Placemarker
-        
-        CLLocationCoordinate2D tempPlacemarker;
-        
-        NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        tempLat = [tempLat stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        double latDouble =[tempLat doubleValue];
-        tempPlacemarker.latitude = latDouble;
-        
-        NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        tempLong = [tempLong stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        double lonDouble =[tempLong doubleValue];
-        tempPlacemarker.longitude = lonDouble;
-        
-        currListing.coordinate = tempPlacemarker;
-        
-        //Sort and Filter Types
-        
-        currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.listingType = [currListing.listingType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.areaID = [currListing.areaID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.costType =[currListing.costType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.subType = [listingStringElement.SubtypeName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.subType = [currListing.subType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        
-        // Address
-        
-        currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.majorRegionName = [currListing.majorRegionName stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.phone = [currListing.phone stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.email = [currListing.email stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.suburb = [currListing.suburb stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.openingHours = [currListing.openingHours stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        
-        // Listing View details
-        
-        currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        currListing.description = [currListing.description stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
-        currListing.videoURL = [NSURL URLWithString:[[[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        currListing.websiteURL = [NSURL URLWithString:[[[[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        currListing.audioURL = [NSURL URLWithString:[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        
-        // Start Date
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        // Start Date
-        listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
-        currListing.startDate = startDate;
-        
-        // End Date
-        listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-        NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
-        currListing.endDate = endDate;
-        
-        // ** CHECKS ------------------------
-        NSLog(@"%@",listingStringElement.ItemName);
-        NSLog(@"%@",listingStringElement.Latitude);
-        NSLog(@"%@",listingStringElement.Longitude);
-        NSLog(@"%f",latDouble);
-        NSLog(@"%f",lonDouble);
-        NSLog(@"%@",listingStringElement.ItemID);
-        NSLog(@"%@",listingStringElement.ListingType);
-        NSLog(@"%@",listingStringElement.AreaID);
-        NSLog(@"%@",listingStringElement.Cost);
-        NSLog(@"%@",listingStringElement.SubtypeName);
-        NSLog(@"%@",listingStringElement.Suburb);    //suburb
-        NSLog(@"%@",listingStringElement.Postcode);  //postcode
-        NSLog(@"%@",listingStringElement.StateID);   //stateID
-        NSLog(@"%@",currListing.address);
-        NSLog(@"%@",listingStringElement.Details);
-        NSLog(@"%@",listingStringElement.ImageURL);
-        NSLog(@"%@",listingStringElement.VideoURL);
-        NSLog(@"%@",listingStringElement.StartDate);
-        NSLog(@"%@",listingStringElement.EndDate);
-        NSLog(@"%@",listingStringElement.Website);
-        
-        // -----------------------------------------
-        
-        [listingsList addObject:currListing];
-
-        [mapView addAnnotation:currListing];
-        
-        Listing *tempListing = currListing;
-        NSString *subType = tempListing.subType;
-        if(![sortHeaders2 containsObject:subType])
+        else
         {
-            [sortHeaders2 addObject:subType];
-            NSLog(@"%@", subType);
-        }
-        
-        
-        NSString *costType = tempListing.costType;
-        if(![sortHeaders3 containsObject:costType])
-        {
-            [sortHeaders3 addObject:costType];
-            NSLog(@"%@", costType);
-        }
-        
-        NSString *suburb = tempListing.suburb;
-        if(![sortHeaders4 containsObject:suburb])
-        {
-            [sortHeaders4 addObject:suburb];
-            NSLog(@"%@", suburb);
-        }
-        
-        [section addObject:currListing];
-        
-        
-    }
-    NSDictionary *sectionDict = @{@"Explore": section};
-    [listingTable addObject:sectionDict];
-    
-    
-    // ** Table View Population
-    
-    // ---------------------------
-    
-    // --- SORT 1 Headers ----
-    
-    [sortHeaders1 addObject:@"All"];
-    
-    [sortHeaders2 sortUsingSelector:@selector(compare:)];
-    
-    [sortHeaders3 sortUsingSelector:@selector(compare:)];
-    [sortHeaders4 sortUsingSelector:@selector(compare:)];
-    
-    // -----------------------
-    
-    for (int i =0; i < [sortHeaders2 count]; i++){
-        NSMutableArray *section2 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders2[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.subType;
-            
-            if ([type isEqualToString:currSortHeader])
-            {
-                [section2 addObject:listingListListing];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                            message:@"Something went wrong. Please make sure you are connected to the internet."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+            if(errorMsgShown==NO){
+                [alert show];
+                errorMsgShown = YES;
             }
-        }
-        NSDictionary *sectionDict2 = @{@"Explore": section2};
-        [typeListingTable addObject:sectionDict2];
-        
-    }
-    
-    for (int i =0; i < [sortHeaders3 count]; i++){
-        NSMutableArray *section3 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders3[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.costType;
             
-            if ([type isEqualToString:currSortHeader])
-            {
-                [section3 addObject:listingListListing];
-            }
+            NSLog(@"did not work!");
         }
-        NSDictionary *sectionDict3 = @{@"Explore": section3};
-        [costListingTable addObject:sectionDict3];
         
-    }
-    
-    for (int i =0; i < [sortHeaders4 count]; i++){
-        NSMutableArray *section4 = [[NSMutableArray alloc] init];
-        NSString *currSortHeader = sortHeaders4[i];
-        for (Listing *listingListListing in listingsList)
-        {
-            NSString *type = listingListListing.suburb;
+        
+        
+        for (ListingString *listingStringElement in listingsListString) {
             
-            if ([type isEqualToString:currSortHeader])
+            Listing *currListing = [[Listing alloc] init];
+            
+            // ListingID , Title , SubTitle
+            
+            currListing.listingID = [listingStringElement.ItemID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.listingID = [currListing.listingID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.title = [listingStringElement.ItemName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.title = [currListing.title stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            
+            // Placemarker
+            
+            CLLocationCoordinate2D tempPlacemarker;
+            
+            NSString *tempLat = [listingStringElement.Latitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            tempLat = [tempLat stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            double latDouble =[tempLat doubleValue];
+            tempPlacemarker.latitude = latDouble;
+            
+            NSString *tempLong = [listingStringElement.Longitude stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            tempLong = [tempLong stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            double lonDouble =[tempLong doubleValue];
+            tempPlacemarker.longitude = lonDouble;
+            
+            currListing.coordinate = tempPlacemarker;
+            
+            //Sort and Filter Types
+            
+            currListing.listingType = [listingStringElement.ListingType stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.listingType = [currListing.listingType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.areaID = [listingStringElement.AreaID stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.areaID = [currListing.areaID stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.costType =[listingStringElement.Cost stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.costType =[currListing.costType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.subType = [listingStringElement.SubtypeName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.subType = [currListing.subType stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            
+            // Address
+            
+            currListing.address = [listingStringElement.Address stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.address = [currListing.address stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.majorRegionName = [listingStringElement.MajorRegionName stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.majorRegionName = [currListing.majorRegionName stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.phone = [listingStringElement.Phone stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.phone = [currListing.phone stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.email = [listingStringElement.Email stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.email = [currListing.email stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.suburb = [listingStringElement.Suburb stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.suburb = [currListing.suburb stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.openingHours = [listingStringElement.OpeningHours stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.openingHours = [currListing.openingHours stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            
+            // Listing View details
+            
+            currListing.description = [listingStringElement.Details stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            currListing.description = [currListing.description stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            currListing.imageFilenames = [listingStringElement.ImageURL componentsSeparatedByString:@","];
+            currListing.videoURL = [NSURL URLWithString:[[[listingStringElement.VideoURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            currListing.websiteURL = [NSURL URLWithString:[[[[listingStringElement.Website stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            currListing.audioURL = [NSURL URLWithString:[[[listingStringElement.AudioURL stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            
+            // Start Date
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            // Start Date
+            listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.StartDate = [listingStringElement.StartDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            NSDate *startDate = [dateFormatter dateFromString:listingStringElement.StartDate];
+            currListing.startDate = startDate;
+            
+            // End Date
+            listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
+            currListing.endDate = endDate;
+            
+            // ** CHECKS ------------------------
+            NSLog(@"%@",listingStringElement.ItemName);
+            NSLog(@"%@",listingStringElement.Latitude);
+            NSLog(@"%@",listingStringElement.Longitude);
+            NSLog(@"%f",latDouble);
+            NSLog(@"%f",lonDouble);
+            NSLog(@"%@",listingStringElement.ItemID);
+            NSLog(@"%@",listingStringElement.ListingType);
+            NSLog(@"%@",listingStringElement.AreaID);
+            NSLog(@"%@",listingStringElement.Cost);
+            NSLog(@"%@",listingStringElement.SubtypeName);
+            NSLog(@"%@",listingStringElement.Suburb);    //suburb
+            NSLog(@"%@",listingStringElement.Postcode);  //postcode
+            NSLog(@"%@",listingStringElement.StateID);   //stateID
+            NSLog(@"%@",currListing.address);
+            NSLog(@"%@",listingStringElement.Details);
+            NSLog(@"%@",listingStringElement.ImageURL);
+            NSLog(@"%@",listingStringElement.VideoURL);
+            NSLog(@"%@",listingStringElement.StartDate);
+            NSLog(@"%@",listingStringElement.EndDate);
+            NSLog(@"%@",listingStringElement.Website);
+            
+            // -----------------------------------------
+            
+            [listingsList addObject:currListing];
+            
+            [mapView addAnnotation:currListing];
+            
+            Listing *tempListing = currListing;
+            NSString *subType = tempListing.subType;
+            if(![sortHeaders2 containsObject:subType])
             {
-                [section4 addObject:listingListListing];
+                [sortHeaders2 addObject:subType];
+                NSLog(@"%@", subType);
             }
+            
+            
+            NSString *costType = tempListing.costType;
+            if(![sortHeaders3 containsObject:costType])
+            {
+                [sortHeaders3 addObject:costType];
+                NSLog(@"%@", costType);
+            }
+            
+            NSString *suburb = tempListing.suburb;
+            if(![sortHeaders4 containsObject:suburb])
+            {
+                [sortHeaders4 addObject:suburb];
+                NSLog(@"%@", suburb);
+            }
+            
+            [section addObject:currListing];
+            
+            
         }
-        NSDictionary *sectionDict4 = @{@"Explore": section4};
-        [suburbListingTable addObject:sectionDict4];
+        NSDictionary *sectionDict = @{@"Explore": section};
+        [listingTable addObject:sectionDict];
         
-    }
-    
-    NSLog(@"%i",[listingTable count]);
-    NSLog(@"%i",[typeListingTable count]);
-    NSLog(@"%i",[costListingTable count]);
-    NSLog(@"%i",[suburbListingTable count]);
+        
+        // ** Table View Population
+        
+        // ---------------------------
+        
+        // --- SORT 1 Headers ----
+        
+        [sortHeaders1 addObject:@"All"];
+        
+        [sortHeaders2 sortUsingSelector:@selector(compare:)];
+        
+        [sortHeaders3 sortUsingSelector:@selector(compare:)];
+        [sortHeaders4 sortUsingSelector:@selector(compare:)];
+        
+        // -----------------------
+        
+        for (int i =0; i < [sortHeaders2 count]; i++){
+            NSMutableArray *section2 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders2[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.subType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section2 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict2 = @{@"Explore": section2};
+            [typeListingTable addObject:sectionDict2];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders3 count]; i++){
+            NSMutableArray *section3 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders3[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.costType;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section3 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict3 = @{@"Explore": section3};
+            [costListingTable addObject:sectionDict3];
+            
+        }
+        
+        for (int i =0; i < [sortHeaders4 count]; i++){
+            NSMutableArray *section4 = [[NSMutableArray alloc] init];
+            NSString *currSortHeader = sortHeaders4[i];
+            for (Listing *listingListListing in listingsList)
+            {
+                NSString *type = listingListListing.suburb;
+                
+                if ([type isEqualToString:currSortHeader])
+                {
+                    [section4 addObject:listingListListing];
+                }
+            }
+            NSDictionary *sectionDict4 = @{@"Explore": section4};
+            [suburbListingTable addObject:sectionDict4];
+            
+        }
+        
+        NSLog(@"%i",[listingTable count]);
+        NSLog(@"%i",[typeListingTable count]);
+        NSLog(@"%i",[costListingTable count]);
+        NSLog(@"%i",[suburbListingTable count]);
     }
     refreshing = NO;
     [tableView reloadData];
 }
 
-// -- END Datasource -- 
+// -- END Datasource --
 
 // ---- MAP METHODS ----
 
--(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation 
+-(MKAnnotationView *) mapView:(MKMapView *)mapViewAroundMe viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"current"];// get a dequeued view for the annotation like a tableview
@@ -681,17 +678,17 @@ PullToRefreshView *pull;
     UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     if ([annotation isKindOfClass:[Listing class]] )
     {
-    Listing *current = ((Listing *) annotation);
-    for (int i = 0; i < [listingsList count]; i++) {
-        Listing *currentListing = listingsList[i];
-        if ([currentListing.listingID isEqualToString:current.listingID]) {
-            rightButton.tag = i;
+        Listing *current = ((Listing *) annotation);
+        for (int i = 0; i < [listingsList count]; i++) {
+            Listing *currentListing = listingsList[i];
+            if ([currentListing.listingID isEqualToString:current.listingID]) {
+                rightButton.tag = i;
+            }
         }
-    }
-
-    [rightButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
-    
-    annotationView.rightCalloutAccessoryView = rightButton;
+        
+        [rightButton addTarget:self action:@selector(ListingView:) forControlEvents:UIControlEventTouchUpInside];
+        
+        annotationView.rightCalloutAccessoryView = rightButton;
     }
     annotationView.image = [UIImage imageNamed:@"map_marker.png"];
     
@@ -724,12 +721,12 @@ PullToRefreshView *pull;
         AddressLabel.text = ((Listing *) view.annotation).address;
         
         //Start Date
-//        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-//        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
-//        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
+        //        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        //        [startDateFormat setDateFormat:@"EEEE','MMMM d'.' KK:mma"];
+        //        NSString *startDateString = [startDateFormat stringFromDate:((Listing *) view.annotation).startDate];
         StartDateLabel.text = ((Listing *) view.annotation).subType;
         
-        //Detail Image    
+        //Detail Image
         NSString *imageString = [(((Listing *) view.annotation).imageFilenames)[0] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         DetailImage.image =[UIImage imageNamed:@"Placeholder.png"];
         dispatch_queue_t concurrentQueue =
@@ -802,7 +799,7 @@ PullToRefreshView *pull;
             return [suburbListingTable count];
         }
     }
-
+    
 }
 
 
@@ -841,7 +838,7 @@ PullToRefreshView *pull;
             }
         }
     }
-
+    
     
     UIView *headerView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewHeader.bounds.size.width, tableViewHeader.bounds.size.height)];
     [headerView setBackgroundColor:[UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1]];
@@ -862,7 +859,7 @@ PullToRefreshView *pull;
     return headerView;
 }
 
--(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+-(UITableViewCell *)tableView:(UITableView *)listingTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"exploreCell";
     SideSwipeTableViewCell *cell = (SideSwipeTableViewCell*)[listingTableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -870,47 +867,47 @@ PullToRefreshView *pull;
         cell = [[SideSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
     if(refreshing ==NO){
-    Listing *currListing;
-    if(isFiltered)
-    {
-        currListing = filteredTableData[indexPath.row];
-    }
-    else
-    {
-        NSDictionary *dictionary;
-        if (sortSel == 0) { // allphabetically.
-            dictionary= listingTable[indexPath.section];
+        Listing *currListing;
+        if(isFiltered)
+        {
+            currListing = filteredTableData[indexPath.row];
         }
-        else if (sortSel == 1) { //Type
-            dictionary= typeListingTable[indexPath.section];
-            
+        else
+        {
+            NSDictionary *dictionary;
+            if (sortSel == 0) { // allphabetically.
+                dictionary= listingTable[indexPath.section];
+            }
+            else if (sortSel == 1) { //Type
+                dictionary= typeListingTable[indexPath.section];
+                
+            }
+            else if (sortSel == 2) {  //Price
+                
+                dictionary= costListingTable[indexPath.section];
+            }
+            else { // Suburb
+                dictionary= suburbListingTable[indexPath.section];
+            }
+            NSMutableArray *array = dictionary[@"Explore"];
+            currListing = array[indexPath.row];
         }
-        else if (sortSel == 2) {  //Price
-            
-            dictionary= costListingTable[indexPath.section];
-        }
-        else { // Suburb
-            dictionary= suburbListingTable[indexPath.section];
-        }
-        NSMutableArray *array = dictionary[@"Explore"];
-        currListing = array[indexPath.row];
-    }
-    
-    //ContentView
-    
+        
+        //ContentView
+        
         UIImage* image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",currListing.subType]];
         if(image==NULL){
             image = [UIImage imageNamed:@"star-hollow@2x.png"];
         }
-    cell.imageView.image = image;
+        cell.imageView.image = image;
         
-    
-    //ContentView
-    UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
-    [cellHeading setText: currListing.title];
-    
-    UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
-    [cellSubtype setText: currListing.subType];
+        
+        //ContentView
+        UILabel *cellHeading = (UILabel *)[cell viewWithTag:2];
+        [cellHeading setText: currListing.title];
+        
+        UILabel *cellSubtype = (UILabel *)[cell viewWithTag:3];
+        [cellSubtype setText: currListing.subType];
     }
     return cell;
 }
@@ -980,7 +977,7 @@ PullToRefreshView *pull;
     else { // Suburb
         dictionary= suburbListingTable[indexPath.section];
     }
-
+    
     NSArray *array = dictionary[@"Explore"];
     Listing *selectedEvent;
     
@@ -1105,12 +1102,12 @@ PullToRefreshView *pull;
     else { // Suburb
         dictionary= suburbListingTable[indexPath.section];
     }
-
+    
     NSMutableArray *array = dictionary[@"Explore"];
     Listing *currListing = array[indexPath.row];
     NSString *listingID = currListing.listingID;
-
-    //ContentView   
+    
+    //ContentView
     
     CGRect Button1Frame = CGRectMake(150, 10, 30, 30);
     
@@ -1121,14 +1118,14 @@ PullToRefreshView *pull;
     // Make sure the button ends up in the right place when the cell is resized
     btnTemp.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
-        
+    
     for (int i = 0; i < [listingsList count]; i++) {
         Listing *currentListing = listingsList[i];
         if ([currentListing.listingID isEqualToString:listingID]) {
             btnTemp.tag =i;
         }
     }
-
+    
     
     [btnTemp setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1]];
     
@@ -1402,7 +1399,7 @@ PullToRefreshView *pull;
         [UIView commitAnimations];
         [self setupMap];
     }
-
+    
 }
 
 -(IBAction)segmentButton:(id)sender{
@@ -1437,7 +1434,7 @@ PullToRefreshView *pull;
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"ListingElements"]) 
+    if ([elementName isEqualToString:@"ListingElements"])
     {
         self.listingsListString = [[NSMutableArray alloc] init];
     }

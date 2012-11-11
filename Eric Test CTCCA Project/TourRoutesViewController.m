@@ -59,7 +59,7 @@ NSString *currentDestination;
     region.span.latitudeDelta = 0.15f; // Zoom Settings
     region.span.longitudeDelta = 0.25f; // Zoom Settings
     [_mapView setRegion:region animated:YES];
-        //Get user location
+    //Get user location
     [locationManager startUpdatingLocation];
     [super viewDidLoad];
 }
@@ -212,10 +212,10 @@ NSString *currentDestination;
          
          [_httpClient enqueueHTTPRequestOperation:operation];
      }];
-
     
     
-
+    
+    
 }
 
 
@@ -327,11 +327,11 @@ NSString *currentDestination;
                                                  otherButtonTitles: nil];
         [alertBox show];
     }else{
-
-    ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
-    webView.Website = selectedListing.videoURL;
-    [self.navigationController pushViewController:webView animated:YES];
-    NSLog(@"Button");
+        
+        ListingWebViewController *webView= [self.storyboard instantiateViewControllerWithIdentifier:@"ListingWebView"]; // Listing Detail Page
+        webView.Website = selectedListing.videoURL;
+        [self.navigationController pushViewController:webView animated:YES];
+        NSLog(@"Button");
     }
 }
 
@@ -368,7 +368,7 @@ NSString *currentDestination;
         //  self.myAudioController = player;
         [self.view addSubview:self.myAudioController.view];
         [self.myAudioController play];
-
+        
     }
 }
 

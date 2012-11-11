@@ -1442,7 +1442,7 @@ PullToRefreshView *pull;
                 [self setupArray];
                 selectMonthLoadView.hidden = true;
                 eventMonthFilter.hidden=false;
-                                if(isFilteringByMonth==NO){
+                if(isFilteringByMonth==NO){
                     previousMonth.hidden=false;
                     [previousMonth setUserInteractionEnabled:true];
                     previousMonth.enabled = true;
@@ -1450,7 +1450,7 @@ PullToRefreshView *pull;
                 nextMonth.hidden =false;
                 [nextMonth setUserInteractionEnabled:true];
                 nextMonth.enabled = true;
-
+                
                 isFilteringByMonth=YES;
                 
                 isFilteringByMonth=NO;

@@ -1,17 +1,17 @@
 // AFHTTPRequestOperation.m
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,10 +34,10 @@ NSSet * AFContentTypesFromHTTPHeader(NSString *string) {
     if (!string) {
         return nil;
     }
-
+    
     NSArray *mediaRanges = [string componentsSeparatedByString:@","];
     NSMutableSet *mutableContentTypes = [NSMutableSet setWithCapacity:mediaRanges.count];
-
+    
     [mediaRanges enumerateObjectsUsingBlock:^(NSString *mediaRange, NSUInteger idx, BOOL *stop) {
         NSRange parametersRange = [mediaRange rangeOfString:@";"];
         if (parametersRange.location != NSNotFound) {
@@ -50,13 +50,13 @@ NSSet * AFContentTypesFromHTTPHeader(NSString *string) {
             [mutableContentTypes addObject:mediaRange];
         }
     }];
-
+    
     return [NSSet setWithSet:mutableContentTypes];
 }
 
 static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
     NSMutableString *string = [NSMutableString string];
-
+    
     NSRange range = NSMakeRange([indexSet firstIndex], 1);
     while (range.location != NSNotFound) {
         NSUInteger nextIndex = [indexSet indexGreaterThanIndex:range.location];
@@ -64,11 +64,11 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
             range.length++;
             nextIndex = [indexSet indexGreaterThanIndex:nextIndex];
         }
-
+        
         if (string.length) {
             [string appendString:@","];
         }
-
+        
         if (range.length == 1) {
             [string appendFormat:@"%lu", (long)range.location];
         } else {
@@ -76,11 +76,11 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
             NSUInteger lastIndex = firstIndex + range.length - 1;
             [string appendFormat:@"%lu-%lu", (long)firstIndex, (long)lastIndex];
         }
-
+        
         range.location = nextIndex;
         range.length = 1;
     }
-
+    
     return string;
 }
 
@@ -156,13 +156,13 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 }
 
 - (void)pause {
-    unsigned long long offset = 0; 
+    unsigned long long offset = 0;
     if ([self.outputStream propertyForKey:NSStreamFileCurrentOffsetKey]) {
         offset = [[self.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
     } else {
         offset = [[self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] length];
     }
-
+    
     NSMutableURLRequest *mutableURLRequest = [self.request mutableCopy];
     if ([[self.response allHeaderFields] valueForKey:@"ETag"]) {
         [mutableURLRequest setValue:[[self.response allHeaderFields] valueForKey:@"ETag"] forHTTPHeaderField:@"If-Range"];
@@ -206,14 +206,14 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 #endif
             _successCallbackQueue = NULL;
         }
-
+        
         if (successCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
             dispatch_retain(successCallbackQueue);
 #endif
             _successCallbackQueue = successCallbackQueue;
         }
-    }    
+    }
 }
 
 - (void)setFailureCallbackQueue:(dispatch_queue_t)failureCallbackQueue {
@@ -231,7 +231,7 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 #endif
             _failureCallbackQueue = failureCallbackQueue;
         }
-    }    
+    }
 }
 
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
@@ -298,8 +298,8 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 
 #pragma mark - NSURLConnectionDelegate
 
-- (void)connection:(NSURLConnection *)connection 
-didReceiveResponse:(NSURLResponse *)response 
+- (void)connection:(NSURLConnection *)connection
+didReceiveResponse:(NSURLResponse *)response
 {
     self.response = (NSHTTPURLResponse *)response;
     

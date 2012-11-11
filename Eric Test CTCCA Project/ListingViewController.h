@@ -33,10 +33,10 @@
     IBOutlet UIView *switchMapView;
     IBOutlet UIView *switchTableView;
     IBOutlet UIScrollView	*scrollView;
-    IBOutlet UIPageControl *pageControl;    
+    IBOutlet UIPageControl *pageControl;
     IBOutlet UIWebView *infoBox;
     IBOutlet UISegmentedControl *segmentController;
-
+    
     NSMutableArray *favData;
     NSMutableArray *Cost;
     

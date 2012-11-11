@@ -1,17 +1,17 @@
 // AFURLConnectionOperation.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -47,7 +47,7 @@
  - `connection:didReceiveAuthenticationChallenge:`
  
  If any of these methods are overridden in a subclass, they _must_ call the `super` implementation first.
-  
+ 
  ## Class Constructors
  
  Class constructors, or methods that return an unowned instance, are the preferred way for subclasses to encapsulate any particular logic for handling the setup or parsing of response data. For instance, `AFJSONRequestOperation` provides `JSONRequestOperationWithRequest:success:failure:`, which takes block arguments, whose parameter on for a successful request is the JSON object initialized from the `response data`.
@@ -108,7 +108,7 @@
 ///----------------------------
 
 /**
- The data received during the request. 
+ The data received during the request.
  */
 @property (readonly, nonatomic, strong) NSData *responseData;
 
@@ -124,7 +124,7 @@
 ///------------------------
 
 /**
- The input stream used to read data to be sent during the request. 
+ The input stream used to read data to be sent during the request.
  
  @discussion This property acts as a proxy to the `HTTPBodyStream` property of `request`.
  */
@@ -182,7 +182,7 @@
 /**
  Specifies that the operation should continue execution after the app has entered the background, and the expiration handler for that background task.
  
- @param handler A handler to be called shortly before the application’s remaining background time reaches 0. The handler is wrapped in a block that cancels the operation, and cleans up and marks the end of execution, unlike the `handler` parameter in `UIApplication -beginBackgroundTaskWithExpirationHandler:`, which expects this to be done in the handler itself. The handler is called synchronously on the main thread, thus blocking the application’s suspension momentarily while the application is notified. 
+ @param handler A handler to be called shortly before the application’s remaining background time reaches 0. The handler is wrapped in a block that cancels the operation, and cleans up and marks the end of execution, unlike the `handler` parameter in `UIApplication -beginBackgroundTaskWithExpirationHandler:`, which expects this to be done in the handler itself. The handler is called synchronously on the main thread, thus blocking the application’s suspension momentarily while the application is notified.
  */
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler;

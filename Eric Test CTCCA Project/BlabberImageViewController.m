@@ -14,7 +14,7 @@
 
 @implementation BlabberImageViewController
 @synthesize selectedImage;
-@synthesize title;
+@synthesize newsTitle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +27,7 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:selectedImage]];
-        imageView.image = image;
+    imageView.image = image;
     //[scrollView setContentSize:image.size];
     [scrollView setMaximumZoomScale:2.5f];
     [scrollView setMinimumZoomScale:1.0f];
@@ -47,8 +47,8 @@
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.isLanscapeOk = YES;
-
-    [super setTitle:title];
+    
+    [super setTitle:newsTitle];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

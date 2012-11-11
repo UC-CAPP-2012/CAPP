@@ -1,17 +1,17 @@
 // AFHTTPRequestOperation.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -51,12 +51,12 @@
  */
 @property (readonly) BOOL hasAcceptableContentType;
 
-/** 
+/**
  The callback dispatch queue on success. If `NULL` (default), the main queue is used.
  */
 @property (nonatomic, assign) dispatch_queue_t successCallbackQueue;
 
-/** 
+/**
  The callback dispatch queue on failure. If `NULL` (default), the main queue is used.
  */
 @property (nonatomic, assign) dispatch_queue_t failureCallbackQueue;
@@ -80,7 +80,7 @@
 + (void)addAcceptableStatusCodes:(NSIndexSet *)statusCodes;
 
 /**
- Returns an `NSSet` object containing the acceptable MIME types. When non-`nil`, the operation will set the `error` property to an error in `AFErrorDomain`. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17 
+ Returns an `NSSet` object containing the acceptable MIME types. When non-`nil`, the operation will set the `error` property to an error in `AFErrorDomain`. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
  
  By default, this is `nil`.
  */
@@ -88,7 +88,7 @@
 
 /**
  Adds content types to the set of acceptable MIME types returned by `+acceptableContentTypes` in subsequent calls by this class and its descendants.
-
+ 
  @param contentTypes The content types to be added to the set of acceptable MIME types
  */
 + (void)addAcceptableContentTypes:(NSSet *)contentTypes;
