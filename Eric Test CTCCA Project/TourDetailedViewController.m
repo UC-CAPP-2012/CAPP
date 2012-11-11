@@ -18,7 +18,7 @@
 
 bool errorMsgShown;
 @implementation TourDetailedViewController
-@synthesize currentTour;
+@synthesize currentTour,myAudioController;
 @synthesize listing,listingsDataSource,listingTable, listingsList,listingsListString;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -589,14 +589,32 @@ bool errorMsgShown;
 //        [self.navigationController pushViewController:webView animated:YES];
 //        NSLog(@"Button");
 
-        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:currentTour.AudioURL];
-        player.movieSourceType = MPMovieSourceTypeStreaming;
-        player.view.hidden = YES;
-        [self.view addSubview:player.view];
-        [player play];
+     //   [self.myAudioController setContentURL:currentTour.AudioURL];
+        playAudio.enabled = false;
+        if (self.myAudioController != nil) {
+            self.myAudioController = nil; 
+        }
+        self.myAudioController = [[MPMoviePlayerController alloc] initWithContentURL:currentTour.AudioURL];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(audioPlaybackComplete:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification 
+                                                   object:self.myAudioController];
+        [self.myAudioController prepareToPlay];
+        [self.myAudioController.view setFrame: self.view.bounds];
+       // self.myAudioController.movieSourceType = MPMovieSourceTypeStreaming;
+        self.myAudioController.view.hidden = YES;
+      //  self.myAudioController = player;
+        [self.view addSubview:self.myAudioController.view];
+        [self.myAudioController play];
         
         
     }
+}
+
+-(void)audioPlaybackComplete:(NSNotification *)notification{
+    [self.myAudioController stop];
+    self.myAudioController = nil;
+    playAudio.enabled =true;
 }
 
 - (IBAction)SwitchView:(id)sender {

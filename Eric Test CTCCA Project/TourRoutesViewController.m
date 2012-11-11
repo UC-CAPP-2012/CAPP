@@ -21,7 +21,7 @@ CLLocationManager *locationManager;
 CLGeocoder *geocoder;
 NSString *currentDestination;
 @synthesize listingsList, tourName;
-
+@synthesize myAudioController;
 - (void)viewDidLoad
 {
     
@@ -352,12 +352,29 @@ NSString *currentDestination;
         //        [self.navigationController pushViewController:webView animated:YES];
         //        NSLog(@"Button");
         
-        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:selectedListing.audioURL];
-        player.movieSourceType = MPMovieSourceTypeStreaming;
-        player.view.hidden = YES;
-        [self.view addSubview:player.view];
-        [player play];
+        audioBtn.enabled = false;
+        if (self.myAudioController != nil) {
+            self.myAudioController = nil;
+        }
+        self.myAudioController = [[MPMoviePlayerController alloc] initWithContentURL:selectedListing.audioURL];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(audioPlaybackComplete:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:self.myAudioController];
+        [self.myAudioController prepareToPlay];
+        [self.myAudioController.view setFrame: self.view.bounds];
+        // self.myAudioController.movieSourceType = MPMovieSourceTypeStreaming;
+        self.myAudioController.view.hidden = YES;
+        //  self.myAudioController = player;
+        [self.view addSubview:self.myAudioController.view];
+        [self.myAudioController play];
 
     }
+}
+
+-(void)audioPlaybackComplete:(NSNotification *)notification{
+    [self.myAudioController stop];
+    self.myAudioController = nil;
+    audioBtn.enabled =true;
 }
 @end

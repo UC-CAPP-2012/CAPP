@@ -24,6 +24,7 @@
     
     IBOutlet UIView *loadView;
     IBOutlet UISegmentedControl *segmentController;
+    IBOutlet UIBarButtonItem *playAudio;
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIPageControl *pageControl;
     IBOutlet UIView *tableView;
@@ -49,7 +50,7 @@
     NSMutableString *currentElementValue;
     
 }
-
+@property (nonatomic,strong) MPMoviePlayerController *myAudioController;
 @property(strong, nonatomic)NSMutableDictionary *listing;
 @property(strong, nonatomic)NSArray *listingsDataSource;
 @property(nonatomic, strong)NSMutableArray *listingTable,*listingsList, *listingsListString;

@@ -29,7 +29,7 @@
     // the map view
 	MKMapView* _mapView;
 }
-
+@property (nonatomic,strong) MPMoviePlayerController *myAudioController;
 @property (nonatomic, strong) IBOutlet MKMapView* mapView;
 @property(nonatomic, strong)NSMutableArray *listingsList;
 @property (nonatomic, retain) NSMutableArray* path;
