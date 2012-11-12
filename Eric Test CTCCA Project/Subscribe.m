@@ -178,58 +178,28 @@ bool errorMsgShown;
         
         MainTypeClass *type = [[MainTypeClass alloc] init];
         type.typeID = @"0";
-        type.typeName = @"Food & Wine";
-        type.imageID = [UIImage imageNamed:@"FoodandWine_Large.png"];
+        type.imageID = [UIImage imageNamed:@"loading1.png"];
         [typeDataSource addObject:type];
         
         
-        type = [[MainTypeClass alloc] init]; // I Think the leak is here..
+        type = [[MainTypeClass alloc] init];
         type.typeID = @"1";
-        type.typeName = @"Entertainment";
-        type.imageID = [UIImage imageNamed:@"Entertainment_Large.png"];
+        type.imageID = [UIImage imageNamed:@"loading2.png"];
         [typeDataSource addObject:type];
         
         type = [[MainTypeClass alloc] init];
         type.typeID = @"2";
-        type.typeName = @"Cultural";
-        type.imageID = [UIImage imageNamed:@"Cultural_Large.png"];
+        type.imageID = [UIImage imageNamed:@"loading3.png"];
         [typeDataSource addObject:type];
         
         type = [[MainTypeClass alloc] init];
         type.typeID = @"3";
-        type.typeName = @"Shopping";
-        type.imageID = [UIImage imageNamed:@"Shopping_Large.PNG"];
+        type.imageID = [UIImage imageNamed:@"loading4.png"];
         [typeDataSource addObject:type];
         
         type = [[MainTypeClass alloc] init];
         type.typeID = @"4";
-        type.typeName = @"Accommodation";
-        type.imageID = [UIImage imageNamed:@"Accommodation_Large.png"];
-        [typeDataSource addObject:type];
-        
-        type = [[MainTypeClass alloc] init];
-        type.typeID = @"5";
-        type.typeName = @"Outdoor";
-        type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
-        [typeDataSource addObject:type];
-        
-        
-        type = [[MainTypeClass alloc] init];
-        type.typeID = @"6";
-        type.typeName = @"Family";
-        type.imageID = [UIImage imageNamed:@"Family_Large.png"];
-        [typeDataSource addObject:type];
-        
-        type = [[MainTypeClass alloc] init];
-        type.typeID = @"7";
-        type.typeName = @"Sport";
-        type.imageID = [UIImage imageNamed:@"Sport_Large.png"];
-        [typeDataSource addObject:type];
-        
-        type = [[MainTypeClass alloc] init];
-        type.typeID = @"8";
-        type.typeName = @"All";
-        type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+        type.imageID = [UIImage imageNamed:@"loading5.png"];
         [typeDataSource addObject:type];
         
         scrollView.clipsToBounds = NO;
@@ -265,13 +235,13 @@ bool errorMsgShown;
         [subview setBackgroundColor:[UIColor whiteColor]];
         
         
-        
-        //Image View
-        
+
         UIImageView *imageView = [[UIImageView alloc]init];
         MainTypeClass *currType = typeDataSource[i];
-        imageView.image = currType.imageID;
+       // CGRect imageRect = CGRectMake(0.0, 0.0, 20.0f, 80.0f);
         
+        imageView.image = currType.imageID;
+       // [imageView.image drawInRect:imageRect];
         
         imageView.contentMode = UIViewContentModeCenter;
         
@@ -283,8 +253,7 @@ bool errorMsgShown;
         
         
         
-        imageView.frame = CGRectMake(0.0f, 0.0f, 320.0f, 380.0f);
-        
+        imageView.frame =   CGRectMake(0.0f, 0.0f, 321.0f, 351.0f);
         [subview addSubview:imageView];
         
         [self->scrollView addSubview:subview];
@@ -292,7 +261,7 @@ bool errorMsgShown;
     }
     
     self->scrollView.contentSize = CGSizeMake(self->scrollView.frame.size.width * pageControl.numberOfPages, self->scrollView.frame.size.height);
-    CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 280); // 280 is the height of the image.
+    CGSize scrollableSize = CGSizeMake(scrollView.frame.size.width *  typeDataSource.count, 351); // 351 is the height of the image.
     [self->scrollView setContentSize:scrollableSize];
     //self->pageControl.currentPage=0;
 }
