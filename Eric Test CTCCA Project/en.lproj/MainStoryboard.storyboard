@@ -554,22 +554,13 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pj8-tA-GtY">
-                                <rect key="frame" x="0.0" y="0.0" width="329" height="424"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </scrollView>
-                            <webView contentMode="scaleToFill" id="uzx-qW-0EU">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </webView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="About.png" id="ekm-hV-HLW">
+                                <rect key="frame" x="0.0" y="-19" width="320" height="511"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="scrollView" destination="pj8-tA-GtY" id="c9Q-Yr-yD8"/>
-                        <outlet property="textHolder" destination="uzx-qW-0EU" id="38I-y1-yqh"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YzP-0I-efZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3019,6 +3010,7 @@
     <resources>
         <image name="179-notepad.png" width="16" height="16"/>
         <image name="73-radar.png" width="16" height="16"/>
+        <image name="About.png" width="640" height="960"/>
         <image name="AroundMe.png" width="250" height="250"/>
         <image name="Arrow-Left.png" width="48" height="48"/>
         <image name="Arrow-Right.png" width="48" height="48"/>

@@ -99,7 +99,7 @@
     type = [[MainTypeClass alloc] init];
     type.typeID = @"8";
     type.typeName = @"All";
-    type.imageID = [UIImage imageNamed:@"Outdoor_Large.png"];
+    type.imageID = [UIImage imageNamed:@"All_Large.png"];
     [typeDataSource addObject:type];
     
     scrollView.clipsToBounds = NO;
