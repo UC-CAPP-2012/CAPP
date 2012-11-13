@@ -21,7 +21,6 @@
 
 @interface HomePageViewController : UIViewController
 {
-    IBOutlet UIView *overlayView;
     
     IBOutlet UIToolbar *toolbarView;
 }
@@ -35,7 +34,6 @@
 -(IBAction)happenings:(id)sender;
 -(IBAction)loved:(id)sender;
 -(IBAction)myTrial:(id)sender;
--(IBAction)closeOverlay:(id)sender;
 
 
 @end

@@ -32,16 +32,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //if(appDelegate.showHomeOverlay==NO){
-    //    [overlayView removeFromSuperview];
-    //    toolbarView.hidden = false;
-    //}
-    //else{
-    //   toolbarView.hidden = true;
-    //}
     [self.navigationController setNavigationBarHidden:YES];
-    
 }
 
 -(void)skipScreen
@@ -128,14 +119,6 @@
     
     
 }
-
-- (IBAction)closeOverlay:(id)sender {
-    [overlayView removeFromSuperview];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.showHomeOverlay = NO;
-    toolbarView.hidden = false;
-}
-
 
 - (void)viewDidUnload
 {

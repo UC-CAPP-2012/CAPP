@@ -11,7 +11,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize listingsList, isLanscapeOk,showHomeOverlay;
+@synthesize listingsList, isLanscapeOk;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 {

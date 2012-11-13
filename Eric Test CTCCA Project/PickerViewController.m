@@ -40,12 +40,6 @@ bool errorMsgShown;
     loadView.hidden=TRUE;
     notFoundView.hidden=TRUE;
     
-    //if ([SignUpCheck checkForSpinwheelOverlay]) {
-    //   [overlayView removeFromSuperview];
-    //}
-    //  else {
-    //     [self.navigationController setNavigationBarHidden:YES];
-    // }
     
     
 }
@@ -252,11 +246,6 @@ bool errorMsgShown;
     //stop and hide animating image
 }
 
-- (IBAction)removeOverlay:(id)sender {
-    [overlayView removeFromSuperview];
-    //[RecordSignup recordSpinwheelOverlay];
-    [self.navigationController setNavigationBarHidden:NO];
-}
 
 - (IBAction)feelingAdv:(id)sender {
     count=0;
