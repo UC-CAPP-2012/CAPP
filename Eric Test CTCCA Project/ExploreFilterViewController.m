@@ -115,7 +115,7 @@ PullToRefreshView *pull;
     // Overlay a shadow image that adds a subtle darker drop shadow around the edges
     UIImage* shadow = [UIImage imageNamed:@"inner-shadow.png"];
     UIImageView* shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, 0, tableView.frame.size.width, tableView.rowHeight)];
-    shadowImageView.alpha = 0.2;
+    shadowImageView.alpha = 0.16;
     shadowImageView.image = shadow;
     shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.sideSwipeView addSubview:shadowImageView];
@@ -942,7 +942,7 @@ PullToRefreshView *pull;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 60;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -1109,7 +1109,7 @@ PullToRefreshView *pull;
     
     //ContentView
     
-    CGRect Button1Frame = CGRectMake(150, 10, 30, 30);
+    CGRect Button1Frame = CGRectMake(150, 15, 30, 30);
     
     UIButton *btnTemp = [UIButton buttonWithType:UIButtonTypeCustom];
     
