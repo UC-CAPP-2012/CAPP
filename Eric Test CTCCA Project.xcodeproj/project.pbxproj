@@ -153,6 +153,7 @@
 		698B284F163A50EE0076189C /* ListIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B284C163A50EE0076189C /* ListIcon.png */; };
 		698B2850163A50EE0076189C /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B284D163A50EE0076189C /* MapIcon.png */; };
 		698B2851163A50EE0076189C /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 698B284D163A50EE0076189C /* MapIcon.png */; };
+		698C2AB21653C8B00007BDB6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698C2AB11653C8B00007BDB6 /* AudioToolbox.framework */; };
 		698CED7B1650BD7100D08330 /* canberraTimesLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 698CED751650BD7100D08330 /* canberraTimesLogo.png */; };
 		698CED7C1650BD7100D08330 /* canberraTimesLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 698CED751650BD7100D08330 /* canberraTimesLogo.png */; };
 		698CEDAB1650C3DE00D08330 /* AroundMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 698CEDA51650C3C600D08330 /* AroundMe.png */; };
@@ -393,6 +394,7 @@
 		698B2846163A4E3B0076189C /* Entertainment_Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Entertainment_Large.png; sourceTree = "<group>"; };
 		698B284C163A50EE0076189C /* ListIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ListIcon.png; sourceTree = "<group>"; };
 		698B284D163A50EE0076189C /* MapIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapIcon.png; sourceTree = "<group>"; };
+		698C2AB11653C8B00007BDB6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		698CED751650BD7100D08330 /* canberraTimesLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canberraTimesLogo.png; sourceTree = "<group>"; };
 		698CEDA51650C3C600D08330 /* AroundMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AroundMe.png; sourceTree = "<group>"; };
 		698CEDA61650C3CA00D08330 /* Blabber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blabber.png; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				698C2AB21653C8B00007BDB6 /* AudioToolbox.framework in Frameworks */,
 				699088A916416ADB00E64C13 /* MediaPlayer.framework in Frameworks */,
 				6991C474163FCB970063AAA1 /* AVFoundation.framework in Frameworks */,
 				699A9A0216338FB600AFDE79 /* MessageUI.framework in Frameworks */,
@@ -845,6 +848,7 @@
 		69A598451520843F00BDA150 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				698C2AB11653C8B00007BDB6 /* AudioToolbox.framework */,
 				699088A816416ADB00E64C13 /* MediaPlayer.framework */,
 				6991C473163FCB970063AAA1 /* AVFoundation.framework */,
 				699A9A0116338FB600AFDE79 /* MessageUI.framework */,

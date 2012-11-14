@@ -456,6 +456,7 @@ bool errorMsgShown;
                 
                 if([listingsList count]>0)
                 {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     loadView.hidden=true;
                     resultButtonView.hidden=FALSE;
                     [resultButton setTitle:result.title forState:UIControlStateNormal];
@@ -467,8 +468,10 @@ bool errorMsgShown;
                     //count = 0;
                     spinned = YES;
                     selectedCost = CostArray[[selectedCost intValue]];
+                    
                     NSLog(@"%@", result.title);
                 }else if([listingsList count]==0 && count==20){
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     loadView.hidden=true;
                     notFoundView.hidden = false;
                     [feelAdvBtn setEnabled:TRUE];
@@ -488,7 +491,6 @@ bool errorMsgShown;
                     }
                     //count = 0;
                     spinned = YES;
-                    
                 }
             });
         });
