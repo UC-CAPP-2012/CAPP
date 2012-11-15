@@ -305,11 +305,12 @@ bool errorMsgShown;
             //        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
             //        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
             //        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-            
-            NSString *urlString = [[NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Spinwheel.php?category=%@&region=%@&cost=%@",selectedCategory,selectedSuburb,selectedCost] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            if([selectedCategory isEqualToString:@"Food & Wine"]){
+                selectedCategory = [[selectedCategory stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+            }
+            NSString *urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/Spinwheel.php?category=%@&region=%@&cost=%@",selectedCategory,[selectedSuburb stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],selectedCost];
             NSURL *url = [[NSURL alloc] initWithString:urlString];
-            NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-            
+            NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];            
             
             [xmlParser setDelegate:self];
             

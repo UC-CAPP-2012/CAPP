@@ -98,16 +98,18 @@ bool errorMsgShown;
             errorMsg.text=@"Email is required.";
             errorMsg.hidden=FALSE;
         }
-        if([PostCode isEqualToString:@""]){
-            errorMsg.text=@"Postcode is required.";
-            errorMsg.hidden=FALSE;
-        }
+        
         if([PostCode length]!=4){
             errorMsg.text=@"Postcode is invalid. Please try again.";
             errorMsg.hidden=FALSE;
         }
         if([PostCode rangeOfCharacterFromSet:notDigits].location != NSNotFound){
             errorMsg.text=@"Postcode is invalid. Please try again.";
+            errorMsg.hidden=FALSE;
+        }
+        
+        if([PostCode isEqualToString:@""]){
+            errorMsg.text=@"Postcode is required.";
             errorMsg.hidden=FALSE;
         }
         
@@ -243,7 +245,7 @@ bool errorMsgShown;
         
         imageView.layer.shadowColor = [UIColor blackColor].CGColor;
         imageView.layer.shadowOffset = CGSizeMake(0,1);
-        imageView.layer.shadowOpacity = 2;
+        imageView.layer.shadowOpacity = 0.4;
         imageView.layer.shadowRadius = 10.0;
         imageView.clipsToBounds = NO;
         
