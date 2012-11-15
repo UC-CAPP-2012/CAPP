@@ -312,7 +312,7 @@
     
     event.title=currentListing.title;
     event.location=currentListing.address;
-    if (currentListing.listingType == @"Event") {
+    if (currentListing.startDate!=nil) {
         event.startDate = currentListing.startDate;
         event.endDate = currentListing.endDate;
     }

@@ -296,6 +296,7 @@ PullToRefreshView *pull;
         listingStringElement.EndDate = [listingStringElement.EndDate stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         NSDate *endDate = [dateFormatter dateFromString:listingStringElement.EndDate];
         currListing.endDate = endDate;
+        
         // ** CHECKS ------------------------
         NSLog(@"%@",listingStringElement.ItemName);
         NSLog(@"%@",listingStringElement.Latitude);
