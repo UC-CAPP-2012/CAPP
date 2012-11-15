@@ -555,7 +555,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="About.png" id="ekm-hV-HLW">
-                                <rect key="frame" x="0.0" y="-19" width="320" height="511"/>
+                                <rect key="frame" x="-5" y="-19" width="325" height="511"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
