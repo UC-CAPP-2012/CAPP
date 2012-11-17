@@ -136,7 +136,7 @@
         
         listbutton.layer.shadowColor = [UIColor blackColor].CGColor;
         listbutton.layer.shadowOffset = CGSizeMake(0,1);
-        listbutton.layer.shadowOpacity = 2;
+        listbutton.layer.shadowOpacity = 0.0;
         listbutton.layer.shadowRadius = 5.0;
         listbutton.clipsToBounds = NO;
         
@@ -150,7 +150,7 @@
         imageView.contentMode = UIViewContentModeCenter;
         imageView.layer.shadowColor = [UIColor blackColor].CGColor;
         imageView.layer.shadowOffset = CGSizeMake(0,1);
-        imageView.layer.shadowOpacity = 2;
+        imageView.layer.shadowOpacity = 0.2;
         imageView.layer.shadowRadius = 10.0;
         imageView.clipsToBounds = NO;
         

@@ -78,7 +78,7 @@ bool errorMsgShown;
     if (segmentController.selectedSegmentIndex == 0) {
         NSString *tourAgent = [[NSString alloc] init];
         if(![currentTour.TourAgent isEqualToString:@""] && ![currentTour.TourAgent isEqualToString:@" "]){
-            tourAgent=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Tour agent:</strong> %@</p>",currentTour.TourAgent];
+            tourAgent=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>Tour guide:</strong> %@</p>",currentTour.TourAgent];
         }
         
         [detailedView bringSubviewToFront:infoBox];

@@ -95,6 +95,10 @@ bool errorMsgShown;
     [CostArray addObject:@"$$$$"];
     [CostArray addObject:@"$$$$$"];
     
+    catLock.enabled = false;
+    regionLock.enabled = false;
+    priceLock.enabled = false;
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -118,9 +122,11 @@ bool errorMsgShown;
     if(![selectedCategory isEqualToString:SubType[[pickerView selectedRowInComponent:subtype]]]){
         selectedCategory= SubType[[pickerView selectedRowInComponent:subtype]];
         if(![selectedCategory isEqualToString:@"Any"]){
+            catLock.enabled = true;
             categoryLocked = NO;
             [self lockUnlockCategory:catLock];
         }else{
+            catLock.enabled = false;
             categoryLocked = YES;
             [self lockUnlockCategory:catLock];
         }
@@ -129,9 +135,11 @@ bool errorMsgShown;
     if(![selectedSuburb isEqualToString:Area[[pickerView selectedRowInComponent:area]]]){
         selectedSuburb = Area[[pickerView selectedRowInComponent:area]];
         if(![selectedSuburb isEqualToString:@"Any"]){
+            regionLock.enabled = true;
             suburbLocked = NO;
             [self lockUnlockSuburb:regionLock];
         }else{
+            regionLock.enabled = false;
             suburbLocked = YES;
             [self lockUnlockSuburb:regionLock];
         }
@@ -140,9 +148,11 @@ bool errorMsgShown;
     if(![selectedCost isEqualToString:Cost[[pickerView selectedRowInComponent:cost]]]){
         selectedCost = Cost[[pickerView selectedRowInComponent:cost]];
         if(![selectedCost isEqualToString:@"Any"]){
+            priceLock.enabled = true;
             costLocked = NO;
             [self lockUnlockCost:priceLock];
         }else{
+            priceLock.enabled = false;
             costLocked = YES;
             [self lockUnlockCost:priceLock];
         }
@@ -213,23 +223,28 @@ bool errorMsgShown;
 -(void)spin
 {
     if(!categoryLocked){
+        
         int random = (arc4random() % [SubType count]);
         while(random==0){
             random = (arc4random() % [SubType count]);
         }
         selectedCategory = SubType[random];
         [spinWheel selectRow:random inComponent:subtype animated:YES];
+        
         //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
     }
     
+    
     if(!suburbLocked){
+        
+
         int random2 = (arc4random() % [Area count]);
         while(random2==0){
             random2 = (arc4random() % [Area count]);
         }
         selectedSuburb = Area[random2];
         [spinWheel selectRow:random2 inComponent:area animated:YES];
-        //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
+                //[self performSelector:@selector(moveIntoPosition) withObject:nil afterDelay:0.5f];
         
     }
     
@@ -274,13 +289,14 @@ bool errorMsgShown;
         }else{
             allUnlocked = false;
         }
+        
         //[NSThread sleepForTimeInterval:3.0];
         dispatch_queue_t concurrentQueue =
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
+       
         dispatch_async(concurrentQueue, ^(void){
             //[self performSelector:@selector(spin) withObject:nil afterDelay:2.0f];
-            [self spin];
+             [self spin];
             [listingsListString removeAllObjects];
             [listingsList removeAllObjects];
             

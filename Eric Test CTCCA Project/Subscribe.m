@@ -245,7 +245,7 @@ bool errorMsgShown;
         
         imageView.layer.shadowColor = [UIColor blackColor].CGColor;
         imageView.layer.shadowOffset = CGSizeMake(0,1);
-        imageView.layer.shadowOpacity = 0.4;
+        imageView.layer.shadowOpacity = 0.0;
         imageView.layer.shadowRadius = 10.0;
         imageView.clipsToBounds = NO;
         
