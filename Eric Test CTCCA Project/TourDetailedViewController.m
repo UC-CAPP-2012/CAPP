@@ -54,6 +54,10 @@ bool errorMsgShown;
     
     switchTableView.hidden=false;
     switchMapView.hidden=true;
+    
+    [segmentController setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateNormal];
+    
+    [segmentController setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateSelected];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

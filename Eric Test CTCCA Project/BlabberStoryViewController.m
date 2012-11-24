@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad
 {
-    [super setTitle:@"Blabber"];
+    [super setTitle:@"blabber"];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

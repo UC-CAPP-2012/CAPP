@@ -25,7 +25,8 @@
 
 - (void)viewDidLoad
 {
-    
+    [love setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:24]}forState:UIControlStateNormal];
+    [about setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:24]}forState:UIControlStateNormal];
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.

@@ -21,7 +21,9 @@
 
 @interface HomePageViewController : UIViewController
 {
+    IBOutlet UIBarButtonItem *about;
     
+    IBOutlet UIBarButtonItem *love;
     IBOutlet UIToolbar *toolbarView;
 }
 

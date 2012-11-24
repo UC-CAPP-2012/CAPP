@@ -98,7 +98,9 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$"];
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
+    [segmentControll setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateNormal];
     
+    [segmentControll setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateSelected];
     [super viewDidLoad];
     
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) tableView];
@@ -1286,6 +1288,7 @@ PullToRefreshView *pull;
     
     headerTitle.text = title;
     
+    headerTitle.font = [UIFont fontWithName:@"ChalkboardSE-Bold" size:12];
     headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];

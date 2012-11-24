@@ -24,16 +24,15 @@
 
 - (void)viewDidLoad
 {
-    //[self customizeApperarance];
+    [self customizeApperarance];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 - (void) customizeApperarance
 {
     //[[UINavigationBar appearance] setBackgroundColor:[UIColor yellowColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor]}forState:UIControlStateNormal];
-    //[[UIBarButtonItem appearance] setTitleTextAttributes:@{UITe]
+    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeFont:  [UIFont fontWithName:@"ChalkboardSE-Bold" size:18]}];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateNormal];
     
     //[[UIBarButtonItem appearance] setBackgroundColor:[UIColor blackColor]];
     

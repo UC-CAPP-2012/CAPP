@@ -94,6 +94,9 @@ PullToRefreshView *pull;
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
     [self setupSideSwipeView];
     [self setupGestureRecognizers];
+    [segmentController setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateNormal];
+    
+    [segmentController setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"ChalkboardSE-Bold" size:12]}forState:UIControlStateSelected];
     [super viewDidLoad];
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self->tableView];
     [pull setDelegate:self];
@@ -750,7 +753,7 @@ PullToRefreshView *pull;
     
     
     headerTitle.text = title;
-    
+    headerTitle.font = [UIFont fontWithName:@"ChalkboardSE-Bold" size:12];
     headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];
