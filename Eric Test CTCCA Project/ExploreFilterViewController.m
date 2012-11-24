@@ -54,12 +54,28 @@ PullToRefreshView *pull;
 -(void)viewDidAppear:(BOOL)animated
 {
     if([listingsList count]==0){
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            if([typeName isEqualToString:@"All"]){
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                while([appDelegate.listingsList count]==0){
+                    sleep(1);
+                }
+            }
+        dispatch_async(dispatch_get_main_queue(), ^{    
+
+        
         [self segmentButton:self];
         [self setupArray];
         [tableView reloadData];
+            [loadView removeFromSuperview];
+        });
+        });
     }
     
-    [loadView removeFromSuperview];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

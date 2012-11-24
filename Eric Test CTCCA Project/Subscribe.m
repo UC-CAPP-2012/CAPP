@@ -470,7 +470,7 @@ bool errorMsgShown;
         // -----------------------------------------
         
         [listingsList addObject:currListing];
-        if(count==(int)([listingsListString count]/10)*3){
+        if(count==(int)([listingsListString count]/10)*2){
             dispatch_async(dispatch_get_main_queue(), ^{
                 NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
                 eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
