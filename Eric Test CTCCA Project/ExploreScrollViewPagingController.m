@@ -159,7 +159,7 @@
         typeLabel.textColor = [UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1];
         typeLabel.backgroundColor = [UIColor clearColor];
         typeLabel.textAlignment = UITextAlignmentCenter;
-        [typeLabel setFont:[UIFont fontWithName:@"Comic Sans" size:24]];
+        [typeLabel setFont:[UIFont fontWithName:@"ChalkboardSE" size:24]];
         typeLabel.font = [UIFont systemFontOfSize:24];
         
         
