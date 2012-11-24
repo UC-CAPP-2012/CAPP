@@ -323,7 +323,7 @@ PullToRefreshView *pull;
     //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    
+    //sleep(5);
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     listingsList= appDelegate.listingsList;
     //

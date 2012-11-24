@@ -67,9 +67,9 @@ bool errorMsgShown;
             NSString * urlString = [NSString stringWithFormat:@"http://imaginecup.ise.canberra.edu.au/PhpScripts/SignUp.php?firstName=%@&lastName=%@&postcode=%@&email=%@&subscribed=%@", FirstName,LastName,PostCode,Email,Subscribe];
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
             [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-            
+            [self setupArray];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setupArray];
+                
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 appDelegate.listingsList = listingsList;
                 NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
@@ -302,10 +302,7 @@ bool errorMsgShown;
             appDelegate.listingsList = listingsList;
             
             
-            NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-            eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
             
-            [self presentModalViewController:eventView animated:YES];
             NSLog(@"Button");
         });
     });
@@ -372,9 +369,9 @@ bool errorMsgShown;
     }
     
     listingsList = [[NSMutableArray alloc] init];
-    
+    int count=0;
     for (ListingString *listingStringElement in listingsListString) {
-        
+        count++;
         Listing *currListing = [[Listing alloc] init];
         
         // ListingID , Title , SubTitle
@@ -473,7 +470,16 @@ bool errorMsgShown;
         // -----------------------------------------
         
         [listingsList addObject:currListing];
-        
+        if(count==(int)([listingsListString count]/5)*2){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+                eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
+                
+                [self presentModalViewController:eventView animated:YES];
+            });
+            
+
+        }
     }
     
     
