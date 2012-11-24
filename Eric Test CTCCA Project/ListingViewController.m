@@ -58,7 +58,7 @@
     switchTableView.hidden=false;
     switchMapView.hidden=true;
     [super setTitle:currentListing.title];
-    
+  
     Cost = [[NSMutableArray alloc] init];
     [Cost addObject:@"Free"];
     [Cost addObject:@"$"];
@@ -202,7 +202,7 @@
             endDateStr=[NSString stringWithFormat:@"<p><strong style='color: #1b4583;'>End Date:</strong> %@</p>",endStr];
         }
         
-        [infoBox loadHTMLString:[NSString stringWithFormat:@"<h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@  %@ %@<p><strong style='color: #1b4583;'>Address:</strong> %@</p> %@ %@ %@",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]], startDateStr,endDateStr,openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
+        [infoBox loadHTMLString:[NSString stringWithFormat:@"<span style='font-family:Chalkboard;'><h3 style='color: #1b4583;'>%@</h3><strong style='color: #1b4583;'>Type:</strong> %@<p><strong style='color: #1b4583;'>Cost:</strong> %@</p>%@  %@ %@<p><strong style='color: #1b4583;'>Address:</strong> %@</p> %@ %@ %@</span>",currentListing.title,currentListing.subType,[Cost objectAtIndex:[currentListing.costType intValue]], startDateStr,endDateStr,openingHrs,currentListing.address, phoneStr, websiteStr,emailStr] baseURL:nil];
         infoBox.scrollView.showsHorizontalScrollIndicator=FALSE;
         
         

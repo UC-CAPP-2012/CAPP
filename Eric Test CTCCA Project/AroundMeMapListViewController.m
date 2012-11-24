@@ -45,24 +45,44 @@ PullToRefreshView *pull;
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    
     if([listingsList count]==0){
-        [self segmentedButton:self];
-        [self setupArray];
-        [self setupMap];
+        
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(concurrentQueue, ^(void){
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            while([appDelegate.listingsList count]==0){
+                sleep(1);
+            }
+
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self segmentedButton:self];
+                [self setupArray];
+                [self setupMap];
+                NSLog(@"Button");
+                [loadView removeFromSuperview];
+            });
+        });
     }
     
-    [loadView removeFromSuperview];
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     if([listingsList count]==0){
         tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
     }
+    
 }
 
 
 - (void)viewDidLoad
 {
+    
     self.navigationItem.title = @"around me";
     DetailView.hidden = TRUE;
     DetailView.backgroundColor = [UIColor clearColor];
@@ -78,7 +98,9 @@ PullToRefreshView *pull;
     [Cost addObject:@"$$$"];
     [Cost addObject:@"$$$$"];
     [Cost addObject:@"$$$$$"];
+    
     [super viewDidLoad];
+    
     pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) tableView];
     [pull setDelegate:self];
     self.sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.rowHeight)];
@@ -323,10 +345,9 @@ PullToRefreshView *pull;
     //NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AroundMe.php.xml"];
     //NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     //NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-    //sleep(5);
+    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     listingsList= appDelegate.listingsList;
-    //
     
     if([listingsList count]==0){
         [NSThread detachNewThreadSelector:@selector(threadStartAnimating:) toTarget:self withObject:nil];

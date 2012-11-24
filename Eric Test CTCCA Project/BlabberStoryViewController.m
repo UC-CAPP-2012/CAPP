@@ -54,8 +54,8 @@
     currentListing = self.currentListing;
     NSLog(@"%@",currentListing.NewsID);
     
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
-    [newsTitle setFont:font];
+    //UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+    //[newsTitle setFont:font];
     //  [newsTitle setTextColor:[UIColor colorWithRed:0.3 green:0.6 blue:0.54 alpha:1]];
     newsTitle.text = currentListing.NewsHeading;
     newsPublisher.text = currentListing.NewsPublisher;
