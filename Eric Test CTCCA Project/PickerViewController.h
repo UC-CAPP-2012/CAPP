@@ -48,7 +48,6 @@
 
 
 @property(nonatomic, strong) NSMutableArray *listingsList, *listingsListString;
-- (IBAction)removeOverlay:(id)sender;
 
 - (IBAction)feelingAdv:(id)sender;
 

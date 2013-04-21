@@ -14,7 +14,6 @@
 #define kAppIconHeight 103
 
 @implementation ToursIconDownloader
-
 @synthesize tour;
 @synthesize indexPathInTableView;
 @synthesize delegate;

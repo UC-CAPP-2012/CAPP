@@ -1495,8 +1495,7 @@ PullToRefreshView *pull;
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissModalViewControllerAnimated:YES];
-}
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];}
 
 -(void) threadStartAnimating:(id)data{
     loadView.hidden = false;

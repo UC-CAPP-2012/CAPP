@@ -21,5 +21,6 @@
 @synthesize TourIcon;
 @synthesize TourAgent;
 @synthesize AudioURL;
+@synthesize coordinate;
 @end
 

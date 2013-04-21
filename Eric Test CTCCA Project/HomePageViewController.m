@@ -41,7 +41,7 @@
     //[self.navigationController setNavigationBarHidden:NO];
     EventFilterViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"EventFilterViewController"];
     eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
-    [self presentModalViewController:eventView animated:YES];
+    [self presentViewController:eventView animated:YES completion:nil];
     [self.navigationController setNavigationBarHidden:NO];
     NSLog(@"Button");
 }

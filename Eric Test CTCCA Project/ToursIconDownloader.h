@@ -8,13 +8,13 @@
 
 @class Tour;
 @class TourMapListViewController;
-@protocol IconDownloaderDelegate;
+@protocol TourIconDownloaderDelegate;
 
 @interface ToursIconDownloader : NSObject
 {
     Tour *tour;
     NSIndexPath *indexPathInTableView;
-    id <IconDownloaderDelegate> delegate;
+    id <TourIconDownloaderDelegate> delegate;
     
     NSMutableData *activeDownload;
     NSURLConnection *imageConnection;
@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong) Tour *tour;
 @property (nonatomic, strong) NSIndexPath *indexPathInTableView;
-@property (nonatomic, strong) id <IconDownloaderDelegate> delegate;
+@property (nonatomic, strong) id <TourIconDownloaderDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableData *activeDownload;
 @property (nonatomic, strong) NSURLConnection *imageConnection;
@@ -32,7 +32,7 @@
 
 @end
 
-@protocol IconDownloaderDelegate
+@protocol TourIconDownloaderDelegate
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 

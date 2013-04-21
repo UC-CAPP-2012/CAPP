@@ -322,13 +322,13 @@
     controller.eventStore = eventStore;
     controller.editViewDelegate = self;
     
-    [self presentModalViewController: controller animated:YES];
+    [self presentViewController:controller animated:YES completion:nil];
     
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)viewWebsite:(id)sender

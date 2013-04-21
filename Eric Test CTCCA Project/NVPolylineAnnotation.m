@@ -16,7 +16,7 @@
 -(id) initWithPoints:(NSArray*) points mapView:(MKMapView *)mapView {
 	self = [super init];
 	
-	_points = [[NSArray alloc] initWithArray:points];
+	_points = [[NSMutableArray alloc] initWithArray:points];
 	_mapView = mapView;
 		
 	return self;

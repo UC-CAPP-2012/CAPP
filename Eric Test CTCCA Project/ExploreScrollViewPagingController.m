@@ -158,7 +158,7 @@
         typeLabel.text = currType.typeName;
         typeLabel.textColor = [UIColor colorWithRed:0.23 green:0.70 blue:0.44 alpha:1];
         typeLabel.backgroundColor = [UIColor clearColor];
-        typeLabel.textAlignment = UITextAlignmentCenter;
+        typeLabel.textAlignment = NSTextAlignmentCenter;
         [typeLabel setFont:[UIFont fontWithName:@"ChalkboardSE-Bold" size:24]];
         //typeLabel.font = [UIFont systemFontOfSize:24];
         

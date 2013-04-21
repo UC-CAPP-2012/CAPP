@@ -74,7 +74,7 @@ bool errorMsgShown;
                 appDelegate.listingsList = listingsList;
                 NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
                 eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical;
-                [self presentModalViewController:eventView animated:YES];
+                [self presentViewController:eventView animated:YES completion:nil];
                 NSLog(@"Button");
                 
             });
@@ -470,12 +470,12 @@ bool errorMsgShown;
         // -----------------------------------------
         
         [listingsList addObject:currListing];
-        if(count==(int)([listingsListString count]/10)*2){
+        if(count==(int)([listingsListString count]/20)){
             dispatch_async(dispatch_get_main_queue(), ^{
                 NavigationViewController *eventView = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
                 eventView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;//UIModalTransitionStyleCoverVertical; UIModalTransitionStyleFlipHorizontal;//
                 
-                [self presentModalViewController:eventView animated:YES];
+                [self presentViewController:eventView animated:YES completion:nil];
             });
             
 

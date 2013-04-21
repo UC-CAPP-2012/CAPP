@@ -19,7 +19,7 @@
 #import "ToursIconDownloader.h"
 #import "PullToRefreshView.h"
 
-@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, IconDownloaderDelegate, PullToRefreshViewDelegate>{
+@interface TourMapListViewController : UIViewController<MKMapViewDelegate,UITableViewDelegate,UITableViewDataSource, NSXMLParserDelegate,EKEventEditViewDelegate, TourIconDownloaderDelegate, PullToRefreshViewDelegate>{
     
     IBOutlet UIView *tour;
     IBOutlet UITableView *tableView;

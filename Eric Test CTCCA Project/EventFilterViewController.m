@@ -1292,14 +1292,13 @@ PullToRefreshView *pull;
     controller.eventStore = eventStore;
     controller.editViewDelegate = self;
     
-    [self presentModalViewController: controller animated:YES];
-    
+    [self presentViewController:controller animated:YES completion:nil];    
     NSLog(@"%@",selectedListing.listingID);
     NSLog(@"Button Trail");
 }
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 
